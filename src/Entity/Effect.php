@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\EffectRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -61,6 +63,16 @@ class Effect
      * @ORM\Column(type="integer", nullable=true)
      */
     private $xp;
+
+    /**
+     * @ORM\ManyToMany(targetEntity=Answer::class, mappedBy="effect")
+     */
+    private $answers;
+
+    public function __construct()
+    {
+        $this->answers = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -171,6 +183,33 @@ class Effect
     public function setXp(?int $xp): self
     {
         $this->xp = $xp;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Answer>
+     */
+    public function getAnswers(): Collection
+    {
+        return $this->answers;
+    }
+
+    public function addAnswer(Answer $answer): self
+    {
+        if (!$this->answers->contains($answer)) {
+            $this->answers[] = $answer;
+            $answer->addEffect($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAnswer(Answer $answer): self
+    {
+        if ($this->answers->removeElement($answer)) {
+            $answer->removeEffect($this);
+        }
 
         return $this;
     }
