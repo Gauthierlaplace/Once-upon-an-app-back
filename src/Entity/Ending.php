@@ -22,6 +22,18 @@ class Ending
      */
     private $content;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Event::class, inversedBy="endings")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $event;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=EventType::class, inversedBy="endings")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $eventType;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -35,6 +47,30 @@ class Ending
     public function setContent(string $content): self
     {
         $this->content = $content;
+
+        return $this;
+    }
+
+    public function getEvent(): ?Event
+    {
+        return $this->event;
+    }
+
+    public function setEvent(?Event $event): self
+    {
+        $this->event = $event;
+
+        return $this;
+    }
+
+    public function getEventType(): ?EventType
+    {
+        return $this->eventType;
+    }
+
+    public function setEventType(?EventType $eventType): self
+    {
+        $this->eventType = $eventType;
 
         return $this;
     }

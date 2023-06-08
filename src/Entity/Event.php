@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\EventRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -36,6 +38,40 @@ class Event
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $picture;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=EventType::class, inversedBy="events")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $eventType;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Biome::class, inversedBy="events")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $biome;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Ending::class, mappedBy="event")
+     */
+    private $endings;
+
+    /**
+     * @ORM\ManyToMany(targetEntity=Hero::class, mappedBy="event")
+     */
+    private $heroes;
+
+    /**
+     * @ORM\ManyToMany(targetEntity=Npc::class, inversedBy="events")
+     */
+    private $npc;
+
+    public function __construct()
+    {
+        $this->endings = new ArrayCollection();
+        $this->heroes = new ArrayCollection();
+        $this->npc = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -86,6 +122,111 @@ class Event
     public function setPicture(?string $picture): self
     {
         $this->picture = $picture;
+
+        return $this;
+    }
+
+    public function getEventType(): ?EventType
+    {
+        return $this->eventType;
+    }
+
+    public function setEventType(?EventType $eventType): self
+    {
+        $this->eventType = $eventType;
+
+        return $this;
+    }
+
+    public function getBiome(): ?Biome
+    {
+        return $this->biome;
+    }
+
+    public function setBiome(?Biome $biome): self
+    {
+        $this->biome = $biome;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Ending>
+     */
+    public function getEndings(): Collection
+    {
+        return $this->endings;
+    }
+
+    public function addEnding(Ending $ending): self
+    {
+        if (!$this->endings->contains($ending)) {
+            $this->endings[] = $ending;
+            $ending->setEvent($this);
+        }
+
+        return $this;
+    }
+
+    public function removeEnding(Ending $ending): self
+    {
+        if ($this->endings->removeElement($ending)) {
+            // set the owning side to null (unless already changed)
+            if ($ending->getEvent() === $this) {
+                $ending->setEvent(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Hero>
+     */
+    public function getHeroes(): Collection
+    {
+        return $this->heroes;
+    }
+
+    public function addHero(Hero $hero): self
+    {
+        if (!$this->heroes->contains($hero)) {
+            $this->heroes[] = $hero;
+            $hero->addEvent($this);
+        }
+
+        return $this;
+    }
+
+    public function removeHero(Hero $hero): self
+    {
+        if ($this->heroes->removeElement($hero)) {
+            $hero->removeEvent($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Npc>
+     */
+    public function getNpc(): Collection
+    {
+        return $this->npc;
+    }
+
+    public function addNpc(Npc $npc): self
+    {
+        if (!$this->npc->contains($npc)) {
+            $this->npc[] = $npc;
+        }
+
+        return $this;
+    }
+
+    public function removeNpc(Npc $npc): self
+    {
+        $this->npc->removeElement($npc);
 
         return $this;
     }

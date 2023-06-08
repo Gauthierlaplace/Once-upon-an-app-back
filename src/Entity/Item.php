@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\ItemRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -61,6 +63,22 @@ class Item
      * @ORM\Column(type="integer", nullable=true)
      */
     private $xp;
+
+    /**
+     * @ORM\ManyToMany(targetEntity=Hero::class, mappedBy="item")
+     */
+    private $heroes;
+
+    /**
+     * @ORM\ManyToMany(targetEntity=Npc::class, mappedBy="item")
+     */
+    private $npcs;
+
+    public function __construct()
+    {
+        $this->heroes = new ArrayCollection();
+        $this->npcs = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -171,6 +189,60 @@ class Item
     public function setXp(?int $xp): self
     {
         $this->xp = $xp;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Hero>
+     */
+    public function getHeroes(): Collection
+    {
+        return $this->heroes;
+    }
+
+    public function addHero(Hero $hero): self
+    {
+        if (!$this->heroes->contains($hero)) {
+            $this->heroes[] = $hero;
+            $hero->addItem($this);
+        }
+
+        return $this;
+    }
+
+    public function removeHero(Hero $hero): self
+    {
+        if ($this->heroes->removeElement($hero)) {
+            $hero->removeItem($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Npc>
+     */
+    public function getNpcs(): Collection
+    {
+        return $this->npcs;
+    }
+
+    public function addNpc(Npc $npc): self
+    {
+        if (!$this->npcs->contains($npc)) {
+            $this->npcs[] = $npc;
+            $npc->addItem($this);
+        }
+
+        return $this;
+    }
+
+    public function removeNpc(Npc $npc): self
+    {
+        if ($this->npcs->removeElement($npc)) {
+            $npc->removeItem($this);
+        }
 
         return $this;
     }

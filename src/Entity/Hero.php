@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\HeroRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -71,6 +73,34 @@ class Hero
      * @ORM\Column(type="integer", nullable=true)
      */
     private $progress;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=HeroClass::class, inversedBy="heroes")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $heroClass;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="heroes")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $user;
+
+    /**
+     * @ORM\ManyToMany(targetEntity=Item::class, inversedBy="heroes")
+     */
+    private $item;
+
+    /**
+     * @ORM\ManyToMany(targetEntity=Event::class, inversedBy="heroes")
+     */
+    private $event;
+
+    public function __construct()
+    {
+        $this->item = new ArrayCollection();
+        $this->event = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -205,6 +235,78 @@ class Hero
     public function setProgress(?int $progress): self
     {
         $this->progress = $progress;
+
+        return $this;
+    }
+
+    public function getHeroClass(): ?HeroClass
+    {
+        return $this->heroClass;
+    }
+
+    public function setHeroClass(?HeroClass $heroClass): self
+    {
+        $this->heroClass = $heroClass;
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): self
+    {
+        $this->user = $user;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Item>
+     */
+    public function getItem(): Collection
+    {
+        return $this->item;
+    }
+
+    public function addItem(Item $item): self
+    {
+        if (!$this->item->contains($item)) {
+            $this->item[] = $item;
+        }
+
+        return $this;
+    }
+
+    public function removeItem(Item $item): self
+    {
+        $this->item->removeElement($item);
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Event>
+     */
+    public function getEvent(): Collection
+    {
+        return $this->event;
+    }
+
+    public function addEvent(Event $event): self
+    {
+        if (!$this->event->contains($event)) {
+            $this->event[] = $event;
+        }
+
+        return $this;
+    }
+
+    public function removeEvent(Event $event): self
+    {
+        $this->event->removeElement($event);
 
         return $this;
     }
