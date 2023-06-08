@@ -19,8 +19,8 @@
 |title|VARCHAR(128)|NOT NULL|Titre de l'avis|
 |content|LONGTEXT|NOT NULL|Contenu de l'avis|
 |rating|DOUBLE|NULL|Avis (0 à 5)|
-|created_at|TIMESTAMP|NOT NULL, DEFAULT CURRENT_TIMESTAMP|Date de création de l'avis|
-|updated_at|TIMESTAMP|NULL|Date de modification de l'avis|
+|created_at|DATETIME|NOT NULL, DEFAULT CURRENT_TIMESTAMP|Date de création de l'avis|
+|updated_at|DATETIME|NULL|Date de modification de l'avis|
 |user|entity|NOT NULL|Jointure|
 
 ## Joueur (hero)
@@ -63,6 +63,7 @@
 |title|VARCHAR(255)|NOT NULL|Titre de l'evenement|
 |description|LONGTEXT|NULL|Description de l'evenement|
 |opening|LONGTEXT|NULL|Entrée en scène|
+|picture|VARCHAR(255)|NULL|Image du personnage|
 |event_type|entity|NOT NULL|Jointure|
 |biome|entity|NOT NULL|Jointure|
 
