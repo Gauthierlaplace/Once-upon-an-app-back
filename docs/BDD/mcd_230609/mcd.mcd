@@ -14,7 +14,7 @@ HAS1,0N USER,11 HERO
 HERO: code_hero, name,max_health, health, strength, intelligence, dexterity, defense, karma, xp, picture, progress, user_code, hero_class_code
 :
 HERO_ITEM, 0N HERO, 0N ITEM: hero_code, item_code
-ITEM: code_item, name, health, strength, intelligence, dexterity, defense, picture, karma
+ITEM: code_item, name, health, strength, intelligence, dexterity, defense, picture, karma, xp
 :::
 
 ::::
@@ -34,7 +34,7 @@ HAS3, 0N BIOME,11 EVENT
 EVENT: code_event, picture, title, description, opening, event_type_code,biome_code
 EVENT_NPC,0N NPC,0N EVENT: event_code, npc_code
 ::
-NPC: code_npc, name, description, health, strength, intelligence, dexterity, defense, picture, is_boss, hostility, xp_earned, race_code
+NPC: code_npc, name, description, health, strength, intelligence, dexterity, defense, karma, picture, is_boss, hostility, xp_earned, race_code
 BELONGS TO8,0N RACE,11 NPC
 RACE: code_race, name, description
 :
