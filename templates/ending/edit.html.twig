@@ -1,0 +1,15 @@
+{# {% extends 'base.html.twig' %}
+
+{% block title %}Edit Ending{% endblock %}
+
+{% block body %}
+    <h1>Edit Ending</h1>
+
+    {{ include('ending/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('app_ending_index') }}">back to list</a>
+
+    {{ include('ending/_delete_form.html.twig') }}
+{% endblock %} #}
+
+{% include 'partials/_edit.html.twig' with { 'entity' : 'ending' } %}

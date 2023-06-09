@@ -1,0 +1,13 @@
+{# {% extends 'base.html.twig' %}
+
+{% block title %}New Ending{% endblock %}
+
+{% block body %}
+    <h1>Create new Ending</h1>
+
+    {{ include('ending/_form.html.twig') }}
+
+    <a href="{{ path('app_ending_index') }}">back to list</a>
+{% endblock %} #}
+
+{% include 'partials/_new.html.twig' with { 'entity' : 'ending' } %}

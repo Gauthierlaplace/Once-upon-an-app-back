@@ -8,6 +8,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=UserRepository::class)
@@ -21,12 +22,15 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     private $id;
 
-    /**
+    /** 
+     * @Assert\NotBlank(message="Veuillez entrer une adresse email !")
+     * @Assert\NotNull(message="Veuillez entrer une adresse email 'VALIDE'!")
      * @ORM\Column(type="string", length=180, unique=true)
      */
     private $email;
 
     /**
+     * @Assert\NotBlank(message="Veuillez sélectionner au moins un Rôle !")
      * @ORM\Column(type="json")
      */
     private $roles = [];
@@ -38,6 +42,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private $password;
 
     /**
+     * 
+     * @Assert\NotBlank(message="Veuillez renseigner un Nom d'utilisateur")
      * @ORM\Column(type="string", length=64)
      */
     private $pseudo;
@@ -105,7 +111,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         $roles = $this->roles;
         // guarantee every user at least has ROLE_USER
-        $roles[] = 'ROLE_USER';
+        $roles[] = 'ROLE_PLAYER';
 
         return array_unique($roles);
     }

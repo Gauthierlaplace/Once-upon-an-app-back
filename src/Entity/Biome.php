@@ -6,6 +6,7 @@ use App\Repository\BiomeRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=BiomeRepository::class)
@@ -20,11 +21,14 @@ class Biome
     private $id;
 
     /**
+     * @Assert\NotBlank(message="Le champ Nom du biome ne peut pas être vide")
      * @ORM\Column(type="string", length=255)
      */
     private $name;
 
     /**
+     * @Assert\NotNull(message="Le champ Niveau de difficulté ne peut pas être vide")
+     * @Assert\Type(type="numeric", message="Le champ Niveau de difficulté doit être un nombre")
      * @ORM\Column(type="integer")
      */
     private $difficulty;
@@ -96,5 +100,9 @@ class Biome
         }
 
         return $this;
+    }
+    public function __toString(): string
+    {
+        return $this->name;
     }
 }

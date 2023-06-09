@@ -6,6 +6,7 @@ use App\Repository\EventTypeRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=EventTypeRepository::class)
@@ -21,6 +22,7 @@ class EventType
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank(message="Le champ Nom du type d'évènement ne peut pas être vide")
      */
     private $name;
 
@@ -115,5 +117,10 @@ class EventType
         }
 
         return $this;
+    }
+
+    public function __toString(): string
+    {
+        return $this->name;
     }
 }
