@@ -22,7 +22,7 @@ DATABASE_URL="mysql://rpg:rpg@127.0.0.1:3306/rpg?serverVersion=mariadb-10.3.25&c
 
 ## 2 Remise en place de la BDD en local
 
-Dans le terminal : 
+Dans le terminal: 
 ```bash
 bin/console doctrine:migrations:migrate  
 ```
