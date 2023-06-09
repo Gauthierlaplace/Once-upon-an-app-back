@@ -1,10 +1,12 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Ending
-{% endblock %}
-
 {% block body %}
 	<div class="container my-4">
+		<h1 class="text-center">
+			{% block title %}
+				Ending
+			{% endblock %}
+		</h1>
 		<div class="row">
 			<div class="col-md-8 offset-md-2">
 				<div class="card">
@@ -22,7 +24,7 @@
 							</tbody>
 						</table>
 
-						<a class='btn btn-warning  m-1' href="{{ path('app_ending_edit', {'id': biome.id}) }}">Modifier</a>
+						<a class='btn btn-warning  m-1' href="{{ path('app_ending_edit', {'id': ending.id}) }}">Modifier</a>
 						{{ include('ending/_delete_form.html.twig') }}
 						<a class='btn btn-primary  m-1' href="{{ path('app_ending_index') }}">Retour à la liste</a>
 

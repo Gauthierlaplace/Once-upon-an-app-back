@@ -1,11 +1,12 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}
-	{{ event.title }}
-{% endblock %}
-
 {% block body %}
 	<div class="container my-4">
+		<h1 class="text-center">
+			{% block title %}
+				{{ event.title }}
+			{% endblock %}
+		</h1>
 		<div class="row">
 			<div class="col-md-8 offset-md-2">
 				<div class="card">
@@ -31,7 +32,7 @@
 								<tr>
 									<th>Picture</th>
 									<td>
-									<img class="img-fluid" src="{{ event.picture }}" alt="{{ 'image de ' ~ event.title }}">{{ event.picture }}</td>
+										<img class="img-fluid" src="{{ event.picture }}" alt="{{ 'image de ' ~ event.title }}">{{ event.picture }}</td>
 								</tr>
 							</tbody>
 						</table>
