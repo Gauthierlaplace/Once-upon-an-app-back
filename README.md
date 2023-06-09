@@ -27,6 +27,7 @@ Créer une nouvelle database nommé `rpg` avec un nouvel utilisateur `rpg`ayant 
 
 ### Dans le terminal :
 ##### Construire l'architecture de la BDD
+
 ```bash
 bin/console doctrine:migrations:migrate  
 ```
