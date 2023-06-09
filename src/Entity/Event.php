@@ -6,6 +6,7 @@ use App\Repository\EventRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=EventRepository::class)
@@ -21,6 +22,7 @@ class Event
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank(message="Le champ Titre de l'évènement ne peut pas être vide")
      */
     private $title;
 
@@ -42,12 +44,14 @@ class Event
     /**
      * @ORM\ManyToOne(targetEntity=EventType::class, inversedBy="events")
      * @ORM\JoinColumn(nullable=false)
+     * @Assert\NotBlank(message="Le champ Type d'évènement ne peut pas être vide")
      */
     private $eventType;
 
     /**
      * @ORM\ManyToOne(targetEntity=Biome::class, inversedBy="events")
      * @ORM\JoinColumn(nullable=false)
+     * @Assert\NotBlank(message="Le champ Biome ne peut pas être vide")
      */
     private $biome;
 
@@ -229,5 +233,9 @@ class Event
         $this->npc->removeElement($npc);
 
         return $this;
+    }
+    public function __toString(): string
+    {
+        return $this->title;
     }
 }

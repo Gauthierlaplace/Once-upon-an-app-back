@@ -1,0 +1,40 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+	<div class="container my-4">
+		<h1 class='text-center'>
+			{% block title %}Liste des Biomes
+			{% endblock %}
+		</h1>
+		<a class='btn btn-primary show' href="{{ path('app_home') }}">Retour à l'acceuil</a>
+		<a class="mb-2 btn btn-success float-end" href="{{ path('app_biome_new') }}">Ajouter un nouveau biome</a>
+		<table class="table table-hover mt-4">
+			<thead>
+				<tr>
+					<th>Id</th>
+					<th>Name</th>
+					<th>Difficulty</th>
+					<th>Actions</th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for biome in biomes %}
+					<tr>
+						<td>{{ biome.id }}</td>
+						<td>{{ biome.name }}</td>
+						<td>{{ biome.difficulty }}</td>
+						<td>
+							<a class="btn btn-primary float-end  m-1" href="{{ path('app_biome_show', {'id': biome.id}) }}">Voir</a>
+							<a class="btn btn-warning float-end  m-1" href="{{ path('app_biome_edit', {'id': biome.id}) }}">Modifier</a>
+							{{ include('biome/_delete_form.html.twig') }}
+						</td>
+					</tr>
+				{% else %}
+					<tr>
+						<td colspan="4">no records found</td>
+					</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+	</div>
+{% endblock %}
