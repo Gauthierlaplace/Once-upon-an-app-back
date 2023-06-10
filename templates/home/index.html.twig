@@ -6,17 +6,5 @@
 			{% block title %}Back Office
 			{% endblock %}
 		</h1>
-		<nav class="navbar navbar-expand-lg navbar-dark">
-			<div class="container-fluid">
-				<div class="collapse navbar-collapse" id="navbarSupportedContent">
-					<ul class="navbar-nav me-auto mb-2 mb-lg-0"></ul>
-					{% include 'partials/_liForBackOffice.html.twig' with { 'entity' : 'user' } %}
-					{% include 'partials/_liForBackOffice.html.twig' with { 'entity' : 'biome' } %}
-					{% include 'partials/_liForBackOffice.html.twig' with { 'entity' : 'event_type' } %}
-					{% include 'partials/_liForBackOffice.html.twig' with { 'entity' : 'event' } %}
-					{% include 'partials/_liForBackOffice.html.twig' with { 'entity' : 'ending' } %}
-				</div>
-			</div>
-		</nav>
 	</div>
 {% endblock %}

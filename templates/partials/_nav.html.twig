@@ -1,0 +1,35 @@
+<nav class="navbar navbar-expand-lg bg-dark" data-bs-theme="dark">
+	<div class="container-fluid">
+		<div class="collapse navbar-collapse" id="navbarSupportedContent">
+			<ul class="navbar-nav list-unstyled "></ul>
+			<button class="btn btn-dark">
+				<a class="nav-link" href="{{ path('app_home') }}">Acceuil
+				</a>
+			</button>
+
+			{% set entities = 
+                [
+                'user',
+                'biome',
+                'event',
+                'event_type',
+                'ending',
+                ] 
+            %}
+{# TODO : A ajouter dans le tableau entities au fur et à mesure de l'ajout du CRUD de chaque entité
+'Review',
+'Hero',
+'Hero_class',
+'Npc',
+'Item',
+'Race',
+'Dialogue',
+'Answer',
+'Effect', 
+#}
+			{% for entity in entities %}
+				{% include 'partials/_liForBackOffice.html.twig' with { 'entity' : entity } %}
+			{% endfor %}
+		</div>
+	</div>
+</nav>
