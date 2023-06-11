@@ -1,0 +1,15 @@
+{# {% extends 'base.html.twig' %}
+
+{% block title %}Edit HeroClass{% endblock %}
+
+{% block body %}
+    <h1>Edit HeroClass</h1>
+
+    {{ include('hero_class/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('app_hero_class_index') }}">back to list</a>
+
+    {{ include('hero_class/_delete_form.html.twig') }}
+{% endblock %} #}
+
+{% include 'partials/_edit.html.twig' with { 'entity' : 'hero_class' } %}
