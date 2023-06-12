@@ -9,6 +9,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use DateTime;
 
 /**
  * @Route("/review")
@@ -65,6 +66,8 @@ class ReviewController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+
+            $review->setUpdatedAt(new DateTime("now"));
             $reviewRepository->add($review, true);
 
             return $this->redirectToRoute('app_review_index', [], Response::HTTP_SEE_OTHER);
