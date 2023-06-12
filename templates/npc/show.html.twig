@@ -1,0 +1,83 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+	<div class="container my-4">
+		<h1 class="text-center">
+			{% block title %}
+				{{ npc.name }}
+			{% endblock %}
+		</h1>
+		<div class="row">
+			<div class="col-md-8 offset-md-2">
+				<div class="card">
+					<div class="card-body">
+						<table class="table">
+							<tbody>
+								<tr>
+									<th>Id</th>
+									<td>{{ npc.id }}</td>
+								</tr>
+								<tr>
+									<th>Name</th>
+									<td>{{ npc.name }}</td>
+								</tr>
+								<tr>
+									<th>Description</th>
+									<td>{{ npc.description }}</td>
+								</tr>
+								<tr>
+									<th>Health</th>
+									<td>{{ npc.health }}</td>
+								</tr>
+								<tr>
+									<th>Strength</th>
+									<td>{{ npc.strength }}</td>
+								</tr>
+								<tr>
+									<th>Intelligence</th>
+									<td>{{ npc.intelligence }}</td>
+								</tr>
+								<tr>
+									<th>Dexterity</th>
+									<td>{{ npc.dexterity }}</td>
+								</tr>
+								<tr>
+									<th>Defense</th>
+									<td>{{ npc.defense }}</td>
+								</tr>
+								<tr>
+									<th>Karma</th>
+									<td>{{ npc.karma }}</td>
+								</tr>
+								<tr>
+									<th>Picture</th>
+									<td>
+										<img class="img-fluid" src="{{ npc.picture }}" alt="{{ 'image de ' ~ npc.name }}">{{ npc.picture }}
+									</td>
+								</tr>
+								<tr>
+									<th>IsBoss</th>
+									<td>{{ npc.isBoss ? 'Yes' : 'No' }}</td>
+								</tr>
+								<tr>
+									<th>Hostility</th>
+									<td>{{ npc.hostility ? 'Yes' : 'No' }}</td>
+								</tr>
+								<tr>
+									<th>XpEarned</th>
+									<td>{{ npc.xpEarned }}</td>
+								</tr>
+							</tbody>
+						</table>
+						<a class='btn btn-warning  m-1' href="{{ path('app_npc_edit', {'id': npc.id}) }}">Modifier</a>
+						{{ include('npc/_delete_form.html.twig') }}
+						<a class='btn btn-primary  m-1' href="{{ path('app_npc_index') }}">Retour à la liste</a>
+
+					</div>
+				</div>
+
+			</div>
+		</div>
+
+	</div>
+{% endblock %}
