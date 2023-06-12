@@ -27,7 +27,8 @@
 						<td>{{ event.description }}</td>
 						<td>{{ event.opening }}</td>
 						<td>
-						<img class="img-fluid" src="{{ event.picture }}" alt="{{ 'image de ' ~ event.title }}"></td>
+							<img class="img-fluid" src="{{ event.picture }}" alt="{{ 'image de ' ~ event.title }}">
+						</td>
 						<td>
 							<a class="btn btn-primary float-end  m-1" href="{{ path('app_event_show', {'id': event.id}) }}">Voir</a>
 							<a class="btn btn-warning float-end  m-1" href="{{ path('app_event_edit', {'id': event.id}) }}">Modifier</a>
