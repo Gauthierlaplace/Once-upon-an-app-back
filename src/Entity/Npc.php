@@ -6,6 +6,7 @@ use App\Repository\NpcRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=NpcRepository::class)
@@ -20,6 +21,7 @@ class Npc
     private $id;
 
     /**
+     * @Assert\NotBlank(message="Le champ Nom du personnage ne peut pas être vide")
      * @ORM\Column(type="string", length=255)
      */
     private $name;
@@ -30,31 +32,38 @@ class Npc
     private $description;
 
     /**
+     * @Assert\NotNull(message="Le champ Santé ne peut pas être vide")
+     * @Assert\Type(type="numeric", message="Le champ Santé doit être un nombre")
      * @ORM\Column(type="integer")
      */
     private $health;
 
     /**
+     * @Assert\Type(type="numeric", message="Le champ Force doit être un nombre")
      * @ORM\Column(type="integer", nullable=true)
      */
     private $strength;
 
     /**
+     * @Assert\Type(type="numeric", message="Le champ Intelligence doit être un nombre")
      * @ORM\Column(type="integer", nullable=true)
      */
     private $intelligence;
 
     /**
+     * @Assert\Type(type="numeric", message="Le champ Dextérité doit être un nombre")
      * @ORM\Column(type="integer", nullable=true)
      */
     private $dexterity;
 
     /**
+     * @Assert\Type(type="numeric", message="Le champ Défense doit être un nombre")
      * @ORM\Column(type="integer", nullable=true)
      */
     private $defense;
 
     /**
+     * @Assert\Type(type="numeric", message="Le champ Karma doit être un nombre")
      * @ORM\Column(type="integer", nullable=true)
      */
     private $karma;
@@ -65,21 +74,25 @@ class Npc
     private $picture;
 
     /**
+     * @Assert\NotBlank(message="Veuillez sélectionner au moins une réponse!")
      * @ORM\Column(type="boolean")
      */
     private $isBoss;
 
     /**
+     * @Assert\NotBlank(message="Veuillez sélectionner au moins une réponse!")
      * @ORM\Column(type="boolean")
      */
     private $hostility;
 
     /**
+     * @Assert\Type(type="numeric", message="Le champ Expérience doit être un nombre")
      * @ORM\Column(type="integer", nullable=true)
      */
     private $xpEarned;
 
     /**
+     * @Assert\NotBlank(message="Le champ Race ne peut pas être vide")
      * @ORM\ManyToOne(targetEntity=Race::class, inversedBy="npcs")
      * @ORM\JoinColumn(nullable=false)
      */
