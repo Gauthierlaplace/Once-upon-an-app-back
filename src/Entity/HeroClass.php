@@ -6,6 +6,7 @@ use App\Repository\HeroClassRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=HeroClassRepository::class)
@@ -20,36 +21,45 @@ class HeroClass
     private $id;
 
     /**
+     * @Assert\NotBlank(message="Le champ Nom de la classe de héro ne peut pas être vide")
      * @ORM\Column(type="string", length=255)
      */
     private $name;
 
     /**
+     * @Assert\NotNull(message="Le champ Santé Maximum ne peut pas être vide")
+     * @Assert\Type(type="numeric", message="Le champ Santé Maximum doit être un nombre")
      * @ORM\Column(type="integer")
      */
     private $maxHealth;
 
     /**
+     * @Assert\NotNull(message="Le champ Santé ne peut pas être vide")
+     * @Assert\Type(type="numeric", message="Le champ Santé doit être un nombre")
      * @ORM\Column(type="integer")
      */
     private $health;
 
     /**
+     * @Assert\Type(type="numeric", message="Le champ Force doit être un nombre")
      * @ORM\Column(type="integer", nullable=true)
      */
     private $strength;
 
     /**
+     * @Assert\Type(type="numeric", message="Le champ Intelligence doit être un nombre")
      * @ORM\Column(type="integer", nullable=true)
      */
     private $intelligence;
 
     /**
+     * @Assert\Type(type="numeric", message="Le champ Dextérité doit être un nombre")
      * @ORM\Column(type="integer", nullable=true)
      */
     private $dexterity;
 
     /**
+     * @Assert\Type(type="numeric", message="Le champ Défense doit être un nombre")
      * @ORM\Column(type="integer", nullable=true)
      */
     private $defense;

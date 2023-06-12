@@ -1,0 +1,13 @@
+{# {% extends 'base.html.twig' %}
+
+{% block title %}New HeroClass{% endblock %}
+
+{% block body %}
+    <h1>Create new HeroClass</h1>
+
+    {{ include('hero_class/_form.html.twig') }}
+
+    <a href="{{ path('app_hero_class_index') }}">back to list</a>
+{% endblock %} #}
+
+{% include 'partials/_new.html.twig' with { 'entity' : 'hero_class' } %}

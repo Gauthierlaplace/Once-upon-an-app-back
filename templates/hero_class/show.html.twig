@@ -1,0 +1,60 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+	<div class="container my-4">
+		<h1 class="text-center">
+			{% block title %}
+				{{ hero_class.name }}
+			{% endblock %}
+		</h1>
+		<div class="row">
+			<div class="col-md-8 offset-md-2">
+				<div class="card">
+					<div class="card-body">
+						<table class="table">
+							<tbody>
+								<tr>
+									<th>Id</th>
+									<td>{{ hero_class.id }}</td>
+								</tr>
+								<tr>
+									<th>Name</th>
+									<td>{{ hero_class.name }}</td>
+								</tr>
+								<tr>
+									<th>MaxHealth</th>
+									<td>{{ hero_class.maxHealth }}</td>
+								</tr>
+								<tr>
+									<th>Health</th>
+									<td>{{ hero_class.health }}</td>
+								</tr>
+								<tr>
+									<th>Strength</th>
+									<td>{{ hero_class.strength }}</td>
+								</tr>
+								<tr>
+									<th>Intelligence</th>
+									<td>{{ hero_class.intelligence }}</td>
+								</tr>
+								<tr>
+									<th>Dexterity</th>
+									<td>{{ hero_class.dexterity }}</td>
+								</tr>
+								<tr>
+									<th>Defense</th>
+									<td>{{ hero_class.defense }}</td>
+								</tr>
+							</tbody>
+						</table>
+						<a class='btn btn-warning  m-1' href="{{ path('app_hero_class_edit', {'id': hero_class.id}) }}">Modifier</a>
+						{{ include('hero_class/_delete_form.html.twig') }}
+						<a class='btn btn-primary  m-1' href="{{ path('app_hero_class_index') }}">Retour à la liste</a>
+
+					</div>
+				</div>
+
+			</div>
+		</div>
+	</div>
+{% endblock %}
