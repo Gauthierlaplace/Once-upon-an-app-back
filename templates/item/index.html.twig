@@ -1,0 +1,56 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+	<div class="container my-4">
+		<h1 class='text-center'>
+			{% block title %}Liste des Objets
+			{% endblock %}
+		</h1>
+		<a class='btn btn-primary show' href="{{ path('app_home') }}">Retour à l'acceuil</a>
+		<a class="mb-2 btn btn-success float-end" href="{{ path('app_item_new') }}">Ajouter un objet</a>
+		<table class="table table-hover mt-4">
+			<thead>
+				<tr>
+					<th>Id</th>
+					<th>Name</th>
+					<th>Picture</th>
+					<th>Health</th>
+					<th>Strength</th>
+					<th>Intelligence</th>
+					<th>Dexterity</th>
+					<th>Defense</th>
+					<th>Karma</th>
+					<th>Xp</th>
+					<th>actions</th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for item in items %}
+					<tr>
+						<td>{{ item.id }}</td>
+						<td>{{ item.name }}</td>
+                        <td>
+						<img class="img-fluid" src="{{ item.picture }}" alt="{{ 'image de ' ~ item.name }}">
+                        </td>
+						<td>{{ item.health }}</td>
+						<td>{{ item.strength }}</td>
+						<td>{{ item.intelligence }}</td>
+						<td>{{ item.dexterity }}</td>
+						<td>{{ item.defense }}</td>
+						<td>{{ item.karma }}</td>
+						<td>{{ item.xp }}</td>
+						<td>
+							<a class="btn btn-primary float-end  m-1" href="{{ path('app_item_show', {'id': item.id}) }}">Voir</a>
+							<a class="btn btn-warning float-end  m-1" href="{{ path('app_item_edit', {'id': item.id}) }}">Modifier</a>
+							{{ include('item/_delete_form.html.twig') }}
+						</td>
+					</tr>
+				{% else %}
+					<tr>
+						<td colspan="11">no records found</td>
+					</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+	</div>
+{% endblock %}
