@@ -64,5 +64,10 @@ Importer la collection dans le client API depuis le fichier situé:
 #### Authentification (Token)
 
 
+```text
+http://anthony-boutherin.vpnuser.lan:8000/api/login_check
+
+http://anthony-boutherin.vpnuser.lan:8000/api/test
+```
 
 
