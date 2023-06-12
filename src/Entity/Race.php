@@ -6,6 +6,7 @@ use App\Repository\RaceRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=RaceRepository::class)
@@ -20,6 +21,7 @@ class Race
     private $id;
 
     /**
+     * @Assert\NotBlank(message="Le champ Nom de la race ne peut pas être vide")
      * @ORM\Column(type="string", length=255)
      */
     private $name;
