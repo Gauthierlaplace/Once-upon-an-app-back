@@ -38,7 +38,7 @@ class NpcType extends AbstractType
                 ],
             ])
             ->add('hostility', ChoiceType::class, [
-                "label" => 'Est ce un ennemie ?',
+                "label" => 'Est ce un ennemi ?',
                 "expanded" => true,
                 "multiple" => false,
                 "choices" => [
