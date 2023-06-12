@@ -17,8 +17,7 @@ class ApiController extends AbstractController
     public function test(): JsonResponse
     {
         return $this->json([
-            'message' => 'Welcome to your new controller!',
-            'path' => 'src/Controller/ApiController.php',
+            'message' => "Bonjour ! Bienvenue sur l'API RPG",
         ]);
     }
 }
