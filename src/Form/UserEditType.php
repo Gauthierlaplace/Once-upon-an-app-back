@@ -13,14 +13,15 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\Validator\Constraints\Regex;
 
-class UserType extends AbstractType
+class UserEditType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
             ->add('email', EmailType::class, [
                 'label' => 'Email',
-                "attr" => ["placeholder" => "hello@world.io"]])
+                "attr" => ["placeholder" => "hello@world.io"]
+            ])
             ->add('roles', ChoiceType::class,  [
                 "label" => 'Attribuer des rôles',
                 "expanded" => true,
@@ -32,17 +33,21 @@ class UserType extends AbstractType
                 ],
             ])
             ->add('password', PasswordType::class, [
-                'label' => 'Password',
+                "mapped" => false,
+                "label" => "Password",
+                "attr" => [
+                    "placeholder" => "Laisser vide pour ne pas modifier ..."
+                ],
                 'constraints' => [
                     new Regex(
                         "/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{4,}$/",
                         "Le mot de passe doit contenir au minimum 4 caractères, une majuscule, un chiffre et un caractère spécial"
                     ),
-                ],            
-                ])
+                ],
+
+            ])
             ->add('pseudo', TextType::class, ['label' => 'Nom d\'utilisateur'])
-            ->add('avatar', TextType::class, ["label" => "Avatar"])
-        ;
+            ->add('avatar', TextType::class, ["label" => "Avatar"]);
     }
 
     public function configureOptions(OptionsResolver $resolver): void

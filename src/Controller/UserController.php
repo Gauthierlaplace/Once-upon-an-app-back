@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\User;
+use App\Form\UserEditType;
 use App\Form\UserType;
 use App\Repository\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -68,12 +69,12 @@ class UserController extends AbstractController
      */
     public function edit(Request $request, User $user, UserRepository $userRepository,  UserPasswordHasherInterface $passwordHasher): Response
     {
-        $form = $this->createForm(UserType::class, $user);
+        $form = $this->createForm(UserEditType::class, $user);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             
-            $plainPassword = $request->request->get("user")["password"];
+            $plainPassword = $request->request->get("user_edit")["password"];
             if (!empty($plainPassword)){
 
                 $hashedPassword = $passwordHasher->hashPassword($user, $plainPassword);

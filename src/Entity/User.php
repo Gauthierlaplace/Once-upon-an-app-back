@@ -30,13 +30,14 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private $email;
 
     /**
-     * @Assert\NotBlank(message="Veuillez sélectionner au moins un Rôle !")
+     * @Assert\NotNull(message="Veuillez sélectionner au moins un Rôle !")
      * @ORM\Column(type="json")
      */
     private $roles = [];
 
     /**
      * @var string The hashed password
+     * @Assert\NotNull(message="Veuillez entrer un mot de passe !")
      * @ORM\Column(type="string")
      */
     private $password;
