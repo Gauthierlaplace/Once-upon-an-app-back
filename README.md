@@ -20,6 +20,8 @@ Dans ce fichier, placer
 DATABASE_URL="mysql://rpg:rpg@127.0.0.1:3306/rpg?serverVersion=mariadb-10.3.25&charset=utf8mb4"
 ```
 
+sauvegarder les changements
+
 ## 2 Remise en place de la BDD en local
 
 Dans le terminal : 
