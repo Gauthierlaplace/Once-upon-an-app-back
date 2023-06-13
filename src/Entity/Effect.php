@@ -34,7 +34,7 @@ class Effect
     /**
      * @Assert\NotNull(message="Le champ Santé ne peut pas être vide")
      * @Assert\Type(type="numeric", message="Le champ Santé doit être un nombre")
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="integer", nullable=true)
      */
     private $health;
 
