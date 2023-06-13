@@ -1,12 +1,13 @@
 <nav class="navbar navbar-expand-lg bg-dark" data-bs-theme="dark">
 	<div class="container-fluid">
-		<div class="collapse navbar-collapse" id="navbarSupportedContent">
-			<ul class="navbar-nav list-unstyled "></ul>
-			<button class="btn btn-dark">
-				<a class="nav-link" href="{{ path('app_home') }}">Acceuil
-				</a>
-			</button>
-			{% set entities = 
+		{% if is_granted('ROLE_ADMIN') or is_granted('ROLE_GAMEMASTER') %}
+			<div class="collapse navbar-collapse" id="navbarSupportedContent">
+				<ul class="navbar-nav list-unstyled "></ul>
+				<button class="btn btn-dark">
+					<a class="nav-link" href="{{ path('app_home') }}">Acceuil
+					</a>
+				</button>
+				{% set entities = 
                 [
                 'user',
 				'review',
@@ -23,33 +24,35 @@
 				
                 ] 
             %}
-			{# TODO : A ajouter dans le tableau entities au fur et à mesure de l'ajout du CRUD de chaque entité
-				'answer',
-				'effect', 
-			#}
-			{% for entity in entities %}
-				<button class="btn btn-light">
-					<li class="nav-item dropdown list-unstyled">
-						<a class="nav-link dropdown text-dark" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-							{{ entity|capitalize }}
-						</a>
-						<ul class="dropdown-menu dropdown-menu-start" aria-labelledby="navbarDropdown">
-							<li class="mb-1">
-								<a class="dropdown-item" href={{ path('app_' ~ entity ~ '_index') }}>Liste</a>
-							</li>
-							<li class="mb-1">
-								<a class="dropdown-item" href={{ path('app_' ~ entity ~ '_new') }}>Créer</a>
-							</li>
-						</ul>
-					</li>
-				</button>
-			{% endfor %}
-		</div>
-		<div class="mb-4 ">
-			Bonjour {{ app.user.userIdentifier }}
-            <button class='btn btn-warning mx-1' href="{{ path('app_logout') }}">
-			Déconnecté
-			</button>
-        </div>
+				{# TODO : A ajouter dans le tableau entities au fur et à mesure de l'ajout du CRUD de chaque entité
+															'answer',
+															'effect', 
+														#}
+				{% for entity in entities %}
+					<button class="btn btn-light">
+						<li class="nav-item dropdown list-unstyled">
+							<a class="nav-link dropdown text-dark" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+								{{ entity|capitalize }}
+							</a>
+							<ul class="dropdown-menu dropdown-menu-start" aria-labelledby="navbarDropdown">
+								<li class="mb-1">
+									<a class="dropdown-item" href={{ path('app_' ~ entity ~ '_index') }}>Liste</a>
+								</li>
+								<li class="mb-1">
+									<a class="dropdown-item" href={{ path('app_' ~ entity ~ '_new') }}>Créer</a>
+								</li>
+							</ul>
+						</li>
+					</button>
+				{% endfor %}
+			</div>
+			<div class="mb-4 ">
+				Bonjour
+				{{ app.user.pseudo }}
+				<a class='btn btn-warning mx-1' href="{{ path('app_logout') }}">
+					Déconnecté
+				</a>
+			</div>
+		{% endif %}
 	</div>
 </nav>
