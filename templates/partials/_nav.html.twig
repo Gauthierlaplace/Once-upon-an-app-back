@@ -45,5 +45,11 @@
 				</button>
 			{% endfor %}
 		</div>
+		<div class="mb-4 ">
+			Bonjour {{ app.user.userIdentifier }}
+            <button class='btn btn-warning mx-1' href="{{ path('app_logout') }}">
+			Déconnecté
+			</button>
+        </div>
 	</div>
 </nav>
