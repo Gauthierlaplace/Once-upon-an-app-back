@@ -1,7 +1,7 @@
 {
     "client": "Thunder Client",
     "collectionName": "Adventure RPG",
-    "dateExported": "2023-06-13T13:32:36.972Z",
+    "dateExported": "2023-06-13T14:53:08.514Z",
     "version": "1.1",
     "folders": [
         {
@@ -119,6 +119,25 @@
             "auth": {
                 "type": "bearer",
                 "bearer": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpYXQiOjE2ODY2NjIxOTEsImV4cCI6MTY4NjcyNjk5MSwicm9sZXMiOlsiUk9MRV9BRE1JTiIsIlJPTEVfUExBWUVSIl0sInVzZXJuYW1lIjoiYW50aG9ueUBhZG1pbi5jb20ifQ.gX37fazkSsTXuaaUhFJf1wJrfMyieqLv3BXREO7xDeU-k4idYqcvbEVSyXHageYfwFHi7fQ-SM1HMXz5ewyvJS1yoNRO7b-zM0Y9MC6s5423ZCwUUBnm8hddjJ1edB7hGDGJ_Poy2fZ4ZWWyi39alXdZ9yR2Y6l5eu7YcTo_MaWd-xkesl-JueLhKbs1gs73cURy7Od8TtDEew3-R2amiYZiW0r8mtv9rNCzpOGJF5_oLUiUVt-QRxSbTZ6Kp6jo8rU6TkfXJAR9lAz8Rwx97qms9XkTb9cJZND0mv0Kl4XBddYHxWYlFvoH1A0VaavZc5lXoPzlVrKaZbw8akHong"
+            },
+            "tests": []
+        },
+        {
+            "_id": "0d1cbfae-70bc-448a-ad28-85842ab47131",
+            "colId": "8e440715-7930-4210-aa7c-a41348812297",
+            "containerId": "",
+            "name": "http://localhost:8000/api/users",
+            "url": "http://localhost:8000/api/users",
+            "method": "POST",
+            "sortNum": 70000,
+            "created": "2023-06-13T14:51:44.577Z",
+            "modified": "2023-06-13T14:51:44.577Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"email\": \"antho@player.com\", \n  \"roles\": [\"ROLE_PLAYER\"],\n  \"password\": \"$2y$13$SXiINz3yOWS9hn70vLDcRuwnzlghnInvFsJLV0YOTIAN/BHgVDcGG\",\n  \"pseudo\": \"antho\",\n  \"avatar\": \"\"\n}\n",
+                "form": []
             },
             "tests": []
         }
