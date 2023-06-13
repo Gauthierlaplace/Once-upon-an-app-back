@@ -1,7 +1,7 @@
 {
     "client": "Thunder Client",
     "collectionName": "Adventure RPG",
-    "dateExported": "2023-06-12T09:15:50.296Z",
+    "dateExported": "2023-06-13T13:32:36.972Z",
     "version": "1.1",
     "folders": [
         {
@@ -48,7 +48,7 @@
             "method": "GET",
             "sortNum": 20000,
             "created": "2023-06-09T08:21:29.581Z",
-            "modified": "2023-06-09T08:21:29.581Z",
+            "modified": "2023-06-12T13:18:16.890Z",
             "headers": [],
             "params": [],
             "tests": []
@@ -85,12 +85,48 @@
             "headers": [],
             "params": [],
             "tests": []
+        },
+        {
+            "_id": "be07f065-22c1-4463-a08c-58afec7981dc",
+            "colId": "8e440715-7930-4210-aa7c-a41348812297",
+            "containerId": "",
+            "name": "http://localhost:8000/api/users/anthony@admin",
+            "url": "http://localhost:8000/api/users/anthony@admin",
+            "method": "GET",
+            "sortNum": 50000,
+            "created": "2023-06-13T13:18:32.784Z",
+            "modified": "2023-06-13T13:18:32.784Z",
+            "headers": [],
+            "params": [],
+            "auth": {
+                "type": "bearer",
+                "bearer": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpYXQiOjE2ODY2NjIxOTEsImV4cCI6MTY4NjcyNjk5MSwicm9sZXMiOlsiUk9MRV9BRE1JTiIsIlJPTEVfUExBWUVSIl0sInVzZXJuYW1lIjoiYW50aG9ueUBhZG1pbi5jb20ifQ.gX37fazkSsTXuaaUhFJf1wJrfMyieqLv3BXREO7xDeU-k4idYqcvbEVSyXHageYfwFHi7fQ-SM1HMXz5ewyvJS1yoNRO7b-zM0Y9MC6s5423ZCwUUBnm8hddjJ1edB7hGDGJ_Poy2fZ4ZWWyi39alXdZ9yR2Y6l5eu7YcTo_MaWd-xkesl-JueLhKbs1gs73cURy7Od8TtDEew3-R2amiYZiW0r8mtv9rNCzpOGJF5_oLUiUVt-QRxSbTZ6Kp6jo8rU6TkfXJAR9lAz8Rwx97qms9XkTb9cJZND0mv0Kl4XBddYHxWYlFvoH1A0VaavZc5lXoPzlVrKaZbw8akHong"
+            },
+            "tests": []
+        },
+        {
+            "_id": "fb96bc2c-7e5d-4f00-9f7e-9d166252bdba",
+            "colId": "8e440715-7930-4210-aa7c-a41348812297",
+            "containerId": "d1e89127-2e1b-448e-b2da-7afa78c2e31a",
+            "name": "http://anthony-boutherin.vpnuser.lan:8000/api/users/anthony@admin",
+            "url": "http://anthony-boutherin.vpnuser.lan:8000/api/users/anthony@admin",
+            "method": "GET",
+            "sortNum": 60000,
+            "created": "2023-06-13T13:20:25.929Z",
+            "modified": "2023-06-13T13:20:25.929Z",
+            "headers": [],
+            "params": [],
+            "auth": {
+                "type": "bearer",
+                "bearer": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpYXQiOjE2ODY2NjIxOTEsImV4cCI6MTY4NjcyNjk5MSwicm9sZXMiOlsiUk9MRV9BRE1JTiIsIlJPTEVfUExBWUVSIl0sInVzZXJuYW1lIjoiYW50aG9ueUBhZG1pbi5jb20ifQ.gX37fazkSsTXuaaUhFJf1wJrfMyieqLv3BXREO7xDeU-k4idYqcvbEVSyXHageYfwFHi7fQ-SM1HMXz5ewyvJS1yoNRO7b-zM0Y9MC6s5423ZCwUUBnm8hddjJ1edB7hGDGJ_Poy2fZ4ZWWyi39alXdZ9yR2Y6l5eu7YcTo_MaWd-xkesl-JueLhKbs1gs73cURy7Od8TtDEew3-R2amiYZiW0r8mtv9rNCzpOGJF5_oLUiUVt-QRxSbTZ6Kp6jo8rU6TkfXJAR9lAz8Rwx97qms9XkTb9cJZND0mv0Kl4XBddYHxWYlFvoH1A0VaavZc5lXoPzlVrKaZbw8akHong"
+            },
+            "tests": []
         }
     ],
     "settings": {
         "auth": {
             "type": "bearer",
-            "bearer": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpYXQiOjE2ODY1NjAwMjQsImV4cCI6MTY4NjYyNDgyNCwicm9sZXMiOlsiUk9MRV9BRE1JTiIsIlJPTEVfUExBWUVSIl0sInVzZXJuYW1lIjoiYW50aG9ueUBhZG1pbi5jb20ifQ.MzAK0xqzvc9w0Jgf3bv5py3KPLk5XJ8FHr_3Y_9tPosGW--X93i8bdCcek0gcicvFbNzpxjXEhtAMXAHn1LpoeyHi-cSlEqrp6uFWijaMA59lH1FTUmgtb5UIOMYhrDe93GVDWuDUWwgkTsc3D6tlGf_25rCB1_88jBMc_x4knLqLTdI8dq9DckR6EPLVkuagoTgPhdpjA_TNg-ftxnQFrlS9QNmNgeZmvXGgg8sQQzYWzBPGxAdeL0cfNPe-gLif55LJB5B9xvSxc-mQhXdb_PVs4vt9xXE4b7sP9z-k-bDGPBLq7PiNZKXouAXpQnLZychHAqPOJHFbpm5Pkx7yQ"
+            "bearer": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpYXQiOjE2ODY2NjIxOTEsImV4cCI6MTY4NjcyNjk5MSwicm9sZXMiOlsiUk9MRV9BRE1JTiIsIlJPTEVfUExBWUVSIl0sInVzZXJuYW1lIjoiYW50aG9ueUBhZG1pbi5jb20ifQ.gX37fazkSsTXuaaUhFJf1wJrfMyieqLv3BXREO7xDeU-k4idYqcvbEVSyXHageYfwFHi7fQ-SM1HMXz5ewyvJS1yoNRO7b-zM0Y9MC6s5423ZCwUUBnm8hddjJ1edB7hGDGJ_Poy2fZ4ZWWyi39alXdZ9yR2Y6l5eu7YcTo_MaWd-xkesl-JueLhKbs1gs73cURy7Od8TtDEew3-R2amiYZiW0r8mtv9rNCzpOGJF5_oLUiUVt-QRxSbTZ6Kp6jo8rU6TkfXJAR9lAz8Rwx97qms9XkTb9cJZND0mv0Kl4XBddYHxWYlFvoH1A0VaavZc5lXoPzlVrKaZbw8akHong"
         }
     }
 }
