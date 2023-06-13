@@ -20,7 +20,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
-     * @Groups({"user_connect"})
+     * @Groups({"user_connect", "user_create"})
      */
     private $id;
 
@@ -28,14 +28,14 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * @Assert\NotBlank(message="Veuillez entrer une adresse email !")
      * @Assert\NotNull(message="Veuillez entrer une adresse email 'VALIDE'!")
      * @ORM\Column(type="string", length=180, unique=true)
-     * @Groups({"user_connect"})
+     * @Groups({"user_connect", "user_create"})
      */
     private $email;
 
     /**
      * @Assert\NotNull(message="Veuillez sélectionner au moins un Rôle !")
      * @ORM\Column(type="json")
-     * @Groups({"user_connect"})
+     * @Groups({"user_connect", "user_create"})
      */
     private $roles = [];
 
@@ -50,13 +50,13 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * 
      * @Assert\NotBlank(message="Veuillez renseigner un Nom d'utilisateur")
      * @ORM\Column(type="string", length=64)
-     * @Groups({"user_connect"})
+     * @Groups({"user_connect", "user_create"})
      */
     private $pseudo;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
-     * @Groups({"user_connect"})
+     * @Groups({"user_connect", "user_create"})
      */
     private $avatar;
 
