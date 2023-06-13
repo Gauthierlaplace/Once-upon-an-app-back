@@ -8,6 +8,7 @@
 		</h1>
 		<a class='btn btn-primary show' href="{{ path('app_home') }}">Retour à l'acceuil</a>
 		<a class="mb-2 btn btn-success float-end" href="{{ path('app_review_new') }}">Ajouter un nouvel avis</a>
+
 		<table class="table table-hover mt-4">
 			<thead>
 				<tr>
@@ -32,6 +33,7 @@
 						<td>{{ review.updatedAt ? review.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
 						<td>
 							<a class="btn btn-primary float-end  m-1" href="{{ path('app_review_show', {'id': review.id}) }}">Voir</a>
+
 							<a class="btn btn-warning float-end  m-1" href="{{ path('app_review_edit', {'id': review.id}) }}">Modifier</a>
 							{{ include('review/_delete_form.html.twig') }}
 						</td>
