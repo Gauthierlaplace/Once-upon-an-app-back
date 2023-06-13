@@ -1,0 +1,220 @@
+[
+  {
+    "_id": "741449b8-0afe-4e13-8a59-deb9b494f906",
+    "colId": "history",
+    "containerId": "",
+    "name": "http://0.0.0.0:8082/api/users",
+    "url": "http://0.0.0.0:8082/api/users",
+    "method": "GET",
+    "sortNum": 0,
+    "created": "2023-06-13T12:14:45.212Z",
+    "modified": "2023-06-13T12:24:09.053Z",
+    "headers": [],
+    "params": [],
+    "auth": {
+      "type": "bearer",
+      "bearer": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpYXQiOjE2ODY2NTg5OTcsImV4cCI6MTY4NjcyMzc5Nywicm9sZXMiOlsiUk9MRV9BRE1JTiIsIlJPTEVfUExBWUVSIl0sInVzZXJuYW1lIjoicGllcnJlQGFkbWluLmNvbSJ9.jYIF5KNr9OUJxlTeBJX7LBdZZ_Y7jAbDDiF_xz5OhfUKRoEjemPOor0U90UBEJwtDraiPBh0-8_Z5h0ItKK6sSe1OKx8Tbmes7VupO11jQpY4RMn_MrFfBXlK2a-37W-IMZ7r7YJ_-yo78L_ZHwNHAQIrnUtCmSL2nnMQtxYtgn1NaegR6LbkJUbSt3c_KKoegEFqP6YpHDjBcblI6pQ0Kw252C0M4j7SrBaLgphGrvcp7KYssLgxipCxVW_V3WTHwJtamNFCnG21eDOGgK-Z9CWrtSGH5jQlY7uNEZz8LzcoRQND5mJM8tUQUTY-nqbiqy0QlqjstPXQ9VxRvq7-A"
+    },
+    "tests": []
+  },
+  {
+    "_id": "81cc4219-090c-4895-8fba-43169b61f5a6",
+    "colId": "history",
+    "containerId": "",
+    "name": "http://0.0.0.0:8082/api/login_check",
+    "url": "http://0.0.0.0:8082/api/login_check",
+    "method": "GET",
+    "sortNum": 0,
+    "created": "2023-06-13T12:20:26.658Z",
+    "modified": "2023-06-13T12:20:26.658Z",
+    "headers": [],
+    "params": [],
+    "body": {
+      "type": "json",
+      "raw": "{\n  \"username\" : \"pierre@admin.com\",\n  \"password\" : \"admin\"\n}",
+      "form": []
+    },
+    "tests": []
+  },
+  {
+    "_id": "0d299022-00cf-4f81-b740-981cce1e3d9d",
+    "colId": "history",
+    "containerId": "",
+    "name": "http://0.0.0.0:8082/Api/login_check",
+    "url": "http://0.0.0.0:8082/Api/login_check",
+    "method": "GET",
+    "sortNum": 0,
+    "created": "2023-06-13T12:21:59.824Z",
+    "modified": "2023-06-13T12:21:59.824Z",
+    "headers": [],
+    "params": [],
+    "body": {
+      "type": "json",
+      "raw": "{\n  \"username\" : \"pierre@admin.com\",\n  \"password\" : \"admin\"\n}",
+      "form": []
+    },
+    "tests": []
+  },
+  {
+    "_id": "8bd89918-9ccf-4566-afff-4e1b0b754fec",
+    "colId": "history",
+    "containerId": "",
+    "name": "http://0.0.0.0:8082/api/users/pierre@admin.com",
+    "url": "http://0.0.0.0:8082/api/users/pierre@admin.com",
+    "method": "GET",
+    "sortNum": 0,
+    "created": "2023-06-13T12:42:28.769Z",
+    "modified": "2023-06-13T12:42:28.769Z",
+    "headers": [],
+    "params": [],
+    "auth": {
+      "type": "bearer",
+      "bearer": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpYXQiOjE2ODY2NTg5OTcsImV4cCI6MTY4NjcyMzc5Nywicm9sZXMiOlsiUk9MRV9BRE1JTiIsIlJPTEVfUExBWUVSIl0sInVzZXJuYW1lIjoicGllcnJlQGFkbWluLmNvbSJ9.jYIF5KNr9OUJxlTeBJX7LBdZZ_Y7jAbDDiF_xz5OhfUKRoEjemPOor0U90UBEJwtDraiPBh0-8_Z5h0ItKK6sSe1OKx8Tbmes7VupO11jQpY4RMn_MrFfBXlK2a-37W-IMZ7r7YJ_-yo78L_ZHwNHAQIrnUtCmSL2nnMQtxYtgn1NaegR6LbkJUbSt3c_KKoegEFqP6YpHDjBcblI6pQ0Kw252C0M4j7SrBaLgphGrvcp7KYssLgxipCxVW_V3WTHwJtamNFCnG21eDOGgK-Z9CWrtSGH5jQlY7uNEZz8LzcoRQND5mJM8tUQUTY-nqbiqy0QlqjstPXQ9VxRvq7-A"
+    },
+    "tests": []
+  },
+  {
+    "_id": "8346dc36-b88f-484d-b2b5-8d283f7195b5",
+    "colId": "history",
+    "containerId": "",
+    "name": "http://0.0.0.0:8082/api/users/email",
+    "url": "http://0.0.0.0:8082/api/users/email",
+    "method": "GET",
+    "sortNum": 0,
+    "created": "2023-06-13T12:45:15.342Z",
+    "modified": "2023-06-13T12:45:15.342Z",
+    "headers": [],
+    "params": [],
+    "auth": {
+      "type": "bearer",
+      "bearer": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpYXQiOjE2ODY2NTg5OTcsImV4cCI6MTY4NjcyMzc5Nywicm9sZXMiOlsiUk9MRV9BRE1JTiIsIlJPTEVfUExBWUVSIl0sInVzZXJuYW1lIjoicGllcnJlQGFkbWluLmNvbSJ9.jYIF5KNr9OUJxlTeBJX7LBdZZ_Y7jAbDDiF_xz5OhfUKRoEjemPOor0U90UBEJwtDraiPBh0-8_Z5h0ItKK6sSe1OKx8Tbmes7VupO11jQpY4RMn_MrFfBXlK2a-37W-IMZ7r7YJ_-yo78L_ZHwNHAQIrnUtCmSL2nnMQtxYtgn1NaegR6LbkJUbSt3c_KKoegEFqP6YpHDjBcblI6pQ0Kw252C0M4j7SrBaLgphGrvcp7KYssLgxipCxVW_V3WTHwJtamNFCnG21eDOGgK-Z9CWrtSGH5jQlY7uNEZz8LzcoRQND5mJM8tUQUTY-nqbiqy0QlqjstPXQ9VxRvq7-A"
+    },
+    "tests": []
+  },
+  {
+    "_id": "784398f0-f9a8-45f6-be3e-ef3d883c2832",
+    "colId": "history",
+    "containerId": "",
+    "name": "http://0.0.0.0:8082/api/users/pierre",
+    "url": "http://0.0.0.0:8082/api/users/pierre",
+    "method": "GET",
+    "sortNum": 0,
+    "created": "2023-06-13T12:45:36.631Z",
+    "modified": "2023-06-13T12:45:36.631Z",
+    "headers": [],
+    "params": [],
+    "auth": {
+      "type": "bearer",
+      "bearer": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpYXQiOjE2ODY2NTg5OTcsImV4cCI6MTY4NjcyMzc5Nywicm9sZXMiOlsiUk9MRV9BRE1JTiIsIlJPTEVfUExBWUVSIl0sInVzZXJuYW1lIjoicGllcnJlQGFkbWluLmNvbSJ9.jYIF5KNr9OUJxlTeBJX7LBdZZ_Y7jAbDDiF_xz5OhfUKRoEjemPOor0U90UBEJwtDraiPBh0-8_Z5h0ItKK6sSe1OKx8Tbmes7VupO11jQpY4RMn_MrFfBXlK2a-37W-IMZ7r7YJ_-yo78L_ZHwNHAQIrnUtCmSL2nnMQtxYtgn1NaegR6LbkJUbSt3c_KKoegEFqP6YpHDjBcblI6pQ0Kw252C0M4j7SrBaLgphGrvcp7KYssLgxipCxVW_V3WTHwJtamNFCnG21eDOGgK-Z9CWrtSGH5jQlY7uNEZz8LzcoRQND5mJM8tUQUTY-nqbiqy0QlqjstPXQ9VxRvq7-A"
+    },
+    "tests": []
+  },
+  {
+    "_id": "af99ead0-2972-4be3-bdb0-ca9626ce0165",
+    "colId": "history",
+    "containerId": "",
+    "name": "http://0.0.0.0:8082/api/users/pierre@admin",
+    "url": "http://0.0.0.0:8082/api/users/pierre@admin",
+    "method": "GET",
+    "sortNum": 0,
+    "created": "2023-06-13T12:50:48.599Z",
+    "modified": "2023-06-13T12:50:48.599Z",
+    "headers": [],
+    "params": [],
+    "auth": {
+      "type": "bearer",
+      "bearer": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpYXQiOjE2ODY2NTg5OTcsImV4cCI6MTY4NjcyMzc5Nywicm9sZXMiOlsiUk9MRV9BRE1JTiIsIlJPTEVfUExBWUVSIl0sInVzZXJuYW1lIjoicGllcnJlQGFkbWluLmNvbSJ9.jYIF5KNr9OUJxlTeBJX7LBdZZ_Y7jAbDDiF_xz5OhfUKRoEjemPOor0U90UBEJwtDraiPBh0-8_Z5h0ItKK6sSe1OKx8Tbmes7VupO11jQpY4RMn_MrFfBXlK2a-37W-IMZ7r7YJ_-yo78L_ZHwNHAQIrnUtCmSL2nnMQtxYtgn1NaegR6LbkJUbSt3c_KKoegEFqP6YpHDjBcblI6pQ0Kw252C0M4j7SrBaLgphGrvcp7KYssLgxipCxVW_V3WTHwJtamNFCnG21eDOGgK-Z9CWrtSGH5jQlY7uNEZz8LzcoRQND5mJM8tUQUTY-nqbiqy0QlqjstPXQ9VxRvq7-A"
+    },
+    "tests": []
+  },
+  {
+    "_id": "18813bc9-a66d-4ed5-a39e-c4ab9df539aa",
+    "colId": "history",
+    "containerId": "",
+    "name": "http://0.0.0.0:8082/api/users/gauthier@admin",
+    "url": "http://0.0.0.0:8082/api/users/gauthier@admin",
+    "method": "GET",
+    "sortNum": 0,
+    "created": "2023-06-13T13:02:59.313Z",
+    "modified": "2023-06-13T13:02:59.313Z",
+    "headers": [],
+    "params": [],
+    "auth": {
+      "type": "bearer",
+      "bearer": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpYXQiOjE2ODY2NTg5OTcsImV4cCI6MTY4NjcyMzc5Nywicm9sZXMiOlsiUk9MRV9BRE1JTiIsIlJPTEVfUExBWUVSIl0sInVzZXJuYW1lIjoicGllcnJlQGFkbWluLmNvbSJ9.jYIF5KNr9OUJxlTeBJX7LBdZZ_Y7jAbDDiF_xz5OhfUKRoEjemPOor0U90UBEJwtDraiPBh0-8_Z5h0ItKK6sSe1OKx8Tbmes7VupO11jQpY4RMn_MrFfBXlK2a-37W-IMZ7r7YJ_-yo78L_ZHwNHAQIrnUtCmSL2nnMQtxYtgn1NaegR6LbkJUbSt3c_KKoegEFqP6YpHDjBcblI6pQ0Kw252C0M4j7SrBaLgphGrvcp7KYssLgxipCxVW_V3WTHwJtamNFCnG21eDOGgK-Z9CWrtSGH5jQlY7uNEZz8LzcoRQND5mJM8tUQUTY-nqbiqy0QlqjstPXQ9VxRvq7-A"
+    },
+    "tests": []
+  },
+  {
+    "_id": "9d938eb1-c2bf-4578-8fb1-346aa6efc214",
+    "colId": "history",
+    "containerId": "",
+    "name": "http://0.0.0.0:8082/api/users/pierre@admin2",
+    "url": "http://0.0.0.0:8082/api/users/pierre@admin2",
+    "method": "GET",
+    "sortNum": 0,
+    "created": "2023-06-13T13:03:08.730Z",
+    "modified": "2023-06-13T13:03:08.730Z",
+    "headers": [],
+    "params": [],
+    "auth": {
+      "type": "bearer",
+      "bearer": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpYXQiOjE2ODY2NTg5OTcsImV4cCI6MTY4NjcyMzc5Nywicm9sZXMiOlsiUk9MRV9BRE1JTiIsIlJPTEVfUExBWUVSIl0sInVzZXJuYW1lIjoicGllcnJlQGFkbWluLmNvbSJ9.jYIF5KNr9OUJxlTeBJX7LBdZZ_Y7jAbDDiF_xz5OhfUKRoEjemPOor0U90UBEJwtDraiPBh0-8_Z5h0ItKK6sSe1OKx8Tbmes7VupO11jQpY4RMn_MrFfBXlK2a-37W-IMZ7r7YJ_-yo78L_ZHwNHAQIrnUtCmSL2nnMQtxYtgn1NaegR6LbkJUbSt3c_KKoegEFqP6YpHDjBcblI6pQ0Kw252C0M4j7SrBaLgphGrvcp7KYssLgxipCxVW_V3WTHwJtamNFCnG21eDOGgK-Z9CWrtSGH5jQlY7uNEZz8LzcoRQND5mJM8tUQUTY-nqbiqy0QlqjstPXQ9VxRvq7-A"
+    },
+    "tests": []
+  },
+  {
+    "_id": "4eb029b7-4621-4a13-ab7d-524af15ad137",
+    "colId": "history",
+    "containerId": "",
+    "name": "http://0.0.0.0:8082/api/users/pierre@1admin",
+    "url": "http://0.0.0.0:8082/api/users/pierre@1admin",
+    "method": "GET",
+    "sortNum": 0,
+    "created": "2023-06-13T13:03:17.909Z",
+    "modified": "2023-06-13T13:03:17.909Z",
+    "headers": [],
+    "params": [],
+    "auth": {
+      "type": "bearer",
+      "bearer": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpYXQiOjE2ODY2NTg5OTcsImV4cCI6MTY4NjcyMzc5Nywicm9sZXMiOlsiUk9MRV9BRE1JTiIsIlJPTEVfUExBWUVSIl0sInVzZXJuYW1lIjoicGllcnJlQGFkbWluLmNvbSJ9.jYIF5KNr9OUJxlTeBJX7LBdZZ_Y7jAbDDiF_xz5OhfUKRoEjemPOor0U90UBEJwtDraiPBh0-8_Z5h0ItKK6sSe1OKx8Tbmes7VupO11jQpY4RMn_MrFfBXlK2a-37W-IMZ7r7YJ_-yo78L_ZHwNHAQIrnUtCmSL2nnMQtxYtgn1NaegR6LbkJUbSt3c_KKoegEFqP6YpHDjBcblI6pQ0Kw252C0M4j7SrBaLgphGrvcp7KYssLgxipCxVW_V3WTHwJtamNFCnG21eDOGgK-Z9CWrtSGH5jQlY7uNEZz8LzcoRQND5mJM8tUQUTY-nqbiqy0QlqjstPXQ9VxRvq7-A"
+    },
+    "tests": []
+  },
+  {
+    "_id": "bec64c16-5197-4378-adf4-8091ac11da21",
+    "colId": "history",
+    "containerId": "",
+    "name": "http://0.0.0.0:8082/api/users/pierre@admin\\.com",
+    "url": "http://0.0.0.0:8082/api/users/pierre@admin\\.com",
+    "method": "GET",
+    "sortNum": 0,
+    "created": "2023-06-13T13:10:37.838Z",
+    "modified": "2023-06-13T13:10:37.838Z",
+    "headers": [],
+    "params": [],
+    "auth": {
+      "type": "bearer",
+      "bearer": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpYXQiOjE2ODY2NTg5OTcsImV4cCI6MTY4NjcyMzc5Nywicm9sZXMiOlsiUk9MRV9BRE1JTiIsIlJPTEVfUExBWUVSIl0sInVzZXJuYW1lIjoicGllcnJlQGFkbWluLmNvbSJ9.jYIF5KNr9OUJxlTeBJX7LBdZZ_Y7jAbDDiF_xz5OhfUKRoEjemPOor0U90UBEJwtDraiPBh0-8_Z5h0ItKK6sSe1OKx8Tbmes7VupO11jQpY4RMn_MrFfBXlK2a-37W-IMZ7r7YJ_-yo78L_ZHwNHAQIrnUtCmSL2nnMQtxYtgn1NaegR6LbkJUbSt3c_KKoegEFqP6YpHDjBcblI6pQ0Kw252C0M4j7SrBaLgphGrvcp7KYssLgxipCxVW_V3WTHwJtamNFCnG21eDOGgK-Z9CWrtSGH5jQlY7uNEZz8LzcoRQND5mJM8tUQUTY-nqbiqy0QlqjstPXQ9VxRvq7-A"
+    },
+    "tests": []
+  },
+  {
+    "_id": "c06dbc66-2e8a-4910-a751-d0b8fab5c93b",
+    "colId": "history",
+    "containerId": "",
+    "name": "http://0.0.0.0:8082/api/users/pierre@admin.com.",
+    "url": "http://0.0.0.0:8082/api/users/pierre@admin.com.",
+    "method": "GET",
+    "sortNum": 0,
+    "created": "2023-06-13T13:13:26.604Z",
+    "modified": "2023-06-13T13:13:26.604Z",
+    "headers": [],
+    "params": [],
+    "auth": {
+      "type": "bearer",
+      "bearer": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpYXQiOjE2ODY2NTg5OTcsImV4cCI6MTY4NjcyMzc5Nywicm9sZXMiOlsiUk9MRV9BRE1JTiIsIlJPTEVfUExBWUVSIl0sInVzZXJuYW1lIjoicGllcnJlQGFkbWluLmNvbSJ9.jYIF5KNr9OUJxlTeBJX7LBdZZ_Y7jAbDDiF_xz5OhfUKRoEjemPOor0U90UBEJwtDraiPBh0-8_Z5h0ItKK6sSe1OKx8Tbmes7VupO11jQpY4RMn_MrFfBXlK2a-37W-IMZ7r7YJ_-yo78L_ZHwNHAQIrnUtCmSL2nnMQtxYtgn1NaegR6LbkJUbSt3c_KKoegEFqP6YpHDjBcblI6pQ0Kw252C0M4j7SrBaLgphGrvcp7KYssLgxipCxVW_V3WTHwJtamNFCnG21eDOGgK-Z9CWrtSGH5jQlY7uNEZz8LzcoRQND5mJM8tUQUTY-nqbiqy0QlqjstPXQ9VxRvq7-A"
+    },
+    "tests": []
+  }
+]
