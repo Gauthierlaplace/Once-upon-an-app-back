@@ -44,23 +44,6 @@ bin/console doctrine:fixtures:load
 
 ## 3 Accès API
 
-
-#### Installation
-
-Installation du Rest API Client Thunder Client
-```text
-Nom : Thunder Client
-ID : rangav.vscode-thunder-client
-Description : Lightweight Rest API Client for VS Code
-Version : 2.7.0
-Serveur de publication : Ranga Vadhineni
-Lien de la Place de marché pour VS : https://marketplace.visualstudio.com/items?itemName=rangav.vscode-thunder-client
-```
-Importer la collection dans le client API depuis le fichier situé:
-```text
-/docs/API/thunder-collection_Adventure RPG.json
-```
-
 #### Authentification (Token)
 
 

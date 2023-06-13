@@ -47,7 +47,7 @@ class Effect
     /**
      * @ORM\Column(type="integer", nullable=true)
      */
-    private $dexteriry;
+    private $dexterity;
 
     /**
      * @ORM\Column(type="integer", nullable=true)
@@ -139,14 +139,14 @@ class Effect
         return $this;
     }
 
-    public function getDexteriry(): ?int
+    public function getDexterity(): ?int
     {
-        return $this->dexteriry;
+        return $this->dexterity;
     }
 
-    public function setDexteriry(?int $dexteriry): self
+    public function setDexterity(?int $dexterity): self
     {
-        $this->dexteriry = $dexteriry;
+        $this->dexterity = $dexterity;
 
         return $this;
     }
