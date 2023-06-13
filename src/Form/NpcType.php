@@ -55,7 +55,7 @@ class NpcType extends AbstractType
             ])
             ->add('item', EntityType::class, [
                 "multiple" => true,
-                "expanded" => false,
+                "expanded" => true,
                 "class" => Item::class,
                 'label' => "Equipements"
             ])
