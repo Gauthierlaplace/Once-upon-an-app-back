@@ -216,5 +216,24 @@
       "bearer": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpYXQiOjE2ODY2NTg5OTcsImV4cCI6MTY4NjcyMzc5Nywicm9sZXMiOlsiUk9MRV9BRE1JTiIsIlJPTEVfUExBWUVSIl0sInVzZXJuYW1lIjoicGllcnJlQGFkbWluLmNvbSJ9.jYIF5KNr9OUJxlTeBJX7LBdZZ_Y7jAbDDiF_xz5OhfUKRoEjemPOor0U90UBEJwtDraiPBh0-8_Z5h0ItKK6sSe1OKx8Tbmes7VupO11jQpY4RMn_MrFfBXlK2a-37W-IMZ7r7YJ_-yo78L_ZHwNHAQIrnUtCmSL2nnMQtxYtgn1NaegR6LbkJUbSt3c_KKoegEFqP6YpHDjBcblI6pQ0Kw252C0M4j7SrBaLgphGrvcp7KYssLgxipCxVW_V3WTHwJtamNFCnG21eDOGgK-Z9CWrtSGH5jQlY7uNEZz8LzcoRQND5mJM8tUQUTY-nqbiqy0QlqjstPXQ9VxRvq7-A"
     },
     "tests": []
+  },
+  {
+    "_id": "00b6679e-5237-4b0f-b995-6742e394ee02",
+    "colId": "history",
+    "containerId": "",
+    "name": "http://localhost:8082/api/users",
+    "url": "http://localhost:8082/api/users",
+    "method": "POST",
+    "sortNum": 0,
+    "created": "2023-06-13T13:47:40.981Z",
+    "modified": "2023-06-13T13:47:40.981Z",
+    "headers": [],
+    "params": [],
+    "body": {
+      "type": "json",
+      "raw": "{\n  \"email\": \"pierre@player.com\", \n  \"roles\": [\"ROLE_PLAYER\"],\n  \"password\": pierre,\n  \"pseudo\": ,\n  \"avatar\": ,\n \n}\n",
+      "form": []
+    },
+    "tests": []
   }
 ]

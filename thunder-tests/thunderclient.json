@@ -64,5 +64,24 @@
     "headers": [],
     "params": [],
     "tests": []
+  },
+  {
+    "_id": "7ea06111-a211-463d-9d33-669ee9e6f555",
+    "colId": "2aacea7d-ba46-499a-a7e5-19bd6c291fd4",
+    "containerId": "2b2d6f9f-860c-4add-bb8b-ac6406744957",
+    "name": "http://localhost:8082/api/users",
+    "url": "http://localhost:8082/api/users",
+    "method": "POST",
+    "sortNum": 50000,
+    "created": "2023-06-13T13:48:01.017Z",
+    "modified": "2023-06-13T14:02:10.767Z",
+    "headers": [],
+    "params": [],
+    "body": {
+      "type": "json",
+      "raw": "{\n  \"email\": \"pierre@player.com\", \n  \"roles\": [\"ROLE_PLAYER\", \"ROLE_GAMEMASTER\"],\n  \"password\": \"$2y$13$SXiINz3yOWS9hn70vLDcRuwnzlghnInvFsJLV0YOTIAN/BHgVDcGG\",\n  \"pseudo\": \"pierre2\",\n  \"avatar\": \"\"\n}\n",
+      "form": []
+    },
+    "tests": []
   }
 ]
