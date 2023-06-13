@@ -21,7 +21,8 @@
 					<th>Defense</th>
 					<th>Karma</th>
 					<th>Xp</th>
-					<th>actions</th>
+					<th>Actions</th>
+					{# TODO Aligner correctement la colonne Actions #}
 				</tr>
 			</thead>
 			<tbody>
@@ -29,9 +30,9 @@
 					<tr>
 						<td>{{ item.id }}</td>
 						<td>{{ item.name }}</td>
-                        <td>
-						<img class="img-fluid" src="{{ item.picture }}" alt="{{ 'image de ' ~ item.name }}">
-                        </td>
+						<td>
+							<img class="img-fluid" src="{{ item.picture }}" alt="{{ 'image de ' ~ item.name }}">
+						</td>
 						<td>{{ item.health }}</td>
 						<td>{{ item.strength }}</td>
 						<td>{{ item.intelligence }}</td>
