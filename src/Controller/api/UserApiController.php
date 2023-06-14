@@ -8,16 +8,20 @@ use Exception;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Serializer\Normalizer\AbstractNormalizer;
 use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 class UserApiController extends CoreApiController
 {
+    // ! Pas de Browse
+    // ! Read alias currentUser
     /**
      * Route giving CurrentUser details from JWT Token 
      * 
-     * @Route("/api/users/details", name="user_details", methods={"GET"})
+     * @Route("/api/users/details", name="app_api_users_details", methods={"GET"})
      */
     public function currentUser(): JsonResponse
     {
@@ -28,7 +32,7 @@ class UserApiController extends CoreApiController
         if (!$user) {
             return new JsonResponse(['message' => 'Utilisateur non authentifié.'], 401);
         }
-        
+
         // Récupérez les détails de l'utilisateur connecté
         $userId = $user->getId();
         $email = $user->getEmail();
@@ -44,7 +48,7 @@ class UserApiController extends CoreApiController
         ]);
     }
 
-    // TODO Add one user
+    // ! Add one user
     /**
      * New user
      *
@@ -58,7 +62,8 @@ class UserApiController extends CoreApiController
         Request $request,
         UserRepository $userRepository,
         SerializerInterface $serializer,
-        ValidatorInterface $validatorInterface
+        ValidatorInterface $validatorInterface,
+        UserPasswordHasherInterface $passwordHasher
     ) {
         // Récupérer le contenu JSON
         $jsonContent = $request->getContent();
@@ -78,17 +83,82 @@ class UserApiController extends CoreApiController
         if (count($errors) > 0) {
             return $this->json($errors, Response::HTTP_UNPROCESSABLE_ENTITY);
         }
+        $plainPassword = $user->getPassword();
+        if (!empty($plainPassword)) {
 
+            $hashedPassword = $passwordHasher->hashPassword($user, $plainPassword);
+
+            $user->setPassword($hashedPassword);
+        }
         // On sauvegarde l'entité
         $userRepository->add($user, true);
 
         return $this->json201($user, ["user_create"]);
     }
 
-    // TODO Edit one user
-    
+    // ! Edit one user
+
+    /**
+     * edit user
+     *
+     * @Route("/api/users/{id}",name="app_api_users_edit", requirements={"id"="\d+"}, methods={"PUT", "PATCH"})
+     * 
+     * @param Request $request la requete
+     * @param SerializerInterface $serializerInterface
+     * @param UserRepository $userRepository
+     */
+    public function edit(
+        $id,
+        Request $request,
+        SerializerInterface $serializerInterface,
+        UserRepository $userRepository,
+        UserPasswordHasherInterface $passwordHasher
+    ) {
+        // TODO : mettre à jour un user
+        // 1. récupérer le JSON
+        $jsonContent = $request->getContent();
+        // 2. aller chercher en BDD l'existant
+        $user = $userRepository->find($id);
+        // 3. désérialiser tout en mettant à jour l'objet existant
+        $serializerInterface->deserialize(
+            // les données
+            $jsonContent,
+            // le type d'objet
+            User::class,
+            // le format de donnée
+            'json',
+            // en contexte, on précise que l'on veux POPULATE / PEUPLER un objet existant
+            [AbstractNormalizer::OBJECT_TO_POPULATE => $user]
+        );
+        // * Comme on demande la mise en jour d'un objet, pas besoin de récupérer la déserialisation
+        $plainPassword = $user->getPassword();
+        if (!empty($plainPassword)) {
+
+            $hashedPassword = $passwordHasher->hashPassword($user, $plainPassword);
+
+            $user->setPassword($hashedPassword);
+        }
+
+        // 4. flush
+        $userRepository->add($user, true);
+        // retour 200
+
+
+        return $this->json200($user, ["user_read"]);
+    }
+
     // TODO Delete one user
 
+    /**
+     * delete user
+     *
+     * @Route("/api/users/{id}",name="app_api_users_delete", requirements={"id"="\d+"}, methods={"DELETE"})
+     */
+    public function delete($id, userRepository $userRepository)
+    {
+        $user = $userRepository->find($id);
+        $userRepository->remove($user, true);
 
-    
+        return $this->json(null, Response::HTTP_NO_CONTENT);
+    }
 }
