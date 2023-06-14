@@ -5,7 +5,6 @@ namespace App\Controller\api;
 use App\Entity\User;
 use App\Repository\UserRepository;
 use Exception;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -16,27 +15,27 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 class UserApiController extends CoreApiController
 {
 
-    // TODO Connexion
-    /**
-     * @Route("/api/users/{partialEmail}", name="app_api_users", methods={"GET"})
-     */
-    public function connectUser($partialEmail, UserRepository $userRepository, Request $request)
-    {
-        $partialEmail = $request->attributes->get('partialEmail');
+    // TODO Connexion (useless)
+    // /**
+    //  * @Route("/api/users/{partialEmail}", name="app_api_users", methods={"GET"})
+    //  */
+    // public function connectUser($partialEmail, UserRepository $userRepository, Request $request)
+    // {
+    //     $partialEmail = $request->attributes->get('partialEmail');
 
-        $user = $userRepository->findOneByEmail($partialEmail);
+    //     $user = $userRepository->findOneByEmail($partialEmail);
 
-        if ($user === null) {
-            return $this->json404(["message" => "Aucun utilisateur trouvé !"]);
-        }
+    //     if ($user === null) {
+    //         return $this->json404(["message" => "Aucun utilisateur trouvé !"]);
+    //     }
 
-        return $this->json200($user, ["user_connect"]);
+    //     return $this->json200($user, ["user_connect"]);
 
-        // TODO trouver comment sécurisé la requete (2 emails presque identiques)
+    //     // TODO trouver comment sécurisé la requete (2 emails presque identiques)
 
-    }
+    // }
 
-    // TODO Read one user
+    // TODO Read one user (useless)
     // /**
     //  * @Route("/api/user/{id}", name="app_api_user_read", requirements={"id"="\d+"}, methods={"GET"})
     //  */
@@ -54,9 +53,8 @@ class UserApiController extends CoreApiController
     // TODO Edit one user
 
     // TODO Add one user
-
     /**
-     * ajout de film
+     * New user
      *
      * @Route("/api/users",name="app_api_users_add", methods={"POST"})
      * 
@@ -75,7 +73,7 @@ class UserApiController extends CoreApiController
         // Désérialiser (convertir) le JSON en entité Doctrine User
         try { // on tente de désérialiser
             $user = $serializer->deserialize($jsonContent, User::class, 'json');
-        } catch (Exception $exception){
+        } catch (Exception $exception) {
             // Si on n'y arrive pas, on passe ici
             // dd($exception);
             // code 400 ou 422
@@ -96,4 +94,35 @@ class UserApiController extends CoreApiController
     }
 
     // TODO Delete one user
+
+
+    // TODO CurrentUser details from JWT Token    (DONE)
+    /**
+     * Route giving CurrentUser details from JWT Token 
+     * 
+     * @Route("/api/users/details", name="user_details", methods={"GET"})
+     */
+    public function currentUser(): JsonResponse
+    {
+        $user = $this->getUser();
+
+        // Vérifiez si l'utilisateur est authentifié
+        if (!$user) {
+            return new JsonResponse(['message' => 'Utilisateur non authentifié.'], 401);
+        }
+
+        // Récupérez les détails de l'utilisateur connecté
+        $userId = $user->getId();
+        $email = $user->getEmail();
+        $pseudo = $user->getPseudo();
+        $avatar = $user->getAvatar();
+
+        // Retournez les détails de l'utilisateur au format JSON
+        return new JsonResponse([
+            'id' => $userId,
+            'email' => $email,
+            'pseudo' => $pseudo,
+            'avatar' => $avatar,
+        ]);
+    }
 }
