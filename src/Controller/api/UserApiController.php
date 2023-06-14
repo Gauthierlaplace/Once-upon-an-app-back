@@ -28,7 +28,7 @@ class UserApiController extends CoreApiController
         if (!$user) {
             return new JsonResponse(['message' => 'Utilisateur non authentifié.'], 401);
         }
-        // dd($user);
+        
         // Récupérez les détails de l'utilisateur connecté
         $userId = $user->getId();
         $email = $user->getEmail();
