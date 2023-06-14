@@ -104,13 +104,14 @@ class UserApiController extends CoreApiController
      */
     public function currentUser(): JsonResponse
     {
+        /** @var App\Entity\User $user */
         $user = $this->getUser();
 
         // Vérifiez si l'utilisateur est authentifié
         if (!$user) {
             return new JsonResponse(['message' => 'Utilisateur non authentifié.'], 401);
         }
-
+        // dd($user);
         // Récupérez les détails de l'utilisateur connecté
         $userId = $user->getId();
         $email = $user->getEmail();
