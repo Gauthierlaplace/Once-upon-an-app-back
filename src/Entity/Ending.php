@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Repository\EndingRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass=EndingRepository::class)
@@ -15,12 +16,14 @@ class Ending
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * @Groups({"game_start"})
      */
     private $id;
 
     /**
      * @Assert\NotBlank(message="Le champ Ending ne peut pas être vide")
      * @ORM\Column(type="text")
+     * @Groups({"game_start"})
      */
     private $content;
 

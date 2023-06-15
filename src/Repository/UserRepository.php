@@ -57,17 +57,6 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
     }
 
 
-    public function findOneByEmail($partialEmail)
-    {
-        return $this->createQueryBuilder('user')
-        ->where('user.email LIKE :partialEmail')
-        ->setParameter('partialEmail', '%' . $partialEmail . '%')
-        ->getQuery()
-        ->getResult();
-    }
-
-
-
 //    /**
 //     * @return User[] Returns an array of User objects
 //     */
