@@ -5,6 +5,7 @@ namespace App\Form;
 use App\Entity\Biome;
 use App\Entity\Event;
 use App\Entity\EventType as EntityEventType;
+use App\Entity\Npc;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
@@ -33,20 +34,17 @@ class EventType extends AbstractType
                 "class" => Biome::class,
                 'label' => "Biome"
             ])
-            
-            // todo 
-            // ? a voir si ce sera utile ici
+            ->add('npc', EntityType::class, [
+                "multiple" => true,
+                "expanded" => false,
+                "class" => Npc::class,
+                'label' => "Npc"
+            ])
             // ->add('heroes', EntityType::class, [
             //     "multiple" => false,
             //     "expanded" => false,
             //     "class" => Hero::class,
             //     'label' => "Héro"
-            // ])
-            // ->add('npc', EntityType::class, [
-            //     "multiple" => false,
-            //     "expanded" => false,
-            //     "class" => Npc::class,
-            //     'label' => "Npc"
             // ])
         ;
     }
