@@ -13,8 +13,7 @@ class GameController extends CoreApiController
      * @Route("/api/play", name="app_api_game" , methods={"GET"})
      */
     public function btnPlay(
-        EventRepository $eventRepository,
-        EndingRepository $endingRepository
+        EventRepository $eventRepository
     ): JsonResponse {
         // Arrivée Event Départ du Biome 1 , 1er noeud de choix d'ending
         // un random EventA Départ + opening de 2 random Event(BetC)de event_type issue de la table ending de l' EventA
@@ -54,16 +53,70 @@ class GameController extends CoreApiController
 
             $eventBAndC[] = $events[$eventPicked]; // * on stock l'event qui la clé $eventPicked dans un array $eventBAndC
         }
-        // dump($endingForFront);
-        // dd($eventBAndC);
+
+
+        $ending1 = $endingForFront[0];
+        $ending2 = $endingForFront[1];
+        $event1 = $eventBAndC[0];
+        $event2 = $eventBAndC[1];
+
+        $choices = [
+            0 => [
+                'ending' => $ending1->getContent(),
+                'nextEventId' => $event1->getId(),
+                'nextEventOpening' => $event1->getOpening()
+            ],
+            1 => [
+                'ending' => $ending2->getContent(),
+                'nextEventId' => $event2->getId(),
+                'nextEventOpening' => $event2->getOpening()
+            ],
+        ];
+
+        // ! data choice array unique (foreach coté front)
+
+        // $data = [
+        //     'eventA' => $eventA,
+        //     'choices' => $choices
+        // ];
+        // return $this->json200($data, ["game_start"]);
+
+        // ======================================
+
+        $choices = [];
+        $index = 0;
+        foreach ($endingForFront as  $OneEnding) {
+            $choices[$index++] = $OneEnding->getContent();
+        }
+        foreach ($eventBAndC as $OneEvent) {
+            $choices[$index++] = $OneEvent->getId();
+            $choices[$index++] = $OneEvent->getOpening();
+        }
+
+        $eventB[] = $choices[0];
+        $eventB[] = $choices[2];
+        $eventB[] = $choices[3];
+        
+        $eventC[] = $choices[1];
+        $eventC[] = $choices[4];
+        $eventC[] = $choices[5];
+
+        // ! data choice array multiple (sans foreach coté front)
 
         $data = [
             'eventA' => $eventA,
-            'endingsAforB1andC2' => $endingForFront,
-            'eventB1andC2' => $eventBAndC
+            'choiceB' => $eventB,
+            'choiceC' => $eventC,
         ];
-
-
         return $this->json200($data, ["game_start"]);
+
+
+        // ! data initial event complet
+        // $data = [
+        //     'eventA' => $eventA,
+        //     'endingsAforB1andC2' => $endingForFront,
+        //     'eventB1andC2' => $eventBAndC
+        // ];
+        // return $this->json200($data, ["game_start"]);
     }
 }

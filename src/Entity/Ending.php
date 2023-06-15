@@ -16,7 +16,6 @@ class Ending
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
-     * @Groups({"game_start"})
      */
     private $id;
 
