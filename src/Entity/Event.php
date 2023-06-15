@@ -7,37 +7,45 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Serializer\Annotation\Groups;
+
 
 /**
  * @ORM\Entity(repositoryClass=EventRepository::class)
  */
 class Event
 {
+    
     /**
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * @Groups({"game_start"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
      * @Assert\NotBlank(message="Le champ Titre de l'évènement ne peut pas être vide")
+     * @Groups({"game_start"})
      */
     private $title;
 
     /**
      * @ORM\Column(type="text", nullable=true)
+     * @Groups({"game_start"})
      */
     private $description;
 
     /**
      * @ORM\Column(type="text", nullable=true)
+     * @Groups({"game_start"})
      */
     private $opening;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Groups({"game_start"})
      */
     private $picture;
 
@@ -57,6 +65,7 @@ class Event
 
     /**
      * @ORM\OneToMany(targetEntity=Ending::class, mappedBy="event")
+     * 
      */
     private $endings;
 

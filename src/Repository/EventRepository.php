@@ -39,6 +39,23 @@ class EventRepository extends ServiceEntityRepository
         }
     }
 
+    /**
+     * Gameplay function getting Starting eventA
+     *
+     * @param [string] $biomeStart name and number of the requested biome
+     * @return object
+     */
+    public function findEventA($biomeStart)
+    {
+        return $this->createQueryBuilder('event')
+        ->where('event.title LIKE :biomeStart')
+        ->setParameter('biomeStart', '%' . $biomeStart . '%')
+        ->getQuery()
+        ->getSingleResult();
+    }
+
+    
+    
 //    /**
 //     * @return Event[] Returns an array of Event objects
 //     */
