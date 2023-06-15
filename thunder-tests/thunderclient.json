@@ -1,1 +1,87 @@
-[]
+[
+  {
+    "_id": "5861c670-ae03-49ce-a345-f52926b6a4ee",
+    "colId": "2aacea7d-ba46-499a-a7e5-19bd6c291fd4",
+    "containerId": "",
+    "name": "http://localhost:8000/api/login_check",
+    "url": "http://0.0.0.0:8082/api/login_check",
+    "method": "GET",
+    "sortNum": 10000,
+    "created": "2023-06-13T11:41:53.064Z",
+    "modified": "2023-06-13T12:19:32.409Z",
+    "headers": [],
+    "params": [],
+    "body": {
+      "type": "json",
+      "raw": "{\n  \"username\" : \"pierre@admin.com\",\n  \"password\" : \"admin\"\n}",
+      "form": []
+    },
+    "tests": []
+  },
+  {
+    "_id": "24e796fd-6eb7-47c0-9198-9465efca476e",
+    "colId": "2aacea7d-ba46-499a-a7e5-19bd6c291fd4",
+    "containerId": "2b2d6f9f-860c-4add-bb8b-ac6406744957",
+    "name": "http://localhost:8000/api/test",
+    "url": "http://localhost:8000/api/test",
+    "method": "GET",
+    "sortNum": 20000,
+    "created": "2023-06-13T11:41:53.065Z",
+    "modified": "2023-06-13T11:41:53.065Z",
+    "headers": [],
+    "params": [],
+    "tests": []
+  },
+  {
+    "_id": "aa9f3319-9f2d-4fb5-9e0e-c5fa9b1c8054",
+    "colId": "2aacea7d-ba46-499a-a7e5-19bd6c291fd4",
+    "containerId": "696e7432-4428-401e-a452-20d90a1012b9",
+    "name": "http://anthony-boutherin.vpnuser.lan:8000/api/login_check",
+    "url": "http://anthony-boutherin.vpnuser.lan:8000/api/login_check",
+    "method": "GET",
+    "sortNum": 30000,
+    "created": "2023-06-13T11:41:53.066Z",
+    "modified": "2023-06-13T11:41:53.066Z",
+    "headers": [],
+    "params": [],
+    "body": {
+      "type": "json",
+      "raw": "{\n  \"username\" : \"gauthier@gameMaster.com\",\n  \"password\" : \"gameMaster\"\n}",
+      "form": []
+    },
+    "tests": []
+  },
+  {
+    "_id": "221b4839-4c2f-43ba-b2fc-1974b55f9479",
+    "colId": "2aacea7d-ba46-499a-a7e5-19bd6c291fd4",
+    "containerId": "696e7432-4428-401e-a452-20d90a1012b9",
+    "name": "http://anthony-boutherin.vpnuser.lan:8000/api/test",
+    "url": "http://anthony-boutherin.vpnuser.lan:8000/api/test",
+    "method": "GET",
+    "sortNum": 40000,
+    "created": "2023-06-13T11:41:53.068Z",
+    "modified": "2023-06-13T11:41:53.068Z",
+    "headers": [],
+    "params": [],
+    "tests": []
+  },
+  {
+    "_id": "7ea06111-a211-463d-9d33-669ee9e6f555",
+    "colId": "2aacea7d-ba46-499a-a7e5-19bd6c291fd4",
+    "containerId": "2b2d6f9f-860c-4add-bb8b-ac6406744957",
+    "name": "http://localhost:8082/api/users",
+    "url": "http://localhost:8082/api/users",
+    "method": "POST",
+    "sortNum": 50000,
+    "created": "2023-06-13T13:48:01.017Z",
+    "modified": "2023-06-13T14:02:10.767Z",
+    "headers": [],
+    "params": [],
+    "body": {
+      "type": "json",
+      "raw": "{\n  \"email\": \"pierre@player.com\", \n  \"roles\": [\"ROLE_PLAYER\", \"ROLE_GAMEMASTER\"],\n  \"password\": \"$2y$13$SXiINz3yOWS9hn70vLDcRuwnzlghnInvFsJLV0YOTIAN/BHgVDcGG\",\n  \"pseudo\": \"pierre2\",\n  \"avatar\": \"\"\n}\n",
+      "form": []
+    },
+    "tests": []
+  }
+]

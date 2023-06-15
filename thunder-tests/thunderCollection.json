@@ -1,1 +1,30 @@
-[]
+[
+  {
+    "_id": "2aacea7d-ba46-499a-a7e5-19bd6c291fd4",
+    "colName": "Adventure RPG",
+    "created": "2023-06-13T11:41:53.054Z",
+    "sortNum": 10000,
+    "folders": [
+      {
+        "_id": "2b2d6f9f-860c-4add-bb8b-ac6406744957",
+        "name": "Test",
+        "containerId": "",
+        "created": "2023-06-13T11:41:53.063Z",
+        "sortNum": 10000
+      },
+      {
+        "_id": "696e7432-4428-401e-a452-20d90a1012b9",
+        "name": "Pour le Front",
+        "containerId": "",
+        "created": "2023-06-13T11:41:53.064Z",
+        "sortNum": 20000
+      }
+    ],
+    "settings": {
+      "auth": {
+        "type": "bearer",
+        "bearer": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpYXQiOjE2ODY2NjQwOTYsImV4cCI6MTY4NjcyODg5Niwicm9sZXMiOlsiUk9MRV9BRE1JTiIsIlJPTEVfUExBWUVSIl0sInVzZXJuYW1lIjoicGllcnJlQGFkbWluLmNvbSJ9.lOcMgdaO7x3D1USJImiMWK8VGs3kSQE47CsQWYMMHln7fKGdvYb8tBJDeEIMQlLSsCo5kD_IrVmFvzuuasJJNFcvPu9TE2_IEPANdQsaBqUvNuWiM-JZBS7nglvtiyGFj1ASySM9e_u748_Nh5q5nyExNOgMjW5X5iukGoUpGpQ57_kh4J7FsQjJUH73cIdNDuDXaBBcwBeErpphy_3xT18K0DQWDCLiKWNfSbG-xjmKgl1mNo4JK9rZpYoEYd0NOzKjkTv8N7OLQiDgOjry3Q8a78I7i_wB0ORj6Q-49Kx_EN04LzfuSzTiMp4RoUSxLTnhDRgsYHHsI29EFVJ28Q"
+      }
+    }
+  }
+]
