@@ -2,6 +2,7 @@
 
 namespace App\Form;
 
+use App\Entity\Event;
 use App\Entity\Item;
 use App\Entity\Npc;
 use App\Entity\Race;
@@ -59,7 +60,15 @@ class NpcType extends AbstractType
                 "class" => Item::class,
                 'label' => "Equipements"
             ])
-            // ->add('events')
+            ->add('events', EntityType::class, [
+                "multiple" => true,
+                "expanded" => false,
+                "class" => Event::class,
+                "label" => false,
+                'attr' => [
+                    'style' => 'display: none;', // Masquer visuellement le champ
+                ],
+            ])
         ;
     }
 

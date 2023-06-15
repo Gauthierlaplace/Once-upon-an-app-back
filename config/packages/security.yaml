@@ -48,8 +48,10 @@ security:
         - { path: ^/api/users, roles: PUBLIC_ACCESS , methods: [POST]}
         - { path: ^/login$, roles: PUBLIC_ACCESS }
         - { path: ^/logout$, roles: PUBLIC_ACCESS }
-        - { path: ^/api/login, roles: PUBLIC_ACCESS }
+        # - { path: ^/api/login, roles: PUBLIC_ACCESS }
         - { path: ^/api/users/details, roles: ROLE_PLAYER , methods: [GET]}
+        - { path: ^/api/users/\d+$, roles: ROLE_PLAYER , methods: [PUT]}
+        - { path: ^/api/users/\d+$, roles: ROLE_PLAYER , methods: [DELETE]}
       
         - { path: ^\/user, roles: ROLE_ADMIN }
         - { path: ^\/\w+\/new$, roles: ROLE_GAMEMASTER }

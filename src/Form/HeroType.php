@@ -41,7 +41,6 @@ class HeroType extends AbstractType
                 "class" => User::class,
                 'label' => "Utilisateur"
             ])
-
             ->add('item', EntityType::class, [
                 "multiple" => true,
                 "expanded" => true,
