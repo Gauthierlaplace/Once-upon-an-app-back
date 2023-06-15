@@ -17,6 +17,7 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 class UserApiController extends CoreApiController
 {
     // ! Pas de Browse
+    
     // ! Read alias currentUser
     /**
      * Route giving CurrentUser details from JWT Token 
@@ -114,23 +115,14 @@ class UserApiController extends CoreApiController
         UserRepository $userRepository,
         UserPasswordHasherInterface $passwordHasher
     ) {
-        // TODO : mettre à jour un user
-        // 1. récupérer le JSON
         $jsonContent = $request->getContent();
-        // 2. aller chercher en BDD l'existant
         $user = $userRepository->find($id);
-        // 3. désérialiser tout en mettant à jour l'objet existant
         $serializerInterface->deserialize(
-            // les données
             $jsonContent,
-            // le type d'objet
             User::class,
-            // le format de donnée
             'json',
-            // en contexte, on précise que l'on veux POPULATE / PEUPLER un objet existant
             [AbstractNormalizer::OBJECT_TO_POPULATE => $user]
         );
-        // * Comme on demande la mise en jour d'un objet, pas besoin de récupérer la déserialisation
         $plainPassword = $user->getPassword();
         if (!empty($plainPassword)) {
 
@@ -139,15 +131,10 @@ class UserApiController extends CoreApiController
             $user->setPassword($hashedPassword);
         }
 
-        // 4. flush
         $userRepository->add($user, true);
-        // retour 200
-
 
         return $this->json200($user, ["user_read"]);
     }
-
-    // TODO Delete one user
 
     /**
      * delete user

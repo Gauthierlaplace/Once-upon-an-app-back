@@ -1,7 +1,7 @@
 {
     "client": "Thunder Client",
     "collectionName": "Adventure RPG",
-    "dateExported": "2023-06-14T13:15:27.830Z",
+    "dateExported": "2023-06-15T07:32:10.448Z",
     "version": "1.1",
     "folders": [
         {
@@ -13,24 +13,38 @@
         },
         {
             "_id": "0f5cefce-ce00-4aea-b5a7-1c8f8e54e8b6",
-            "name": "Current User details",
+            "name": "Read currentUser",
             "containerId": "",
             "created": "2023-06-14T13:13:14.176Z",
             "sortNum": 30000
         },
         {
             "_id": "4752b2a9-aa47-48d5-bf74-69f4c3572d30",
-            "name": "JWT Token generation",
+            "name": "JWT Token generation + Data User",
             "containerId": "",
             "created": "2023-06-14T13:14:41.002Z",
             "sortNum": 40000
         },
         {
             "_id": "4e8828d7-37ab-43dc-be2a-ea1fcd572112",
-            "name": "New User",
+            "name": "Add User",
             "containerId": "",
             "created": "2023-06-14T13:15:09.117Z",
             "sortNum": 50000
+        },
+        {
+            "_id": "00f78059-6166-4676-8681-a5d03692d747",
+            "name": "Edit User",
+            "containerId": "",
+            "created": "2023-06-15T07:27:42.251Z",
+            "sortNum": 60000
+        },
+        {
+            "_id": "1356802f-3833-4060-bf79-ff73d250490b",
+            "name": "Delete User",
+            "containerId": "",
+            "created": "2023-06-15T07:30:32.725Z",
+            "sortNum": 70000
         }
     ],
     "requests": [
@@ -43,12 +57,12 @@
             "method": "GET",
             "sortNum": 10000,
             "created": "2023-06-12T08:54:02.738Z",
-            "modified": "2023-06-14T13:14:45.977Z",
+            "modified": "2023-06-15T07:08:00.300Z",
             "headers": [],
             "params": [],
             "body": {
                 "type": "json",
-                "raw": "{\n  \"username\" : \"pierre@admin.com\",\n  \"password\" : \"admin\"\n}",
+                "raw": "{\n  \"username\" : \"anthony@admin.com\",\n  \"password\" : \"admin\"\n}",
                 "form": []
             },
             "tests": []
@@ -62,12 +76,12 @@
             "method": "POST",
             "sortNum": 10000,
             "created": "2023-06-13T14:51:44.577Z",
-            "modified": "2023-06-14T13:15:12.529Z",
+            "modified": "2023-06-15T07:08:28.222Z",
             "headers": [],
             "params": [],
             "body": {
                 "type": "json",
-                "raw": "{\n  \"email\": \"antho@player.com\", \n  \"roles\": [\"ROLE_PLAYER\"],\n  \"password\": \"$2y$13$SXiINz3yOWS9hn70vLDcRuwnzlghnInvFsJLV0YOTIAN/BHgVDcGG\",\n  \"pseudo\": \"antho\",\n  \"avatar\": \"\"\n}\n",
+                "raw": "{\n  \"email\": \"antho@player.com\", \n  \"roles\": [\"ROLE_PLAYER\"],\n  \"password\": \"Aa1!\",\n  \"pseudo\": \"antho\",\n  \"avatar\": \"\"\n}\n",
                 "form": []
             },
             "tests": []
@@ -87,6 +101,47 @@
             "auth": {
                 "type": "bearer",
                 "bearer": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpYXQiOjE2ODY3NDU3NzEsImV4cCI6MTY4NjgxMDU3MSwicm9sZXMiOlsiUk9MRV9QTEFZRVIiXSwidXNlcm5hbWUiOiJwbGF5ZXJAcGxheWVyLmNvbSJ9.quVs5UCPQr7vLH_REIKXO7ObFzNs4hrGCFMudxcUsh7Npv7jFzgRkd_ftOrwyEtmdy_FEGg3vB09Jp5jHLdzY8LNcVhknls2Dmz_AVanmSDCHTrxOBU4C7s6JKCyjfKFk1E28wMRDM5wqmjpOzvatAvPD8fprX0GhZ8oiteKclIyIprlTmb6qS3VKJo5QNGbPv1Jx92IBApmDcZtpQP4ntrHFTGpXP_nO-z41knG0d_A9VBUIDB-NTK1M5UXcMfQzbV03rxbe44viUNYfeEoHRO1V7_nXQJGk7Np-sDnh05dfa_DHssTXB08P2A2ik7B9uxpopN5K9Hur9DrMNbTcw"
+            },
+            "tests": []
+        },
+        {
+            "_id": "09620b2b-8396-4cc2-8ece-1164ac954961",
+            "colId": "8e440715-7930-4210-aa7c-a41348812297",
+            "containerId": "00f78059-6166-4676-8681-a5d03692d747",
+            "name": "Edit User with Edit Password",
+            "url": "http://localhost:8000/api/users/27",
+            "method": "PUT",
+            "sortNum": 10000,
+            "created": "2023-06-15T07:26:05.211Z",
+            "modified": "2023-06-15T07:27:45.335Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"email\": \"antho@player.com\", \n  \"roles\": [\"ROLE_PLAYER\"],\n  \"password\":\"Bb1!\",\n  \"pseudo\": \"Anthony\",\n  \"avatar\": \"\"\n}\n",
+                "form": []
+            },
+            "auth": {
+                "type": "bearer",
+                "bearer": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpYXQiOjE2ODY4MTI4ODAsImV4cCI6MTY4Njg3NzY4MCwicm9sZXMiOlsiUk9MRV9BRE1JTiIsIlJPTEVfUExBWUVSIl0sInVzZXJuYW1lIjoiYW50aG9ueUBhZG1pbi5jb20ifQ.jxZ7cBc8GUXYfn_kADTKB6Oh0jNp2hlPw7-mu_bRKWL4_HwF6J7oLo5lyNgH-TObnRVCH7t_uFLD-UWxuL3sZckKR34SwvSmjgXa9VZPUEUXIeKdFKLKvbE0irzDI3M_CxpxDzQif2UcMCa-AqIRBviGGzP5DC12HGcOn0djWW2h_l_uTCfwaoQb7r4r5YMho2xu9wnyvq_PF8UmHNMVbdPeBpIEAo50F4Xi3f76wO_zlwTUSl-2nuUnl_kSBxcVWRm1rLO1CN2bgTDHBNX440f9zFmCloSpo0KeKysSiUt4E-rZiM_2xC6WpVSK1SdRDSqOHXHQICJ3ds1k2LcV_w"
+            },
+            "tests": []
+        },
+        {
+            "_id": "b708eccc-061a-4864-a3be-bb1c9368e0b3",
+            "colId": "8e440715-7930-4210-aa7c-a41348812297",
+            "containerId": "1356802f-3833-4060-bf79-ff73d250490b",
+            "name": "http://localhost:8000/api/users/26",
+            "url": "http://localhost:8000/api/users/26",
+            "method": "DELETE",
+            "sortNum": 10000,
+            "created": "2023-06-15T07:30:18.094Z",
+            "modified": "2023-06-15T07:30:53.881Z",
+            "headers": [],
+            "params": [],
+            "auth": {
+                "type": "bearer",
+                "bearer": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpYXQiOjE2ODY4MTI4ODAsImV4cCI6MTY4Njg3NzY4MCwicm9sZXMiOlsiUk9MRV9BRE1JTiIsIlJPTEVfUExBWUVSIl0sInVzZXJuYW1lIjoiYW50aG9ueUBhZG1pbi5jb20ifQ.jxZ7cBc8GUXYfn_kADTKB6Oh0jNp2hlPw7-mu_bRKWL4_HwF6J7oLo5lyNgH-TObnRVCH7t_uFLD-UWxuL3sZckKR34SwvSmjgXa9VZPUEUXIeKdFKLKvbE0irzDI3M_CxpxDzQif2UcMCa-AqIRBviGGzP5DC12HGcOn0djWW2h_l_uTCfwaoQb7r4r5YMho2xu9wnyvq_PF8UmHNMVbdPeBpIEAo50F4Xi3f76wO_zlwTUSl-2nuUnl_kSBxcVWRm1rLO1CN2bgTDHBNX440f9zFmCloSpo0KeKysSiUt4E-rZiM_2xC6WpVSK1SdRDSqOHXHQICJ3ds1k2LcV_w"
             },
             "tests": []
         },
@@ -138,6 +193,29 @@
             "tests": []
         },
         {
+            "_id": "5c3cd8e3-9fdc-46e6-bf85-3b87df805e75",
+            "colId": "8e440715-7930-4210-aa7c-a41348812297",
+            "containerId": "00f78059-6166-4676-8681-a5d03692d747",
+            "name": "Edit User without Password",
+            "url": "http://localhost:8000/api/users/27",
+            "method": "PUT",
+            "sortNum": 20000,
+            "created": "2023-06-15T07:26:21.851Z",
+            "modified": "2023-06-15T07:27:47.079Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"email\": \"antho@player.com\", \n  \"roles\": [\"ROLE_PLAYER\"],\n  \"pseudo\": \"Anthony\",\n  \"avatar\": \"\"\n}\n",
+                "form": []
+            },
+            "auth": {
+                "type": "bearer",
+                "bearer": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpYXQiOjE2ODY4MTI4ODAsImV4cCI6MTY4Njg3NzY4MCwicm9sZXMiOlsiUk9MRV9BRE1JTiIsIlJPTEVfUExBWUVSIl0sInVzZXJuYW1lIjoiYW50aG9ueUBhZG1pbi5jb20ifQ.jxZ7cBc8GUXYfn_kADTKB6Oh0jNp2hlPw7-mu_bRKWL4_HwF6J7oLo5lyNgH-TObnRVCH7t_uFLD-UWxuL3sZckKR34SwvSmjgXa9VZPUEUXIeKdFKLKvbE0irzDI3M_CxpxDzQif2UcMCa-AqIRBviGGzP5DC12HGcOn0djWW2h_l_uTCfwaoQb7r4r5YMho2xu9wnyvq_PF8UmHNMVbdPeBpIEAo50F4Xi3f76wO_zlwTUSl-2nuUnl_kSBxcVWRm1rLO1CN2bgTDHBNX440f9zFmCloSpo0KeKysSiUt4E-rZiM_2xC6WpVSK1SdRDSqOHXHQICJ3ds1k2LcV_w"
+            },
+            "tests": []
+        },
+        {
             "_id": "670b2d01-8365-40f0-b165-0925f7055ffd",
             "colId": "8e440715-7930-4210-aa7c-a41348812297",
             "containerId": "4752b2a9-aa47-48d5-bf74-69f4c3572d30",
@@ -174,7 +252,7 @@
     "settings": {
         "auth": {
             "type": "bearer",
-            "bearer": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpYXQiOjE2ODY3NDc2NzAsImV4cCI6MTY4NjgxMjQ3MCwicm9sZXMiOlsiUk9MRV9BRE1JTiIsIlJPTEVfUExBWUVSIl0sInVzZXJuYW1lIjoiYW50aG9ueUBhZG1pbi5jb20ifQ.IYOefgoVsn5dIt4bKI9S9z6Q8JDD66CDdj4rhPLCnJF3puMWgF43xtbv-7cJvNFQE1y2FKQDJXCjScu-RngpksW-s5rAIy6BQ0m_5ivmrCvSu0aqcgOYwJIx3oMRCirC3iG4g6Ntf4SbV6U-h-HAo1q3W5ZSVMx-RRZiQsPvTr7vjD10mU96bLFabqNTfMNEtmd0wgOBNWPqHxjVNkBpL5nReyCf-rnJ5YA1bHxpX6pWxrp-Z3xYdYAesSVr7xnpnFSuYEW0qUwd-TB1YNqDjtuf5LCV2l5o3EQJ9XRY0ZE3QDCT22kcrb-rsu0fhoxVm23-9sAqVoyZ0Vb_ADnSHg"
+            "bearer": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpYXQiOjE2ODY4MTI4ODAsImV4cCI6MTY4Njg3NzY4MCwicm9sZXMiOlsiUk9MRV9BRE1JTiIsIlJPTEVfUExBWUVSIl0sInVzZXJuYW1lIjoiYW50aG9ueUBhZG1pbi5jb20ifQ.jxZ7cBc8GUXYfn_kADTKB6Oh0jNp2hlPw7-mu_bRKWL4_HwF6J7oLo5lyNgH-TObnRVCH7t_uFLD-UWxuL3sZckKR34SwvSmjgXa9VZPUEUXIeKdFKLKvbE0irzDI3M_CxpxDzQif2UcMCa-AqIRBviGGzP5DC12HGcOn0djWW2h_l_uTCfwaoQb7r4r5YMho2xu9wnyvq_PF8UmHNMVbdPeBpIEAo50F4Xi3f76wO_zlwTUSl-2nuUnl_kSBxcVWRm1rLO1CN2bgTDHBNX440f9zFmCloSpo0KeKysSiUt4E-rZiM_2xC6WpVSK1SdRDSqOHXHQICJ3ds1k2LcV_w"
         }
     }
 }
