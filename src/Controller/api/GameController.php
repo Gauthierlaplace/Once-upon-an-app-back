@@ -195,7 +195,7 @@ class GameController extends CoreApiController
     }
 
     /**
-     * @Route("/api/last/event/{id}", name="app_api_event_boss", requirements={"id"="\d+"}, methods={"GET"})
+     * @Route("/api/last/event/{id}", name="app_api_last_event", requirements={"id"="\d+"}, methods={"GET"})
      */
     public function lastEventBeforeBoss(
         $id,
@@ -228,17 +228,17 @@ class GameController extends CoreApiController
         // * trouver le ending where eventType = $eventTypeBossId
         $endingsBoss = $endingRepository->findEndingBoss($eventTypeBossId);
         // dd($endingsBoss); // * Tout les Endings Boss
-        
+
         foreach ($endingsBoss as $ending) {
             $endingCurrent = $ending->getEvent();
-        //    dump($endingCurrent); // * object Event complet avec uniquement l'id dispo
-           $idEndingCurrent = $endingCurrent->getId();
-        //    dump($idEndingCurrent); // * on récupère uniquement l'id
-           if ($idEndingCurrent == $id) // * Si l'$id(eventA) = l'idEndingCurrent alors on a le bon Event donc on peut récupérer le contenu du bon ending de event_type : Boss
-           {
-            $contentEndingCurrent = $ending->getContent();
-            // dump($contentEndingCurrent);
-           }
+            //    dump($endingCurrent); // * object Event complet avec uniquement l'id dispo
+            $idEndingCurrent = $endingCurrent->getId();
+            //    dump($idEndingCurrent); // * on récupère uniquement l'id
+            if ($idEndingCurrent == $id) // * Si l'$id(eventA) = l'idEndingCurrent alors on a le bon Event donc on peut récupérer le contenu du bon ending de event_type : Boss
+            {
+                $contentEndingCurrent = $ending->getContent();
+                // dump($contentEndingCurrent);
+            }
         }
 
 
@@ -282,4 +282,5 @@ class GameController extends CoreApiController
 
         return $this->json200($data, ["game_last_event_before_boss"]);
     }
+
 }
