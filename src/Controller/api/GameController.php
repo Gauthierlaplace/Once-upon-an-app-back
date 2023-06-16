@@ -133,45 +133,56 @@ class GameController extends CoreApiController
         $eventA = $eventRepository->find($id);
         // dump($eventA);
 
-        // ! Début service (param $eventA)
         $endingsCollection = $eventA->getEndings();
 
         $endingsEventA = $endingsCollection->toArray();
-        // dump($endingsEventA);
+        // dump($endingsEventA); //* tout les endings de l'EventA
 
-        // TODO Exclure les EventType Boss
-        $checkNotBoss = [];
-        function excluderEventType($endingsEventA, EventTypeRepository $eventTypeRepository)
+        // ! Service à Prévoir ?
+        // ! Exclure les EventType Boss
+        function filterEventTypeBoss($endingsEventA, EventTypeRepository $eventTypeRepository)
         {
+            // on explore tout les endings de l'eventA
             foreach ($endingsEventA as $endingEventA) {
-                $eventAtype=$endingEventA->getEventType();
-                dump($eventAtype);
+                // on garde l'id de l'ending en cours
+                $endingEventAId = $endingEventA->getId();
+                // on récupère l'EventType pour chaque
+                $eventAtype = $endingEventA->getEventType();
+                // dump($eventAtype);
+                // on stock l'id de cet eventType
                 $eventATypeId = $eventAtype->getId();
-                dump($eventATypeId);
-                $checkNotBossType = $eventTypeRepository->findBy(['id' => $eventATypeId]);
-                dump($checkNotBossType);
-    
+                // dump($eventATypeId);
+                // on recherche l'objet eventType avec l'id
+                $searchEventTypeWithId = $eventTypeRepository->findBy(['id' => $eventATypeId]);
+                // on le stock dans un tableau
+                $checkNotBossType = $searchEventTypeWithId;
+                // dump($checkNotBossType);
                 foreach ($checkNotBossType as $check) {
-                    $checkName = $check->getName();
-                }
-                // ! Nom d'eventType à exclure ci dessous
-                if ($checkName !== "Boss") {
-                    $checkNotBoss = [$eventATypeId];
-// en cours remplissage des eventTypeID sans Boss
-                    dd($checkNotBoss);
-                    return $checkNotBoss;
-                }else{
-                    return excluderEventType($endingsEventA, $eventTypeRepository);
-                }
+                    $checkIdName = [($endingEventAId) => ($check->getName())];
+                    // dump($checkIdName);
+                    foreach ($checkIdName as $getOutFromList => $EndingNameToBan) {
+                        if ($EndingNameToBan === "Boss") {
+                            $EndingToDelete = $getOutFromList; //* ID de l'élément ending à supprimer dans $endingsEventA
+                            // dump($EndingToDelete);
+                           // on va filtrer $endingsEventA pour retirer tout les endings de type Boss
+                            $filteredEndingsEventA = array_filter($endingsEventA, function ($ending) use ($EndingToDelete) {
+                                // dump($ending->getId() !== $EndingToDelete);
+                                return $ending->getId() !== $EndingToDelete;
+                            });
 
-        };
-
+                            // dd($filteredEndingsEventA);
+                            return $filteredEndingsEventA;
+                        }
+                    }
+                }
+            };
         }
-        excluderEventType($endingsEventA, $eventTypeRepository);
-
-
-        // Random des clés de $endingsEventA pour en garder 2
-        $endingsPicked = array_rand($endingsEventA, 2);
+        // ! Appel de filterEventTypeBoss
+        $cleanedEndingsEventA = filterEventTypeBoss($endingsEventA, $eventTypeRepository);
+        // dump($cleanedEndingsEventA);
+        
+        // Random des clés de $cleanedEndingsEventA pour en garder 2
+        $endingsPicked = array_rand($cleanedEndingsEventA, 2);
         // dd($endingsPicked);
 
         $eventBAndC = [];
@@ -220,8 +231,6 @@ class GameController extends CoreApiController
             'currentEvent' => $eventA,
             'choices' => $choices
         ];
-
-        // ! Fin service (return $data)
 
         return $this->json200($data, ["game_event_roll"]);
     }
@@ -314,5 +323,4 @@ class GameController extends CoreApiController
 
         return $this->json200($data, ["game_last_event_before_boss"]);
     }
-
 }
