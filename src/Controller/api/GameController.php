@@ -201,8 +201,7 @@ class GameController extends CoreApiController
         $id,
         EventRepository $eventRepository,
         EventTypeRepository $eventTypeRepository,
-        EndingRepository $endingRepository,
-        EntityManagerInterface $entityManager
+        EndingRepository $endingRepository
     ): JsonResponse {
 
         // TODO on veut que B et C soient un event de type Boss random
@@ -225,8 +224,8 @@ class GameController extends CoreApiController
         $endingsEventA = $endingsCollection->toArray();
         // dump($endingsEventA); // * Tout les endings de l'eventA
 
-        //! isoler le ending
-        //! trouver le ending where eventType = $eventTypeBossId (5)
+        // * isoler le ending
+        // * trouver le ending where eventType = $eventTypeBossId
         $endingsBoss = $endingRepository->findEndingBoss($eventTypeBossId);
         // dd($endingsBoss); // * Tout les Endings Boss
         
