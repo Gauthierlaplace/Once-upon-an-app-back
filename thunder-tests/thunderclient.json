@@ -83,5 +83,19 @@
       "form": []
     },
     "tests": []
+  },
+  {
+    "_id": "d7b395bf-de72-4c37-92b4-07125df5ce49",
+    "colId": "2aacea7d-ba46-499a-a7e5-19bd6c291fd4",
+    "containerId": "696e7432-4428-401e-a452-20d90a1012b9",
+    "name": "http://localhost:8082/api/play",
+    "url": "http://localhost:8082/api/play",
+    "method": "GET",
+    "sortNum": 60000,
+    "created": "2023-06-15T15:12:01.425Z",
+    "modified": "2023-06-15T15:12:01.425Z",
+    "headers": [],
+    "params": [],
+    "tests": []
   }
 ]

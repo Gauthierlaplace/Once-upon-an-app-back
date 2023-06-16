@@ -20,32 +20,32 @@ class Event
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
-     * @Groups({"game_start"})
+     * @Groups({"game_start", "game_event_roll", "game_last_event_before_boss"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
      * @Assert\NotBlank(message="Le champ Titre de l'évènement ne peut pas être vide")
-     * @Groups({"game_start"})
+     * @Groups({"game_start", "game_event_roll", "game_last_event_before_boss"})
      */
     private $title;
 
     /**
      * @ORM\Column(type="text", nullable=true)
-     * @Groups({"game_start"})
+     * @Groups({"game_start", "game_event_roll", "game_last_event_before_boss"})
      */
     private $description;
 
     /**
      * @ORM\Column(type="text", nullable=true)
-     * @Groups({"game_start"})
+     * @Groups({"game_start", "game_event_roll", "game_last_event_before_boss"})
      */
     private $opening;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
-     * @Groups({"game_start"})
+     * @Groups({"game_start", "game_event_roll", "game_last_event_before_boss"})
      */
     private $picture;
 

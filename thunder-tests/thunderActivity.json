@@ -235,5 +235,19 @@
       "form": []
     },
     "tests": []
+  },
+  {
+    "_id": "8f27cc53-5a11-4051-8025-51c22cc51ce3",
+    "colId": "history",
+    "containerId": "",
+    "name": "http://localhost:8082/api/play",
+    "url": "http://localhost:8082/api/play",
+    "method": "GET",
+    "sortNum": 0,
+    "created": "2023-06-15T15:11:41.062Z",
+    "modified": "2023-06-15T15:11:41.062Z",
+    "headers": [],
+    "params": [],
+    "tests": []
   }
 ]
