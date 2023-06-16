@@ -2,7 +2,10 @@
 
 namespace App\Controller\api;
 
+use App\Repository\EndingRepository;
 use App\Repository\EventRepository;
+use App\Repository\EventTypeRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -129,8 +132,6 @@ class GameController extends CoreApiController
         $eventA = $eventRepository->find($id);
         // dump($eventA);
 
-
-
         // ! Début service (param $eventA)
         $endingsCollection = $eventA->getEndings();
 
@@ -191,5 +192,95 @@ class GameController extends CoreApiController
         // ! Fin service (return $data)
 
         return $this->json200($data, ["game_event_roll"]);
+    }
+
+    /**
+     * @Route("/api/last/event/{id}", name="app_api_event_boss", requirements={"id"="\d+"}, methods={"GET"})
+     */
+    public function lastEventBeforeBoss(
+        $id,
+        EventRepository $eventRepository,
+        EventTypeRepository $eventTypeRepository,
+        EndingRepository $endingRepository,
+        EntityManagerInterface $entityManager
+    ): JsonResponse {
+
+        // TODO on veut que B et C soient un event de type Boss random
+        // Il faut select l'event_type "Boss" et on prendre 2 event random Boss
+
+        $eventA = $eventRepository->find($id);
+        // dump($eventA);
+        // * On garde l'event classic en ouverture, mais il aura en choices 2 event random de event_type "Boss"
+
+        $eventTypeBoss = $eventTypeRepository->findBy(['name' => "Boss"]);
+        // dump($eventTypeBoss); // * eventType Boss complet
+        foreach ($eventTypeBoss as $eventType) {
+            $eventTypeBossId = $eventType->getId(); // * on stock l'id
+        }
+        // dump($eventTypeBossId);
+
+        // Récupération ending Boss de l'eventA
+        $endingsCollection = $eventA->getEndings();
+        // dd($endingsCollection);
+        $endingsEventA = $endingsCollection->toArray();
+        // dump($endingsEventA); // * Tout les endings de l'eventA
+
+        //! isoler le ending
+        //! trouver le ending where eventType = $eventTypeBossId (5)
+        $endingsBoss = $endingRepository->findEndingBoss($eventTypeBossId);
+        // dd($endingsBoss); // * Tout les Endings Boss
+        
+        foreach ($endingsBoss as $ending) {
+            $endingCurrent = $ending->getEvent();
+        //    dump($endingCurrent); // * object Event complet avec uniquement l'id dispo
+           $idEndingCurrent = $endingCurrent->getId();
+        //    dump($idEndingCurrent); // * on récupère uniquement l'id
+           if ($idEndingCurrent == $id) // * Si l'$id(eventA) = l'idEndingCurrent alors on a le bon Event donc on peut récupérer le contenu du bon ending de event_type : Boss
+           {
+            $contentEndingCurrent = $ending->getContent();
+            // dump($contentEndingCurrent);
+           }
+        }
+
+
+        $eventsBoss = $eventRepository->findBy(['eventType' => $eventTypeBossId]);
+        // dump($eventsBoss);
+        // on a ici les 3 eventBoss
+        //on en veut 2
+        $eventBossPicked = array_rand($eventsBoss, 2);
+        // dump($eventBossPicked);
+
+        $arrayBossData = [];
+        foreach ($eventBossPicked as $key => $eventsBossKey) {
+            $pickedBossEvent = $eventsBoss[$eventsBossKey];
+
+            $arrayBossData[] = $pickedBossEvent;
+        }
+        // dump($arrayBossData);
+
+        $dataForFront = [];
+        foreach ($arrayBossData as $event) {
+            $id = $event->getId();
+            // dump($id);
+            $opening = $event->getOpening();
+            // dump($opening);
+            $dataForFront[] = [
+                "Id" => $id,
+                "Opening" => $opening
+            ];
+        }
+        // dump($dataForFront);
+
+        // ! Préparation des Data souhaitées pour envoyer en Json
+
+        $data = [
+            'currentEvent' => $eventA,
+            'currentEvent-Ending' => $contentEndingCurrent,
+            'BossA' => $dataForFront[0],
+            'BossB' => $dataForFront[1]
+        ];
+        // dump($data);
+
+        return $this->json200($data, ["game_last_event_before_boss"]);
     }
 }
