@@ -126,7 +126,8 @@ class GameController extends CoreApiController
      */
     public function eventRoll(
         $id,
-        EventRepository $eventRepository
+        EventRepository $eventRepository,
+        EventTypeRepository $eventTypeRepository
     ): JsonResponse {
 
         $eventA = $eventRepository->find($id);
@@ -138,9 +139,40 @@ class GameController extends CoreApiController
         $endingsEventA = $endingsCollection->toArray();
         // dump($endingsEventA);
 
+        // TODO Exclure les EventType Boss
+        $checkNotBoss = [];
+        function excluderEventType($endingsEventA, EventTypeRepository $eventTypeRepository)
+        {
+            foreach ($endingsEventA as $endingEventA) {
+                $eventAtype=$endingEventA->getEventType();
+                dump($eventAtype);
+                $eventATypeId = $eventAtype->getId();
+                dump($eventATypeId);
+                $checkNotBossType = $eventTypeRepository->findBy(['id' => $eventATypeId]);
+                dump($checkNotBossType);
+    
+                foreach ($checkNotBossType as $check) {
+                    $checkName = $check->getName();
+                }
+                // ! Nom d'eventType à exclure ci dessous
+                if ($checkName !== "Boss") {
+                    $checkNotBoss = [$eventATypeId];
+// en cours remplissage des eventTypeID sans Boss
+                    dd($checkNotBoss);
+                    return $checkNotBoss;
+                }else{
+                    return excluderEventType($endingsEventA, $eventTypeRepository);
+                }
+
+        };
+
+        }
+        excluderEventType($endingsEventA, $eventTypeRepository);
+
+
         // Random des clés de $endingsEventA pour en garder 2
         $endingsPicked = array_rand($endingsEventA, 2);
-        // dump($endingsPicked);
+        // dd($endingsPicked);
 
         $eventBAndC = [];
         $endingForFront = [];
