@@ -94,7 +94,7 @@ class GameController extends CoreApiController
         // $eventB[] = $choices[0];
         // $eventB[] = $choices[2];
         // $eventB[] = $choices[3];
-        
+
         // $eventC[] = $choices[1];
         // $eventC[] = $choices[4];
         // $eventC[] = $choices[5];
@@ -116,5 +116,80 @@ class GameController extends CoreApiController
         //     'eventB1andC2' => $eventBAndC
         // ];
         // return $this->json200($data, ["game_start"]);
+    }
+
+    /**
+     * @Route("/api/event/roll/{id}", name="app_api_event_roll", requirements={"id"="\d+"}, methods={"GET"})
+     */
+    public function eventRoll(
+        $id,
+        EventRepository $eventRepository
+    ): JsonResponse {
+
+        $eventA = $eventRepository->find($id);
+        // dump($eventA);
+
+
+
+        // ! Début service (param $eventA)
+        $endingsCollection = $eventA->getEndings();
+
+        $endingsEventA = $endingsCollection->toArray();
+        // dump($endingsEventA);
+
+        // Random des clés de $endingsEventA pour en garder 2
+        $endingsPicked = array_rand($endingsEventA, 2);
+        // dump($endingsPicked);
+
+        $eventBAndC = [];
+        $endingForFront = [];
+        foreach ($endingsPicked as $key => $endingsEventAKey) { // * on boucle sur les 2 endings récupéré aléatoirement
+
+            $oneEnding = $endingsEventA[$endingsEventAKey]; // * on récupère chaque ending
+            // dump($oneEnding);
+            $endingForFront[] = $oneEnding; // * on stock les deux endings dans un array $endingForFront
+
+            $collectionEventType = $oneEnding->getEventType(); // * pour chaque ending, on récupère son event_type
+            // dump($collectionEventType);
+
+            $eventTypeId = $collectionEventType->getId(); // * pour chaque event_type, on récupère son id
+            // dump($eventTypeId);
+
+            $events = $eventRepository->findBy(['eventType' => $eventTypeId]); // * récupération de tout les events correspondant à $eventTypeId
+            // dump($events);
+
+            $eventPicked = array_rand($events, 1); // * on récupère la clé de l'event choisi aléatoirement
+            // dump($eventPicked);
+
+            $eventBAndC[] = $events[$eventPicked]; // * on stock l'event qui la clé $eventPicked dans un array $eventBAndC
+        }
+        // dd($eventBAndC);
+        // ! Sortie de boucle, préparation des Data souhaitées pour envoyer en Json
+        $ending1 = $endingForFront[0];
+        $ending2 = $endingForFront[1];
+        $event1 = $eventBAndC[0];
+        $event2 = $eventBAndC[1];
+
+        $choices = [
+            0 => [
+                'ending' => $ending1->getContent(),
+                'nextEventId' => $event1->getId(),
+                'nextEventOpening' => $event1->getOpening()
+            ],
+            1 => [
+                'ending' => $ending2->getContent(),
+                'nextEventId' => $event2->getId(),
+                'nextEventOpening' => $event2->getOpening()
+            ],
+        ];
+
+        $data = [
+            'currentEvent' => $eventA,
+            'choices' => $choices
+        ];
+
+        // ! Fin service (return $data)
+
+        return $this->json200($data, ["game_event_roll"]);
     }
 }
