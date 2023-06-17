@@ -20,7 +20,7 @@ class GameController extends CoreApiController
         // Arrivée Event Départ du Biome 1 , 1er noeud de choix d'ending
         // un random EventA Départ + opening de 2 random Event(BetC)de event_type issue de la table ending de l' EventA
 
-        $biomeStart = "Départ Biome 1";
+        $biomeStart = "L'Arche de Verdure";
         $eventA = $eventRepository->findEventA($biomeStart);
         // dump($eventA);
 
