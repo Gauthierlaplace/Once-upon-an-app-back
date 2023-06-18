@@ -1,7 +1,7 @@
 {
     "client": "Thunder Client",
     "collectionName": "Adventure RPG",
-    "dateExported": "2023-06-16T13:57:44.002Z",
+    "dateExported": "2023-06-18T19:17:22.976Z",
     "version": "1.1",
     "folders": [
         {
@@ -241,11 +241,11 @@
             "colId": "8e440715-7930-4210-aa7c-a41348812297",
             "containerId": "c497e769-255d-4aef-ac90-946b72c1c431",
             "name": "Event Roll",
-            "url": "http://localhost:8000/api/event/roll/10",
+            "url": "http://localhost:8000/api/event/roll/9",
             "method": "GET",
             "sortNum": 20000,
             "created": "2023-06-16T08:02:09.899Z",
-            "modified": "2023-06-16T08:24:00.762Z",
+            "modified": "2023-06-16T20:18:44.188Z",
             "headers": [],
             "params": [],
             "tests": []
@@ -292,7 +292,21 @@
             "method": "GET",
             "sortNum": 30000,
             "created": "2023-06-16T09:16:13.599Z",
-            "modified": "2023-06-16T13:32:07.066Z",
+            "modified": "2023-06-18T12:52:32.443Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "6fabb0c4-65ce-4c25-9006-2cc6036d0937",
+            "colId": "8e440715-7930-4210-aa7c-a41348812297",
+            "containerId": "c497e769-255d-4aef-ac90-946b72c1c431",
+            "name": "Event Boss with [Opening and Id] de Fin de Biome",
+            "url": "http://localhost:8000/api/event/boss/14",
+            "method": "GET",
+            "sortNum": 40000,
+            "created": "2023-06-18T12:43:14.143Z",
+            "modified": "2023-06-18T12:43:14.143Z",
             "headers": [],
             "params": [],
             "tests": []
@@ -301,7 +315,7 @@
     "settings": {
         "auth": {
             "type": "bearer",
-            "bearer": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpYXQiOjE2ODY4OTg2NDMsImV4cCI6MTY4Njk2MzQ0Mywicm9sZXMiOlsiUk9MRV9BRE1JTiIsIlJPTEVfUExBWUVSIl0sInVzZXJuYW1lIjoiYW50aG9ueUBhZG1pbi5jb20ifQ.zRCqAv9mRCjz1kQRhInuV2G7r0rQR0gwprfgOESShLr5iJ4TS8cvxjtBzPxEzL4HjEyPfM_3rbeZk33Yt-6JLp3BIsEGj4ZiNqiMmc-13rTnldzlEcV0NgYJBzlDrxQ5GhdQa4H2b1V-MSq55wGVYw9X1HJ2QbzAQnQydcoH-6TBKxQ5nQa6dP1B9OelOYltNeucUxjJByNiuOKHb7dGoG7VsO29F3u13qyahpLdRnkefnlAAEby32d7lmzLM4KBysH3zb-Xao8vnjCDj5d8WytMkj4vuiWwBctBIMfJK075a5Or7Y15-dddZSCbPx3iT9gg-Mz_IE3naUVMUcdfLw"
+            "bearer": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpYXQiOjE2ODcwOTIyMDUsImV4cCI6MTY4NzE1NzAwNSwicm9sZXMiOlsiUk9MRV9BRE1JTiIsIlJPTEVfUExBWUVSIl0sInVzZXJuYW1lIjoiYW50aG9ueUBhZG1pbi5jb20ifQ.RPL-8ob4El__po1HkWcmnmjkHjz3G0NTqLVLNQ00I7oTs1HKoFUiz6Qy0wyPrPkUupZGQxyzewyJfMVxVVcUDI2lgX647iFBbrIe_oMPGiLCrEhxK1iJ1B172G-M43zqO54enxaa-TGyWNpKpyobpaicZuk9a1o5JfLTlqrX4YfHIMHT12v5IaRvuWqQ4FOCiPPwP5UPgaAiyqUfEBsPNPiyRfSazXpY8YpbGB-fkHx1hJ8w0q2BEAxIf61kiKs2g8iLej0cpOVkMOSNDWcLS_3Rq0r90xAZPjjBB4tOdiFQxUwUZ8tBeHtXrod4kn-UN8nyVL203W50CVKZVSLahA"
         }
     }
 }
