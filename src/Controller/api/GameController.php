@@ -139,7 +139,7 @@ class GameController extends CoreApiController
         // dump($endingsEventA); //* tout les endings de l'EventA
 
         // ! Service à Prévoir ?
-        // ! Exclure les EventType Boss
+        // ! Exclure les EventType Boss de la pool de pick random eventType
         function filterEventTypeBoss($endingsEventA, EventTypeRepository $eventTypeRepository)
         {
             // on explore tout les endings de l'eventA
@@ -164,7 +164,7 @@ class GameController extends CoreApiController
                         if ($EndingNameToBan === "Boss") {
                             $EndingToDelete = $getOutFromList; //* ID de l'élément ending à supprimer dans $endingsEventA
                             // dump($EndingToDelete);
-                           // on va filtrer $endingsEventA pour retirer tout les endings de type Boss
+                            // on va filtrer $endingsEventA pour retirer tout les endings de type Boss
                             $filteredEndingsEventA = array_filter($endingsEventA, function ($ending) use ($EndingToDelete) {
                                 // dump($ending->getId() !== $EndingToDelete);
                                 return $ending->getId() !== $EndingToDelete;
@@ -180,7 +180,7 @@ class GameController extends CoreApiController
         // ! Appel de filterEventTypeBoss
         $cleanedEndingsEventA = filterEventTypeBoss($endingsEventA, $eventTypeRepository);
         // dump($cleanedEndingsEventA);
-        
+
         // Random des clés de $cleanedEndingsEventA pour en garder 2
         $endingsPicked = array_rand($cleanedEndingsEventA, 2);
         // dd($endingsPicked);
