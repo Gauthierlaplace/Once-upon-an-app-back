@@ -20,6 +20,7 @@ Dans ce fichier, placer
 DATABASE_URL="mysql://rpg:rpg@127.0.0.1:3306/rpg?serverVersion=mariadb-10.3.25&charset=utf8mb4"
 ```
 
+
 ## 2 Remise en place de la BDD en local avec ses données
 
 ##### Dans Adminer :
@@ -28,6 +29,7 @@ Créer une nouvelle database nommé `rpg` avec un nouvel utilisateur `rpg`ayant 
 ### Dans le terminal :
 ##### Construire l'architecture de la BDD
 
+
 ```bash
 bin/console doctrine:migrations:migrate  
 ```
@@ -35,6 +37,7 @@ puis
 ```bash
 Y
 ```
+
 
 ##### Charger les données en BDD
 ```bash
@@ -52,5 +55,4 @@ http://anthony-boutherin.vpnuser.lan:8000/api/login_check
 
 http://anthony-boutherin.vpnuser.lan:8000/api/test
 ```
-
 
