@@ -121,42 +121,42 @@ CREATE TABLE `ending` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 INSERT INTO `ending` (`id`, `content`, `event_id`, `event_type_id`) VALUES
-(1,	'Vous quittez l\'abri de l\'arbre centenaire, sentant que des présences curieuses vous observent.',	1,	2),
-(2,	'Vous vous éloignez de cet endroit. L\'écho d\'un grondement lointain résonne dans l\'air.',	1,	3),
-(3,	'Vous prenez congé du grand arbre. Le vent murmure des légendes d\'anciens combats épiques.',	1,	4),
-(4,	'Vous vous éloignez de la cascade étincelante, percevant un frôlement fugace sur votre épaule.',	2,	2),
-(5,	'Vous vous écartez de la cascade argentée et des éclats de l\'eau qui dansent avec fureur.',	2,	3),
-(6,	'Alors que vous quittez la cascade impétueuse, une brume épaisse s\'élève des eaux tumultueuses.',	2,	4),
-(7,	'Vous poursuivez. Ce sentier mélodieux vous guide-t-il vers quelqu\'un ?',	3,	2),
-(8,	'Quand vous vous éloignez du sentier, une tension électrique éveille votre instinct de guerrier.',	3,	3),
-(9,	'Vous quittez le sentier enchanteur. Votre cœur bat au rythme des mystères et des dangers de la forêt.',	3,	4),
-(10,	'Vous vous éloignez des champignons lumineux, avide de contrées très paisibles.',	4,	1),
-(11,	'Vous délaissez les champignons étranges pour vous enfoncer dans les profondeurs de la foret.',	4,	3),
-(12,	'Vous vous détournez de cet oasis féerique, animé par une détermination inébranlable.',	4,	4),
-(13,	'Vous cherchez un endroit plus serein, lassé des vieilles pierres.',	5,	1),
-(14,	'Vous abandonnez les ruines décrépites, animé par une soif d\'action.',	5,	3),
-(15,	'Une lueur d\'intrépidité brille dans vos yeux alors que vous vous éloignez.',	5,	4),
-(16,	'Vous quittez la clairière enchantée et profitez de la tranquillité de la nature environnante.',	6,	1),
-(17,	'Vous abandonnez les symboles runiques et vous sentez fatigué. Il en faudrait peu pour que vous perdiez votre sang froid...',	6,	3),
-(18,	'Vous quittez la clairière sacrée, prêt à défier des puissances redoutables.',	6,	4),
-(19,	'Vous partez loin des visions tourbillonnantes qui habitent ces lieux mystiques.',	7,	1),
-(20,	'Vous quittez le cercle sacré, pressé de raconter cela à quiconque croiserait votre route.',	7,	2),
-(21,	'Vous ne ressentez plus aucune crainte ni hésitation en quittant ce lieu de bataille.',	7,	4),
-(22,	'Épuisé, vous vous éloignez au plus vite de ces murmures mystérieux.',	8,	1),
-(23,	'Alors que vous vous écartez de la gorge, vous sentez que vous auriez besoin d\'un peu de compagnie.',	8,	2),
-(24,	'Vous laissez la ravine derrière vous, prêt à repousser les limites de votre courage.',	8,	4),
-(25,	'Vous fuyez au calme, loin de ces arachnides fascinantes et imprévisibles.',	9,	1),
-(26,	'Alors que vous quittez l\'espace enchanté, vous rêvez d\'un rebondissement inattendu.',	9,	2),
-(27,	'Vous vous écartez du réseau complexe des araignées géantes. Après ça, il va falloir faire fort pour vous effrayer.',	9,	4),
-(28,	'Vous partez loin des lueurs mystérieuses qui hantent ces lieux terrifiants.',	10,	1),
-(29,	'Vous quittez l\'étang, rêvant d\'une rencontre réconfortante pour guérir vos blessures physiques et émotionnelles.',	10,	2),
-(30,	'Votre regard se durcit, vous ne craignez plus aucune créature mystérieuse.',	10,	3),
-(31,	'Vous ressentez le besoin viscéral de laisser derrière vous ces ténèbres oppressantes.',	11,	1),
-(32,	'Vous détournez le regard de l\'entrée béante, priant pour croiser enfin une figure amie qui dissiperait les ombres de votre esprit.',	11,	2),
-(33,	'Vos muscles se contractent alors que vous quittez l\'obscurité. Vous vous souviendrez qu\'il faut toujours se tenir prêt.',	11,	3),
-(34,	'Vous soufflez lentement en laissant derrière vous l\'oppression de ces racines sinistres.',	12,	1),
-(35,	'Une lueur d\'espoir brille dans vos yeux alors que vous progressez en dehors des pièges végétaux.',	12,	2),
-(36,	'Invincible face aux tortueuses racines qui voudraient vous ralentir, vous conservez votre entrain.',	12,	3);
+(1,	'Vous quittez l\'abri de l\'arbre centenaire, sentant que des présences curieuses vous observent.',	1,	3),
+(2,	'Vous vous éloignez de cet endroit. L\'écho d\'un grondement lointain résonne dans l\'air.',	1,	1),
+(3,	'Vous prenez congé du grand arbre. Le vent murmure des légendes d\'anciens combats épiques.',	1,	5),
+(4,	'Vous vous éloignez de la cascade étincelante, percevant un frôlement fugace sur votre épaule.',	2,	3),
+(5,	'Vous vous écartez de la cascade argentée et des éclats de l\'eau qui dansent avec fureur.',	2,	1),
+(6,	'Alors que vous quittez la cascade impétueuse, une brume épaisse s\'élève des eaux tumultueuses.',	2,	5),
+(7,	'Vous poursuivez. Ce sentier mélodieux vous guide-t-il vers quelqu\'un ?',	3,	3),
+(8,	'Quand vous vous éloignez du sentier, une tension électrique éveille votre instinct de guerrier.',	3,	1),
+(9,	'Vous quittez le sentier enchanteur. Votre cœur bat au rythme des mystères et des dangers de la forêt.',	3,	5),
+(10,	'Vous vous éloignez des champignons lumineux, avide de contrées très paisibles.',	4,	2),
+(11,	'Vous délaissez les champignons étranges pour vous enfoncer dans les profondeurs de la foret.',	4,	1),
+(12,	'Vous vous détournez de cet oasis féerique, animé par une détermination inébranlable.',	4,	5),
+(13,	'Vous cherchez un endroit plus serein, lassé des vieilles pierres.',	5,	2),
+(14,	'Vous abandonnez les ruines décrépites, animé par une soif d\'action.',	5,	1),
+(15,	'Une lueur d\'intrépidité brille dans vos yeux alors que vous vous éloignez.',	5,	5),
+(16,	'Vous quittez la clairière enchantée et profitez de la tranquillité de la nature environnante.',	6,	2),
+(17,	'Vous abandonnez les symboles runiques et vous sentez fatigué. Il en faudrait peu pour que vous perdiez votre sang froid...',	6,	1),
+(18,	'Vous quittez la clairière sacrée, prêt à défier des puissances redoutables.',	6,	5),
+(19,	'Vous partez loin des visions tourbillonnantes qui habitent ces lieux mystiques.',	7,	2),
+(20,	'Vous quittez le cercle sacré, pressé de raconter cela à quiconque croiserait votre route.',	7,	3),
+(21,	'Vous ne ressentez plus aucune crainte ni hésitation en quittant ce lieu de bataille.',	7,	5),
+(22,	'Épuisé, vous vous éloignez au plus vite de ces murmures mystérieux.',	8,	2),
+(23,	'Alors que vous vous écartez de la gorge, vous sentez que vous auriez besoin d\'un peu de compagnie.',	8,	3),
+(24,	'Vous laissez la ravine derrière vous, prêt à repousser les limites de votre courage.',	8,	5),
+(25,	'Vous fuyez au calme, loin de ces arachnides fascinantes et imprévisibles.',	9,	2),
+(26,	'Alors que vous quittez l\'espace enchanté, vous rêvez d\'un rebondissement inattendu.',	9,	3),
+(27,	'Vous vous écartez du réseau complexe des araignées géantes. Après ça, il va falloir faire fort pour vous effrayer.',	9,	5),
+(28,	'Vous partez loin des lueurs mystérieuses qui hantent ces lieux terrifiants.',	10,	2),
+(29,	'Vous quittez l\'étang, rêvant d\'une rencontre réconfortante pour guérir vos blessures physiques et émotionnelles.',	10,	3),
+(30,	'Votre regard se durcit, vous ne craignez plus aucune créature mystérieuse.',	10,	1),
+(31,	'Vous ressentez le besoin viscéral de laisser derrière vous ces ténèbres oppressantes.',	11,	2),
+(32,	'Vous détournez le regard de l\'entrée béante, priant pour croiser enfin une figure amie qui dissiperait les ombres de votre esprit.',	11,	3),
+(33,	'Vos muscles se contractent alors que vous quittez l\'obscurité. Vous vous souviendrez qu\'il faut toujours se tenir prêt.',	11,	1),
+(34,	'Vous soufflez lentement en laissant derrière vous l\'oppression de ces racines sinistres.',	12,	2),
+(35,	'Une lueur d\'espoir brille dans vos yeux alors que vous progressez en dehors des pièges végétaux.',	12,	3),
+(36,	'Invincible face aux tortueuses racines qui voudraient vous ralentir, vous conservez votre entrain.',	12,	1);
 
 DROP TABLE IF EXISTS `event`;
 CREATE TABLE `event` (
@@ -175,18 +175,18 @@ CREATE TABLE `event` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 INSERT INTO `event` (`id`, `title`, `description`, `opening`, `picture`, `event_type_id`, `biome_id`) VALUES
-(1,	'L\'Arche de Verdure',	'Vous découvrez un immense arbre centenaire aux branches étendues en arc, formant un abri naturel en son centre. Les rayons du soleil filtrent à travers les feuilles, créant un kaléidoscope de couleurs et un refuge paisible pour les voyageurs égarés.',	'Vous apercevez un rayon de soleil filtrant à travers les feuilles, attirant votre attention vers un immense arbre centenaire.',	'https://cdn.discordapp.com/attachments/1114521519893254195/1117496613590540369/rahkart_generate_an_image_that_depicts_a_captivating_scene_insp_fc6c8418-6cfd-4ead-8cde-1e5fa0a8af74.png',	1,	1),
-(2,	'Les Chutes Argentées',	'Vous arrivez devant une cascade impétueuse qui dévale des falaises rocheuses, projetant des éclats d\'eau qui brillent comme de l\'argent au soleil. L\'endroit est réputé pour ses propriétés curatives et sa beauté éblouissante.',	'Votre oeil est attiré au loin par l\'éclat argenté d\'une cascade impétueuse, dévalant des falaises rocheuses.',	'https://cdn.discordapp.com/attachments/1114521519893254195/1117497319902937128/rahkart_generate_an_image_that_depicts_a_captivating_scene_insp_17594541-24d6-4700-966a-63fb701f4155.png',	1,	1),
-(3,	'Le Chemin du Murmure',	'Vous empruntez un sentier caressé par une douce brise, où les feuilles des arbres murmurent des secrets à ceux qui les écoutent attentivement. Chaque pas révèle une nouvelle mélodie, créant une symphonie naturelle qui berce les âmes en quête de tranquillité.',	'Vous réalisé que le bruissement des feuilles a changé. Comme si elles cherchaient à vous parler...',	'https://cdn.discordapp.com/attachments/1114521519893254195/1117489786043764796/rahkart_generate_an_image_that_depicts_a_captivating_scene_insp_40e80c62-acb7-4637-9f90-38a0e75c019d.png',	1,	1),
-(4,	'Le Cercle des Champignons',	'Vous pénétrez dans une clairière entourée d\'immenses champignons colorés aux formes étranges. Chaque champignon émet une lueur douce, créant une ambiance féerique. C\'est un lieu de rassemblement pour les créatures magiques et les amateurs de potions.',	'Un peu plus loin, d\'immenses champignons colorés aux formes étranges attirent votre curiosité.',	'https://cdn.discordapp.com/attachments/1114521519893254195/1117494079635337256/rahkart_generate_an_image_with_a_concise_brush_technique_that_d_03a01f8f-eeea-4634-8538-7556f43c2ff7.png',	2,	1),
-(5,	'Les Ruines Perdues',	'Vous découvrez les ruines d\'une ancienne cité dissimulées au sein de la forêt, envahies par la végétation. Des colonnes brisées et des sculptures effacées témoignent d\'une grandeur passée.',	'Vous avancez et buttez sur une pierre qui ne ressemble pas aux autres cailloux de la forêt.',	'https://cdn.discordapp.com/attachments/1114521519893254195/1117490877250666546/rahkart_generate_an_image_that_depicts_a_captivating_scene_insp_f39b9d4a-f51b-44fc-83d3-b036f114786b.png',	2,	1),
-(6,	'La Clairière des Runes',	'Vous vous tenez au centre d\'une clairière sacrée où d\'anciens symboles runiques sont gravés dans le sol. Chaque rune renferme un pouvoir unique et une signification mystique, attirant les praticiens de la magie qui cherchent à interpréter leur sagesse.',	'Votre attention est attirée par d\'étranges symboles gravés dans le sol. Ils semblent indiquer une route à suivre.',	'https://cdn.discordapp.com/attachments/1114521519893254195/1117492488425455647/rahkart_generate_an_image_with_a_concise_brush_technique_that_d_351f5532-7b73-49de-b609-79ab97200f9c.png',	2,	1),
-(7,	'Le Sanctuaire des Anciens',	'Vous arrivez devant un cercle sacré de pierres dressées, entouré d\'arbres millénaires. C\'est un lieu de communion avec les esprits de la forêt, mais il vous semble chargé d\'une tension mystique.',	'Les pierres qui vous entourent ne sont pas placées au hasard. Vous avancez, curieux d\'en savoir plus.',	'https://cdn.discordapp.com/attachments/1114521519893254195/1117495294280618155/rahkart_enerate_an_image_with_a_concise_brush_technique_that_de_ab4643a7-2b4c-42cc-8b4f-4ddbcd64113a.png',	3,	1),
-(8,	'La Ravine des Soupirs',	'Vous vous retrouvez face à une gorge étroite et sombre, où les arbres touffus se penchent pour former une canopée dense. L\'air est chargé d\'une aura de danger, et le murmure du vent à travers les branches donne l\'impression que la forêt elle-même soupire, anxieuse.',	'Vous entendez un murmure mystérieux dans le vent et vous décidez de l\'écouter attentivement',	'https://cdn.discordapp.com/attachments/1114521519893254195/1117498289823154267/rahkart_generate_an_image_that_depicts_a_captivating_scene_insp_6866b654-6b21-4ee0-b63f-f258b1c9e805.png',	3,	1),
-(9,	'Le Bosquet des Araignées Tisseuses',	'Vous pénétrez dans un espace enchanté où les araignées géantes tissent des toiles complexes entre les arbres. Les fils d\'argent étincelants forment un véritable labyrinthe !',	'En tendant la main à gauche, vous sentez une matière collante mais vous ne voyez rien... Vous bifurquez pour comprendre de quoi il s\'agit.',	'https://cdn.discordapp.com/attachments/1114521519893254195/1117499732927987733/rahkart_generate_an_image_that_depicts_a_captivating_scene_insp_b4aadb88-e35d-4d5c-8302-0c680e91b03c.png',	3,	1),
-(10,	'L\'étang aux Lueurs Spectrales',	'Vous vous aventurez vers un étang envoûtant où des lucioles spectrales éclairent les sentiers serpentant entre les tourbières. Derrière son apparence magnifique, vous sentez qu\'il renferme de terribles secrets.',	'Une luciole spectrale vous file devant le nez ! Vous courez à sa poursuite.',	'https://cdn.discordapp.com/attachments/1114521519893254195/1117500580097691848/rahkart_generate_an_image_that_depicts_a_captivating_scene_insp_92d069f0-16e4-4448-a997-75cd665bc4de.png',	4,	1),
-(11,	'La Sombre Grotte',	'Vous arrivez devant une imposante grotte dissimulée dans la dense forêt. Les ténèbres l\'enveloppent, et une aura sinistre émane de son entrée béante. L\'intérieur est un labyrinthe de tunnels tortueux et de chambres obscures où des stalactites menaçantes pendent du plafond.',	'Un frisson vous parcourt l\'échine. Toute votre attention est absorbée par une grotte que vous voyez se dessiner au loin. Vous êtes comme possédé et ne pouvez vous empêcher d\'approcher...',	'https://cdn.discordapp.com/attachments/1114521519893254195/1117501321109573712/rahkart_generate_an_image_that_depicts_a_captivating_scene_insp_fc584627-203c-4417-9c80-5ce57dc03cb3.png',	4,	1),
-(12,	'Les racines éternelles',	'Le sol est absolument couvert de racines. Tortueuses et sinistres, elles s\'entrelacent et rendent votre progression extrêmement difficile. À chaque pas, la sensation d\'oppression ne fait qu\'empirer...',	'Vous reprenez votre chemin et n\'arrêtez pas de trébucher ! La forêt n\'a pas fini de vous surprendre...',	'https://cdn.discordapp.com/attachments/1114521519893254195/1117502359032049785/rahkart_generate_an_image_that_depicts_a_captivating_scene_insp_8f0465e2-999e-4467-a166-fb5039726c1d.png',	4,	1);
+(1,	'L\'Arche de Verdure',	'Vous découvrez un immense arbre centenaire aux branches étendues en arc, formant un abri naturel en son centre. Les rayons du soleil filtrent à travers les feuilles, créant un kaléidoscope de couleurs et un refuge paisible pour les voyageurs égarés.',	'Vous apercevez un rayon de soleil filtrant à travers les feuilles, attirant votre attention vers un immense arbre centenaire.',	'https://cdn.discordapp.com/attachments/1114521519893254195/1117496613590540369/rahkart_generate_an_image_that_depicts_a_captivating_scene_insp_fc6c8418-6cfd-4ead-8cde-1e5fa0a8af74.png',	4,	1),
+(2,	'Les Chutes Argentées',	'Vous arrivez devant une cascade impétueuse qui dévale des falaises rocheuses, projetant des éclats d\'eau qui brillent comme de l\'argent au soleil. L\'endroit est réputé pour ses propriétés curatives et sa beauté éblouissante.',	'Votre oeil est attiré au loin par l\'éclat argenté d\'une cascade impétueuse, dévalant des falaises rocheuses.',	'https://cdn.discordapp.com/attachments/1114521519893254195/1117497319902937128/rahkart_generate_an_image_that_depicts_a_captivating_scene_insp_17594541-24d6-4700-966a-63fb701f4155.png',	2,	1),
+(3,	'Le Chemin du Murmure',	'Vous empruntez un sentier caressé par une douce brise, où les feuilles des arbres murmurent des secrets à ceux qui les écoutent attentivement. Chaque pas révèle une nouvelle mélodie, créant une symphonie naturelle qui berce les âmes en quête de tranquillité.',	'Vous réalisez que le bruissement des feuilles a changé. Comme si elles cherchaient à vous parler...',	'https://cdn.discordapp.com/attachments/1114521519893254195/1117489786043764796/rahkart_generate_an_image_that_depicts_a_captivating_scene_insp_40e80c62-acb7-4637-9f90-38a0e75c019d.png',	2,	1),
+(4,	'Le Cercle des Champignons',	'Vous pénétrez dans une clairière entourée d\'immenses champignons colorés aux formes étranges. Chaque champignon émet une lueur douce, créant une ambiance féerique. C\'est un lieu de rassemblement pour les créatures magiques et les amateurs de potions.',	'Un peu plus loin, d\'immenses champignons colorés aux formes étranges attirent votre curiosité.',	'https://cdn.discordapp.com/attachments/1114521519893254195/1117494079635337256/rahkart_generate_an_image_with_a_concise_brush_technique_that_d_03a01f8f-eeea-4634-8538-7556f43c2ff7.png',	3,	1),
+(5,	'Les Ruines Perdues',	'Vous découvrez les ruines d\'une ancienne cité dissimulées au sein de la forêt, envahies par la végétation. Des colonnes brisées et des sculptures effacées témoignent d\'une grandeur passée.',	'Vous avancez et buttez sur une pierre qui ne ressemble pas aux autres cailloux de la forêt.',	'https://cdn.discordapp.com/attachments/1114521519893254195/1117490877250666546/rahkart_generate_an_image_that_depicts_a_captivating_scene_insp_f39b9d4a-f51b-44fc-83d3-b036f114786b.png',	3,	1),
+(6,	'La Clairière des Runes',	'Vous vous tenez au centre d\'une clairière sacrée où d\'anciens symboles runiques sont gravés dans le sol. Chaque rune renferme un pouvoir unique et une signification mystique, attirant les praticiens de la magie qui cherchent à interpréter leur sagesse.',	'Votre attention est attirée par d\'étranges symboles gravés dans le sol. Ils semblent indiquer une route à suivre.',	'https://cdn.discordapp.com/attachments/1114521519893254195/1117492488425455647/rahkart_generate_an_image_with_a_concise_brush_technique_that_d_351f5532-7b73-49de-b609-79ab97200f9c.png',	3,	1),
+(7,	'Le Sanctuaire des Anciens',	'Vous arrivez devant un cercle sacré de pierres dressées, entouré d\'arbres millénaires. C\'est un lieu de communion avec les esprits de la forêt, mais il vous semble chargé d\'une tension mystique.',	'Les pierres qui vous entourent ne sont pas placées au hasard. Vous avancez, curieux d\'en savoir plus.',	'https://cdn.discordapp.com/attachments/1114521519893254195/1117495294280618155/rahkart_enerate_an_image_with_a_concise_brush_technique_that_de_ab4643a7-2b4c-42cc-8b4f-4ddbcd64113a.png',	1,	1),
+(8,	'La Ravine des Soupirs',	'Vous vous retrouvez face à une gorge étroite et sombre, où les arbres touffus se penchent pour former une canopée dense. L\'air est chargé d\'une aura de danger, et le murmure du vent à travers les branches donne l\'impression que la forêt elle-même soupire, anxieuse.',	'Vous entendez un murmure mystérieux dans le vent et vous décidez de l\'écouter attentivement',	'https://cdn.discordapp.com/attachments/1114521519893254195/1117498289823154267/rahkart_generate_an_image_that_depicts_a_captivating_scene_insp_6866b654-6b21-4ee0-b63f-f258b1c9e805.png',	1,	1),
+(9,	'Le Bosquet des Araignées Tisseuses',	'Vous pénétrez dans un espace enchanté où les araignées géantes tissent des toiles complexes entre les arbres. Les fils d\'argent étincelants forment un véritable labyrinthe !',	'En tendant la main à gauche, vous sentez une matière collante mais vous ne voyez rien... Vous bifurquez pour comprendre de quoi il s\'agit.',	'https://cdn.discordapp.com/attachments/1114521519893254195/1117499732927987733/rahkart_generate_an_image_that_depicts_a_captivating_scene_insp_b4aadb88-e35d-4d5c-8302-0c680e91b03c.png',	1,	1),
+(10,	'L\'étang aux Lueurs Spectrales',	'Vous vous aventurez vers un étang envoûtant où des lucioles spectrales éclairent les sentiers serpentant entre les tourbières. Derrière son apparence magnifique, vous sentez qu\'il renferme de terribles secrets.',	'Une luciole spectrale vous file devant le nez ! Vous courez à sa poursuite.',	'https://cdn.discordapp.com/attachments/1114521519893254195/1117500580097691848/rahkart_generate_an_image_that_depicts_a_captivating_scene_insp_92d069f0-16e4-4448-a997-75cd665bc4de.png',	5,	1),
+(11,	'La Sombre Grotte',	'Vous arrivez devant une imposante grotte dissimulée dans la dense forêt. Les ténèbres l\'enveloppent, et une aura sinistre émane de son entrée béante. L\'intérieur est un labyrinthe de tunnels tortueux et de chambres obscures où des stalactites menaçantes pendent du plafond.',	'Un frisson vous parcourt l\'échine. Toute votre attention est absorbée par une grotte que vous voyez se dessiner au loin. Vous êtes comme possédé et ne pouvez vous empêcher d\'approcher...',	'https://cdn.discordapp.com/attachments/1114521519893254195/1117501321109573712/rahkart_generate_an_image_that_depicts_a_captivating_scene_insp_fc584627-203c-4417-9c80-5ce57dc03cb3.png',	5,	1),
+(12,	'Les racines éternelles',	'Le sol est absolument couvert de racines. Tortueuses et sinistres, elles s\'entrelacent et rendent votre progression extrêmement difficile. À chaque pas, la sensation d\'oppression ne fait qu\'empirer...',	'Vous reprenez votre chemin et n\'arrêtez pas de trébucher ! La forêt n\'a pas fini de vous surprendre...',	'https://cdn.discordapp.com/attachments/1114521519893254195/1117502359032049785/rahkart_generate_an_image_that_depicts_a_captivating_scene_insp_8f0465e2-999e-4467-a166-fb5039726c1d.png',	5,	1);
 
 DROP TABLE IF EXISTS `event_npc`;
 CREATE TABLE `event_npc` (
@@ -208,10 +208,14 @@ CREATE TABLE `event_type` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 INSERT INTO `event_type` (`id`, `name`) VALUES
-(1,	'normal'),
-(2,	'rencontre'),
-(3,	'combat'),
-(4,	'boss');
+(1,	'Combat'),
+(2,	'Repos'),
+(3,	'Rencontre'),
+(4,	'Départ'),
+(5,	'Boss'),
+(6,	'Fin de Biome'),
+(7,	'Endgame'),
+(8,	'Death');
 
 DROP TABLE IF EXISTS `hero`;
 CREATE TABLE `hero` (
@@ -410,11 +414,20 @@ CREATE TABLE `user` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 INSERT INTO `user` (`id`, `email`, `roles`, `password`, `pseudo`, `avatar`) VALUES
-(1,	'pierre@admin.com',	'[\"ROLE_ADMIN\"]',	'$2y$13$h5/TrGHUNtiCzOSAVmfV..0KJllcpnPiB90XzVq0z86jPuehUQq0m',	'Pierre',	NULL),
-(2,	'anthony@admin.com',	'[\"ROLE_ADMIN\"]',	'$2y$13$h5/TrGHUNtiCzOSAVmfV..0KJllcpnPiB90XzVq0z86jPuehUQq0m',	'Anthony',	NULL),
-(3,	'marine@gameMaster.com',	'[\"ROLE_GAMEMASTER\"]',	'$2y$13$LMDD1/gH0ONyuexKiVsxxu52Yx5p5q98qmmTOBgh11PcdXzUt4pf6',	'Marine',	NULL),
-(4,	'sandra@gameMaster.com',	'[\"ROLE_GAMEMASTER\"]',	'$2y$13$LMDD1/gH0ONyuexKiVsxxu52Yx5p5q98qmmTOBgh11PcdXzUt4pf6',	'Sandra',	NULL),
-(5,	'gauthier@gameMaster.com',	'[\"ROLE_GAMEMASTER\"]',	'$2y$13$LMDD1/gH0ONyuexKiVsxxu52Yx5p5q98qmmTOBgh11PcdXzUt4pf6',	'Gauthier',	NULL),
-(6,	'player@player.com',	'[\"ROLE_PLAYER\"]',	'$2y$13$4dAjM04jIL1RxKLjZAkH/OJ0e6wPE4wSwrSP1ZnlvFN7TnBkZ5ZpK',	'Player',	NULL);
+(3,	'marine2@gameMaster.com',	'[\"ROLE_GAMEMASTER\"]',	'$2y$13$LMDD1/gH0ONyuexKiVsxxu52Yx5p5q98qmmTOBgh11PcdXzUt4pf6',	'Marine',	NULL),
+(4,	'sandra2@gameMaster.com',	'[\"ROLE_GAMEMASTER\"]',	'$2y$13$LMDD1/gH0ONyuexKiVsxxu52Yx5p5q98qmmTOBgh11PcdXzUt4pf6',	'Sandra',	NULL),
+(8,	'pierre@admin.com',	'[\"ROLE_ADMIN\"]',	'$2y$13$h5/TrGHUNtiCzOSAVmfV..0KJllcpnPiB90XzVq0z86jPuehUQq0m',	'Pierre',	NULL),
+(9,	'anthony@admin.com',	'[\"ROLE_ADMIN\"]',	'$2y$13$h5/TrGHUNtiCzOSAVmfV..0KJllcpnPiB90XzVq0z86jPuehUQq0m',	'Anthony',	NULL),
+(10,	'marine@gameMaster.com',	'[\"ROLE_GAMEMASTER\"]',	'$2y$13$LMDD1/gH0ONyuexKiVsxxu52Yx5p5q98qmmTOBgh11PcdXzUt4pf6',	'Marine',	NULL),
+(11,	'sandra@gameMaster.com',	'[\"ROLE_GAMEMASTER\"]',	'$2y$13$LMDD1/gH0ONyuexKiVsxxu52Yx5p5q98qmmTOBgh11PcdXzUt4pf6',	'Sandra',	NULL),
+(12,	'gauthier@gameMaster.com',	'[\"ROLE_GAMEMASTER\"]',	'$2y$13$LMDD1/gH0ONyuexKiVsxxu52Yx5p5q98qmmTOBgh11PcdXzUt4pf6',	'Gauthier',	NULL),
+(13,	'player@player.com',	'[\"ROLE_PLAYER\"]',	'$2y$13$4dAjM04jIL1RxKLjZAkH/OJ0e6wPE4wSwrSP1ZnlvFN7TnBkZ5ZpK',	'Player',	NULL),
+(14,	'a@a.fr',	'[\"ROLE_PLAYER\"]',	'$2y$13$IdLPQCfO0mSVHrjoiz7qh.NkKmpuR1iPCynnWGP50MmIV9lduA9Mu',	'Chk',	''),
+(15,	'marine1729@gmail.com',	'[\"ROLE_PLAYER\"]',	'$2y$13$FyyMurxA/QN6IZceXDDJMeckvGnJuPIlJVOkg1JveB6jDnehD2m9i',	'Marine 1729',	''),
+(17,	'marine1744@gmail.com',	'[\"ROLE_PLAYER\"]',	'$2y$13$CguS2nOa10fTGcDesGfoje3VWQtcxx441z.TweV6Th6.QXrfpy2fK',	'Marine 1744',	''),
+(18,	'marine1748@gmail.com',	'[\"ROLE_PLAYER\"]',	'$2y$13$mzOq83nAqc3RUdhus20Jue2JzWWHpJH74FHq6jS2tDnWjxJVhQHtu',	'Marine 1748',	''),
+(19,	'marine1751@gmail.com',	'[\"ROLE_PLAYER\"]',	'$2y$13$dg2ERbIWmw7hR8h7u8ZSUOkqLw0aZoVqyx2XDkCUH3g8ocqLiZgCO',	'Marine 1751',	''),
+(21,	'marine0918@gmail.com',	'[\"ROLE_PLAYER\"]',	'$2y$13$/tNwLOMwATpx3Smxy/OGmeIYyaygsvOzwZEdQWdpG9d1igW.kRFC2',	'Marine 0918',	''),
+(22,	'marine0924@gmail.com',	'[\"ROLE_PLAYER\"]',	'$2y$13$9pjZyVQDqRO42BFv7j/f2.NHTHMRhZGqglcABAQuh0wAn7UUOqL9O',	'Marine 0924',	'');
 
--- 2023-06-16 07:30:56
+-- 2023-06-19 07:40:02
