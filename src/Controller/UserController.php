@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\User;
 use App\Form\UserEditType;
 use App\Form\UserType;
+use App\Repository\HeroRepository;
 use App\Repository\ReviewRepository;
 use App\Repository\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -96,7 +97,7 @@ class UserController extends AbstractController
     /**
      * @Route("/{id}", name="app_user_delete", methods={"POST"})
      */
-    public function delete($id, Request $request, User $user, UserRepository $userRepository, ReviewRepository $reviewRepository): Response
+    public function delete($id, Request $request, User $user, UserRepository $userRepository, ReviewRepository $reviewRepository, HeroRepository $heroRepository): Response
     {
         if ($this->isCsrfTokenValid('delete'.$user->getId(), $request->request->get('_token'))) {
             $allReviews = $reviewRepository->findByUser($id);
@@ -104,6 +105,13 @@ class UserController extends AbstractController
             foreach ($allReviews as $Review) {
                 $reviewRepository->remove($Review);
             }
+
+            $allheros = $heroRepository->findByUser($id);
+    
+            foreach ($allheros as $hero) {
+                $heroRepository->remove($hero);
+            }
+
             $userRepository->remove($user, true);
         }
 

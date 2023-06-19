@@ -39,6 +39,16 @@ class HeroRepository extends ServiceEntityRepository
         }
     }
 
+    public function findByUser($id)
+    {
+        return $this->createQueryBuilder('h')
+            ->innerJoin('h.user', 'u')
+            ->where('u.id = :user_id')
+            ->setParameter('user_id', $id)
+            ->getQuery()
+            ->getResult();
+    }
+
 //    /**
 //     * @return Hero[] Returns an array of Hero objects
 //     */

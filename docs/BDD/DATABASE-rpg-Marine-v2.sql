@@ -10,7 +10,7 @@ SET NAMES utf8mb4;
 DROP TABLE IF EXISTS `answer`;
 CREATE TABLE `answer` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `content` longtext NOT NULL,
+  `content` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
   `dialogue_id` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `IDX_DADD4A25A6E12CBD` (`dialogue_id`),
@@ -33,18 +33,18 @@ CREATE TABLE `answer_effect` (
 DROP TABLE IF EXISTS `biome`;
 CREATE TABLE `biome` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(255) NOT NULL,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `difficulty` int(11) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 INSERT INTO `biome` (`id`, `name`, `difficulty`) VALUES
-(1,	'foret',	2);
+(1,	'Forêt',	2);
 
 DROP TABLE IF EXISTS `dialogue`;
 CREATE TABLE `dialogue` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `content` longtext NOT NULL,
+  `content` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
   `npc_id` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `IDX_F18A1C39CA7D6B89` (`npc_id`),
@@ -54,7 +54,7 @@ CREATE TABLE `dialogue` (
 
 DROP TABLE IF EXISTS `doctrine_migration_versions`;
 CREATE TABLE `doctrine_migration_versions` (
-  `version` varchar(191) NOT NULL,
+  `version` varchar(191) COLLATE utf8_unicode_ci NOT NULL,
   `executed_at` datetime DEFAULT NULL,
   `execution_time` int(11) DEFAULT NULL,
   PRIMARY KEY (`version`)
@@ -94,8 +94,8 @@ INSERT INTO `doctrine_migration_versions` (`version`, `executed_at`, `execution_
 DROP TABLE IF EXISTS `effect`;
 CREATE TABLE `effect` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(255) NOT NULL,
-  `description` longtext DEFAULT NULL,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `description` longtext COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `health` int(11) DEFAULT NULL,
   `strength` int(11) DEFAULT NULL,
   `intelligence` int(11) DEFAULT NULL,
@@ -110,7 +110,7 @@ CREATE TABLE `effect` (
 DROP TABLE IF EXISTS `ending`;
 CREATE TABLE `ending` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `content` longtext NOT NULL,
+  `content` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
   `event_id` int(11) NOT NULL,
   `event_type_id` int(11) NOT NULL,
   PRIMARY KEY (`id`),
@@ -148,23 +148,18 @@ INSERT INTO `ending` (`id`, `content`, `event_id`, `event_type_id`) VALUES
 (25,	'Vous fuyez au calme, loin de ces arachnides fascinantes et imprévisibles.',	9,	2),
 (26,	'Alors que vous quittez l\'espace enchanté, vous rêvez d\'un rebondissement inattendu.',	9,	3),
 (27,	'Vous vous écartez du réseau complexe des araignées géantes. Après ça, il va falloir faire fort pour vous effrayer.',	9,	5),
-(28,	'Vous partez loin des lueurs mystérieuses qui hantent ces lieux terrifiants.',	10,	2),
-(29,	'Vous quittez l\'étang, rêvant d\'une rencontre réconfortante pour guérir vos blessures physiques et émotionnelles.',	10,	3),
-(30,	'Votre regard se durcit, vous ne craignez plus aucune créature mystérieuse.',	10,	1),
-(31,	'Vous ressentez le besoin viscéral de laisser derrière vous ces ténèbres oppressantes.',	11,	2),
-(32,	'Vous détournez le regard de l\'entrée béante, priant pour croiser enfin une figure amie qui dissiperait les ombres de votre esprit.',	11,	3),
-(33,	'Vos muscles se contractent alors que vous quittez l\'obscurité. Vous vous souviendrez qu\'il faut toujours se tenir prêt.',	11,	1),
-(34,	'Vous soufflez lentement en laissant derrière vous l\'oppression de ces racines sinistres.',	12,	2),
-(35,	'Une lueur d\'espoir brille dans vos yeux alors que vous progressez en dehors des pièges végétaux.',	12,	3),
-(36,	'Invincible face aux tortueuses racines qui voudraient vous ralentir, vous conservez votre entrain.',	12,	1);
+(28,	'Vous partez loin des lueurs mystérieuses qui hantent ces lieux terrifiants.',	10,	6),
+(31,	'Vous ressentez le besoin viscéral de laisser derrière vous ces ténèbres oppressantes.',	11,	6),
+(34,	'Vous soufflez lentement en laissant derrière vous l\'oppression de ces racines sinistres.',	12,	6),
+(37,	'Dans un éclat de triomphe, vous avez surmonté tous les obstacles et remporté la victoire finale.',	13,	7);
 
 DROP TABLE IF EXISTS `event`;
 CREATE TABLE `event` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `title` varchar(255) NOT NULL,
-  `description` longtext DEFAULT NULL,
-  `opening` longtext DEFAULT NULL,
-  `picture` varchar(255) DEFAULT NULL,
+  `title` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `description` longtext COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `opening` longtext COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `picture` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `event_type_id` int(11) NOT NULL,
   `biome_id` int(11) NOT NULL,
   PRIMARY KEY (`id`),
@@ -186,7 +181,9 @@ INSERT INTO `event` (`id`, `title`, `description`, `opening`, `picture`, `event_
 (9,	'Le Bosquet des Araignées Tisseuses',	'Vous pénétrez dans un espace enchanté où les araignées géantes tissent des toiles complexes entre les arbres. Les fils d\'argent étincelants forment un véritable labyrinthe !',	'En tendant la main à gauche, vous sentez une matière collante mais vous ne voyez rien... Vous bifurquez pour comprendre de quoi il s\'agit.',	'https://cdn.discordapp.com/attachments/1114521519893254195/1117499732927987733/rahkart_generate_an_image_that_depicts_a_captivating_scene_insp_b4aadb88-e35d-4d5c-8302-0c680e91b03c.png',	1,	1),
 (10,	'L\'étang aux Lueurs Spectrales',	'Vous vous aventurez vers un étang envoûtant où des lucioles spectrales éclairent les sentiers serpentant entre les tourbières. Derrière son apparence magnifique, vous sentez qu\'il renferme de terribles secrets.',	'Une luciole spectrale vous file devant le nez ! Vous courez à sa poursuite.',	'https://cdn.discordapp.com/attachments/1114521519893254195/1117500580097691848/rahkart_generate_an_image_that_depicts_a_captivating_scene_insp_92d069f0-16e4-4448-a997-75cd665bc4de.png',	5,	1),
 (11,	'La Sombre Grotte',	'Vous arrivez devant une imposante grotte dissimulée dans la dense forêt. Les ténèbres l\'enveloppent, et une aura sinistre émane de son entrée béante. L\'intérieur est un labyrinthe de tunnels tortueux et de chambres obscures où des stalactites menaçantes pendent du plafond.',	'Un frisson vous parcourt l\'échine. Toute votre attention est absorbée par une grotte que vous voyez se dessiner au loin. Vous êtes comme possédé et ne pouvez vous empêcher d\'approcher...',	'https://cdn.discordapp.com/attachments/1114521519893254195/1117501321109573712/rahkart_generate_an_image_that_depicts_a_captivating_scene_insp_fc584627-203c-4417-9c80-5ce57dc03cb3.png',	5,	1),
-(12,	'Les racines éternelles',	'Le sol est absolument couvert de racines. Tortueuses et sinistres, elles s\'entrelacent et rendent votre progression extrêmement difficile. À chaque pas, la sensation d\'oppression ne fait qu\'empirer...',	'Vous reprenez votre chemin et n\'arrêtez pas de trébucher ! La forêt n\'a pas fini de vous surprendre...',	'https://cdn.discordapp.com/attachments/1114521519893254195/1117502359032049785/rahkart_generate_an_image_that_depicts_a_captivating_scene_insp_8f0465e2-999e-4467-a166-fb5039726c1d.png',	5,	1);
+(12,	'Les racines éternelles',	'Le sol est absolument couvert de racines. Tortueuses et sinistres, elles s\'entrelacent et rendent votre progression extrêmement difficile. À chaque pas, la sensation d\'oppression ne fait qu\'empirer...',	'Vous reprenez votre chemin et n\'arrêtez pas de trébucher ! La forêt n\'a pas fini de vous surprendre...',	'https://cdn.discordapp.com/attachments/1114521519893254195/1117502359032049785/rahkart_generate_an_image_that_depicts_a_captivating_scene_insp_8f0465e2-999e-4467-a166-fb5039726c1d.png',	5,	1),
+(13,	'Victoire forêt',	'Votre visage rayonne de fierté et d\'accomplissement alors que vous contemplez les mystères de la nature qui vous ont entouré tout au long de cette épopée. Les arbres majestueux, témoins silencieux de votre courage, vous saluent de leurs branches ondoyantes. Vous sentez la brise légère caresser votre visage, comme pour vous féliciter de votre triomphe. Une douce mélodie résonne dans l\'air, jouée par une flûte invisible, vous rappelant les leçons apprises lors de cette aventure inoubliable. Maintenant, c\'est le moment de prendre congé de cette forêt, portant avec vous le souvenir indélébile de vos prouesses.',	'Vous émergez victorieux de cette sombre forêt après avoir bravé mille périls.',	'https://imagizer.imageshack.com/img922/9859/NongTL.jpg',	6,	1),
+(14,	'Victoire !',	'Les terres enchantées se réjouissent de votre succès, tandis que votre nom résonne désormais comme une légende dans les tavernes et les foyers du royaume.',	'Congratulations',	'https://imagizer.imageshack.com/img924/7334/cLWkMv.jpg',	7,	1);
 
 DROP TABLE IF EXISTS `event_npc`;
 CREATE TABLE `event_npc` (
@@ -203,7 +200,7 @@ CREATE TABLE `event_npc` (
 DROP TABLE IF EXISTS `event_type`;
 CREATE TABLE `event_type` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(255) NOT NULL,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -220,7 +217,7 @@ INSERT INTO `event_type` (`id`, `name`) VALUES
 DROP TABLE IF EXISTS `hero`;
 CREATE TABLE `hero` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(255) NOT NULL,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `max_health` int(11) NOT NULL,
   `health` int(11) NOT NULL,
   `strength` int(11) DEFAULT NULL,
@@ -229,7 +226,7 @@ CREATE TABLE `hero` (
   `defense` int(11) DEFAULT NULL,
   `karma` int(11) DEFAULT NULL,
   `xp` int(11) DEFAULT NULL,
-  `picture` varchar(255) DEFAULT NULL,
+  `picture` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `progress` int(11) DEFAULT NULL,
   `hero_class_id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL,
@@ -241,13 +238,13 @@ CREATE TABLE `hero` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 INSERT INTO `hero` (`id`, `name`, `max_health`, `health`, `strength`, `intelligence`, `dexterity`, `defense`, `karma`, `xp`, `picture`, `progress`, `hero_class_id`, `user_id`) VALUES
-(1,	'Cookie',	100,	100,	80,	70,	60,	75,	50,	0,	'https://static.vecteezy.com/system/resources/previews/018/931/604/original/cartoon-cookie-icon-png.png',	0,	1,	4),
-(2,	'Pony',	100,	80,	90,	20,	20,	70,	80,	0,	'https://www.pngmart.com/files/3/My-Little-Pony-Rarity-PNG-Clipart.png',	0,	1,	3);
+(1,	'Cookie',	100,	100,	80,	70,	60,	75,	50,	0,	'https://static.vecteezy.com/system/resources/previews/018/931/604/original/cartoon-cookie-icon-png.png',	0,	1,	11),
+(2,	'Pony',	100,	80,	90,	20,	20,	70,	80,	0,	'https://www.pngmart.com/files/3/My-Little-Pony-Rarity-PNG-Clipart.png',	0,	1,	10);
 
 DROP TABLE IF EXISTS `hero_class`;
 CREATE TABLE `hero_class` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(255) NOT NULL,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `max_health` int(11) NOT NULL,
   `health` int(11) NOT NULL,
   `strength` int(11) DEFAULT NULL,
@@ -258,7 +255,7 @@ CREATE TABLE `hero_class` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 INSERT INTO `hero_class` (`id`, `name`, `max_health`, `health`, `strength`, `intelligence`, `dexterity`, `defense`) VALUES
-(1,	'développeur',	100,	100,	100,	100,	100,	100);
+(1,	'Super Héro',	100,	100,	100,	100,	100,	100);
 
 DROP TABLE IF EXISTS `hero_event`;
 CREATE TABLE `hero_event` (
@@ -287,8 +284,8 @@ CREATE TABLE `hero_item` (
 DROP TABLE IF EXISTS `item`;
 CREATE TABLE `item` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(255) NOT NULL,
-  `picture` varchar(255) DEFAULT NULL,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `picture` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `health` int(11) DEFAULT NULL,
   `strength` int(11) DEFAULT NULL,
   `intelligence` int(11) DEFAULT NULL,
@@ -303,9 +300,9 @@ CREATE TABLE `item` (
 DROP TABLE IF EXISTS `messenger_messages`;
 CREATE TABLE `messenger_messages` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `body` longtext NOT NULL,
-  `headers` longtext NOT NULL,
-  `queue_name` varchar(190) NOT NULL,
+  `body` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
+  `headers` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
+  `queue_name` varchar(190) COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` datetime NOT NULL,
   `available_at` datetime NOT NULL,
   `delivered_at` datetime DEFAULT NULL,
@@ -319,15 +316,15 @@ CREATE TABLE `messenger_messages` (
 DROP TABLE IF EXISTS `npc`;
 CREATE TABLE `npc` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(255) NOT NULL,
-  `description` longtext DEFAULT NULL,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `description` longtext COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `health` int(11) NOT NULL,
   `strength` int(11) DEFAULT NULL,
   `intelligence` int(11) DEFAULT NULL,
   `dexterity` int(11) DEFAULT NULL,
   `defense` int(11) DEFAULT NULL,
   `karma` int(11) DEFAULT NULL,
-  `picture` varchar(255) DEFAULT NULL,
+  `picture` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `is_boss` tinyint(1) NOT NULL,
   `hostility` tinyint(1) NOT NULL,
   `xp_earned` int(11) DEFAULT NULL,
@@ -363,34 +360,34 @@ CREATE TABLE `npc_item` (
 DROP TABLE IF EXISTS `race`;
 CREATE TABLE `race` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(255) NOT NULL,
-  `description` longtext DEFAULT NULL,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `description` longtext COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 INSERT INTO `race` (`id`, `name`, `description`) VALUES
-(1,	'humain',	NULL),
-(2,	'elfe',	NULL),
-(3,	'gobelin',	NULL),
-(4,	'fée',	NULL),
-(5,	'dryade',	NULL),
-(6,	'nain',	NULL),
-(7,	'sorcière',	NULL),
-(8,	'farfadet',	NULL),
-(9,	'troll',	NULL),
-(10,	'animal',	NULL),
-(11,	'esprit',	NULL),
-(12,	'végétal',	NULL),
-(13,	'lutin',	NULL),
-(14,	'dragon',	NULL),
-(15,	'golem',	NULL),
-(16,	'monstre',	NULL);
+(1,	'Humain',	NULL),
+(2,	'Elfe',	NULL),
+(3,	'Gobelin',	NULL),
+(4,	'Fée',	NULL),
+(5,	'Dryade',	NULL),
+(6,	'Nain',	NULL),
+(7,	'Sorcière',	NULL),
+(8,	'Farfadet',	NULL),
+(9,	'Troll',	NULL),
+(10,	'Animal',	NULL),
+(11,	'Esprit',	NULL),
+(12,	'Végétal',	NULL),
+(13,	'Lutin',	NULL),
+(14,	'Dragon',	NULL),
+(15,	'Golem',	NULL),
+(16,	'Monstre',	NULL);
 
 DROP TABLE IF EXISTS `review`;
 CREATE TABLE `review` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `title` varchar(128) NOT NULL,
-  `content` longtext NOT NULL,
+  `title` varchar(128) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `content` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
   `rating` double DEFAULT NULL,
   `created_at` datetime NOT NULL,
   `updated_at` datetime DEFAULT NULL,
@@ -404,30 +401,21 @@ CREATE TABLE `review` (
 DROP TABLE IF EXISTS `user`;
 CREATE TABLE `user` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `email` varchar(180) NOT NULL,
-  `roles` longtext NOT NULL COMMENT '(DC2Type:json)',
-  `password` varchar(255) NOT NULL,
-  `pseudo` varchar(64) NOT NULL,
-  `avatar` varchar(255) DEFAULT NULL,
+  `email` varchar(180) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `roles` longtext COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '(DC2Type:json)',
+  `password` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `pseudo` varchar(64) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `avatar` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `UNIQ_8D93D649E7927C74` (`email`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 INSERT INTO `user` (`id`, `email`, `roles`, `password`, `pseudo`, `avatar`) VALUES
-(3,	'marine2@gameMaster.com',	'[\"ROLE_GAMEMASTER\"]',	'$2y$13$LMDD1/gH0ONyuexKiVsxxu52Yx5p5q98qmmTOBgh11PcdXzUt4pf6',	'Marine',	NULL),
-(4,	'sandra2@gameMaster.com',	'[\"ROLE_GAMEMASTER\"]',	'$2y$13$LMDD1/gH0ONyuexKiVsxxu52Yx5p5q98qmmTOBgh11PcdXzUt4pf6',	'Sandra',	NULL),
 (8,	'pierre@admin.com',	'[\"ROLE_ADMIN\"]',	'$2y$13$h5/TrGHUNtiCzOSAVmfV..0KJllcpnPiB90XzVq0z86jPuehUQq0m',	'Pierre',	NULL),
 (9,	'anthony@admin.com',	'[\"ROLE_ADMIN\"]',	'$2y$13$h5/TrGHUNtiCzOSAVmfV..0KJllcpnPiB90XzVq0z86jPuehUQq0m',	'Anthony',	NULL),
 (10,	'marine@gameMaster.com',	'[\"ROLE_GAMEMASTER\"]',	'$2y$13$LMDD1/gH0ONyuexKiVsxxu52Yx5p5q98qmmTOBgh11PcdXzUt4pf6',	'Marine',	NULL),
 (11,	'sandra@gameMaster.com',	'[\"ROLE_GAMEMASTER\"]',	'$2y$13$LMDD1/gH0ONyuexKiVsxxu52Yx5p5q98qmmTOBgh11PcdXzUt4pf6',	'Sandra',	NULL),
 (12,	'gauthier@gameMaster.com',	'[\"ROLE_GAMEMASTER\"]',	'$2y$13$LMDD1/gH0ONyuexKiVsxxu52Yx5p5q98qmmTOBgh11PcdXzUt4pf6',	'Gauthier',	NULL),
-(13,	'player@player.com',	'[\"ROLE_PLAYER\"]',	'$2y$13$4dAjM04jIL1RxKLjZAkH/OJ0e6wPE4wSwrSP1ZnlvFN7TnBkZ5ZpK',	'Player',	NULL),
-(14,	'a@a.fr',	'[\"ROLE_PLAYER\"]',	'$2y$13$IdLPQCfO0mSVHrjoiz7qh.NkKmpuR1iPCynnWGP50MmIV9lduA9Mu',	'Chk',	''),
-(15,	'marine1729@gmail.com',	'[\"ROLE_PLAYER\"]',	'$2y$13$FyyMurxA/QN6IZceXDDJMeckvGnJuPIlJVOkg1JveB6jDnehD2m9i',	'Marine 1729',	''),
-(17,	'marine1744@gmail.com',	'[\"ROLE_PLAYER\"]',	'$2y$13$CguS2nOa10fTGcDesGfoje3VWQtcxx441z.TweV6Th6.QXrfpy2fK',	'Marine 1744',	''),
-(18,	'marine1748@gmail.com',	'[\"ROLE_PLAYER\"]',	'$2y$13$mzOq83nAqc3RUdhus20Jue2JzWWHpJH74FHq6jS2tDnWjxJVhQHtu',	'Marine 1748',	''),
-(19,	'marine1751@gmail.com',	'[\"ROLE_PLAYER\"]',	'$2y$13$dg2ERbIWmw7hR8h7u8ZSUOkqLw0aZoVqyx2XDkCUH3g8ocqLiZgCO',	'Marine 1751',	''),
-(21,	'marine0918@gmail.com',	'[\"ROLE_PLAYER\"]',	'$2y$13$/tNwLOMwATpx3Smxy/OGmeIYyaygsvOzwZEdQWdpG9d1igW.kRFC2',	'Marine 0918',	''),
-(22,	'marine0924@gmail.com',	'[\"ROLE_PLAYER\"]',	'$2y$13$9pjZyVQDqRO42BFv7j/f2.NHTHMRhZGqglcABAQuh0wAn7UUOqL9O',	'Marine 0924',	'');
+(13,	'player@player.com',	'[\"ROLE_PLAYER\"]',	'$2y$13$4dAjM04jIL1RxKLjZAkH/OJ0e6wPE4wSwrSP1ZnlvFN7TnBkZ5ZpK',	'Player',	NULL);
 
--- 2023-06-19 07:40:02
+-- 2023-06-19 15:36:06
