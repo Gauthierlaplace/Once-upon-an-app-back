@@ -22,7 +22,6 @@ class Ending
     /**
      * @Assert\NotBlank(message="Le champ Ending ne peut pas être vide")
      * @ORM\Column(type="text")
-     * @Groups({"game_start"})
      */
     private $content;
 
