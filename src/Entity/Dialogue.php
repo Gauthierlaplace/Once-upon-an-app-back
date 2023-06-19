@@ -6,6 +6,7 @@ use App\Repository\DialogueRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=DialogueRepository::class)
@@ -20,6 +21,9 @@ class Dialogue
     private $id;
 
     /**
+     * @Assert\NotBlank(
+     *     message = "Merci de décrire votre contenu"
+     * )
      * @ORM\Column(type="text")
      */
     private $content;
@@ -97,5 +101,10 @@ class Dialogue
         }
 
         return $this;
+    }
+
+    public function __toString(): string
+    {
+        return $this->content;
     }
 }

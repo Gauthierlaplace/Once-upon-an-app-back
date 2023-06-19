@@ -1,0 +1,54 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+	<div class="container my-4">
+		<h1 class='text-center'>
+			{% block title %}Liste des Effets
+			{% endblock %}
+		</h1>
+		<a class='btn btn-primary show' href="{{ path('app_home') }}">Retour à l'acceuil</a>
+		<a class="mb-2 btn btn-success float-end" href="{{ path('app_effect_new') }}">Ajouter un nouvelle effet</a>
+		<table class="table table-hover mt-4">
+			<thead>
+				<tr>
+					<th>Id</th>
+					<th>Name</th>
+					<th>Description</th>
+					<th>Health</th>
+					<th>Strength</th>
+					<th>Intelligence</th>
+					<th>Dexterity</th>
+					<th>Defense</th>
+					<th>Karma</th>
+					<th>Xp</th>
+					<th class="text-center">Actions</th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for effect in effects %}
+					<tr>
+						<td>{{ effect.id }}</td>
+						<td>{{ effect.name }}</td>
+						<td>{{ effect.description }}</td>
+						<td>{{ effect.health }}</td>
+						<td>{{ effect.strength }}</td>
+						<td>{{ effect.intelligence }}</td>
+						<td>{{ effect.dexterity }}</td>
+						<td>{{ effect.defense }}</td>
+						<td>{{ effect.karma }}</td>
+						<td>{{ effect.xp }}</td>
+						<td>
+							<a class="btn btn-primary float-end  m-1" href="{{ path('app_effect_show', {'id': effect.id}) }}">Voir</a>
+							<a class="btn btn-warning float-end  m-1" href="{{ path('app_effect_edit', {'id': effect.id}) }}">Modifier</a>
+							{{ include('effect/_delete_form.html.twig') }}
+						</td>
+					</tr>
+				{% else %}
+					<tr>
+						<td colspan="11">no records found</td>
+					</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+	</div>
+{% endblock %}

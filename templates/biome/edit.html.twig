@@ -1,0 +1,15 @@
+{# {% extends 'base.html.twig' %}
+
+{% block title %}Edit Biome{% endblock %}
+
+{% block body %}
+    <h1>Edit Biome</h1>
+
+    {{ include('biome/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('app_biome_index') }}">back to list</a>
+
+    {{ include('biome/_delete_form.html.twig') }}
+{% endblock %} #}
+
+{% include 'partials/_edit.html.twig' with { 'entity' : 'biome' } %}

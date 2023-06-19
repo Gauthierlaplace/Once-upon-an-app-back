@@ -37,8 +37,9 @@ class EventRepository extends ServiceEntityRepository
         if ($flush) {
             $this->getEntityManager()->flush();
         }
-    }
+    } 
 
+        
 //    /**
 //     * @return Event[] Returns an array of Event objects
 //     */

@@ -6,53 +6,66 @@ use App\Repository\EventRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Serializer\Annotation\Groups;
+
 
 /**
  * @ORM\Entity(repositoryClass=EventRepository::class)
  */
 class Event
 {
+    
     /**
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * @Groups({"game"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank(message="Le champ Titre de l'évènement ne peut pas être vide")
+     * @Groups({"game"})
      */
     private $title;
 
     /**
      * @ORM\Column(type="text", nullable=true)
+     * @Groups({"game"})
      */
     private $description;
 
     /**
      * @ORM\Column(type="text", nullable=true)
+     * @Groups({"game"})
      */
     private $opening;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Groups({"game"})
      */
     private $picture;
 
     /**
      * @ORM\ManyToOne(targetEntity=EventType::class, inversedBy="events")
      * @ORM\JoinColumn(nullable=false)
+     * @Assert\NotBlank(message="Le champ Type d'évènement ne peut pas être vide")
      */
     private $eventType;
 
     /**
      * @ORM\ManyToOne(targetEntity=Biome::class, inversedBy="events")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\JoinColumn(nullable=true)
+     * 
      */
     private $biome;
 
     /**
      * @ORM\OneToMany(targetEntity=Ending::class, mappedBy="event")
+     * 
      */
     private $endings;
 
@@ -229,5 +242,9 @@ class Event
         $this->npc->removeElement($npc);
 
         return $this;
+    }
+    public function __toString(): string
+    {
+        return $this->title;
     }
 }

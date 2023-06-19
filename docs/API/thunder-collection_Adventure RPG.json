@@ -1,0 +1,349 @@
+{
+    "client": "Thunder Client",
+    "collectionName": "Adventure RPG",
+    "dateExported": "2023-06-19T14:05:44.040Z",
+    "version": "1.1",
+    "folders": [
+        {
+            "_id": "26a30824-305c-4be6-9b65-4042660dcf8d",
+            "name": "Test",
+            "containerId": "",
+            "created": "2023-06-09T08:19:12.574Z",
+            "sortNum": 10000
+        },
+        {
+            "_id": "0f5cefce-ce00-4aea-b5a7-1c8f8e54e8b6",
+            "name": "Read currentUser",
+            "containerId": "",
+            "created": "2023-06-14T13:13:14.176Z",
+            "sortNum": 30000
+        },
+        {
+            "_id": "4752b2a9-aa47-48d5-bf74-69f4c3572d30",
+            "name": "JWT Token generation + Data User",
+            "containerId": "",
+            "created": "2023-06-14T13:14:41.002Z",
+            "sortNum": 40000
+        },
+        {
+            "_id": "4e8828d7-37ab-43dc-be2a-ea1fcd572112",
+            "name": "Add User",
+            "containerId": "",
+            "created": "2023-06-14T13:15:09.117Z",
+            "sortNum": 50000
+        },
+        {
+            "_id": "00f78059-6166-4676-8681-a5d03692d747",
+            "name": "Edit User",
+            "containerId": "",
+            "created": "2023-06-15T07:27:42.251Z",
+            "sortNum": 60000
+        },
+        {
+            "_id": "1356802f-3833-4060-bf79-ff73d250490b",
+            "name": "Delete User",
+            "containerId": "",
+            "created": "2023-06-15T07:30:32.725Z",
+            "sortNum": 70000
+        },
+        {
+            "_id": "c497e769-255d-4aef-ac90-946b72c1c431",
+            "name": "Game",
+            "containerId": "",
+            "created": "2023-06-15T14:59:29.069Z",
+            "sortNum": 80000
+        }
+    ],
+    "requests": [
+        {
+            "_id": "c1f706c4-4566-4824-bba0-893cff70ac0b",
+            "colId": "8e440715-7930-4210-aa7c-a41348812297",
+            "containerId": "4752b2a9-aa47-48d5-bf74-69f4c3572d30",
+            "name": "JWT Token generation for Anthony",
+            "url": "http://localhost:8000/api/login_check",
+            "method": "GET",
+            "sortNum": 10000,
+            "created": "2023-06-12T08:54:02.738Z",
+            "modified": "2023-06-15T07:08:00.300Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"username\" : \"anthony@admin.com\",\n  \"password\" : \"admin\"\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "0d1cbfae-70bc-448a-ad28-85842ab47131",
+            "colId": "8e440715-7930-4210-aa7c-a41348812297",
+            "containerId": "4e8828d7-37ab-43dc-be2a-ea1fcd572112",
+            "name": "http://localhost:8000/api/users",
+            "url": "http://localhost:8000/api/users",
+            "method": "POST",
+            "sortNum": 10000,
+            "created": "2023-06-13T14:51:44.577Z",
+            "modified": "2023-06-15T07:08:28.222Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"email\": \"antho@player.com\", \n  \"roles\": [\"ROLE_PLAYER\"],\n  \"password\": \"Aa1!\",\n  \"pseudo\": \"antho\",\n  \"avatar\": \"\"\n}\n",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "51225853-3093-4c23-96fe-b1ee5976abe2",
+            "colId": "8e440715-7930-4210-aa7c-a41348812297",
+            "containerId": "0f5cefce-ce00-4aea-b5a7-1c8f8e54e8b6",
+            "name": "User detail from JWT Token Player",
+            "url": "localhost:8000/api/users/details",
+            "method": "GET",
+            "sortNum": 10000,
+            "created": "2023-06-14T12:58:08.692Z",
+            "modified": "2023-06-15T08:04:12.800Z",
+            "headers": [],
+            "params": [],
+            "auth": {
+                "type": "bearer",
+                "bearer": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpYXQiOjE2ODY4MTI4ODAsImV4cCI6MTY4Njg3NzY4MCwicm9sZXMiOlsiUk9MRV9BRE1JTiIsIlJPTEVfUExBWUVSIl0sInVzZXJuYW1lIjoiYW50aG9ueUBhZG1pbi5jb20ifQ.jxZ7cBc8GUXYfn_kADTKB6Oh0jNp2hlPw7-mu_bRKWL4_HwF6J7oLo5lyNgH-TObnRVCH7t_uFLD-UWxuL3sZckKR34SwvSmjgXa9VZPUEUXIeKdFKLKvbE0irzDI3M_CxpxDzQif2UcMCa-AqIRBviGGzP5DC12HGcOn0djWW2h_l_uTCfwaoQb7r4r5YMho2xu9wnyvq_PF8UmHNMVbdPeBpIEAo50F4Xi3f76wO_zlwTUSl-2nuUnl_kSBxcVWRm1rLO1CN2bgTDHBNX440f9zFmCloSpo0KeKysSiUt4E-rZiM_2xC6WpVSK1SdRDSqOHXHQICJ3ds1k2LcV_w"
+            },
+            "tests": []
+        },
+        {
+            "_id": "09620b2b-8396-4cc2-8ece-1164ac954961",
+            "colId": "8e440715-7930-4210-aa7c-a41348812297",
+            "containerId": "00f78059-6166-4676-8681-a5d03692d747",
+            "name": "Edit User with Edit Password",
+            "url": "http://localhost:8000/api/users/27",
+            "method": "PUT",
+            "sortNum": 10000,
+            "created": "2023-06-15T07:26:05.211Z",
+            "modified": "2023-06-15T07:27:45.335Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"email\": \"antho@player.com\", \n  \"roles\": [\"ROLE_PLAYER\"],\n  \"password\":\"Bb1!\",\n  \"pseudo\": \"Anthony\",\n  \"avatar\": \"\"\n}\n",
+                "form": []
+            },
+            "auth": {
+                "type": "bearer",
+                "bearer": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpYXQiOjE2ODY4MTI4ODAsImV4cCI6MTY4Njg3NzY4MCwicm9sZXMiOlsiUk9MRV9BRE1JTiIsIlJPTEVfUExBWUVSIl0sInVzZXJuYW1lIjoiYW50aG9ueUBhZG1pbi5jb20ifQ.jxZ7cBc8GUXYfn_kADTKB6Oh0jNp2hlPw7-mu_bRKWL4_HwF6J7oLo5lyNgH-TObnRVCH7t_uFLD-UWxuL3sZckKR34SwvSmjgXa9VZPUEUXIeKdFKLKvbE0irzDI3M_CxpxDzQif2UcMCa-AqIRBviGGzP5DC12HGcOn0djWW2h_l_uTCfwaoQb7r4r5YMho2xu9wnyvq_PF8UmHNMVbdPeBpIEAo50F4Xi3f76wO_zlwTUSl-2nuUnl_kSBxcVWRm1rLO1CN2bgTDHBNX440f9zFmCloSpo0KeKysSiUt4E-rZiM_2xC6WpVSK1SdRDSqOHXHQICJ3ds1k2LcV_w"
+            },
+            "tests": []
+        },
+        {
+            "_id": "b708eccc-061a-4864-a3be-bb1c9368e0b3",
+            "colId": "8e440715-7930-4210-aa7c-a41348812297",
+            "containerId": "1356802f-3833-4060-bf79-ff73d250490b",
+            "name": "http://localhost:8000/api/users/26",
+            "url": "http://localhost:8000/api/users/26",
+            "method": "DELETE",
+            "sortNum": 10000,
+            "created": "2023-06-15T07:30:18.094Z",
+            "modified": "2023-06-15T07:30:53.881Z",
+            "headers": [],
+            "params": [],
+            "auth": {
+                "type": "bearer",
+                "bearer": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpYXQiOjE2ODY4MTI4ODAsImV4cCI6MTY4Njg3NzY4MCwicm9sZXMiOlsiUk9MRV9BRE1JTiIsIlJPTEVfUExBWUVSIl0sInVzZXJuYW1lIjoiYW50aG9ueUBhZG1pbi5jb20ifQ.jxZ7cBc8GUXYfn_kADTKB6Oh0jNp2hlPw7-mu_bRKWL4_HwF6J7oLo5lyNgH-TObnRVCH7t_uFLD-UWxuL3sZckKR34SwvSmjgXa9VZPUEUXIeKdFKLKvbE0irzDI3M_CxpxDzQif2UcMCa-AqIRBviGGzP5DC12HGcOn0djWW2h_l_uTCfwaoQb7r4r5YMho2xu9wnyvq_PF8UmHNMVbdPeBpIEAo50F4Xi3f76wO_zlwTUSl-2nuUnl_kSBxcVWRm1rLO1CN2bgTDHBNX440f9zFmCloSpo0KeKysSiUt4E-rZiM_2xC6WpVSK1SdRDSqOHXHQICJ3ds1k2LcV_w"
+            },
+            "tests": []
+        },
+        {
+            "_id": "cbbd11b3-e554-430e-ae3c-b07dd3cde3d0",
+            "colId": "8e440715-7930-4210-aa7c-a41348812297",
+            "containerId": "c497e769-255d-4aef-ac90-946b72c1c431",
+            "name": "Btn Play",
+            "url": "http://localhost:8000/api/play",
+            "method": "GET",
+            "sortNum": 10000,
+            "created": "2023-06-15T12:57:53.168Z",
+            "modified": "2023-06-15T14:59:31.979Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "9f5dd5a2-c37e-43d4-aac5-86cbd3aad527",
+            "colId": "8e440715-7930-4210-aa7c-a41348812297",
+            "containerId": "26a30824-305c-4be6-9b65-4042660dcf8d",
+            "name": "Route Test",
+            "url": "http://localhost:8000/api/test",
+            "method": "GET",
+            "sortNum": 20000,
+            "created": "2023-06-09T08:21:29.581Z",
+            "modified": "2023-06-12T13:18:16.890Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "f8db44e8-67a5-4118-b41f-8c2cc63b34bd",
+            "colId": "8e440715-7930-4210-aa7c-a41348812297",
+            "containerId": "4752b2a9-aa47-48d5-bf74-69f4c3572d30",
+            "name": "JWT Token generation for Player",
+            "url": "http://localhost:8000/api/login_check",
+            "method": "GET",
+            "sortNum": 20000,
+            "created": "2023-06-14T12:28:49.193Z",
+            "modified": "2023-06-14T13:14:48.593Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"username\" : \"player@player.com\",\n  \"password\" : \"player\"\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "db54b18a-7675-43da-8c0c-bd49d158a75b",
+            "colId": "8e440715-7930-4210-aa7c-a41348812297",
+            "containerId": "0f5cefce-ce00-4aea-b5a7-1c8f8e54e8b6",
+            "name": "User detail from JWT Token Anthony",
+            "url": "localhost:8000/api/users/details",
+            "method": "GET",
+            "sortNum": 20000,
+            "created": "2023-06-14T12:58:45.739Z",
+            "modified": "2023-06-14T13:13:21.505Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "5c3cd8e3-9fdc-46e6-bf85-3b87df805e75",
+            "colId": "8e440715-7930-4210-aa7c-a41348812297",
+            "containerId": "00f78059-6166-4676-8681-a5d03692d747",
+            "name": "Edit User without Password",
+            "url": "http://localhost:8000/api/users/27",
+            "method": "PUT",
+            "sortNum": 20000,
+            "created": "2023-06-15T07:26:21.851Z",
+            "modified": "2023-06-15T07:27:47.079Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"email\": \"antho@player.com\", \n  \"roles\": [\"ROLE_PLAYER\"],\n  \"pseudo\": \"Anthony\",\n  \"avatar\": \"\"\n}\n",
+                "form": []
+            },
+            "auth": {
+                "type": "bearer",
+                "bearer": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpYXQiOjE2ODY4MTI4ODAsImV4cCI6MTY4Njg3NzY4MCwicm9sZXMiOlsiUk9MRV9BRE1JTiIsIlJPTEVfUExBWUVSIl0sInVzZXJuYW1lIjoiYW50aG9ueUBhZG1pbi5jb20ifQ.jxZ7cBc8GUXYfn_kADTKB6Oh0jNp2hlPw7-mu_bRKWL4_HwF6J7oLo5lyNgH-TObnRVCH7t_uFLD-UWxuL3sZckKR34SwvSmjgXa9VZPUEUXIeKdFKLKvbE0irzDI3M_CxpxDzQif2UcMCa-AqIRBviGGzP5DC12HGcOn0djWW2h_l_uTCfwaoQb7r4r5YMho2xu9wnyvq_PF8UmHNMVbdPeBpIEAo50F4Xi3f76wO_zlwTUSl-2nuUnl_kSBxcVWRm1rLO1CN2bgTDHBNX440f9zFmCloSpo0KeKysSiUt4E-rZiM_2xC6WpVSK1SdRDSqOHXHQICJ3ds1k2LcV_w"
+            },
+            "tests": []
+        },
+        {
+            "_id": "5957ef42-810c-4c37-be60-9c2baeb9700f",
+            "colId": "8e440715-7930-4210-aa7c-a41348812297",
+            "containerId": "c497e769-255d-4aef-ac90-946b72c1c431",
+            "name": "Event Roll",
+            "url": "http://localhost:8000/api/event/roll/9",
+            "method": "GET",
+            "sortNum": 20000,
+            "created": "2023-06-16T08:02:09.899Z",
+            "modified": "2023-06-16T20:18:44.188Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "670b2d01-8365-40f0-b165-0925f7055ffd",
+            "colId": "8e440715-7930-4210-aa7c-a41348812297",
+            "containerId": "4752b2a9-aa47-48d5-bf74-69f4c3572d30",
+            "name": "http://anthony-boutherin.vpnuser.lan:8000/api/login_check",
+            "url": "http://anthony-boutherin.vpnuser.lan:8000/api/login_check",
+            "method": "GET",
+            "sortNum": 30000,
+            "created": "2023-06-12T09:12:30.762Z",
+            "modified": "2023-06-14T13:14:54.353Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"username\" : \"gauthier@gameMaster.com\",\n  \"password\" : \"gameMaster\"\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "e7545b67-0f06-436f-9b3e-91253d5e2a20",
+            "colId": "8e440715-7930-4210-aa7c-a41348812297",
+            "containerId": "26a30824-305c-4be6-9b65-4042660dcf8d",
+            "name": "http://anthony-boutherin.vpnuser.lan:8000/api/test",
+            "url": "http://anthony-boutherin.vpnuser.lan:8000/api/test",
+            "method": "GET",
+            "sortNum": 30000,
+            "created": "2023-06-12T09:13:53.130Z",
+            "modified": "2023-06-14T13:13:36.512Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "1aadcd8d-eaac-4507-88c8-6f4831b7abcf",
+            "colId": "8e440715-7930-4210-aa7c-a41348812297",
+            "containerId": "c497e769-255d-4aef-ac90-946b72c1c431",
+            "name": "Last Event with [2 Opening and 2 Id] Boss",
+            "url": "http://localhost:8000/api/event/last/12",
+            "method": "GET",
+            "sortNum": 30000,
+            "created": "2023-06-16T09:16:13.599Z",
+            "modified": "2023-06-19T09:40:30.991Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "6fabb0c4-65ce-4c25-9006-2cc6036d0937",
+            "colId": "8e440715-7930-4210-aa7c-a41348812297",
+            "containerId": "c497e769-255d-4aef-ac90-946b72c1c431",
+            "name": "Event Boss with [Opening and Id] de Fin de Biome",
+            "url": "http://localhost:8000/api/event/boss/13",
+            "method": "GET",
+            "sortNum": 40000,
+            "created": "2023-06-18T12:43:14.143Z",
+            "modified": "2023-06-19T08:22:33.336Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "9d3a334f-6240-429b-9f9b-ef273a786bd0",
+            "colId": "8e440715-7930-4210-aa7c-a41348812297",
+            "containerId": "c497e769-255d-4aef-ac90-946b72c1c431",
+            "name": "Event EndBiome with [Opening and Id] de EndGame Event",
+            "url": "http://localhost:8000/api/event/end/3",
+            "method": "GET",
+            "sortNum": 50000,
+            "created": "2023-06-19T10:45:36.327Z",
+            "modified": "2023-06-19T14:03:23.861Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "6439eba9-e9ae-4bc9-a5c8-8117e43a8cdc",
+            "colId": "8e440715-7930-4210-aa7c-a41348812297",
+            "containerId": "c497e769-255d-4aef-ac90-946b72c1c431",
+            "name": "Event ENDGAME Victory",
+            "url": "http://localhost:8000/api/event/victory/3",
+            "method": "GET",
+            "sortNum": 60000,
+            "created": "2023-06-19T14:03:56.375Z",
+            "modified": "2023-06-19T14:03:56.375Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        }
+    ],
+    "settings": {
+        "auth": {
+            "type": "bearer",
+            "bearer": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpYXQiOjE2ODcxNTUyOTcsImV4cCI6MTY4NzIyMDA5Nywicm9sZXMiOlsiUk9MRV9BRE1JTiIsIlJPTEVfUExBWUVSIl0sInVzZXJuYW1lIjoiYW50aG9ueUBhZG1pbi5jb20ifQ.BemlVY7iDjF28QoIUMV7Umh5idNfE--Nk7x5JlKCYv3rnF72QlEvQfYNTZqkNxRDBsmXeRb-GE6DwlUp7eoPQYSZFO7MIiO7vew6ohLzI4-sx-Dqq3ecblZMfPTfbkbpFiPIfzSr4wXs_hsM4aGrnj_2o_nVyfGdfY5NPCABwwOTAqtE3tBgco-1eYtOvQ0OXLJXpdUSFAeF8swg2X-Hh3cpjyvZMcFOsx08JNwnkkskKrUA7rNeVJT1wKncAPhcQ8rTQ5Kxi7KEqqS5QI_WOKVnRfXEwyxsIsXC7CM-cAjhSTnE2SH7cMrqmUjXwjuygUfym4NaZtcQFrG5z7yWzw"
+        }
+    }
+}

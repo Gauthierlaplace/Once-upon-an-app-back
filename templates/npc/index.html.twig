@@ -1,0 +1,62 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+	<div class="container my-4">
+		<h1 class='text-center'>
+			{% block title %}Liste des NPC (personnage non joueur)
+			{% endblock %}
+		</h1>
+		<a class='btn btn-primary show' href="{{ path('app_home') }}">Retour à l'acceuil</a>
+		<a class="mb-2 btn btn-success float-end" href="{{ path('app_npc_new') }}">Ajouter un nouveau personnage</a>
+		<table class="table table-hover mt-4">
+			<thead>
+				<tr>
+					<th>Id</th>
+					<th>Name</th>
+					<th>Description</th>
+					<th>Health</th>
+					<th>Strength</th>
+					<th>Intelligence</th>
+					<th>Dexterity</th>
+					<th>Defense</th>
+					<th>Karma</th>
+					<th>Picture</th>
+					<th>IsBoss</th>
+					<th>Hostility</th>
+					<th>XpEarned</th>
+					<th class="text-center">Actions</th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for npc in npcs %}
+					<tr>
+						<td>{{ npc.id }}</td>
+						<td>{{ npc.name }}</td>
+						<td>{{ npc.description }}</td>
+						<td>{{ npc.health }}</td>
+						<td>{{ npc.strength }}</td>
+						<td>{{ npc.intelligence }}</td>
+						<td>{{ npc.dexterity }}</td>
+						<td>{{ npc.defense }}</td>
+						<td>{{ npc.karma }}</td>
+						<td>
+							<img class="img-fluid" src="{{ npc.picture }}" alt="{{ 'image de ' ~ npc.name }}">
+						</td>
+						<td>{{ npc.isBoss ? 'Yes' : 'No' }}</td>
+						<td>{{ npc.hostility ? 'Yes' : 'No' }}</td>
+						<td>{{ npc.xpEarned }}</td>
+						<td>
+							<a class="btn btn-primary float-end  m-1" href="{{ path('app_npc_show', {'id': npc.id}) }}">Voir</a>
+							<a class="btn btn-warning float-end  m-1" href="{{ path('app_npc_edit', {'id': npc.id}) }}">Modifier</a>
+							{{ include('npc/_delete_form.html.twig') }}
+						</td>
+					</tr>
+				{% else %}
+					<tr>
+						<td colspan="14">no records found</td>
+					</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+	</div>
+{% endblock %}

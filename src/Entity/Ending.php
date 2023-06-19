@@ -4,6 +4,8 @@ namespace App\Entity;
 
 use App\Repository\EndingRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass=EndingRepository::class)
@@ -18,6 +20,7 @@ class Ending
     private $id;
 
     /**
+     * @Assert\NotBlank(message="Le champ Ending ne peut pas être vide")
      * @ORM\Column(type="text")
      */
     private $content;
@@ -25,12 +28,14 @@ class Ending
     /**
      * @ORM\ManyToOne(targetEntity=Event::class, inversedBy="endings")
      * @ORM\JoinColumn(nullable=false)
+     * @Assert\NotBlank(message="Le champ Evènement ne peut pas être vide")
      */
     private $event;
 
     /**
      * @ORM\ManyToOne(targetEntity=EventType::class, inversedBy="endings")
      * @ORM\JoinColumn(nullable=false)
+     * @Assert\NotBlank(message="Le champ Type d'évènement ne peut pas être vide")
      */
     private $eventType;
 

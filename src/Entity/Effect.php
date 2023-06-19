@@ -6,6 +6,7 @@ use App\Repository\EffectRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=EffectRepository::class)
@@ -20,6 +21,7 @@ class Effect
     private $id;
 
     /**
+     * @Assert\NotBlank(message="Le champ Nom de l'effet ne peut pas être vide")
      * @ORM\Column(type="string", length=255)
      */
     private $name;
@@ -30,36 +32,43 @@ class Effect
     private $description;
 
     /**
+     * @Assert\Type(type="numeric", message="Le champ Santé doit être un nombre")
      * @ORM\Column(type="integer", nullable=true)
      */
     private $health;
 
     /**
+     * @Assert\Type(type="numeric", message="Le champ Force doit être un nombre")
      * @ORM\Column(type="integer", nullable=true)
      */
     private $strength;
 
     /**
+     * @Assert\Type(type="numeric", message="Le champ Intelligence doit être un nombre")
      * @ORM\Column(type="integer", nullable=true)
      */
     private $intelligence;
 
     /**
+     * @Assert\Type(type="numeric", message="Le champ Dextérité doit être un nombre")
      * @ORM\Column(type="integer", nullable=true)
      */
     private $dexterity;
 
     /**
+     * @Assert\Type(type="numeric", message="Le champ Défense doit être un nombre")
      * @ORM\Column(type="integer", nullable=true)
      */
     private $defense;
 
     /**
+     * @Assert\Type(type="numeric", message="Le champ Karma doit être un nombre")
      * @ORM\Column(type="integer", nullable=true)
      */
     private $karma;
 
     /**
+     * @Assert\Type(type="numeric", message="Le champ Expérience doit être un nombre")
      * @ORM\Column(type="integer", nullable=true)
      */
     private $xp;
@@ -212,5 +221,10 @@ class Effect
         }
 
         return $this;
+    }
+
+    public function __toString(): string
+    {
+        return $this->name;
     }
 }

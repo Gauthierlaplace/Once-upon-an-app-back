@@ -1,0 +1,51 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+	<div class="container my-4">
+		<h1 class="text-center">
+			{% block title %}
+				{{ event.title }}
+			{% endblock %}
+		</h1>
+		<div class="row">
+			<div class="col-md-8 offset-md-2">
+				<div class="card">
+					<div class="card-body">
+						<table class="table">
+							<tbody>
+								<tr>
+									<th>Id</th>
+									<td>{{ event.id }}</td>
+								</tr>
+								<tr>
+									<th>Title</th>
+									<td>{{ event.title }}</td>
+								</tr>
+								<tr>
+									<th>Description</th>
+									<td>{{ event.description }}</td>
+								</tr>
+								<tr>
+									<th>Opening</th>
+									<td>{{ event.opening }}</td>
+								</tr>
+								<tr>
+									<th>Picture</th>
+									<td>
+										<img class="img-fluid" src="{{ event.picture }}" alt="{{ 'image de ' ~ event.title }}">{{ event.picture }}
+									</td>
+								</tr>
+							</tbody>
+						</table>
+						<a class='btn btn-warning  m-1' href="{{ path('app_event_edit', {'id': event.id}) }}">Modifier</a>
+						{{ include('event/_delete_form.html.twig') }}
+						<a class='btn btn-primary  m-1' href="{{ path('app_event_index') }}">Retour à la liste</a>
+
+					</div>
+				</div>
+
+			</div>
+		</div>
+
+	</div>
+{% endblock %}

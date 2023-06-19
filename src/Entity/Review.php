@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\ReviewRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=ReviewRepository::class)
@@ -19,21 +20,34 @@ class Review
 
     /**
      * @ORM\Column(type="string", length=128)
+     * @Assert\NotBlank(
+     *     message = "Merci de donner un titre à votre avis"
+     * )
      */
     private $title;
 
     /**
      * @ORM\Column(type="text")
+     * @Assert\NotBlank(
+     *     message = "Merci de décrire votre avis"
+     * )
      */
     private $content;
 
     /**
      * @ORM\Column(type="float", nullable=true)
+     * @Assert\NotBlank(
+     *     message = "Merci de sélectionner une note"
+     * )
      */
     private $rating;
 
     /**
      * @ORM\Column(type="datetime")
+     * @Assert\NotBlank(
+     *     message = "Merci de renseigner une date"
+     * )
+     * @Assert\Type("\DateTimeInterface")
      */
     private $createdAt;
 
@@ -94,7 +108,7 @@ class Review
         return $this->createdAt;
     }
 
-    public function setCreatedAt(\DateTimeInterface $createdAt): self
+    public function setCreatedAt(?\DateTimeInterface $createdAt): self
     {
         $this->createdAt = $createdAt;
 

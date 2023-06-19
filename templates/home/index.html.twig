@@ -1,8 +1,10 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello Back Office!{% endblock %}
-
 {% block body %}
-<h1 class='card text-center'>Back Office</h1>
-
+	<div class="container my-4">
+		<h1 class='text-center'>
+			{% block title %}Back Office
+			{% endblock %}
+		</h1>
+	</div>
 {% endblock %}

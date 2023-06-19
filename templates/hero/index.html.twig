@@ -1,0 +1,60 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+	<div class="container my-4">
+		<h1 class='text-center'>
+			{% block title %}Liste des Héros
+			{% endblock %}
+		</h1>
+		<a class='btn btn-primary show' href="{{ path('app_home') }}">Retour à l'acceuil</a>
+		<a class="mb-2 btn btn-success float-end" href="{{ path('app_hero_new') }}">Ajouter un nouveau héro</a>
+		<table class="table table-hover mt-4">
+			<thead>
+				<tr>
+					<th>Id</th>
+					<th>Name</th>
+					<th>MaxHealth</th>
+					<th>Health</th>
+					<th>Strength</th>
+					<th>Intelligence</th>
+					<th>Dexterity</th>
+					<th>Defense</th>
+					<th>Karma</th>
+					<th>Xp</th>
+					<th>Picture</th>
+					<th>Progress</th>
+					<th class="text-center">Actions</th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for hero in heroes %}
+					<tr>
+						<td>{{ hero.id }}</td>
+						<td>{{ hero.name }}</td>
+						<td>{{ hero.maxHealth }}</td>
+						<td>{{ hero.health }}</td>
+						<td>{{ hero.strength }}</td>
+						<td>{{ hero.intelligence }}</td>
+						<td>{{ hero.dexterity }}</td>
+						<td>{{ hero.defense }}</td>
+						<td>{{ hero.karma }}</td>
+						<td>{{ hero.xp }}</td>
+						<td>
+							<img class="img-fluid" src="{{ hero.picture }}" alt="{{ 'image de ' ~ hero.name }}">
+						</td>
+						<td>{{ hero.progress }}</td>
+						<td>
+							<a class="btn btn-primary float-end  m-1" href="{{ path('app_hero_show', {'id': hero.id}) }}">Voir</a>
+							<a class="btn btn-warning float-end  m-1" href="{{ path('app_hero_edit', {'id': hero.id}) }}">Modifier</a>
+							{{ include('hero/_delete_form.html.twig') }}
+						</td>
+					</tr>
+				{% else %}
+					<tr>
+						<td colspan="13">no records found</td>
+					</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+	</div>
+	{% endblock %}
