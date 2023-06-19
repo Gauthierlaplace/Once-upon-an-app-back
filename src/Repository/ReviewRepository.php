@@ -39,6 +39,16 @@ class ReviewRepository extends ServiceEntityRepository
         }
     }
 
+    public function findByUser($id)
+    {
+        return $this->createQueryBuilder('r')
+            ->innerJoin('r.user', 'u')
+            ->where('u.id = :user_id')
+            ->setParameter('user_id', $id)
+            ->getQuery()
+            ->getResult();
+    }
+
 //    /**
 //     * @return Review[] Returns an array of Review objects
 //     */

@@ -40,7 +40,8 @@ class EndingRepository extends ServiceEntityRepository
     }
 
     /**
-     *
+     * Find Boss eventType with Id
+     * 
      * @return object
      */
     public function findEndingBoss($eventTypeBossId)
@@ -48,6 +49,20 @@ class EndingRepository extends ServiceEntityRepository
         return $this->createQueryBuilder('ending')
         ->where('ending.eventType = :eventTypeBossId')
         ->setParameter('eventTypeBossId', $eventTypeBossId)
+        ->getQuery()
+        ->getResult();
+    }
+
+    /**
+     * Find EndBiome eventType with Id
+     * 
+     * @return object
+     */
+    public function findEndingBiome($eventTypeEndBiomeId)
+    {
+        return $this->createQueryBuilder('ending')
+        ->where('ending.eventType = :eventTypeEndBiomeId')
+        ->setParameter('eventTypeEndBiomeId', $eventTypeEndBiomeId)
         ->getQuery()
         ->getResult();
     }

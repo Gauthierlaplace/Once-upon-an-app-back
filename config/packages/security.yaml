@@ -45,14 +45,21 @@ security:
     # Easy way to control access for large sections of your site
     # Note: Only the *first* access control that matches will be used
     access_control:
-        - { path: ^/api/users, roles: PUBLIC_ACCESS , methods: [POST]}
-        - { path: ^/login$, roles: PUBLIC_ACCESS }
-        - { path: ^/logout$, roles: PUBLIC_ACCESS }
+
+        # - route api
         # - { path: ^/api/login, roles: PUBLIC_ACCESS }
+        - { path: ^/api/users, roles: PUBLIC_ACCESS , methods: [POST]}
         - { path: ^/api/users/details, roles: ROLE_PLAYER , methods: [GET]}
         - { path: ^/api/users/\d+$, roles: ROLE_PLAYER , methods: [PUT]}
         - { path: ^/api/users/\d+$, roles: ROLE_PLAYER , methods: [DELETE]}
-      
+        - { path: ^/api/play, roles: ROLE_PLAYER , methods: [GET]}
+        - { path: ^/api/event/roll/\d+$, roles: ROLE_PLAYER , methods: [GET]}
+        - { path: ^/api/event/last/\d+$, roles: ROLE_PLAYER , methods: [GET]}
+        - { path: ^/api/event/boss/\d+$, roles: ROLE_PLAYER , methods: [GET]}
+
+        # - route back-office
+        - { path: ^/login$, roles: PUBLIC_ACCESS }
+        - { path: ^/logout$, roles: PUBLIC_ACCESS }
         - { path: ^\/user, roles: ROLE_ADMIN }
         - { path: ^\/\w+\/new$, roles: ROLE_GAMEMASTER }
         - { path: ^\/\w+\/\d+\/edit$, roles: ROLE_GAMEMASTER }
