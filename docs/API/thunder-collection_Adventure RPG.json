@@ -1,7 +1,7 @@
 {
     "client": "Thunder Client",
     "collectionName": "Adventure RPG",
-    "dateExported": "2023-06-19T09:40:52.024Z",
+    "dateExported": "2023-06-19T11:47:52.870Z",
     "version": "1.1",
     "folders": [
         {
@@ -307,6 +307,20 @@
             "sortNum": 40000,
             "created": "2023-06-18T12:43:14.143Z",
             "modified": "2023-06-19T08:22:33.336Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "9d3a334f-6240-429b-9f9b-ef273a786bd0",
+            "colId": "8e440715-7930-4210-aa7c-a41348812297",
+            "containerId": "c497e769-255d-4aef-ac90-946b72c1c431",
+            "name": "Event EndBiome with [Opening and Id] de EndGame Event",
+            "url": "http://localhost:8000/api/event/end/3",
+            "method": "GET",
+            "sortNum": 50000,
+            "created": "2023-06-19T10:45:36.327Z",
+            "modified": "2023-06-19T10:45:36.327Z",
             "headers": [],
             "params": [],
             "tests": []

@@ -67,6 +67,19 @@ class EndingRepository extends ServiceEntityRepository
         ->getResult();
     }
 
+    /**
+     * Find EndGame eventType with Id
+     * 
+     * @return object
+     */
+    public function findEndingEndGame($eventTypeEndGameId)
+    {
+        return $this->createQueryBuilder('ending')
+        ->where('ending.eventType = :eventTypeEndGameId')
+        ->setParameter('eventTypeEndGameId', $eventTypeEndGameId)
+        ->getQuery()
+        ->getResult();
+    }
 
     //    /**
     //     * @return Ending[] Returns an array of Ending objects
