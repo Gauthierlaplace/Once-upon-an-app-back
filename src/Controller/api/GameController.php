@@ -253,7 +253,7 @@ class GameController extends CoreApiController
         // * On garde l'event classic en ouverture, mais il aura en choices 2 event random de event_type "Boss"
 
         $eventTypeBoss = $eventTypeRepository->findBy(['name' => "Boss"]);
-        // dump($eventTypeBoss); // * eventType Boss complet
+        // dd($eventTypeBoss); // * eventType Boss complet
         foreach ($eventTypeBoss as $eventType) {
             $eventTypeBossId = $eventType->getId(); // * on stock l'id
         }
@@ -288,7 +288,7 @@ class GameController extends CoreApiController
         // on a ici les 3 eventBoss
         //on en veut 2
         $eventBossPicked = array_rand($eventsBoss, 2);
-        // dump($eventBossPicked);
+        // dd($eventBossPicked);
 
         $arrayBossData = [];
         foreach ($eventBossPicked as $key => $eventsBossKey) {
@@ -323,4 +323,91 @@ class GameController extends CoreApiController
 
         return $this->json200($data, ["game_last_event_before_boss"]);
     }
+
+    /**
+     * @Route("/api/event/boss/{id}", name="app_api_event_boss", requirements={"id"="\d+"}, methods={"GET"})
+     */
+    public function eventBoss(
+        $id,
+        EventRepository $eventRepository,
+        EventTypeRepository $eventTypeRepository,
+        EndingRepository $endingRepository
+    ): JsonResponse {
+
+        // TODO on veut que B et C soient un event de type Fin de Biome random (MVP Une seule fin de Biome)
+
+        $eventA = $eventRepository->find($id);
+        // dump($eventA);
+        // * On garde l'event classic en ouverture, mais il aura en choices 1 event de event_type "Fin de Biome"
+
+        $eventTypeEndBiome = $eventTypeRepository->findBy(['name' => "Fin de Biome"]);
+        // dump($eventTypeEndBiome); // * eventType Fin de Biome complet
+        foreach ($eventTypeEndBiome as $eventType) {
+            $eventTypeEndBiomeId = $eventType->getId(); // * on stock l'id
+        }
+        // dump($eventTypeEndBiomeId);
+
+        // Récupération ending Fin de Biome de l'eventA
+        $endingsCollection = $eventA->getEndings();
+        // dump($endingsCollection);
+        $endingsEventA = $endingsCollection->toArray();
+        // dump($endingsEventA); // * Tout les endings de l'eventA
+
+        // * isoler le ending
+        // * trouver le ending where eventType = $eventTypeEndBiomeId
+        $endingsEndBiome = $endingRepository->findEndingBiome($eventTypeEndBiomeId);
+        // dump($endingsEndBiome); // * Tout les Endings Fin de Biome
+
+        foreach ($endingsEndBiome as $ending) {
+            $endingCurrent = $ending->getEvent();
+            //    dump($endingCurrent); // * object Event complet avec uniquement l'id dispo
+            $idEndingCurrent = $endingCurrent->getId();
+            //    dump($idEndingCurrent); // * on récupère uniquement l'id
+            if ($idEndingCurrent == $id) // * Si l'$id(eventA) = l'idEndingCurrent alors on a le bon Event donc on peut récupérer le contenu du bon ending de event_type : Fin de Biome
+            {
+                $contentEndingCurrent = $ending->getContent();
+                // dump($contentEndingCurrent);
+            }
+        }
+
+        $eventsEndBiome = $eventRepository->findBy(['eventType' => $eventTypeEndBiomeId]);
+        // dump($eventsEndBiome);
+        // on a ici l'eventEndBiome
+        
+        //* This foreach explores $eventEndBiomePicked in case there is more than 1 key (v2 use)
+        //on en veut 2
+        // $eventEndBiomePicked = array_rand($eventsEndBiome, 2);
+        // dump($eventEndBiomePicked);
+        // $arrayEndBiomeData = [];
+        // foreach ($eventEndBiomePicked as $key => $eventsEndBiomeKey) {
+        //     $pickedEndBiomeEvent = $eventsEndBiome[$eventsEndBiomeKey];
+
+        //     $arrayEndBiomeData[] = $pickedEndBiomeEvent;
+        // }
+        // dd($arrayEndBiomeData);
+
+        // $dataForFront = [];
+        foreach ($eventsEndBiome as $event) {
+            $id = $event->getId();
+            // dump($id);
+            $opening = $event->getOpening();
+            // dump($opening);
+            $dataForFront = [
+                "Id" => $id,
+                "Opening" => $opening
+            ];
+        }
+        // dd($dataForFront);
+
+        // ! Préparation des Data souhaitées pour envoyer en Json
+        $data = [
+            'currentEvent' => $eventA,
+            'currentEvent-Ending' => $contentEndingCurrent,
+            'EndBiome' => $dataForFront
+        ];
+        // dd($data);
+
+        return $this->json200($data, ["game_event_boss"]);
+    }
+
 }
