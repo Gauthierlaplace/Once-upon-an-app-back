@@ -81,7 +81,7 @@ class GameController extends CoreApiController
             'currentEvent' => $eventA,
             'choices' => $choices
         ];
-        return $this->json200($data, ["game_start"]);
+        return $this->json200($data, ["game"]);
 
         // ======================================
 
@@ -110,7 +110,7 @@ class GameController extends CoreApiController
         //     'choiceB' => $eventB,
         //     'choiceC' => $eventC,
         // ];
-        // return $this->json200($data, ["game_start"]);
+        // return $this->json200($data, ["game"]);
 
 
         // ! data initial event complet
@@ -119,7 +119,7 @@ class GameController extends CoreApiController
         //     'endingsAforB1andC2' => $endingForFront,
         //     'eventB1andC2' => $eventBAndC
         // ];
-        // return $this->json200($data, ["game_start"]);
+        // return $this->json200($data, ["game"]);
     }
 
     /**
@@ -233,7 +233,7 @@ class GameController extends CoreApiController
             'choices' => $choices
         ];
 
-        return $this->json200($data, ["game_event_roll"]);
+        return $this->json200($data, ["game"]);
     }
 
     /**
@@ -322,7 +322,7 @@ class GameController extends CoreApiController
         ];
         // dump($data);
 
-        return $this->json200($data, ["game_last_event_before_boss"]);
+        return $this->json200($data, ["game"]);
     }
 
     /**
@@ -387,7 +387,7 @@ class GameController extends CoreApiController
         // }
         // dd($arrayEndBiomeData);
 
-        // $dataForFront = [];
+        $dataForFront = [];
         foreach ($eventsEndBiome as $event) {
             $id = $event->getId();
             // dump($id);
@@ -408,7 +408,71 @@ class GameController extends CoreApiController
         ];
         // dd($data);
 
-        return $this->json200($data, ["game_event_boss"]);
+        return $this->json200($data, ["game"]);
     }
 
+    /**
+     * @Route("/api/event/end/{id}", name="app_api_event_end", requirements={"id"="\d+"}, methods={"GET"})
+     */
+    public function eventEndBiome(
+        $id,
+        EventRepository $eventRepository,
+        EventTypeRepository $eventTypeRepository,
+        EndingRepository $endingRepository
+    ): JsonResponse {
+
+        $eventA = $eventRepository->find($id);
+        // dump($eventA);
+        // * On garde l'event classic en ouverture, mais il aura en choices 1 event de event_type "ENDGAME"
+        
+        // Récupération ending Fin de Biome de l'eventA
+        $endingsCollection = $eventA->getEndings();
+        // dd($endingsCollection);
+        $endingsEventA = $endingsCollection->toArray();
+        // dd($endingsEventA); // * Tout les endings de l'eventA
+
+        // * isoler le ending
+        // * trouver le ending where eventType = $eventTypeEndGameId
+        foreach ($endingsEventA as $ending) {
+            $endingCurrent = $ending->getEvent();
+            //    dump($endingCurrent); // * object Event complet avec uniquement l'id dispo
+            $idEndingCurrent = $endingCurrent->getId();
+            //    dump($idEndingCurrent); // * on récupère uniquement l'id
+            if ($idEndingCurrent == $id) // * Si l'$id(eventA) = l'idEndingCurrent alors on a le bon Event donc on peut récupérer le contenu du bon ending de event_type : EndGame
+            {
+                $contentEndingCurrent = $ending->getContent();
+                // dump($contentEndingCurrent);
+            }
+        }
+        
+        $eventTypeEndBiome = $eventTypeRepository->findBy(['name' => "Endgame"]);
+        // dump($eventTypeEndBiome); // * eventType EndBiome complet
+         $eventTypeEndBiomeId = $eventTypeEndBiome[0]->getId();
+        // dump($eventTypeEndBiomeId);
+
+        $eventsEndBiome = $eventRepository->findBy(['eventType' => $eventTypeEndBiomeId]);
+        // dump($eventsEndBiome);
+
+        $dataForFront = [];
+        foreach ($eventsEndBiome as $event) {
+            $id = $event->getId();
+            // dump($id);
+            $opening = $event->getOpening();
+            // dump($opening);
+            $dataForFront = [
+                "Id" => $id,
+                "Opening" => $opening
+            ];
+        }
+        // dd($dataForFront);
+        // ! Préparation des Data souhaitées pour envoyer en Json
+        $data = [
+            'currentEvent' => $eventA,
+            'currentEvent-Ending' => $contentEndingCurrent,
+            'EndGame' => $dataForFront
+        ];
+        // dd($data);
+
+        return $this->json200($data, ["game"]);
+    }
 }
