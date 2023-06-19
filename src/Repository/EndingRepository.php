@@ -18,8 +18,8 @@ class EndingRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-    parent::__construct($registry, Ending::class);
-}
+        parent::__construct($registry, Ending::class);
+    }
 
     public function add(Ending $entity, bool $flush = false): void
     {
@@ -39,47 +39,6 @@ class EndingRepository extends ServiceEntityRepository
         }
     }
 
-    /**
-     * Find Boss eventType with Id
-     * 
-     * @return object
-     */
-    public function findEndingBoss($eventTypeBossId)
-    {
-        return $this->createQueryBuilder('ending')
-        ->where('ending.eventType = :eventTypeBossId')
-        ->setParameter('eventTypeBossId', $eventTypeBossId)
-        ->getQuery()
-        ->getResult();
-    }
-
-    /**
-     * Find EndBiome eventType with Id
-     * 
-     * @return object
-     */
-    public function findEndingBiome($eventTypeEndBiomeId)
-    {
-        return $this->createQueryBuilder('ending')
-        ->where('ending.eventType = :eventTypeEndBiomeId')
-        ->setParameter('eventTypeEndBiomeId', $eventTypeEndBiomeId)
-        ->getQuery()
-        ->getResult();
-    }
-
-    /**
-     * Find EndGame eventType with Id
-     * 
-     * @return object
-     */
-    public function findEndingEndGame($eventTypeEndGameId)
-    {
-        return $this->createQueryBuilder('ending')
-        ->where('ending.eventType = :eventTypeEndGameId')
-        ->setParameter('eventTypeEndGameId', $eventTypeEndGameId)
-        ->getQuery()
-        ->getResult();
-    }
 
     //    /**
     //     * @return Ending[] Returns an array of Ending objects
