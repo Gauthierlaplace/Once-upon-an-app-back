@@ -126,21 +126,64 @@ class GameController extends CoreApiController
      */
     public function eventRoll(
         $id,
-        EventRepository $eventRepository
+        EventRepository $eventRepository,
+        EventTypeRepository $eventTypeRepository
     ): JsonResponse {
 
         $eventA = $eventRepository->find($id);
         // dump($eventA);
 
-        // ! Début service (param $eventA)
         $endingsCollection = $eventA->getEndings();
 
         $endingsEventA = $endingsCollection->toArray();
-        // dump($endingsEventA);
+        // dump($endingsEventA); //* tout les endings de l'EventA
 
-        // Random des clés de $endingsEventA pour en garder 2
-        $endingsPicked = array_rand($endingsEventA, 2);
-        // dump($endingsPicked);
+        // ! Service à Prévoir ?
+        // ! Exclure les EventType Boss de la pool de pick random eventType
+        function filterEventTypeBoss($endingsEventA, EventTypeRepository $eventTypeRepository)
+        {
+            // on explore tout les endings de l'eventA
+            foreach ($endingsEventA as $endingEventA) {
+                // on garde l'id de l'ending en cours
+                $endingEventAId = $endingEventA->getId();
+                // on récupère l'EventType pour chaque
+                $eventAtype = $endingEventA->getEventType();
+                // dump($eventAtype);
+                // on stock l'id de cet eventType
+                $eventATypeId = $eventAtype->getId();
+                // dump($eventATypeId);
+                // on recherche l'objet eventType avec l'id
+                $searchEventTypeWithId = $eventTypeRepository->findBy(['id' => $eventATypeId]);
+                // on le stock dans un tableau
+                $checkNotBossType = $searchEventTypeWithId;
+                // dump($checkNotBossType);
+                foreach ($checkNotBossType as $check) {
+                    $checkIdName = [($endingEventAId) => ($check->getName())];
+                    // dump($checkIdName);
+                    foreach ($checkIdName as $getOutFromList => $EndingNameToBan) {
+                        if ($EndingNameToBan === "Boss") {
+                            $EndingToDelete = $getOutFromList; //* ID de l'élément ending à supprimer dans $endingsEventA
+                            // dump($EndingToDelete);
+                            // on va filtrer $endingsEventA pour retirer tout les endings de type Boss
+                            $filteredEndingsEventA = array_filter($endingsEventA, function ($ending) use ($EndingToDelete) {
+                                // dump($ending->getId() !== $EndingToDelete);
+                                return $ending->getId() !== $EndingToDelete;
+                            });
+
+                            // dd($filteredEndingsEventA);
+                            return $filteredEndingsEventA;
+                        }
+                    }
+                }
+            };
+        }
+        // ! Appel de filterEventTypeBoss
+        $cleanedEndingsEventA = filterEventTypeBoss($endingsEventA, $eventTypeRepository);
+        // dump($cleanedEndingsEventA);
+
+        // Random des clés de $cleanedEndingsEventA pour en garder 2
+        $endingsPicked = array_rand($cleanedEndingsEventA, 2);
+        // dd($endingsPicked);
 
         $eventBAndC = [];
         $endingForFront = [];
@@ -188,8 +231,6 @@ class GameController extends CoreApiController
             'currentEvent' => $eventA,
             'choices' => $choices
         ];
-
-        // ! Fin service (return $data)
 
         return $this->json200($data, ["game_event_roll"]);
     }
@@ -282,5 +323,4 @@ class GameController extends CoreApiController
 
         return $this->json200($data, ["game_last_event_before_boss"]);
     }
-
 }
