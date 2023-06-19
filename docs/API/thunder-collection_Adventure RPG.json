@@ -1,7 +1,7 @@
 {
     "client": "Thunder Client",
     "collectionName": "Adventure RPG",
-    "dateExported": "2023-06-19T11:47:52.870Z",
+    "dateExported": "2023-06-19T14:05:44.040Z",
     "version": "1.1",
     "folders": [
         {
@@ -320,7 +320,21 @@
             "method": "GET",
             "sortNum": 50000,
             "created": "2023-06-19T10:45:36.327Z",
-            "modified": "2023-06-19T10:45:36.327Z",
+            "modified": "2023-06-19T14:03:23.861Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "6439eba9-e9ae-4bc9-a5c8-8117e43a8cdc",
+            "colId": "8e440715-7930-4210-aa7c-a41348812297",
+            "containerId": "c497e769-255d-4aef-ac90-946b72c1c431",
+            "name": "Event ENDGAME Victory",
+            "url": "http://localhost:8000/api/event/victory/3",
+            "method": "GET",
+            "sortNum": 60000,
+            "created": "2023-06-19T14:03:56.375Z",
+            "modified": "2023-06-19T14:03:56.375Z",
             "headers": [],
             "params": [],
             "tests": []
