@@ -237,7 +237,7 @@ class GameController extends CoreApiController
     }
 
     /**
-     * @Route("/api/last/event/{id}", name="app_api_last_event", requirements={"id"="\d+"}, methods={"GET"})
+     * @Route("/api/event/last/{id}", name="app_api_last_event", requirements={"id"="\d+"}, methods={"GET"})
      */
     public function lastEventBeforeBoss(
         $id,
