@@ -4,6 +4,8 @@ namespace App\Controller;
 
 use App\Entity\EventType;
 use App\Form\EventTypeType;
+use App\Repository\EndingRepository;
+use App\Repository\EventRepository;
 use App\Repository\EventTypeRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -79,9 +81,21 @@ class EventTypeController extends AbstractController
     /**
      * @Route("/{id}", name="app_event_type_delete", methods={"POST"})
      */
-    public function delete(Request $request, EventType $eventType, EventTypeRepository $eventTypeRepository): Response
+    public function delete($id, Request $request, EventType $eventType, EventTypeRepository $eventTypeRepository, EventRepository $eventRepository, EndingRepository $endingRepository): Response
     {
         if ($this->isCsrfTokenValid('delete'.$eventType->getId(), $request->request->get('_token'))) {
+
+            $allEvents = $eventRepository->findByEventType($id);
+    
+            foreach ($allEvents as $event) {
+                $eventId = $event->getId();
+                $allEndings = $endingRepository->findByEvent($eventId);
+    
+            foreach ($allEndings as $ending) {
+                $endingRepository->remove($ending);
+            }
+                $eventRepository->remove($event);
+            }
             $eventTypeRepository->remove($eventType, true);
         }
 

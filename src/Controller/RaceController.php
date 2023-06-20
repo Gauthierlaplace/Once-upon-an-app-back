@@ -4,6 +4,9 @@ namespace App\Controller;
 
 use App\Entity\Race;
 use App\Form\RaceType;
+use App\Repository\AnswerRepository;
+use App\Repository\DialogueRepository;
+use App\Repository\NpcRepository;
 use App\Repository\RaceRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -79,9 +82,28 @@ class RaceController extends AbstractController
     /**
      * @Route("/{id}", name="app_race_delete", methods={"POST"})
      */
-    public function delete(Request $request, Race $race, RaceRepository $raceRepository): Response
+    public function delete($id, Request $request, Race $race, RaceRepository $raceRepository, NpcRepository $npcRepository, DialogueRepository $dialogueRepository, AnswerRepository $answerRepository): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$race->getId(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete' . $race->getId(), $request->request->get('_token'))) {
+
+            $allNpcs = $npcRepository->findByRace($id);
+
+            foreach ($allNpcs as $npc) {
+                $npcId = $npc->getId();
+                $allDialogues = $dialogueRepository->findByNpc($npcId);
+
+                foreach ($allDialogues as $dialogue) {
+                    $dialogueId = $dialogue->getId();
+                    $allAnswers = $answerRepository->findByDialogue($dialogueId);
+                    foreach ($allAnswers as $answer) {
+                        $answerRepository->remove($answer);
+                    }
+                    $dialogueRepository->remove($dialogue);
+                }
+
+                $npcRepository->remove($npc);
+            }
+
             $raceRepository->remove($race, true);
         }
 

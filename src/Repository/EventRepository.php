@@ -39,6 +39,24 @@ class EventRepository extends ServiceEntityRepository
         }
     } 
 
+    public function findByBiome($id)
+    {
+        return $this->createQueryBuilder('e')
+            ->where('e.biome = :biome_id')
+            ->setParameter('biome_id', $id)
+            ->getQuery()
+            ->getResult();
+    }
+    
+    
+    public function findByEventType($id)
+    {
+        return $this->createQueryBuilder('e')
+            ->where('e.eventType = :event_type_id')
+            ->setParameter('event_type_id', $id)
+            ->getQuery()
+            ->getResult();
+    }
         
 //    /**
 //     * @return Event[] Returns an array of Event objects

@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Dialogue;
 use App\Form\DialogueType;
+use App\Repository\AnswerRepository;
 use App\Repository\DialogueRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -79,9 +80,17 @@ class DialogueController extends AbstractController
     /**
      * @Route("/{id}", name="app_dialogue_delete", methods={"POST"})
      */
-    public function delete(Request $request, Dialogue $dialogue, DialogueRepository $dialogueRepository): Response
+    public function delete($id, Request $request, Dialogue $dialogue, DialogueRepository $dialogueRepository, AnswerRepository $answerRepository): Response
     {
         if ($this->isCsrfTokenValid('delete'.$dialogue->getId(), $request->request->get('_token'))) {
+            
+            $allAnswers = $answerRepository->findByDialogue($id);
+    
+            foreach ($allAnswers as $answer) {
+                $answerRepository->remove($answer);
+            }
+
+
             $dialogueRepository->remove($dialogue, true);
         }
 

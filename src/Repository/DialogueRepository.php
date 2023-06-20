@@ -39,6 +39,15 @@ class DialogueRepository extends ServiceEntityRepository
         }
     }
 
+    public function findByNpc($id)
+    {
+        return $this->createQueryBuilder('d')
+            ->where('d.npc = :npc_id')
+            ->setParameter('npc_id', $id)
+            ->getQuery()
+            ->getResult();
+    }
+
 //    /**
 //     * @return Dialogue[] Returns an array of Dialogue objects
 //     */

@@ -39,6 +39,15 @@ class EndingRepository extends ServiceEntityRepository
         }
     }
 
+    public function findByEvent($id)
+    {
+        return $this->createQueryBuilder('e')
+            ->where('e.event = :event_id')
+            ->setParameter('event_id', $id)
+            ->getQuery()
+            ->getResult();
+    }
+
 
     //    /**
     //     * @return Ending[] Returns an array of Ending objects
