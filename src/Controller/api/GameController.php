@@ -15,7 +15,8 @@ class GameController extends CoreApiController
      * @Route("/api/play", name="app_api_game" , methods={"GET"})
      */
     public function btnPlay(
-        EventRepository $eventRepository
+        EventRepository $eventRepository,
+        EventTypeRepository $eventTypeRepository
     ): JsonResponse {
         // Arrivée Event Départ du Biome 1 , 1er noeud de choix d'ending
         // un random EventA Départ + opening de 2 random Event(BetC)de event_type issue de la table ending de l' EventA
@@ -29,11 +30,41 @@ class GameController extends CoreApiController
         $endingsEventA = $endingsCollection->toArray();
         // dump($endingsEventA);
 
+        // ! Service à Prévoir ?
+        // ! Exclure les EventType Boss de la pool de pick random eventType
+        // on explore tout les endings de l'eventA
+        foreach ($endingsEventA as $endingEventA) {
+            // on garde l'id de l'ending en cours
+            $endingEventAId = $endingEventA->getId();
+            // on récupère l'EventType pour chaque
+            $eventAtype = $endingEventA->getEventType();
+            // dump($eventAtype);
+            // on stock l'id de cet eventType
+            $eventATypeId = $eventAtype->getId();
+            // dump($eventATypeId);
+            // on recherche l'objet eventType avec l'id
+            $checkNotBossType = $eventTypeRepository->findOneBy(['id' => $eventATypeId]);
+            // dump($checkNotBossType);
+            $checkIdName = [($endingEventAId) => ($checkNotBossType->getName())];
+            // dd($checkIdName);
+            foreach ($checkIdName as $getOutFromList => $EndingNameToBan) {
+                if ($EndingNameToBan === "Boss") {
+                    $EndingToDelete = $getOutFromList; //* ID de l'élément ending à supprimer dans $endingsEventA
+                    // dump($EndingToDelete);
+                    // on va filtrer $endingsEventA pour retirer tout les endings de type Boss
+                    $filteredEndingsEventA = array_filter($endingsEventA, function ($ending) use ($EndingToDelete) {
+                        // dump($ending->getId() !== $EndingToDelete);
+                        return $ending->getId() !== $EndingToDelete;
+                    });
+                    // dd($filteredEndingsEventA);
+                }
+            }
+        };
 
-
-        // Random des clés de $endingsEventA pour en garder 2
-        $endingsPicked = array_rand($endingsEventA, 2);
-        // dump($endingsPicked);
+        //    dump($filteredEndingsEventA);
+        // Random des clés de $cleanedEndingsEventA pour en garder 2
+        $endingsPicked = array_rand($filteredEndingsEventA, 2);
+        // dd($endingsPicked);
 
         $eventBAndC = [];
         $endingForFront = [];
