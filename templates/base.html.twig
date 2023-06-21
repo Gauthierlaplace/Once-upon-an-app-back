@@ -13,7 +13,7 @@
     </head>
     {% set isHome = (app.request.attributes.get("_route") starts with "app_home")%}
     {% if isHome %}
-        <body style='background-image: url("{{ asset("/images/back-office-acceuil.png") }}");'> 
+        <body style='background-image: url("{{ asset("/images/back-office-Accueil.png") }}");'> 
         {% else %}
        <body style='background-image: url("{{ asset("/images/back-office" ~ random(['-cave', '-grotte']) ~ ".png") }}");'>
     {% endif %}

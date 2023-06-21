@@ -264,51 +264,48 @@ class GameController extends CoreApiController
             $dialogues =  $dialoguesCollection->toArray();
 
             $arrayDialogues = [];
-            $currentDialogue = null;
-            $currentAnswers = [];
 
-            foreach ($dialogues as $dialogue) {
-                $dialogueAnswers = [];
-
-                if ($currentDialogue !== null && $dialogue->getContent() !== $currentDialogue->getContent()) {
-                    $arrayDialogues[$currentDialogue->getContent()] = $currentAnswers;
-                    $currentAnswers = [];
-                }
-
+            foreach ($dialogues as $key => $dialogue) {
+                $arrayDialogues["dialogue" . ($key + 1)] = $dialogue->getContent();
                 $answersCollection = $dialogue->getAnswers();
                 $answers = $answersCollection->toArray();
-
-                foreach ($answers as $answer) {
-                    $answerEffects = [];
+                // dd($answers);
+                $arrayAnswers = [];
+                $arrayEffects = [];
+                foreach ($answers as $key => $answer) {
+                    $arrayAnswers["answer" . ($key + 1)] = $answer->getContent();
                     $effectsCollection = $answer->getEffect();
                     $effects = $effectsCollection->toArray();
 
-                    foreach ($effects as $effect) {
-                        $answerEffects[] = $effect;
-                    }
-
-                    $dialogueAnswers[$answer->getContent()] = $answerEffects;
+                    $arrayEffects["effect" . ($key + 1)] = $effects;
                 }
-
-                $currentDialogue = $dialogue;
-                $currentAnswers[$currentDialogue->getContent()] = $dialogueAnswers;
             }
 
-            // Ajouter le dernier dialogue et ses réponses au tableau multidimensionnel
-            if ($currentDialogue !== null) {
-                $arrayDialogues[$currentDialogue->getContent()] = $currentAnswers;
-            }
+            $countDialogue = count($arrayDialogues);
+            $countAnswer = count($arrayAnswers);
+          
+            for ($dialogueIndex = 1; $dialogueIndex <= $countDialogue; $dialogueIndex++) {
+                $npcDialogue = [
+                    'dialogue'.$dialogueIndex => $arrayDialogues['dialogue' . $dialogueIndex],
 
-            // dd($arrayDialogues);
+                ];
+            };
 
+            for ($answerIndex = 1; $answerIndex <= $countAnswer; $answerIndex++) {
+                $npcDialogue['answer' . $answerIndex] = [
+                    'content' => $arrayAnswers['answer' . $answerIndex],
+                    'effect' => $arrayEffects['effect' . $answerIndex][0],
+                ];
+            };
+            
+                //    dd($test); 
+                    // 'answer2' => $arrayAnswers['answer' . ($i +1)],
+                    // 'effect2' => $arrayEffects['effect' . ($i +1)][0],
+            // dd($test);
+
+            // dump($arrayDialogues);
             // dump($arrayAnswers);
             // dump($arrayEffects);
-            // dump($arrayDialogues);
-            $tableau = [];
-            foreach ($arrayDialogues as $arraydialogue) {
-                $tableau[] = $arraydialogue;
-            }
-            // dump($tableau);
 
 
             $arrayNpc = [
@@ -324,7 +321,7 @@ class GameController extends CoreApiController
                 "defense" => $npc->getDefense(),
                 "karma" => $npc->getKarma(),
                 "xpearned" => $npc->getXpEarned(),
-                "dialogue" => $tableau,
+                "dialogue" => $npcDialogue,
 
             ];
             // dd($arrayNpc);
@@ -584,7 +581,7 @@ class GameController extends CoreApiController
         $data = [
             'currentEvent' => $eventA,
             'npcCurrentEvent' => $arrayNpc,
-            'currentEvent-Ending' => $contentEndingCurrent,
+            'currentEventEnding' => $contentEndingCurrent,
             'BossA' => $dataForFront[0],
             'BossB' => $dataForFront[1]
         ];
