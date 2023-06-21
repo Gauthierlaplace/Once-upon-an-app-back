@@ -1,0 +1,25 @@
+body>div.container.my-4>div>div>div>div>table>tbody>tr>td {
+    max-width: 25vw;
+}
+
+body {
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-attachment: fixed;
+    background-size: cover;
+    font-family: 'Akaya Kanadaka', display;
+    font-size: 1.2em;
+    
+}
+.table {
+
+    --bs-table-bg: rgba(0, 0, 0, 0.6);
+}
+
+.card {
+    --bs-card-bg: rgba(0, 0, 0, 0.6);
+}
+
+nav {
+    background-color: rgba(155, 149, 149, 0.1);
+}
