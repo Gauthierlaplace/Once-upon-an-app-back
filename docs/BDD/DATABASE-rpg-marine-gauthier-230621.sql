@@ -241,7 +241,7 @@ CREATE TABLE `event` (
   `opening` longtext COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `picture` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `event_type_id` int(11) NOT NULL,
-  `biome_id` int(11) NOT NULL,
+  `biome_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `IDX_3BAE0AA7401B253C` (`event_type_id`),
   KEY `IDX_3BAE0AA7E43A64F9` (`biome_id`),
@@ -263,7 +263,7 @@ INSERT INTO `event` (`id`, `title`, `description`, `opening`, `picture`, `event_
 (11,	'La Sombre Grotte',	'Ici, la lumière ne pénètre jamais. Alors que vous avancez dans la grotte, des grondements sinistres résonnent. Si vous aviez une once de vocation pour la spéléologie, elle disparaît aussitôt.',	'Un frisson vous parcourt l\'échine. Toute votre attention est absorbée par une grotte que vous voyez se dessiner au loin. Vous êtes comme possédé et ne pouvez vous empêcher d\'approcher...',	'https://cdn.discordapp.com/attachments/1114521519893254195/1117501321109573712/rahkart_generate_an_image_that_depicts_a_captivating_scene_insp_fc584627-203c-4417-9c80-5ce57dc03cb3.png',	5,	1),
 (12,	'Les racines éternelles',	'Les arbres noueux semblent se tordre de douleur et le vent murmure un chuchotement sinistre à travers les feuilles mortes. Une silhouette apparaît, digne d\'un cauchemar éveillé.',	'Vous reprenez votre chemin et n\'arrêtez pas de trébucher ! La forêt n\'a pas fini de vous surprendre...',	'https://cdn.discordapp.com/attachments/1114521519893254195/1117502359032049785/rahkart_generate_an_image_that_depicts_a_captivating_scene_insp_8f0465e2-999e-4467-a166-fb5039726c1d.png',	5,	1),
 (13,	'Victoire forêt',	'Votre visage rayonne de fierté et d\'accomplissement alors que vous contemplez les mystères de la nature qui vous ont entouré tout au long de cette épopée. Les arbres majestueux, témoins silencieux de votre courage, vous saluent de leurs branches ondoyantes. Vous sentez la brise légère caresser votre visage, comme pour vous féliciter de votre triomphe. Une douce mélodie résonne dans l\'air, jouée par une flûte invisible, vous rappelant les leçons apprises lors de cette aventure inoubliable. Maintenant, c\'est le moment de prendre congé de cette forêt, portant avec vous le souvenir indélébile de vos prouesses.',	'Vous émergez victorieux de cette sombre forêt après avoir bravé mille périls.',	'https://imagizer.imageshack.com/img922/9859/NongTL.jpg',	6,	1),
-(14,	'Victoire !',	'Les terres enchantées se réjouissent de votre succès, tandis que votre nom résonne désormais comme une légende dans les tavernes et les foyers du royaume.',	'Congratulations',	'https://imagizer.imageshack.com/img924/7334/cLWkMv.jpg',	7,	1);
+(14,	'Victoire !',	'Les terres enchantées se réjouissent de votre succès, tandis que votre nom résonne désormais comme une légende dans les tavernes et les foyers du royaume.',	'Congratulations',	'https://imagizer.imageshack.com/img924/7334/cLWkMv.jpg',	7,	0);
 
 DROP TABLE IF EXISTS `event_npc`;
 CREATE TABLE `event_npc` (
