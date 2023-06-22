@@ -12,7 +12,8 @@
         <thead>
             <tr>
                 <th>Id</th>
-                <th>Content</th>
+                <th></th>  
+                <th>Contenu</th>                
                 <th class="col-md-4 mr-auto text-center">Actions</th>
             </tr>
         </thead>
@@ -20,6 +21,9 @@
         {% for dialogue in dialogues %}
             <tr>
                 <td>{{ dialogue.id }}</td>
+                <td>{{ dialogue.npc.name }} 
+               <img class="img-fluid otherTableImg" src="{{ dialogue.npc.picture }}" alt="{{ 'image de ' ~ dialogue.npc.name }}">
+    </td>
                 <td>{{ dialogue.content }}</td>
                 <td>
                     <a class="btn btn-primary float-end  m-1" href="{{ path('app_dialogue_show', {'id': dialogue.id}) }}">Voir</a>
@@ -29,7 +33,7 @@
             </tr>
         {% else %}
             <tr>
-                <td colspan="3">no records found</td>
+                <td colspan="3">Aucune donnée trouvée</td>
             </tr>
         {% endfor %}
         </tbody>

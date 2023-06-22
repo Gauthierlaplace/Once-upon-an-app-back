@@ -29,65 +29,38 @@ class GameController extends CoreApiController
         // dump($npcCollection);
         $npcs = $npcCollection->toArray();
         // dump($npcs);
-        $arrayNpc = [];
+        $arrayNpc= [];
         foreach ($npcs as $npc) {
-            // dd($npc);
-            $npc->getRace();
 
             $raceName = $npc->getRace()->getName();
             $raceDescription = $npc->getRace()->getDescription();
-
+        
             $dialoguesCollection = $npc->getDialogues();
             $dialogues =  $dialoguesCollection->toArray();
-
+        
             $arrayDialogues = [];
-            $currentDialogue = null;
-            $currentAnswers = [];
-
-            foreach ($dialogues as $dialogue) {
-                $dialogueAnswers = [];
-
-                if ($currentDialogue !== null && $dialogue->getContent() !== $currentDialogue->getContent()) {
-                    $arrayDialogues[$currentDialogue->getContent()] = $currentAnswers;
-                    $currentAnswers = [];
-                }
-
+        
+            foreach ($dialogues as $key => $dialogue) {
+                $arrayDialogues["dialogue" . ($key + 1)] = $dialogue->getContent();
                 $answersCollection = $dialogue->getAnswers();
                 $answers = $answersCollection->toArray();
-
-                foreach ($answers as $answer) {
-                    $answerEffects = [];
-                    $effectsCollection = $answer->getEffect();
-                    $effects = $effectsCollection->toArray();
-
-                    foreach ($effects as $effect) {
-                        $answerEffects[] = $effect;
-                    }
-
-                    $dialogueAnswers[$answer->getContent()] = $answerEffects;
-                }
-
-                $currentDialogue = $dialogue;
-                $currentAnswers[$currentDialogue->getContent()] = $dialogueAnswers;
+                $arrayDialogues["answer" . ($key + 1)] = $answers;  
             }
-
-            // Ajouter le dernier dialogue et ses réponses au tableau multidimensionnel
-            if ($currentDialogue !== null) {
-                $arrayDialogues[$currentDialogue->getContent()] = $currentAnswers;
+        
+            $countDialogue = count($dialogues);
+            for ($i = 1; $i <= $countDialogue; $i++) {
+                $npcDialogue['dialogue' .$i] = [
+                    'dialogue' => $arrayDialogues['dialogue' . $i],
+                    'answer1' => $arrayDialogues['answer' . $i][0]->getContent(),
+                    'effect1'   => $arrayDialogues['answer' . $i][0]->getEffect()[0],
+                    'answer2'  => $arrayDialogues['answer' . $i][1]->getContent(),
+                    'effect2' => $arrayDialogues['answer' . $i][1]->getEffect()[0],
+                ];
             }
-
-            // dd($arrayDialogues);
-
-            // dump($arrayAnswers);
-            // dump($arrayEffects);
-            // dump($arrayDialogues);
-            $tableau = [];
-            foreach ($arrayDialogues as $arraydialogue) {
-                $tableau[] = $arraydialogue;
-            }
-            // dump($tableau);
-
-
+        
+            // dd($npcDialogue);
+        
+        
             $arrayNpc = [
                 "raceName" => $raceName,
                 "raceDescription" => $raceDescription,
@@ -101,10 +74,9 @@ class GameController extends CoreApiController
                 "defense" => $npc->getDefense(),
                 "karma" => $npc->getKarma(),
                 "xpearned" => $npc->getXpEarned(),
-                "dialogue" => $tableau,
-
+                "dialogues" => $npcDialogue,
+        
             ];
-            // dd($arrayNpc);
         }
 
         $endingsCollection = $eventA->getEndings();
@@ -246,68 +218,43 @@ class GameController extends CoreApiController
     ): JsonResponse {
 
         $eventA = $eventRepository->find($id);
-        // dump($eventA);
 
         $npcCollection = $eventA->getNpc();
-        // dump($npcCollection);
+
         $npcs = $npcCollection->toArray();
-        // dump($npcs);
-        $arrayNpc = [];
+
+        $arrayNpc= [];
         foreach ($npcs as $npc) {
-            // dd($npc);
-            $npc->getRace();
 
             $raceName = $npc->getRace()->getName();
             $raceDescription = $npc->getRace()->getDescription();
-
+        
             $dialoguesCollection = $npc->getDialogues();
             $dialogues =  $dialoguesCollection->toArray();
-
+        
             $arrayDialogues = [];
-
+        
             foreach ($dialogues as $key => $dialogue) {
                 $arrayDialogues["dialogue" . ($key + 1)] = $dialogue->getContent();
                 $answersCollection = $dialogue->getAnswers();
                 $answers = $answersCollection->toArray();
-                // dd($answers);
-                $arrayAnswers = [];
-                $arrayEffects = [];
-                foreach ($answers as $key => $answer) {
-                    $arrayAnswers["answer" . ($key + 1)] = $answer->getContent();
-                    $effectsCollection = $answer->getEffect();
-                    $effects = $effectsCollection->toArray();
-
-                    $arrayEffects["effect" . ($key + 1)] = $effects;
-                }
+                $arrayDialogues["answer" . ($key + 1)] = $answers;  
             }
-
-            $countDialogue = count($arrayDialogues);
-            $countAnswer = count($arrayAnswers);
-          
-            for ($dialogueIndex = 1; $dialogueIndex <= $countDialogue; $dialogueIndex++) {
-                $npcDialogue = [
-                    'dialogue'.$dialogueIndex => $arrayDialogues['dialogue' . $dialogueIndex],
-
+        
+            $countDialogue = count($dialogues);
+            for ($i = 1; $i <= $countDialogue; $i++) {
+                $npcDialogue['dialogue' .$i] = [
+                    'dialogue' => $arrayDialogues['dialogue' . $i],
+                    'answer1' => $arrayDialogues['answer' . $i][0]->getContent(),
+                    'effect1'   => $arrayDialogues['answer' . $i][0]->getEffect()[0],
+                    'answer2'  => $arrayDialogues['answer' . $i][1]->getContent(),
+                    'effect2' => $arrayDialogues['answer' . $i][1]->getEffect()[0],
                 ];
-            };
-
-            for ($answerIndex = 1; $answerIndex <= $countAnswer; $answerIndex++) {
-                $npcDialogue['answer' . $answerIndex] = [
-                    'content' => $arrayAnswers['answer' . $answerIndex],
-                    'effect' => $arrayEffects['effect' . $answerIndex][0],
-                ];
-            };
-            
-                //    dd($test); 
-                    // 'answer2' => $arrayAnswers['answer' . ($i +1)],
-                    // 'effect2' => $arrayEffects['effect' . ($i +1)][0],
-            // dd($test);
-
-            // dump($arrayDialogues);
-            // dump($arrayAnswers);
-            // dump($arrayEffects);
-
-
+            }
+        
+            // dd($npcDialogue);
+        
+        
             $arrayNpc = [
                 "raceName" => $raceName,
                 "raceDescription" => $raceDescription,
@@ -321,11 +268,82 @@ class GameController extends CoreApiController
                 "defense" => $npc->getDefense(),
                 "karma" => $npc->getKarma(),
                 "xpearned" => $npc->getXpEarned(),
-                "dialogue" => $npcDialogue,
-
+                "dialogues" => $npcDialogue,
+        
             ];
-            // dd($arrayNpc);
         }
+        // foreach ($npcs as $npc) {
+        //     // dd($npc);
+        //     $npc->getRace();
+
+        //     $raceName = $npc->getRace()->getName();
+        //     $raceDescription = $npc->getRace()->getDescription();
+
+        //     $dialoguesCollection = $npc->getDialogues();
+        //     $dialogues =  $dialoguesCollection->toArray();
+
+        //     $arrayDialogues = [];
+
+        //     foreach ($dialogues as $key => $dialogue) {
+        //         $arrayDialogues["dialogue" . ($key + 1)] = $dialogue->getContent();
+        //         $answersCollection = $dialogue->getAnswers();
+        //         $answers = $answersCollection->toArray();
+        //         // dd($answers);
+        //         $arrayAnswers = [];
+        //         $arrayEffects = [];
+        //         foreach ($answers as $key => $answer) {
+        //             $arrayAnswers["answer" . ($key + 1)] = $answer->getContent();
+        //             $effectsCollection = $answer->getEffect();
+        //             $effects = $effectsCollection->toArray();
+
+        //             $arrayEffects["effect" . ($key + 1)] = $effects;
+        //         }
+        //     }
+
+        //     $countDialogue = count($arrayDialogues);
+        //     $countAnswer = count($arrayAnswers);
+          
+        //     for ($dialogueIndex = 1; $dialogueIndex <= $countDialogue; $dialogueIndex++) {
+        //         $npcDialogue = [
+        //             'dialogue'.$dialogueIndex => $arrayDialogues['dialogue' . $dialogueIndex],
+
+        //         ];
+        //     };
+
+        //     for ($answerIndex = 1; $answerIndex <= $countAnswer; $answerIndex++) {
+        //         $npcDialogue['answer' . $answerIndex] = [
+        //             'content' => $arrayAnswers['answer' . $answerIndex],
+        //             'effect' => $arrayEffects['effect' . $answerIndex][0],
+        //         ];
+        //     };
+            
+        //            dd($npcDialogue); 
+        //             // 'answer2' => $arrayAnswers['answer' . ($i +1)],
+        //             // 'effect2' => $arrayEffects['effect' . ($i +1)][0],
+        //     // dd($test);
+
+        //     // dump($arrayDialogues);
+        //     // dump($arrayAnswers);
+        //     // dump($arrayEffects);
+
+
+        //     $arrayNpc = [
+        //         "raceName" => $raceName,
+        //         "raceDescription" => $raceDescription,
+        //         "npcName" => $npc->getName(),
+        //         "npcDescription" => $npc->getDescription(),
+        //         "picture" => $npc->getPicture(),
+        //         "health" => $npc->getHealth(),
+        //         "strength" => $npc->getStrength(),
+        //         "intelligence" => $npc->getIntelligence(),
+        //         "dexterity" => $npc->getDexterity(),
+        //         "defense" => $npc->getDefense(),
+        //         "karma" => $npc->getKarma(),
+        //         "xpearned" => $npc->getXpEarned(),
+        //         "dialogue" => $npcDialogue,
+
+        //     ];
+
 
         $endingsCollection = $eventA->getEndings();
         $endingsEventA = $endingsCollection->toArray();
@@ -439,65 +457,38 @@ class GameController extends CoreApiController
         // dump($npcCollection);
         $npcs = $npcCollection->toArray();
         // dump($npcs);
-        $arrayNpc = [];
+        $arrayNpc= [];
         foreach ($npcs as $npc) {
-            // dd($npc);
-            $npc->getRace();
 
             $raceName = $npc->getRace()->getName();
             $raceDescription = $npc->getRace()->getDescription();
-
+        
             $dialoguesCollection = $npc->getDialogues();
             $dialogues =  $dialoguesCollection->toArray();
-
+        
             $arrayDialogues = [];
-            $currentDialogue = null;
-            $currentAnswers = [];
-
-            foreach ($dialogues as $dialogue) {
-                $dialogueAnswers = [];
-
-                if ($currentDialogue !== null && $dialogue->getContent() !== $currentDialogue->getContent()) {
-                    $arrayDialogues[$currentDialogue->getContent()] = $currentAnswers;
-                    $currentAnswers = [];
-                }
-
+        
+            foreach ($dialogues as $key => $dialogue) {
+                $arrayDialogues["dialogue" . ($key + 1)] = $dialogue->getContent();
                 $answersCollection = $dialogue->getAnswers();
                 $answers = $answersCollection->toArray();
-
-                foreach ($answers as $answer) {
-                    $answerEffects = [];
-                    $effectsCollection = $answer->getEffect();
-                    $effects = $effectsCollection->toArray();
-
-                    foreach ($effects as $effect) {
-                        $answerEffects[] = $effect;
-                    }
-
-                    $dialogueAnswers[$answer->getContent()] = $answerEffects;
-                }
-
-                $currentDialogue = $dialogue;
-                $currentAnswers[$currentDialogue->getContent()] = $dialogueAnswers;
+                $arrayDialogues["answer" . ($key + 1)] = $answers;  
             }
-
-            // Ajouter le dernier dialogue et ses réponses au tableau multidimensionnel
-            if ($currentDialogue !== null) {
-                $arrayDialogues[$currentDialogue->getContent()] = $currentAnswers;
+        
+            $countDialogue = count($dialogues);
+            for ($i = 1; $i <= $countDialogue; $i++) {
+                $npcDialogue['dialogue' .$i] = [
+                    'dialogue' => $arrayDialogues['dialogue' . $i],
+                    'answer1' => $arrayDialogues['answer' . $i][0]->getContent(),
+                    'effect1'   => $arrayDialogues['answer' . $i][0]->getEffect()[0],
+                    'answer2'  => $arrayDialogues['answer' . $i][1]->getContent(),
+                    'effect2' => $arrayDialogues['answer' . $i][1]->getEffect()[0],
+                ];
             }
-
-            // dd($arrayDialogues);
-
-            // dump($arrayAnswers);
-            // dump($arrayEffects);
-            // dump($arrayDialogues);
-            $tableau = [];
-            foreach ($arrayDialogues as $arraydialogue) {
-                $tableau[] = $arraydialogue;
-            }
-            // dump($tableau);
-
-
+        
+            // dd($npcDialogue);
+        
+        
             $arrayNpc = [
                 "raceName" => $raceName,
                 "raceDescription" => $raceDescription,
@@ -511,10 +502,9 @@ class GameController extends CoreApiController
                 "defense" => $npc->getDefense(),
                 "karma" => $npc->getKarma(),
                 "xpearned" => $npc->getXpEarned(),
-                "dialogue" => $tableau,
-
+                "dialogues" => $npcDialogue,
+        
             ];
-            // dd($arrayNpc);
         }
 
         // Récupération ending Boss de l'eventA
@@ -613,65 +603,38 @@ class GameController extends CoreApiController
         // dump($npcCollection);
         $npcs = $npcCollection->toArray();
         // dump($npcs);
-        $arrayNpc = [];
+        $arrayNpc= [];
         foreach ($npcs as $npc) {
-            // dd($npc);
-            $npc->getRace();
 
             $raceName = $npc->getRace()->getName();
             $raceDescription = $npc->getRace()->getDescription();
-
+        
             $dialoguesCollection = $npc->getDialogues();
             $dialogues =  $dialoguesCollection->toArray();
-
+        
             $arrayDialogues = [];
-            $currentDialogue = null;
-            $currentAnswers = [];
-
-            foreach ($dialogues as $dialogue) {
-                $dialogueAnswers = [];
-
-                if ($currentDialogue !== null && $dialogue->getContent() !== $currentDialogue->getContent()) {
-                    $arrayDialogues[$currentDialogue->getContent()] = $currentAnswers;
-                    $currentAnswers = [];
-                }
-
+        
+            foreach ($dialogues as $key => $dialogue) {
+                $arrayDialogues["dialogue" . ($key + 1)] = $dialogue->getContent();
                 $answersCollection = $dialogue->getAnswers();
                 $answers = $answersCollection->toArray();
-
-                foreach ($answers as $answer) {
-                    $answerEffects = [];
-                    $effectsCollection = $answer->getEffect();
-                    $effects = $effectsCollection->toArray();
-
-                    foreach ($effects as $effect) {
-                        $answerEffects[] = $effect;
-                    }
-
-                    $dialogueAnswers[$answer->getContent()] = $answerEffects;
-                }
-
-                $currentDialogue = $dialogue;
-                $currentAnswers[$currentDialogue->getContent()] = $dialogueAnswers;
+                $arrayDialogues["answer" . ($key + 1)] = $answers;  
             }
-
-            // Ajouter le dernier dialogue et ses réponses au tableau multidimensionnel
-            if ($currentDialogue !== null) {
-                $arrayDialogues[$currentDialogue->getContent()] = $currentAnswers;
+        
+            $countDialogue = count($dialogues);
+            for ($i = 1; $i <= $countDialogue; $i++) {
+                $npcDialogue['dialogue' .$i] = [
+                    'dialogue' => $arrayDialogues['dialogue' . $i],
+                    'answer1' => $arrayDialogues['answer' . $i][0]->getContent(),
+                    'effect1'   => $arrayDialogues['answer' . $i][0]->getEffect()[0],
+                    'answer2'  => $arrayDialogues['answer' . $i][1]->getContent(),
+                    'effect2' => $arrayDialogues['answer' . $i][1]->getEffect()[0],
+                ];
             }
-
-            // dd($arrayDialogues);
-
-            // dump($arrayAnswers);
-            // dump($arrayEffects);
-            // dump($arrayDialogues);
-            $tableau = [];
-            foreach ($arrayDialogues as $arraydialogue) {
-                $tableau[] = $arraydialogue;
-            }
-            // dump($tableau);
-
-
+        
+            // dd($npcDialogue);
+        
+        
             $arrayNpc = [
                 "raceName" => $raceName,
                 "raceDescription" => $raceDescription,
@@ -685,10 +648,9 @@ class GameController extends CoreApiController
                 "defense" => $npc->getDefense(),
                 "karma" => $npc->getKarma(),
                 "xpearned" => $npc->getXpEarned(),
-                "dialogue" => $tableau,
-
+                "dialogues" => $npcDialogue,
+        
             ];
-            // dd($arrayNpc);
         }
 
         // Récupération ending Fin de Biome de l'eventA
@@ -777,65 +739,38 @@ class GameController extends CoreApiController
         // dump($npcCollection);
         $npcs = $npcCollection->toArray();
         // dump($npcs);
-        $arrayNpc = [];
+        $arrayNpc= [];
         foreach ($npcs as $npc) {
-            // dd($npc);
-            $npc->getRace();
 
             $raceName = $npc->getRace()->getName();
             $raceDescription = $npc->getRace()->getDescription();
-
+        
             $dialoguesCollection = $npc->getDialogues();
             $dialogues =  $dialoguesCollection->toArray();
-
+        
             $arrayDialogues = [];
-            $currentDialogue = null;
-            $currentAnswers = [];
-
-            foreach ($dialogues as $dialogue) {
-                $dialogueAnswers = [];
-
-                if ($currentDialogue !== null && $dialogue->getContent() !== $currentDialogue->getContent()) {
-                    $arrayDialogues[$currentDialogue->getContent()] = $currentAnswers;
-                    $currentAnswers = [];
-                }
-
+        
+            foreach ($dialogues as $key => $dialogue) {
+                $arrayDialogues["dialogue" . ($key + 1)] = $dialogue->getContent();
                 $answersCollection = $dialogue->getAnswers();
                 $answers = $answersCollection->toArray();
-
-                foreach ($answers as $answer) {
-                    $answerEffects = [];
-                    $effectsCollection = $answer->getEffect();
-                    $effects = $effectsCollection->toArray();
-
-                    foreach ($effects as $effect) {
-                        $answerEffects[] = $effect;
-                    }
-
-                    $dialogueAnswers[$answer->getContent()] = $answerEffects;
-                }
-
-                $currentDialogue = $dialogue;
-                $currentAnswers[$currentDialogue->getContent()] = $dialogueAnswers;
+                $arrayDialogues["answer" . ($key + 1)] = $answers;  
             }
-
-            // Ajouter le dernier dialogue et ses réponses au tableau multidimensionnel
-            if ($currentDialogue !== null) {
-                $arrayDialogues[$currentDialogue->getContent()] = $currentAnswers;
+        
+            $countDialogue = count($dialogues);
+            for ($i = 1; $i <= $countDialogue; $i++) {
+                $npcDialogue['dialogue' .$i] = [
+                    'dialogue' => $arrayDialogues['dialogue' . $i],
+                    'answer1' => $arrayDialogues['answer' . $i][0]->getContent(),
+                    'effect1'   => $arrayDialogues['answer' . $i][0]->getEffect()[0],
+                    'answer2'  => $arrayDialogues['answer' . $i][1]->getContent(),
+                    'effect2' => $arrayDialogues['answer' . $i][1]->getEffect()[0],
+                ];
             }
-
-            // dd($arrayDialogues);
-
-            // dump($arrayAnswers);
-            // dump($arrayEffects);
-            // dump($arrayDialogues);
-            $tableau = [];
-            foreach ($arrayDialogues as $arraydialogue) {
-                $tableau[] = $arraydialogue;
-            }
-            // dump($tableau);
-
-
+        
+            // dd($npcDialogue);
+        
+        
             $arrayNpc = [
                 "raceName" => $raceName,
                 "raceDescription" => $raceDescription,
@@ -849,10 +784,9 @@ class GameController extends CoreApiController
                 "defense" => $npc->getDefense(),
                 "karma" => $npc->getKarma(),
                 "xpearned" => $npc->getXpEarned(),
-                "dialogue" => $tableau,
-
+                "dialogues" => $npcDialogue,
+        
             ];
-            // dd($arrayNpc);
         }
 
         // Récupération ending Fin de Biome de l'eventA
@@ -921,65 +855,38 @@ class GameController extends CoreApiController
         // dump($npcCollection);
         $npcs = $npcCollection->toArray();
         // dump($npcs);
-        $arrayNpc = [];
+        $arrayNpc= [];
         foreach ($npcs as $npc) {
-            // dd($npc);
-            $npc->getRace();
 
             $raceName = $npc->getRace()->getName();
             $raceDescription = $npc->getRace()->getDescription();
-
+        
             $dialoguesCollection = $npc->getDialogues();
             $dialogues =  $dialoguesCollection->toArray();
-
+        
             $arrayDialogues = [];
-            $currentDialogue = null;
-            $currentAnswers = [];
-
-            foreach ($dialogues as $dialogue) {
-                $dialogueAnswers = [];
-
-                if ($currentDialogue !== null && $dialogue->getContent() !== $currentDialogue->getContent()) {
-                    $arrayDialogues[$currentDialogue->getContent()] = $currentAnswers;
-                    $currentAnswers = [];
-                }
-
+        
+            foreach ($dialogues as $key => $dialogue) {
+                $arrayDialogues["dialogue" . ($key + 1)] = $dialogue->getContent();
                 $answersCollection = $dialogue->getAnswers();
                 $answers = $answersCollection->toArray();
-
-                foreach ($answers as $answer) {
-                    $answerEffects = [];
-                    $effectsCollection = $answer->getEffect();
-                    $effects = $effectsCollection->toArray();
-
-                    foreach ($effects as $effect) {
-                        $answerEffects[] = $effect;
-                    }
-
-                    $dialogueAnswers[$answer->getContent()] = $answerEffects;
-                }
-
-                $currentDialogue = $dialogue;
-                $currentAnswers[$currentDialogue->getContent()] = $dialogueAnswers;
+                $arrayDialogues["answer" . ($key + 1)] = $answers;  
             }
-
-            // Ajouter le dernier dialogue et ses réponses au tableau multidimensionnel
-            if ($currentDialogue !== null) {
-                $arrayDialogues[$currentDialogue->getContent()] = $currentAnswers;
+        
+            $countDialogue = count($dialogues);
+            for ($i = 1; $i <= $countDialogue; $i++) {
+                $npcDialogue['dialogue' .$i] = [
+                    'dialogue' => $arrayDialogues['dialogue' . $i],
+                    'answer1' => $arrayDialogues['answer' . $i][0]->getContent(),
+                    'effect1'   => $arrayDialogues['answer' . $i][0]->getEffect()[0],
+                    'answer2'  => $arrayDialogues['answer' . $i][1]->getContent(),
+                    'effect2' => $arrayDialogues['answer' . $i][1]->getEffect()[0],
+                ];
             }
-
-            // dd($arrayDialogues);
-
-            // dump($arrayAnswers);
-            // dump($arrayEffects);
-            // dump($arrayDialogues);
-            $tableau = [];
-            foreach ($arrayDialogues as $arraydialogue) {
-                $tableau[] = $arraydialogue;
-            }
-            // dump($tableau);
-
-
+        
+            // dd($npcDialogue);
+        
+        
             $arrayNpc = [
                 "raceName" => $raceName,
                 "raceDescription" => $raceDescription,
@@ -993,10 +900,9 @@ class GameController extends CoreApiController
                 "defense" => $npc->getDefense(),
                 "karma" => $npc->getKarma(),
                 "xpearned" => $npc->getXpEarned(),
-                "dialogue" => $tableau,
-
+                "dialogues" => $npcDialogue,
+        
             ];
-            // dd($arrayNpc);
         }
 
         // ! Préparation des Data souhaitées pour envoyer en Json

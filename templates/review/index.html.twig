@@ -13,11 +13,12 @@
 			<thead>
 				<tr>
 					<th>Id</th>
-					<th>Title</th>
-					<th>Content</th>
-					<th>Rating</th>
-					<th>CreatedAt</th>
-					<th>UpdatedAt</th>
+					<th>Utilisateur</th>
+					<th>Titre</th>
+					<th>Contenu</th>
+					<th>Note</th>
+					<th>Créé le</th>
+					<th>Modifié le</th>
 					<th class="text-center">Actions</th>
 				</tr>
 			</thead>
@@ -25,6 +26,7 @@
 				{% for review in reviews %}
 					<tr>
 						<td>{{ review.id }}</td>
+						<td>{{ review.user.pseudo }}</td>
 						<td>{{ review.title }}</td>
 						<td>{{ review.content }}</td>
 						<td>{{ review.rating }}</td>
@@ -39,7 +41,7 @@
 					</tr>
 				{% else %}
 					<tr>
-						<td colspan="7">no records found</td>
+						<td colspan="8">Aucune donnée trouvée</td>
 					</tr>
 				{% endfor %}
 			</tbody>

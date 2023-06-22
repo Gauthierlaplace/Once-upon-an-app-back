@@ -12,15 +12,15 @@
 			<thead>
 				<tr>
 					<th>Id</th>
-					<th>Name</th>
-					<th>Picture</th>
-					<th>Health</th>
-					<th>Strength</th>
+					<th>Nom</th>
+					<th>Image</th>
+					{# <th>Santé</th>
+					<th>Force</th>
 					<th>Intelligence</th>
-					<th>Dexterity</th>
-					<th>Defense</th>
+					<th>Dexterité</th>
+					<th>Défense</th>
 					<th>Karma</th>
-					<th>Xp</th>
+					<th>Xp</th> #}
 					<th class="text-center">Actions</th>
 				</tr>
 			</thead>
@@ -30,15 +30,15 @@
 						<td>{{ item.id }}</td>
 						<td>{{ item.name }}</td>
 						<td>
-							<img class="img-fluid" src="{{ item.picture }}" alt="{{ 'image de ' ~ item.name }}">
+							<img class="img-fluid otherTableImg" src="{{ item.picture }}" alt="{{ 'image de ' ~ item.name }}">
 						</td>
-						<td>{{ item.health }}</td>
+						{# <td>{{ item.health }}</td>
 						<td>{{ item.strength }}</td>
 						<td>{{ item.intelligence }}</td>
 						<td>{{ item.dexterity }}</td>
 						<td>{{ item.defense }}</td>
 						<td>{{ item.karma }}</td>
-						<td>{{ item.xp }}</td>
+						<td>{{ item.xp }}</td> #}
 						<td>
 							<a class="btn btn-primary float-end  m-1" href="{{ path('app_item_show', {'id': item.id}) }}">Voir</a>
 							<a class="btn btn-warning float-end  m-1" href="{{ path('app_item_edit', {'id': item.id}) }}">Modifier</a>
@@ -47,7 +47,7 @@
 					</tr>
 				{% else %}
 					<tr>
-						<td colspan="11">no records found</td>
+						<td colspan="4">Aucune donnée trouvée</td>
 					</tr>
 				{% endfor %}
 			</tbody>

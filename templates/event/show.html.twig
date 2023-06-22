@@ -18,9 +18,22 @@
 									<td>{{ event.id }}</td>
 								</tr>
 								<tr>
-									<th>Title</th>
+									<th>Titre</th>
 									<td>{{ event.title }}</td>
 								</tr>
+								<tr>
+									<th>Biome</th>
+									{% if event.biome.id %}
+									<td>{{ event.biome.name }}</td>	
+									{% else %}
+									<td></td>									
+									{% endif %}
+								</tr>
+								<tr>
+									<th>Type</th>
+									<td>{{ event.eventType.name }}</td>
+								</tr>
+
 								<tr>
 									<th>Description</th>
 									<td>{{ event.description }}</td>
@@ -30,9 +43,20 @@
 									<td>{{ event.opening }}</td>
 								</tr>
 								<tr>
-									<th>Picture</th>
+									<th>Image</th>
 									<td>
 										<img class="img-fluid event-img" src="{{ event.picture }}" alt="{{ 'image de ' ~ event.title }}">{{ event.picture }}
+									</td>
+								</tr>
+								<tr>
+									<th>Npc</th>
+									<td>
+									{% for npc in npcs %}
+											{{npc.name}}
+											<br>
+											  <img class="img-fluid otherTableImg" src="{{ npc.picture }}" alt="{{ 'image de ' ~ npc.name }}">
+										{% endfor %}
+										
 									</td>
 								</tr>
 							</tbody>

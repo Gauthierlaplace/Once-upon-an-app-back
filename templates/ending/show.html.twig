@@ -17,9 +17,17 @@
 									<th>Id</th>
 									<td>{{ ending.id }}</td>
 								</tr>
+									<tr>
+									<th>Evénement</th>
+									<td>{{ ending.event.Title }} <br>  <img class="img-fluid otherTableImg" src="{{ ending.event.picture }}" alt="{{ 'image de ' ~ ending.event.title }}"></td> </td>
+								</tr>
 								<tr>
-									<th>Content</th>
+									<th>Ending</th>
 									<td>{{ ending.content }}</td>
+								</tr>
+								<tr>
+									<th>Vers Type</th>
+									<td>{{ ending.eventType.name }}</td>
 								</tr>
 							</tbody>
 						</table>

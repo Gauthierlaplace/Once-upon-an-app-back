@@ -12,18 +12,19 @@
 			<thead>
 				<tr>
 					<th>Id</th>
-					<th>Name</th>
+					<th>Nom</th>
+					<th>Race</th>
 					<th>Description</th>
-					<th>Health</th>
+					{# <th>Health</th>
 					<th>Strength</th>
 					<th>Intelligence</th>
 					<th>Dexterity</th>
 					<th>Defense</th>
-					<th>Karma</th>
-					<th>Picture</th>
-					<th>IsBoss</th>
-					<th>Hostility</th>
-					<th>XpEarned</th>
+					<th>Karma</th> #}
+					<th>Image</th>
+					<th>Boss</th>
+					<th>Hostile</th>
+					{# <th>XpEarned</th> #}
 					<th class="text-center">Actions</th>
 				</tr>
 			</thead>
@@ -32,19 +33,20 @@
 					<tr>
 						<td>{{ npc.id }}</td>
 						<td>{{ npc.name }}</td>
+						<td>{{ npc.race.name }}</td>
 						<td>{{ npc.description }}</td>
-						<td>{{ npc.health }}</td>
+						{# <td>{{ npc.health }}</td>
 						<td>{{ npc.strength }}</td>
 						<td>{{ npc.intelligence }}</td>
 						<td>{{ npc.dexterity }}</td>
 						<td>{{ npc.defense }}</td>
-						<td>{{ npc.karma }}</td>
+						<td>{{ npc.karma }}</td> #}
 						<td>
 							<img class="img-fluid" src="{{ npc.picture }}" alt="{{ 'image de ' ~ npc.name }}">
 						</td>
-						<td>{{ npc.isBoss ? 'Yes' : 'No' }}</td>
-						<td>{{ npc.hostility ? 'Yes' : 'No' }}</td>
-						<td>{{ npc.xpEarned }}</td>
+						<td>{{ npc.isBoss ? 'Oui' : 'Non' }}</td>
+						<td>{{ npc.hostility ? 'Oui' : 'Non' }}</td>
+						{# <td>{{ npc.xpEarned }}</td> #}
 						<td>
 							<a class="btn btn-primary float-end  m-1" href="{{ path('app_npc_show', {'id': npc.id}) }}">Voir</a>
 							<a class="btn btn-warning float-end  m-1" href="{{ path('app_npc_edit', {'id': npc.id}) }}">Modifier</a>
@@ -53,7 +55,7 @@
 					</tr>
 				{% else %}
 					<tr>
-						<td colspan="14">no records found</td>
+						<td colspan="8">Aucune donnée trouvée</td>
 					</tr>
 				{% endfor %}
 			</tbody>
