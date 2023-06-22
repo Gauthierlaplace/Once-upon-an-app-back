@@ -267,7 +267,7 @@ INSERT INTO `event` (`id`, `title`, `description`, `opening`, `picture`, `event_
 (12,	'Les racines éternelles',	'Les arbres noueux semblent se tordre de douleur et le vent murmure un chuchotement sinistre à travers les feuilles mortes. Une silhouette apparaît, digne d\'un cauchemar éveillé.',	'Vous reprenez votre chemin et n\'arrêtez pas de trébucher ! La forêt n\'a pas fini de vous surprendre...',	'https://cdn.discordapp.com/attachments/1114521519893254195/1117502359032049785/rahkart_generate_an_image_that_depicts_a_captivating_scene_insp_8f0465e2-999e-4467-a166-fb5039726c1d.png',	5,	1),
 (13,	'Victoire forêt',	'Votre visage rayonne de fierté et d\'accomplissement alors que vous contemplez les mystères de la nature qui vous ont entouré tout au long de cette épopée. Les arbres majestueux, témoins silencieux de votre courage, vous saluent de leurs branches ondoyantes. Vous sentez la brise légère caresser votre visage, comme pour vous féliciter de votre triomphe. Une douce mélodie résonne dans l\'air, jouée par une flûte invisible, vous rappelant les leçons apprises lors de cette aventure inoubliable. Maintenant, c\'est le moment de prendre congé de cette forêt, portant avec vous le souvenir indélébile de vos prouesses.',	'Vous émergez victorieux de cette sombre forêt après avoir bravé mille périls.',	'https://imagizer.imageshack.com/img922/9859/NongTL.jpg',	6,	1),
 (14,	'Victoire !',	'Les terres enchantées se réjouissent de votre succès, tandis que votre nom résonne désormais comme une légende dans les tavernes et les foyers du royaume.',	'Congratulations',	'https://imagizer.imageshack.com/img924/7334/cLWkMv.jpg',	7,	2),
-(18,	'Game Over',	'Vous n\'êtes pas prêt !',	'Il va faire tout noir !',	'/images/game-over.png',	8,	2);
+(18,	'Game Over',	'Vous n\'êtes pas prêt !',	'Il va faire tout noir !',	'images/game-over.png',	8,	2);
 
 DROP TABLE IF EXISTS `event_npc`;
 CREATE TABLE `event_npc` (
@@ -334,10 +334,10 @@ CREATE TABLE `hero` (
 INSERT INTO `hero` (`id`, `name`, `max_health`, `health`, `strength`, `intelligence`, `dexterity`, `defense`, `karma`, `xp`, `picture`, `progress`, `hero_class_id`, `user_id`) VALUES
 (1,	'Sandra du Cookie Ploup-Ploup',	150,	150,	100,	100,	100,	100,	10,	0,	'https://static.vecteezy.com/system/resources/previews/018/931/604/original/cartoon-cookie-icon-png.png',	NULL,	1,	11),
 (2,	'Marine du Poney trop Stylé',	150,	150,	100,	100,	100,	100,	10,	0,	'https://www.pngmart.com/files/3/My-Little-Pony-Rarity-PNG-Clipart.png',	NULL,	1,	10),
-(6,	'Pierre de la Grotte carrelée',	150,	150,	100,	100,	100,	100,	10,	0,	'/images/avatar5.png',	NULL,	1,	8),
-(7,	'Anthony de la Cave Backeux',	150,	150,	100,	100,	100,	100,	10,	NULL,	'/images/avatar7.png',	NULL,	1,	9),
-(8,	'Gauthier le roi des insoumis',	150,	150,	100,	100,	100,	100,	10,	NULL,	'/images/avatar2.png',	NULL,	1,	12),
-(12,	'Testeur',	100,	100,	100,	100,	100,	100,	7,	0,	'/images/default-hero-avatar.png',	0,	2,	27);
+(6,	'Pierre de la Grotte carrelée',	150,	150,	100,	100,	100,	100,	10,	0,	'images/avatar5.png',	NULL,	1,	8),
+(7,	'Anthony de la Cave Backeux',	150,	150,	100,	100,	100,	100,	10,	NULL,	'images/avatar7.png',	NULL,	1,	9),
+(8,	'Gauthier le roi des insoumis',	150,	150,	100,	100,	100,	100,	10,	NULL,	'images/avatar2.png',	NULL,	1,	12),
+(12,	'Testeur',	100,	100,	100,	100,	100,	100,	7,	0,	'images/default-hero-avatar.png',	0,	2,	27);
 
 DROP TABLE IF EXISTS `hero_class`;
 CREATE TABLE `hero_class` (
@@ -525,11 +525,11 @@ CREATE TABLE `user` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 INSERT INTO `user` (`id`, `email`, `roles`, `password`, `pseudo`, `avatar`) VALUES
-(8,	'pierre@admin.com',	'[\"ROLE_ADMIN\"]',	'$2y$13$h5/TrGHUNtiCzOSAVmfV..0KJllcpnPiB90XzVq0z86jPuehUQq0m',	'Pierre',	'/images/avatar11.png'),
-(9,	'anthony@admin.com',	'[\"ROLE_ADMIN\"]',	'$2y$13$h5/TrGHUNtiCzOSAVmfV..0KJllcpnPiB90XzVq0z86jPuehUQq0m',	'Anthony',	'/images/avatar7.png'),
+(8,	'pierre@admin.com',	'[\"ROLE_ADMIN\"]',	'$2y$13$h5/TrGHUNtiCzOSAVmfV..0KJllcpnPiB90XzVq0z86jPuehUQq0m',	'Pierre',	'images/avatar11.png'),
+(9,	'anthony@admin.com',	'[\"ROLE_ADMIN\"]',	'$2y$13$h5/TrGHUNtiCzOSAVmfV..0KJllcpnPiB90XzVq0z86jPuehUQq0m',	'Anthony',	'images/avatar7.png'),
 (10,	'marine@gameMaster.com',	'[\"ROLE_GAMEMASTER\"]',	'$2y$13$LMDD1/gH0ONyuexKiVsxxu52Yx5p5q98qmmTOBgh11PcdXzUt4pf6',	'Marine',	'https://www.pngmart.com/files/3/My-Little-Pony-Rarity-PNG-Clipart.png'),
 (11,	'sandra@gameMaster.com',	'[\"ROLE_GAMEMASTER\"]',	'$2y$13$LMDD1/gH0ONyuexKiVsxxu52Yx5p5q98qmmTOBgh11PcdXzUt4pf6',	'Sandra',	'https://static.vecteezy.com/system/resources/previews/018/931/604/original/cartoon-cookie-icon-png.png'),
-(12,	'gauthier@gameMaster.com',	'[\"ROLE_GAMEMASTER\"]',	'$2y$13$LMDD1/gH0ONyuexKiVsxxu52Yx5p5q98qmmTOBgh11PcdXzUt4pf6',	'Gauthier',	'/images/avatar2.png'),
-(27,	'player@player.com',	'[\"ROLE_PLAYER\"]',	'$2y$13$8Iq54Nr6N4a3QZq5SWuE7ejsZROkF5bWIXBg3gqC4rf7uvsqx63TO',	'Testeur',	'/images/default-hero-avatar.png');
+(12,	'gauthier@gameMaster.com',	'[\"ROLE_GAMEMASTER\"]',	'$2y$13$LMDD1/gH0ONyuexKiVsxxu52Yx5p5q98qmmTOBgh11PcdXzUt4pf6',	'Gauthier',	'images/avatar2.png'),
+(27,	'player@player.com',	'[\"ROLE_PLAYER\"]',	'$2y$13$8Iq54Nr6N4a3QZq5SWuE7ejsZROkF5bWIXBg3gqC4rf7uvsqx63TO',	'Testeur',	'images/default-hero-avatar.png');
 
 -- 2023-06-22 13:40:19
