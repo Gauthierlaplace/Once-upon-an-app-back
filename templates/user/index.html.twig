@@ -27,7 +27,11 @@
 						<td>{{ user.email }}</td>
 						<td>{{ user.roles ? user.roles|json_encode : '' }}</td>
 						<td>{{ user.pseudo }}</td>
-						<td>{{ user.avatar }}</td>
+						<td>
+						{% if user.avatar %}
+						<img class="img-fluid otherTableImg" src="{{ asset(user.avatar)  }}" alt="{{ 'image de ' ~ user.pseudo }}">
+						{% endif %}
+						</td>
 						<td>
 							<a class="btn btn-primary float-end m-1" href="{{ path('app_user_show', {'id': user.id}) }}">Voir</a>
 							<a class="btn btn-warning float-end m-1" href="{{ path('app_user_edit', {'id': user.id}) }}">Modifier</a>

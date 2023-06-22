@@ -586,7 +586,7 @@ class GameController extends CoreApiController
         $data = [
             'currentEvent' => $eventA,
             'npcCurrentEvent' => $arrayNpc,
-            'currentEvent-Ending' => $contentEndingCurrent,
+            'currentEventEnding' => $contentEndingCurrent,
             'EndBiome' => $dataForFront
         ];
 
@@ -706,7 +706,7 @@ class GameController extends CoreApiController
         $data = [
             'currentEvent' => $eventA,
             'npcCurrentEvent' => $arrayNpc,
-            'currentEvent-Ending' => $contentEndingCurrent,
+            'currentEventEnding' => $contentEndingCurrent,
             'EndGame' => $dataForFront
         ];
 
@@ -791,7 +791,9 @@ class GameController extends CoreApiController
     public function eventEffect(
         $id,
         EffectRepository $effectRepository,
-        HeroRepository $heroRepository
+        HeroRepository $heroRepository,
+        EventTypeRepository $eventTypeRepository,
+        EventRepository $eventRepository
     ): JsonResponse {
 
         /** @var App\Entity\User $user */
@@ -801,6 +803,7 @@ class GameController extends CoreApiController
 
         $effect = $effectRepository->findOneBy(['id' => $id]);
 
+        // * Applying Effect to Player ($hero)
         if ($effect->getHealth()) {
             $hero->setHealth($hero->getHealth() + $effect->getHealth());
 
@@ -827,21 +830,30 @@ class GameController extends CoreApiController
             $hero->setXp($hero->getXp() + $effect->getXp());
         }
 
+        // Saving Hero in Database
         $heroRepository->add($hero, true);
 
+        // * Hero Dies, Death Event needed
+        $eventTypeDeath = $eventTypeRepository->findOneBy(['name' => "Death"]);
+        $eventTypeDeathId = $eventTypeDeath->getId();
+        // dd($eventTypeDeathId);
+        $eventDeath = $eventRepository->findOneBy(['eventType' => $eventTypeDeathId]);
+
+        // dd($eventDeath);
+        // * Hero survived the effect or not ?
         if ($hero->getHealth() <= 0) {
+            // * Hero didn't survive the effect, $hero object become a string, $data return $hero + the Death event opening + id
             $hero = 'Vous êtes mort !';
             $data = [
                 'player' => $hero,
-                // 'GameOver' => $eventGameOVer
+                'GameOver' => $eventDeath
             ];
         } else {
+            // * Hero survived the effect, the game goes on
             $data = [
                 'player' => $hero,
             ];
         }
-
-
 
         return $this->json200($data, ["game"]);
 

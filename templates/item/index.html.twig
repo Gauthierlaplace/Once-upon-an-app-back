@@ -30,7 +30,9 @@
 						<td>{{ item.id }}</td>
 						<td>{{ item.name }}</td>
 						<td>
-							<img class="img-fluid otherTableImg" src="{{ item.picture }}" alt="{{ 'image de ' ~ item.name }}">
+						{% if item.picture %}
+							<img class="img-fluid otherTableImg" src="{{ asset(item.picture) }}" alt="{{ 'image de ' ~ item.name }}">
+						{% endif %}
 						</td>
 						{# <td>{{ item.health }}</td>
 						<td>{{ item.strength }}</td>

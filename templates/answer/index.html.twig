@@ -23,7 +23,13 @@
 				{% for answer in answers %}
 					<tr>
 						<td>{{ answer.id }}</td>
-							<td>{{ answer.dialogue.npc.name }} <br> <img class="img-fluid otherTableImg" src="{{ answer.dialogue.npc.picture }}" alt="{{ 'image de ' ~ answer.dialogue.npc.name }}"> <br> {{ answer.dialogue.content }}</td>
+							<td>
+										{{ answer.dialogue.npc.name }} 
+							{% if answer.dialogue.npc.picture %}	
+							<br> <img class="img-fluid otherTableImg" src="{{ asset(answer.dialogue.npc.picture) }}" alt="{{ 'image de ' ~ answer.dialogue.npc.name }}"> 									
+									{% endif %}
+									<br> {{ answer.dialogue.content }}
+							</td>		
 						<td>{{ answer.content }}</td>
 									<td>{% dump(answer.effect) %}</td>
 						<td>

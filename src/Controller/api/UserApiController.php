@@ -97,7 +97,7 @@ class UserApiController extends CoreApiController
             $user->setPassword($hashedPassword);
         }
 
-        $heroClass = $heroClassRepository->findOneBy(['id'=> 1]);
+        $heroClass = $heroClassRepository->findOneBy(['id'=> 2]);
 
         $hero = new Hero();
         $hero->setName($user->getPseudo());
@@ -109,7 +109,7 @@ class UserApiController extends CoreApiController
         $hero->setDefense($heroClass->getDefense());
         $hero->setKarma(rand(0, 10));
         $hero->setXp(0);
-        $hero->setPicture('/images/default-hero-avatar-without-background.png');
+        $hero->setPicture('/images/default-hero-avatar.png');
         $hero->setProgress(0);
         $hero->setHeroClass($heroClass);
         $hero->setUser($user);

@@ -58,7 +58,7 @@ class Event
 
     /**
      * @ORM\ManyToOne(targetEntity=Biome::class, inversedBy="events")
-     * @ORM\JoinColumn(nullable=true)
+     * @ORM\JoinColumn(nullable=false)
      * 
      */
     private $biome;
