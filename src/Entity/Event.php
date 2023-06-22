@@ -156,7 +156,7 @@ class Event
         return $this->biome;
     }
 
-    public function setBiome(?Biome $biome): self
+    public function setBiome(Biome $biome): self
     {
         $this->biome = $biome;
 
