@@ -19,7 +19,10 @@
 								</tr>
 									<tr>
 									<th>Evénement</th>
-									<td>{{ ending.event.Title }} <br>  <img class="img-fluid otherTableImg" src="{{ ending.event.picture }}" alt="{{ 'image de ' ~ ending.event.title }}"></td> </td>
+									<td>{{ ending.event.Title }} 
+									{% if ending.event.picture %}										
+									<br>  <img class="img-fluid otherTableImg" src="{{ asset(ending.event.picture) }}" alt="{{ 'image de ' ~ ending.event.title }}"></td> </td>
+									{% endif %}
 								</tr>
 								<tr>
 									<th>Ending</th>

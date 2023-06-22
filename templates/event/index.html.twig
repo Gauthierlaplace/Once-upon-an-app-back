@@ -26,16 +26,14 @@
 					<tr>
 						<td>{{ event.id }}</td>
 						<td>{{ event.title }}</td>
-						{% if event.biome.id %}
 						<td>{{ event.biome.name }}</td>
-						{% else %}
-						<td></td>
-						{% endif %}
 						<td>{{ event.eventType.name }}</td>
 						{# <td>{{ event.description }}</td>
 						<td>{{ event.opening }}</td> #}
 						<td>
-							<img class="img-fluid" src="{{ event.picture }}" alt="{{ 'image de ' ~ event.title }}">
+						{% if event.picture %}
+							<img class="img-fluid" src="{{ asset(event.picture) }}" alt="{{ 'image de ' ~ event.title }}">
+						{% endif %}
 						</td>
 						<td>
 							<a class="btn btn-primary float-end  m-1" href="{{ path('app_event_show', {'id': event.id}) }}">Voir</a>

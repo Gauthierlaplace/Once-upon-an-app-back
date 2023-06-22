@@ -45,17 +45,23 @@
 								<tr>
 									<th>Image</th>
 									<td>
-										<img class="img-fluid event-img" src="{{ event.picture }}" alt="{{ 'image de ' ~ event.title }}">{{ event.picture }}
+									{% if event.picture %}									
+										<img class="img-fluid event-img" src="{{ asset(event.picture) }}" alt="{{ 'image de ' ~ event.title }}">{{ event.picture }}
+									{% endif %}
 									</td>
 								</tr>
 								<tr>
 									<th>Npc</th>
 									<td>
+									{% if npcs %}
 									{% for npc in npcs %}
 											{{npc.name}}
+									{% if npc.picture %}
 											<br>
-											  <img class="img-fluid otherTableImg" src="{{ npc.picture }}" alt="{{ 'image de ' ~ npc.name }}">
+											  <img class="img-fluid otherTableImg" src="{{ asset(npc.picture) }}" alt="{{ 'image de ' ~ npc.name }}">
+									{% endif %}
 										{% endfor %}
+										{% endif %}
 										
 									</td>
 								</tr>

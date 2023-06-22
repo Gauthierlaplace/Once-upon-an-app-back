@@ -19,8 +19,11 @@
 								</tr>
 								<tr>
 									<th>Npc</th>
-									<td>{{ dialogue.npc.name }} <br>
-									 <img class="img-fluid otherTableImg" src="{{ dialogue.npc.picture }}" alt="{{ 'image de ' ~ dialogue.npc.name }}"></td>
+									<td>{{ dialogue.npc.name }}
+									{% if dialogue.npc.picture %}										
+									 <br>
+									 <img class="img-fluid otherTableImg" src="{{ asset(dialogue.npc.picture) }}" alt="{{ 'image de ' ~ dialogue.npc.name }}"></td>
+									{% endif %}
 								</tr>
 								<tr>
 									<th>Contenu</th>

@@ -1,42 +1,45 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-<div class="container my-4">
-    <h1 class='text-center'>
+	<div class="container my-4">
+		<h1 class='text-center'>
 			{% block title %}Liste des Dialogues
 			{% endblock %}
 		</h1>
-<a class='btn btn-primary show' href="{{ path('app_home') }}">Retour à l'Accueil</a>
+		<a class='btn btn-primary show' href="{{ path('app_home') }}">Retour à l'Accueil</a>
 		<a class="mb-2 btn btn-success float-end" href="{{ path('app_dialogue_new') }}">Ajouter un nouveau dialogue</a>
-    <table class="table table-hover mt-4">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Npc</th>  
-                <th>Contenu</th>                
-                <th class="col-md-4 mr-auto text-center">Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for dialogue in dialogues %}
-            <tr>
-                <td>{{ dialogue.id }}</td>
-                <td>{{ dialogue.npc.name }} <br>
-               <img class="img-fluid otherTableImg" src="{{ dialogue.npc.picture }}" alt="{{ 'image de ' ~ dialogue.npc.name }}">
-    </td>
-                <td>{{ dialogue.content }}</td>
-                <td>
-                    <a class="btn btn-primary float-end  m-1" href="{{ path('app_dialogue_show', {'id': dialogue.id}) }}">Voir</a>
+		<table class="table table-hover mt-4">
+			<thead>
+				<tr>
+					<th>Id</th>
+					<th>Npc</th>
+					<th>Contenu</th>
+					<th class="col-md-4 mr-auto text-center">Actions</th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for dialogue in dialogues %}
+					<tr>
+						<td>{{ dialogue.id }}</td>
+						<td>{{ dialogue.npc.name }}
+							{% if dialogue.npc.picture %}
+							<br>
+								<img class="img-fluid otherTableImg" src="{{ asset(dialogue.npc.picture) }}" alt="{{ 'image de ' ~ dialogue.npc.name }}">
+							{% endif %}
+						</td>
+						<td>{{ dialogue.content }}</td>
+						<td>
+							<a class="btn btn-primary float-end  m-1" href="{{ path('app_dialogue_show', {'id': dialogue.id}) }}">Voir</a>
 							<a class="btn btn-warning float-end  m-1" href="{{ path('app_dialogue_edit', {'id': dialogue.id}) }}">Modifier</a>
 							{{ include('dialogue/_delete_form.html.twig') }}
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="3">Aucune donnée trouvée</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-</div>
+						</td>
+					</tr>
+				{% else %}
+					<tr>
+						<td colspan="3">Aucune donnée trouvée</td>
+					</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+	</div>
 {% endblock %}

@@ -2,9 +2,11 @@
 
 namespace App\Controller\api;
 
+use App\Repository\EffectRepository;
 use App\Repository\EndingRepository;
 use App\Repository\EventRepository;
 use App\Repository\EventTypeRepository;
+use App\Repository\HeroRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Annotation\Route;
@@ -16,10 +18,20 @@ class GameController extends CoreApiController
      */
     public function btnPlay(
         EventRepository $eventRepository,
-        EventTypeRepository $eventTypeRepository
+        EventTypeRepository $eventTypeRepository,
+        HeroRepository $heroRepository
     ): JsonResponse {
         // Arrivée Event Départ du Biome 1 , 1er noeud de choix d'ending
         // un random EventA Départ + opening de 2 random Event(BetC)de event_type issue de la table ending de l' EventA
+
+        // TODO Stat Joueur pour que le lancement permette l'affichage de la santé du joueur
+
+        /** @var App\Entity\User $user */
+        $user = $this->getUser();
+
+        $hero = $heroRepository->findOneBy(["user" => $user->getId()]);
+        $hero->setHealth($hero->getMaxHealth());
+        $heroRepository->add($hero, true);
 
         $biomeStart = "L'Arche de Verdure"; //* With Real Data
         // $biomeStart = "Départ Biome 1";
@@ -27,36 +39,36 @@ class GameController extends CoreApiController
 
         $npcCollection = $eventA->getNpc();
         $npcs = $npcCollection->toArray();
-        
-        $arrayNpc= [];
+
+        $arrayNpc = [];
         foreach ($npcs as $npc) {
 
             $raceName = $npc->getRace()->getName();
             $raceDescription = $npc->getRace()->getDescription();
-        
+
             $dialoguesCollection = $npc->getDialogues();
             $dialogues =  $dialoguesCollection->toArray();
-        
+
             $arrayDialogues = [];
-        
+
             foreach ($dialogues as $key => $dialogue) {
                 $arrayDialogues["dialogue" . ($key + 1)] = $dialogue->getContent();
                 $answersCollection = $dialogue->getAnswers();
                 $answers = $answersCollection->toArray();
-                $arrayDialogues["answer" . ($key + 1)] = $answers;  
+                $arrayDialogues["answer" . ($key + 1)] = $answers;
             }
-        
+
             $countDialogue = count($dialogues);
             for ($i = 1; $i <= $countDialogue; $i++) {
-                $npcDialogue['dialogue' .$i] = [
+                $npcDialogue['dialogue' . $i] = [
                     'dialogue' => $arrayDialogues['dialogue' . $i],
                     'answer1' => $arrayDialogues['answer' . $i][0]->getContent(),
                     'effect1'   => $arrayDialogues['answer' . $i][0]->getEffect()[0],
                     'answer2'  => $arrayDialogues['answer' . $i][1]->getContent(),
                     'effect2' => $arrayDialogues['answer' . $i][1]->getEffect()[0],
                 ];
-            }      
-        
+            }
+
             $arrayNpc = [
                 "raceName" => $raceName,
                 "raceDescription" => $raceDescription,
@@ -71,13 +83,12 @@ class GameController extends CoreApiController
                 "karma" => $npc->getKarma(),
                 "xpearned" => $npc->getXpEarned(),
                 "dialogues" => $npcDialogue,
-        
+
             ];
         }
 
         $endingsCollection = $eventA->getEndings();
         $endingsEventA = $endingsCollection->toArray();
-        dump($endingsEventA);
 
         // ! Service à Prévoir ?
         // ! Exclure les EventType Boss de la pool de pick random eventType
@@ -95,7 +106,7 @@ class GameController extends CoreApiController
             $checkNotBossType = $eventTypeRepository->findOneBy(['id' => $eventATypeId]);
             dump($checkNotBossType);
             $checkIdName = [($endingEventAId) => ($checkNotBossType->getName())];
-            
+
             foreach ($checkIdName as $getOutFromList => $EndingNameToBan) {
                 if ($EndingNameToBan === "Boss") {
                     $EndingToDelete = $getOutFromList; //* ID de l'élément ending à supprimer dans $endingsEventA
@@ -109,7 +120,6 @@ class GameController extends CoreApiController
             }
         };
 
-        dump($filteredEndingsEventA);
         // Random des clés de $cleanedEndingsEventA pour en garder 2
         $endingsPicked = array_rand($filteredEndingsEventA, 2);
 
@@ -118,11 +128,11 @@ class GameController extends CoreApiController
         foreach ($endingsPicked as $key => $endingsEventAKey) { // * on boucle sur les 2 endings récupéré aléatoirement
 
             $oneEnding = $endingsEventA[$endingsEventAKey]; // * on récupère chaque ending
-            
+
             $endingForFront[] = $oneEnding; // * on stock les deux endings dans un array $endingForFront
 
             $collectionEventType = $oneEnding->getEventType(); // * pour chaque ending, on récupère son event_type
-            
+
             $eventTypeId = $collectionEventType->getId(); // * pour chaque event_type, on récupère son id
 
             $events = $eventRepository->findBy(['eventType' => $eventTypeId]); // * récupération de tout les events correspondant à $eventTypeId
@@ -153,12 +163,12 @@ class GameController extends CoreApiController
         // ! data choice array unique (foreach coté front)
 
         $data = [
+            'player' => $hero,
             'currentEvent' => $eventA,
             'npcCurrentEvent' => $arrayNpc,
             'choices' => $choices
         ];
         return $this->json200($data, ["game"]);
-
     }
 
     /**
@@ -176,35 +186,35 @@ class GameController extends CoreApiController
 
         $npcs = $npcCollection->toArray();
 
-        $arrayNpc= [];
+        $arrayNpc = [];
         foreach ($npcs as $npc) {
 
             $raceName = $npc->getRace()->getName();
             $raceDescription = $npc->getRace()->getDescription();
-        
+
             $dialoguesCollection = $npc->getDialogues();
             $dialogues =  $dialoguesCollection->toArray();
-        
+
             $arrayDialogues = [];
-        
+
             foreach ($dialogues as $key => $dialogue) {
                 $arrayDialogues["dialogue" . ($key + 1)] = $dialogue;
                 $answersCollection = $dialogue->getAnswers();
                 $answers = $answersCollection->toArray();
-                $arrayDialogues["answer" . ($key + 1)] = $answers;  
+                $arrayDialogues["answer" . ($key + 1)] = $answers;
             }
-        
+
             $countDialogue = count($dialogues);
             for ($i = 1; $i <= $countDialogue; $i++) {
-                $npcDialogue['dialogue' .$i] = [
+                $npcDialogue['dialogue' . $i] = [
                     'dialogue' => $arrayDialogues['dialogue' . $i]->getContent(),
                     'answer1' => $arrayDialogues['answer' . $i][0]->getContent(),
                     'effect1'   => $arrayDialogues['answer' . $i][0]->getEffect()[0],
                     'answer2'  => $arrayDialogues['answer' . $i][1]->getContent(),
                     'effect2' => $arrayDialogues['answer' . $i][1]->getEffect()[0],
                 ];
-            }        
-        
+            }
+
             $arrayNpc = [
                 "raceName" => $raceName,
                 "raceDescription" => $raceDescription,
@@ -219,7 +229,7 @@ class GameController extends CoreApiController
                 "karma" => $npc->getKarma(),
                 "xpearned" => $npc->getXpEarned(),
                 "dialogues" => $npcDialogue,
-        
+
             ];
         }
 
@@ -243,7 +253,7 @@ class GameController extends CoreApiController
             $checkNotBossType = $eventTypeRepository->findOneBy(['id' => $eventATypeId]);
             dump($checkNotBossType);
             $checkIdName = [($endingEventAId) => ($checkNotBossType->getName())];
-            
+
             foreach ($checkIdName as $getOutFromList => $EndingNameToBan) {
                 if ($EndingNameToBan === "Boss") {
                     $EndingToDelete = $getOutFromList; //* ID de l'élément ending à supprimer dans $endingsEventA
@@ -253,7 +263,6 @@ class GameController extends CoreApiController
                         dump($ending->getId() !== $EndingToDelete);
                         return $ending->getId() !== $EndingToDelete;
                     });
-                    
                 }
             }
         };
@@ -267,14 +276,14 @@ class GameController extends CoreApiController
         foreach ($endingsPicked as $key => $endingsEventAKey) { // * on boucle sur les 2 endings récupéré aléatoirement
 
             $oneEnding = $endingsEventA[$endingsEventAKey]; // * on récupère chaque ending
-            
+
             $endingForFront[] = $oneEnding; // * on stock les deux endings dans un array $endingForFront
 
             $collectionEventType = $oneEnding->getEventType(); // * pour chaque ending, on récupère son event_type
-            
+
 
             $eventTypeId = $collectionEventType->getId(); // * pour chaque event_type, on récupère son id
-            
+
 
             $events = $eventRepository->findBy(['eventType' => $eventTypeId]); // * récupération de tout les events correspondant à $eventTypeId
 
@@ -330,36 +339,36 @@ class GameController extends CoreApiController
 
         $npcCollection = $eventA->getNpc();
         $npcs = $npcCollection->toArray();
-        
-        $arrayNpc= [];
+
+        $arrayNpc = [];
         foreach ($npcs as $npc) {
 
             $raceName = $npc->getRace()->getName();
             $raceDescription = $npc->getRace()->getDescription();
-        
+
             $dialoguesCollection = $npc->getDialogues();
             $dialogues =  $dialoguesCollection->toArray();
-        
+
             $arrayDialogues = [];
-        
+
             foreach ($dialogues as $key => $dialogue) {
                 $arrayDialogues["dialogue" . ($key + 1)] = $dialogue->getContent();
                 $answersCollection = $dialogue->getAnswers();
                 $answers = $answersCollection->toArray();
-                $arrayDialogues["answer" . ($key + 1)] = $answers;  
+                $arrayDialogues["answer" . ($key + 1)] = $answers;
             }
-        
+
             $countDialogue = count($dialogues);
             for ($i = 1; $i <= $countDialogue; $i++) {
-                $npcDialogue['dialogue' .$i] = [
+                $npcDialogue['dialogue' . $i] = [
                     'dialogue' => $arrayDialogues['dialogue' . $i],
                     'answer1' => $arrayDialogues['answer' . $i][0]->getContent(),
                     'effect1'   => $arrayDialogues['answer' . $i][0]->getEffect()[0],
                     'answer2'  => $arrayDialogues['answer' . $i][1]->getContent(),
                     'effect2' => $arrayDialogues['answer' . $i][1]->getEffect()[0],
                 ];
-            }        
-        
+            }
+
             $arrayNpc = [
                 "raceName" => $raceName,
                 "raceDescription" => $raceDescription,
@@ -374,7 +383,7 @@ class GameController extends CoreApiController
                 "karma" => $npc->getKarma(),
                 "xpearned" => $npc->getXpEarned(),
                 "dialogues" => $npcDialogue,
-        
+
             ];
         }
 
@@ -383,7 +392,7 @@ class GameController extends CoreApiController
         $endingsEventA = $endingsCollection->toArray(); // * Tout les endings de l'eventA
 
         $eventTypeBoss = $eventTypeRepository->findOneBy(['name' => "Boss"]); // * eventType Boss complet
-        
+
         $eventTypeBossId = $eventTypeBoss->getId(); // * on stock l'id
 
         dump($eventTypeBossId);
@@ -416,7 +425,7 @@ class GameController extends CoreApiController
         foreach ($eventBossPicked as $eventsBossKey) {
 
             $pickedBossEvent = $eventsBoss[$eventsBossKey];
-            
+
             $arrayBossData[] = $pickedBossEvent;
         }
         dump($arrayBossData);
@@ -469,28 +478,28 @@ class GameController extends CoreApiController
 
         $npcCollection = $eventA->getNpc();
         $npcs = $npcCollection->toArray();
-        
-        $arrayNpc= [];
+
+        $arrayNpc = [];
         foreach ($npcs as $npc) {
 
             $raceName = $npc->getRace()->getName();
             $raceDescription = $npc->getRace()->getDescription();
-        
+
             $dialoguesCollection = $npc->getDialogues();
             $dialogues =  $dialoguesCollection->toArray();
-        
+
             $arrayDialogues = [];
-        
+
             foreach ($dialogues as $key => $dialogue) {
                 $arrayDialogues["dialogue" . ($key + 1)] = $dialogue->getContent();
                 $answersCollection = $dialogue->getAnswers();
                 $answers = $answersCollection->toArray();
-                $arrayDialogues["answer" . ($key + 1)] = $answers;  
+                $arrayDialogues["answer" . ($key + 1)] = $answers;
             }
-        
+
             $countDialogue = count($dialogues);
             for ($i = 1; $i <= $countDialogue; $i++) {
-                $npcDialogue['dialogue' .$i] = [
+                $npcDialogue['dialogue' . $i] = [
                     'dialogue' => $arrayDialogues['dialogue' . $i],
                     'answer1' => $arrayDialogues['answer' . $i][0]->getContent(),
                     'effect1'   => $arrayDialogues['answer' . $i][0]->getEffect()[0],
@@ -498,7 +507,7 @@ class GameController extends CoreApiController
                     'effect2' => $arrayDialogues['answer' . $i][1]->getEffect()[0],
                 ];
             }
-            
+
             $arrayNpc = [
                 "raceName" => $raceName,
                 "raceDescription" => $raceDescription,
@@ -513,7 +522,7 @@ class GameController extends CoreApiController
                 "karma" => $npc->getKarma(),
                 "xpearned" => $npc->getXpEarned(),
                 "dialogues" => $npcDialogue,
-        
+
             ];
         }
 
@@ -577,7 +586,7 @@ class GameController extends CoreApiController
         $data = [
             'currentEvent' => $eventA,
             'npcCurrentEvent' => $arrayNpc,
-            'currentEvent-Ending' => $contentEndingCurrent,
+            'currentEventEnding' => $contentEndingCurrent,
             'EndBiome' => $dataForFront
         ];
 
@@ -603,27 +612,27 @@ class GameController extends CoreApiController
 
         $npcs = $npcCollection->toArray();
 
-        $arrayNpc= [];
+        $arrayNpc = [];
         foreach ($npcs as $npc) {
 
             $raceName = $npc->getRace()->getName();
             $raceDescription = $npc->getRace()->getDescription();
-        
+
             $dialoguesCollection = $npc->getDialogues();
             $dialogues =  $dialoguesCollection->toArray();
-        
+
             $arrayDialogues = [];
-        
+
             foreach ($dialogues as $key => $dialogue) {
                 $arrayDialogues["dialogue" . ($key + 1)] = $dialogue->getContent();
                 $answersCollection = $dialogue->getAnswers();
                 $answers = $answersCollection->toArray();
-                $arrayDialogues["answer" . ($key + 1)] = $answers;  
+                $arrayDialogues["answer" . ($key + 1)] = $answers;
             }
-        
+
             $countDialogue = count($dialogues);
             for ($i = 1; $i <= $countDialogue; $i++) {
-                $npcDialogue['dialogue' .$i] = [
+                $npcDialogue['dialogue' . $i] = [
                     'dialogue' => $arrayDialogues['dialogue' . $i],
                     'answer1' => $arrayDialogues['answer' . $i][0]->getContent(),
                     'effect1'   => $arrayDialogues['answer' . $i][0]->getEffect()[0],
@@ -631,10 +640,10 @@ class GameController extends CoreApiController
                     'effect2' => $arrayDialogues['answer' . $i][1]->getEffect()[0],
                 ];
             }
-        
 
-        
-        
+
+
+
             $arrayNpc = [
                 "raceName" => $raceName,
                 "raceDescription" => $raceDescription,
@@ -649,7 +658,7 @@ class GameController extends CoreApiController
                 "karma" => $npc->getKarma(),
                 "xpearned" => $npc->getXpEarned(),
                 "dialogues" => $npcDialogue,
-        
+
             ];
         }
 
@@ -657,7 +666,7 @@ class GameController extends CoreApiController
         $endingsCollection = $eventA->getEndings();
 
         $endingsEventA = $endingsCollection->toArray();
-    // * Tout les endings de l'eventA
+        // * Tout les endings de l'eventA
 
         // * isoler le ending
         // * trouver le ending where eventType = $eventTypeEndGameId
@@ -697,7 +706,7 @@ class GameController extends CoreApiController
         $data = [
             'currentEvent' => $eventA,
             'npcCurrentEvent' => $arrayNpc,
-            'currentEvent-Ending' => $contentEndingCurrent,
+            'currentEventEnding' => $contentEndingCurrent,
             'EndGame' => $dataForFront
         ];
 
@@ -719,27 +728,27 @@ class GameController extends CoreApiController
 
         $npcs = $npcCollection->toArray();
 
-        $arrayNpc= [];
+        $arrayNpc = [];
         foreach ($npcs as $npc) {
 
             $raceName = $npc->getRace()->getName();
             $raceDescription = $npc->getRace()->getDescription();
-        
+
             $dialoguesCollection = $npc->getDialogues();
             $dialogues =  $dialoguesCollection->toArray();
-        
+
             $arrayDialogues = [];
-        
+
             foreach ($dialogues as $key => $dialogue) {
                 $arrayDialogues["dialogue" . ($key + 1)] = $dialogue->getContent();
                 $answersCollection = $dialogue->getAnswers();
                 $answers = $answersCollection->toArray();
-                $arrayDialogues["answer" . ($key + 1)] = $answers;  
+                $arrayDialogues["answer" . ($key + 1)] = $answers;
             }
-        
+
             $countDialogue = count($dialogues);
             for ($i = 1; $i <= $countDialogue; $i++) {
-                $npcDialogue['dialogue' .$i] = [
+                $npcDialogue['dialogue' . $i] = [
                     'dialogue' => $arrayDialogues['dialogue' . $i],
                     'answer1' => $arrayDialogues['answer' . $i][0]->getContent(),
                     'effect1'   => $arrayDialogues['answer' . $i][0]->getEffect()[0],
@@ -747,8 +756,8 @@ class GameController extends CoreApiController
                     'effect2' => $arrayDialogues['answer' . $i][1]->getEffect()[0],
                 ];
             }
-        
-              
+
+
             $arrayNpc = [
                 "raceName" => $raceName,
                 "raceDescription" => $raceDescription,
@@ -763,7 +772,7 @@ class GameController extends CoreApiController
                 "karma" => $npc->getKarma(),
                 "xpearned" => $npc->getXpEarned(),
                 "dialogues" => $npcDialogue,
-        
+
             ];
         }
 
@@ -774,5 +783,80 @@ class GameController extends CoreApiController
         ];
 
         return $this->json200($data, ["game"]);
+    }
+
+    /**
+     * @Route("/api/event/effect/{id}", name="app_api_event_effect", requirements={"id"="\d+"}, methods={"GET"})
+     */
+    public function eventEffect(
+        $id,
+        EffectRepository $effectRepository,
+        HeroRepository $heroRepository,
+        EventTypeRepository $eventTypeRepository,
+        EventRepository $eventRepository
+    ): JsonResponse {
+
+        /** @var App\Entity\User $user */
+        $user = $this->getUser();
+
+        $hero = $heroRepository->findOneBy(["user" => $user->getId()]);
+
+        $effect = $effectRepository->findOneBy(['id' => $id]);
+
+        // * Applying Effect to Player ($hero)
+        if ($effect->getHealth()) {
+            $hero->setHealth($hero->getHealth() + $effect->getHealth());
+
+            if ($hero->getHealth() >= $hero->getMaxHealth()) {
+                $hero->setHealth($hero->getMaxHealth());
+            }
+        }
+        if ($effect->getStrength()) {
+            $hero->setStrength($hero->getStrength() + $effect->getStrength());
+        }
+        if ($effect->getIntelligence()) {
+            $hero->setIntelligence($hero->getIntelligence() + $effect->getIntelligence());
+        }
+        if ($effect->getDexterity()) {
+            $hero->setDexterity($hero->getDexterity() + $effect->getDexterity());
+        }
+        if ($effect->getDefense()) {
+            $hero->setDefense($hero->getDefense() + $effect->getDefense());
+        }
+        if ($effect->getKarma()) {
+            $hero->setKarma($hero->getKarma() + $effect->getKarma());
+        }
+        if ($effect->getXp()) {
+            $hero->setXp($hero->getXp() + $effect->getXp());
+        }
+
+        // Saving Hero in Database
+        $heroRepository->add($hero, true);
+
+        // * Hero Dies, Death Event needed
+        $eventTypeDeath = $eventTypeRepository->findOneBy(['name' => "Death"]);
+        $eventTypeDeathId = $eventTypeDeath->getId();
+        // dd($eventTypeDeathId);
+        $eventDeath = $eventRepository->findOneBy(['eventType' => $eventTypeDeathId]);
+
+        // dd($eventDeath);
+        // * Hero survived the effect or not ?
+        if ($hero->getHealth() <= 0) {
+            // * Hero didn't survive the effect, $hero object become a string, $data return $hero + the Death event opening + id
+            $hero = 'Vous êtes mort !';
+            $data = [
+                'player' => $hero,
+                'GameOver' => $eventDeath
+            ];
+        } else {
+            // * Hero survived the effect, the game goes on
+            $data = [
+                'player' => $hero,
+            ];
+        }
+
+        return $this->json200($data, ["game"]);
+
+        dd($hero);
     }
 }

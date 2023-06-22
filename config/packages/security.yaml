@@ -58,6 +58,7 @@ security:
         - { path: ^/api/event/boss/\d+$, roles: ROLE_PLAYER , methods: [GET]}
         - { path: ^/api/event/end/\d+$, roles: ROLE_PLAYER , methods: [GET]}
         - { path: ^/api/event/victory/\d+$, roles: ROLE_PLAYER , methods: [GET]}
+        - { path: ^/api/event/effect/\d+$, roles: ROLE_PLAYER , methods: [GET]}
     
         # - route back-office
         - { path: ^/login$, roles: PUBLIC_ACCESS }

@@ -58,7 +58,7 @@ class Event
 
     /**
      * @ORM\ManyToOne(targetEntity=Biome::class, inversedBy="events")
-     * @ORM\JoinColumn(nullable=true)
+     * @ORM\JoinColumn(nullable=false)
      * 
      */
     private $biome;
@@ -156,7 +156,7 @@ class Event
         return $this->biome;
     }
 
-    public function setBiome(?Biome $biome): self
+    public function setBiome(Biome $biome): self
     {
         $this->biome = $biome;
 

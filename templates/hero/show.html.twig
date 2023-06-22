@@ -59,7 +59,11 @@
 								</tr>
 								<tr>
 									<th>Image</th>
-									<td><img class="img-fluid otherTableImg" src="{{ hero.picture }}" alt="{{ 'image de ' ~ hero.name }}">{{ hero.picture }}</td>
+									<td>
+									{% if hero.picture %}
+									<img class="img-fluid otherTableImg" src="{{  asset(hero.picture) }}" alt="{{ 'image de ' ~ hero.name }}"> <br> {{ hero.picture }}
+									{% endif %}
+									</td>
 								</tr>
 								<tr>
 									<th>Progression</th>

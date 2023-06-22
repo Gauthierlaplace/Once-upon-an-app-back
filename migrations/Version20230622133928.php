@@ -10,7 +10,7 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20230613093712 extends AbstractMigration
+final class Version20230622133928 extends AbstractMigration
 {
     public function getDescription(): string
     {
@@ -20,12 +20,12 @@ final class Version20230613093712 extends AbstractMigration
     public function up(Schema $schema): void
     {
         // this up() migration is auto-generated, please modify it to your needs
-        $this->addSql('ALTER TABLE effect CHANGE health health INT DEFAULT NULL');
+        $this->addSql('ALTER TABLE event CHANGE biome_id biome_id INT NOT NULL');
     }
 
     public function down(Schema $schema): void
     {
         // this down() migration is auto-generated, please modify it to your needs
-        $this->addSql('ALTER TABLE effect CHANGE health health INT NOT NULL');
+        $this->addSql('ALTER TABLE event CHANGE biome_id biome_id INT DEFAULT NULL');
     }
 }
