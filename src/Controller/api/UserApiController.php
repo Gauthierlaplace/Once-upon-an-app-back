@@ -109,7 +109,7 @@ class UserApiController extends CoreApiController
         $hero->setDefense($heroClass->getDefense());
         $hero->setKarma(rand(0, 10));
         $hero->setXp(0);
-        $hero->setPicture('/images/default-hero-avatar.png');
+        $hero->setPicture('images/default-hero-avatar.png');
         $hero->setProgress(0);
         $hero->setHeroClass($heroClass);
         $hero->setUser($user);
