@@ -2,6 +2,7 @@
 
 namespace App\Controller\api;
 
+use App\Repository\EffectRepository;
 use App\Repository\EndingRepository;
 use App\Repository\EventRepository;
 use App\Repository\EventTypeRepository;
@@ -29,9 +30,8 @@ class GameController extends CoreApiController
         $user = $this->getUser();
 
         $hero = $heroRepository->findOneBy(["user" => $user->getId()]);
-
-        // dd($hero);
-
+        $hero->setHealth($hero->getMaxHealth());
+        $heroRepository->add($hero, true);
 
         $biomeStart = "L'Arche de Verdure"; //* With Real Data
         // $biomeStart = "Départ Biome 1";
@@ -783,5 +783,68 @@ class GameController extends CoreApiController
         ];
 
         return $this->json200($data, ["game"]);
+    }
+
+    /**
+     * @Route("/api/event/effect/{id}", name="app_api_event_effect", requirements={"id"="\d+"}, methods={"GET"})
+     */
+    public function eventEffect(
+        $id,
+        EffectRepository $effectRepository,
+        HeroRepository $heroRepository
+    ): JsonResponse {
+
+        /** @var App\Entity\User $user */
+        $user = $this->getUser();
+
+        $hero = $heroRepository->findOneBy(["user" => $user->getId()]);
+
+        $effect = $effectRepository->findOneBy(['id' => $id]);
+
+        if ($effect->getHealth()) {
+            $hero->setHealth($hero->getHealth() + $effect->getHealth());
+
+            if ($hero->getHealth() >= $hero->getMaxHealth()) {
+                $hero->setHealth($hero->getMaxHealth());
+            }
+        }
+        if ($effect->getStrength()) {
+            $hero->setStrength($hero->getStrength() + $effect->getStrength());
+        }
+        if ($effect->getIntelligence()) {
+            $hero->setIntelligence($hero->getIntelligence() + $effect->getIntelligence());
+        }
+        if ($effect->getDexterity()) {
+            $hero->setDexterity($hero->getDexterity() + $effect->getDexterity());
+        }
+        if ($effect->getDefense()) {
+            $hero->setDefense($hero->getDefense() + $effect->getDefense());
+        }
+        if ($effect->getKarma()) {
+            $hero->setKarma($hero->getKarma() + $effect->getKarma());
+        }
+        if ($effect->getXp()) {
+            $hero->setXp($hero->getXp() + $effect->getXp());
+        }
+
+        $heroRepository->add($hero, true);
+
+        if ($hero->getHealth() <= 0) {
+            $hero = 'Vous êtes mort !';
+            $data = [
+                'player' => $hero,
+                // 'GameOver' => $eventGameOVer
+            ];
+        } else {
+            $data = [
+                'player' => $hero,
+            ];
+        }
+
+
+
+        return $this->json200($data, ["game"]);
+
+        dd($hero);
     }
 }
