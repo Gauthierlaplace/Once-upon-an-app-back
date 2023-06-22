@@ -89,7 +89,6 @@ class GameController extends CoreApiController
 
         $endingsCollection = $eventA->getEndings();
         $endingsEventA = $endingsCollection->toArray();
-        // dump($endingsEventA);
 
         // ! Service à Prévoir ?
         // ! Exclure les EventType Boss de la pool de pick random eventType
@@ -250,7 +249,7 @@ class GameController extends CoreApiController
 
         $endingsCollection = $eventA->getEndings();
         $endingsEventA = $endingsCollection->toArray();
-        // dd($endingsEventA); //* tout les endings de l'EventA
+         //* tout les endings de l'EventA
 
         // ! Service à Prévoir ?
         // ! Exclure les EventType Boss de la pool de pick random eventType
@@ -260,29 +259,24 @@ class GameController extends CoreApiController
             $endingEventAId = $endingEventA->getId();
             // on récupère l'EventType pour chaque
             $eventAtype = $endingEventA->getEventType();
-            dump($eventAtype);
             // on stock l'id de cet eventType
             $eventATypeId = $eventAtype->getId();
-            dump($eventATypeId);
             // on recherche l'objet eventType avec l'id
             $checkNotBossType = $eventTypeRepository->findOneBy(['id' => $eventATypeId]);
-            dump($checkNotBossType);
+        
             $checkIdName = [($endingEventAId) => ($checkNotBossType->getName())];
 
             foreach ($checkIdName as $getOutFromList => $EndingNameToBan) {
                 if ($EndingNameToBan === "Boss") {
                     $EndingToDelete = $getOutFromList; //* ID de l'élément ending à supprimer dans $endingsEventA
-                    dump($EndingToDelete);
                     // on va filtrer $endingsEventA pour retirer tout les endings de type Boss
                     $filteredEndingsEventA = array_filter($endingsEventA, function ($ending) use ($EndingToDelete) {
-                        dump($ending->getId() !== $EndingToDelete);
                         return $ending->getId() !== $EndingToDelete;
                     });
                 }
             }
         };
 
-        dump($filteredEndingsEventA);
         // Random des clés de $cleanedEndingsEventA pour en garder 2
         $endingsPicked = array_rand($filteredEndingsEventA, 2);
 
@@ -326,7 +320,6 @@ class GameController extends CoreApiController
 
             $eventBAndC[] = $events[$eventPicked]; // * on stock l'event qui la clé $eventPicked dans un array $eventBAndC
         }
-        // dd($eventBAndC);
         // ! Sortie de boucle, préparation des Data souhaitées pour envoyer en Json
         $ending1 = $endingForFront[0];
         $ending2 = $endingForFront[1];
@@ -369,7 +362,6 @@ class GameController extends CoreApiController
         // Il faut select l'event_type "Boss" et on prendre 2 event random Boss
 
         $eventA = $eventRepository->find($id);
-        dump($eventA);
         // * On garde l'event classic en ouverture, mais il aura en choices 2 event random de event_type "Boss"
 
         $npcCollection = $eventA->getNpc();
@@ -430,31 +422,24 @@ class GameController extends CoreApiController
 
         $eventTypeBossId = $eventTypeBoss->getId(); // * on stock l'id
 
-        dump($eventTypeBossId);
-
         // * isoler le ending
         // * trouver le ending where eventType = $eventTypeBossId
         $endingsBoss = $endingRepository->findBy(["eventType" => $eventTypeBossId]); // * Tout les Endings Boss
 
         foreach ($endingsBoss as $ending) {
-            $endingCurrent = $ending->getEvent();
-            dump($endingCurrent); // * object Event complet avec uniquement l'id dispo
-            $idEndingCurrent = $endingCurrent->getId();
-            dump($idEndingCurrent); // * on récupère uniquement l'id
+            $endingCurrent = $ending->getEvent();  // * object Event complet avec uniquement l'id dispo
+            $idEndingCurrent = $endingCurrent->getId(); // * on récupère uniquement l'id
             if ($idEndingCurrent == $id) // * Si l'$id(eventA) = l'idEndingCurrent alors on a le bon Event donc on peut récupérer le contenu du bon ending de event_type : Boss
             {
                 $contentEndingCurrent = $ending->getContent();
-                dump($contentEndingCurrent);
             }
         }
 
 
         $eventsBoss = $eventRepository->findBy(['eventType' => $eventTypeBossId]);
-        dump($eventsBoss);
         // on a ici les 3 eventBoss
         //on en veut 2
         $eventBossPicked = array_rand($eventsBoss, 2);
-        dump($eventBossPicked);
 
          // Random des clés de $cleanedEndingsEventA pour en garder 2
         $endingsPicked = array_rand($eventBossPicked, 2);
@@ -483,20 +468,16 @@ class GameController extends CoreApiController
 
             $arrayBossData[] = $pickedBossEvent;
         }
-        dump($arrayBossData);
 
         $dataForFront = [];
         foreach ($arrayBossData as $event) {
             $id = $event->getId();
-            dump($id);
             $opening = $event->getOpening();
-            dump($opening);
             $dataForFront[] = [
                 "Id" => $id,
                 "Opening" => $opening
             ];
         }
-        dump($dataForFront);
 
         // ! Préparation des Data souhaitées pour envoyer en Json
 
@@ -507,7 +488,6 @@ class GameController extends CoreApiController
             'BossA' => $dataForFront[0],
             'BossB' => $dataForFront[1]
         ];
-        dump($data);
 
         return $this->json200($data, ["game"]);
     }
@@ -525,11 +505,9 @@ class GameController extends CoreApiController
         // TODO on veut que B et C soient un event de type Fin de Biome random (MVP Une seule fin de Biome)
 
         $eventA = $eventRepository->find($id);
-        dump($eventA);
         // * On garde l'event classic en ouverture, mais il aura en choices 1 event de event_type "Fin de Biome"
 
         $eventTypeEndBiome = $eventTypeRepository->findOneBy(['name' => "Fin de Biome"]);
-        dump($eventTypeEndBiome); // * eventType Fin de Biome complet
 
         $npcCollection = $eventA->getNpc();
         $npcs = $npcCollection->toArray();
@@ -583,53 +561,41 @@ class GameController extends CoreApiController
 
         // Récupération ending Fin de Biome de l'eventA
         $endingsCollection = $eventA->getEndings();
-        dump($endingsCollection);
         $endingsEventA = $endingsCollection->toArray();
-        dump($endingsEventA); // * Tout les endings de l'eventA
 
         $eventTypeEndBiomeId = $eventTypeEndBiome->getId(); // * on stock l'id
-        dump($eventTypeEndBiomeId);
 
 
         // * isoler le ending
         // * trouver le ending where eventType = $eventTypeEndBiomeId
         $endingsEndBiome = $endingRepository->findBy(["eventType" => $eventTypeEndBiomeId]);
-        dump($endingsEndBiome); // * Tout les Endings Fin de Biome
 
         foreach ($endingsEndBiome as $ending) {
             $endingCurrent = $ending->getEvent();
-            dump($endingCurrent); // * object Event complet avec uniquement l'id dispo
             $idEndingCurrent = $endingCurrent->getId();
-            dump($idEndingCurrent); // * on récupère uniquement l'id
             if ($idEndingCurrent == $id) // * Si l'$id(eventA) = l'idEndingCurrent alors on a le bon Event donc on peut récupérer le contenu du bon ending de event_type : Fin de Biome
             {
                 $contentEndingCurrent = $ending->getContent();
-                dump($contentEndingCurrent);
             }
         }
 
         $eventsEndBiome = $eventRepository->findBy(['eventType' => $eventTypeEndBiomeId]);
-        dump($eventsEndBiome);
         // on a ici l'eventEndBiome
 
         //* This foreach explores $eventEndBiomePicked in case there is more than 1 key (v2 use)
         //on en veut 2
         // $eventEndBiomePicked = array_rand($eventsEndBiome, 2);
-        // dump($eventEndBiomePicked);
         // $arrayEndBiomeData = [];
         // foreach ($eventEndBiomePicked as $key => $eventsEndBiomeKey) {
         //     $pickedEndBiomeEvent = $eventsEndBiome[$eventsEndBiomeKey];
 
         //     $arrayEndBiomeData[] = $pickedEndBiomeEvent;
         // }
-        // dd($arrayEndBiomeData);
 
         $dataForFront = [];
         foreach ($eventsEndBiome as $event) {
             $id = $event->getId();
-            dump($id);
             $opening = $event->getOpening();
-            dump($opening);
             $dataForFront = [
                 "Id" => $id,
                 "Opening" => $opening
@@ -660,7 +626,6 @@ class GameController extends CoreApiController
     ): JsonResponse {
 
         $eventA = $eventRepository->find($id);
-        dump($eventA);
         // * On garde l'event classic en ouverture, mais il aura en choices 1 event de event_type "ENDGAME"
 
         $npcCollection = $eventA->getNpc();
@@ -727,30 +692,22 @@ class GameController extends CoreApiController
         // * trouver le ending where eventType = $eventTypeEndGameId
         foreach ($endingsEventA as $ending) {
             $endingCurrent = $ending->getEvent();
-            dump($endingCurrent); // * object Event complet avec uniquement l'id dispo
             $idEndingCurrent = $endingCurrent->getId();
-            dump($idEndingCurrent); // * on récupère uniquement l'id
             if ($idEndingCurrent == $id) // * Si l'$id(eventA) = l'idEndingCurrent alors on a le bon Event donc on peut récupérer le contenu du bon ending de event_type : EndGame
             {
                 $contentEndingCurrent = $ending->getContent();
-                dump($contentEndingCurrent);
             }
         }
 
         $eventTypeEndBiome = $eventTypeRepository->findOneBy(['name' => "Endgame"]);
-        dump($eventTypeEndBiome); // * eventType EndBiome complet
         $eventTypeEndBiomeId = $eventTypeEndBiome->getId();
-        dump($eventTypeEndBiomeId);
 
         $eventsEndBiome = $eventRepository->findBy(['eventType' => $eventTypeEndBiomeId]);
-        dump($eventsEndBiome);
 
         $dataForFront = [];
         foreach ($eventsEndBiome as $event) {
             $id = $event->getId();
-            dump($id);
             $opening = $event->getOpening();
-            dump($opening);
             $dataForFront = [
                 "Id" => $id,
                 "Opening" => $opening
@@ -891,10 +848,8 @@ class GameController extends CoreApiController
         // * Hero Dies, Death Event needed
         $eventTypeDeath = $eventTypeRepository->findOneBy(['name' => "Death"]);
         $eventTypeDeathId = $eventTypeDeath->getId();
-        // dd($eventTypeDeathId);
         $eventDeath = $eventRepository->findOneBy(['eventType' => $eventTypeDeathId]);
 
-        // dd($eventDeath);
         // * Hero survived the effect or not ?
         if ($hero->getHealth() <= 0) {
             // * Hero didn't survive the effect, $hero object become a string, $data return $hero + the Death event opening + id
@@ -912,6 +867,5 @@ class GameController extends CoreApiController
 
         return $this->json200($data, ["game"]);
 
-        dd($hero);
     }
 }

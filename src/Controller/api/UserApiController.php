@@ -78,7 +78,6 @@ class UserApiController extends CoreApiController
             $user = $serializer->deserialize($jsonContent, User::class, 'json');
         } catch (Exception $exception) {
             // Si on n'y arrive pas, on passe ici
-            // dd($exception);
             // code 400 ou 422
             return $this->json("JSON Invalide", Response::HTTP_BAD_REQUEST);
         }
