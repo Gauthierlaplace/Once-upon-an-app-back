@@ -42,7 +42,7 @@
 						<td>{{ hero.karma }}</td>
 						<td>{{ hero.xp }}</td> #}
 						<td>
-							<img class="img-fluid otherTableImg" src="{{ hero.picture }}" alt="{{ 'image de ' ~ hero.name }}">
+							<img class="img-fluid otherTableImg" src="{{ asset(hero.picture)  }}" alt="{{ 'image de ' ~ hero.name }}">
 						</td>
 						<td>{{ hero.progress }}</td>
 						<td>

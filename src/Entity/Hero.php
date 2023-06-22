@@ -7,6 +7,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass=HeroRepository::class)
@@ -17,12 +18,14 @@ class Hero
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * @Groups({"game"})
      */
     private $id;
 
     /**
      * @Assert\NotBlank(message="Le champ Nom du héro ne peut pas être vide")
      * @ORM\Column(type="string", length=255)
+     * @Groups({"game"})
      */
     private $name;
 
@@ -30,6 +33,7 @@ class Hero
      * @Assert\NotNull(message="Le champ Santé Maximum ne peut pas être vide")
      * @Assert\Type(type="numeric", message="Le champ Santé Maximum doit être un nombre")
      * @ORM\Column(type="integer")
+     * @Groups({"game"})
      */
     private $maxHealth;
 
@@ -37,47 +41,55 @@ class Hero
      * @Assert\NotNull(message="Le champ Santé ne peut pas être vide")
      * @Assert\Type(type="numeric", message="Le champ Santé doit être un nombre")
      * @ORM\Column(type="integer")
+     * @Groups({"game"})
      */
     private $health;
 
     /**
      * @Assert\Type(type="numeric", message="Le champ Force doit être un nombre")
      * @ORM\Column(type="integer", nullable=true)
+     * @Groups({"game"})
      */
     private $strength;
 
     /**
      * @Assert\Type(type="numeric", message="Le champ Intelligence doit être un nombre")
      * @ORM\Column(type="integer", nullable=true)
+     * @Groups({"game"})
      */
     private $intelligence;
 
     /**
      * @Assert\Type(type="numeric", message="Le champ Dextérité doit être un nombre")
      * @ORM\Column(type="integer", nullable=true)
+     * @Groups({"game"})
      */
     private $dexterity;
 
     /**
      * @Assert\Type(type="numeric", message="Le champ Défense doit être un nombre")
      * @ORM\Column(type="integer", nullable=true)
+     * @Groups({"game"})
      */
     private $defense;
 
     /**
      * @Assert\Type(type="numeric", message="Le champ Karma doit être un nombre")
      * @ORM\Column(type="integer", nullable=true)
+     * @Groups({"game"})
      */
     private $karma;
 
     /**
      * @Assert\Type(type="numeric", message="Le champ Expérience doit être un nombre")
      * @ORM\Column(type="integer", nullable=true)
+     * @Groups({"game"})
      */
     private $xp;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Groups({"game"})
      */
     private $picture;
 
@@ -85,6 +97,7 @@ class Hero
      * 
      * @Assert\Type(type="numeric", message="Le champ Niveau atteint doit être un nombre")
      * @ORM\Column(type="integer", nullable=true)
+     * @Groups({"game"})
      */
     private $progress;
 
@@ -92,6 +105,7 @@ class Hero
      * @ORM\ManyToOne(targetEntity=HeroClass::class, inversedBy="heroes")
      * @ORM\JoinColumn(nullable=false)
      * @Assert\NotBlank(message="Le champ Class ne peut pas être vide")
+     * @Groups({"game"})
      */
     private $heroClass;
 
@@ -104,6 +118,7 @@ class Hero
 
     /**
      * @ORM\ManyToMany(targetEntity=Item::class, inversedBy="heroes")
+     * @Groups({"game"})
      */
     private $item;
 
