@@ -21,7 +21,7 @@
         {% for dialogue in dialogues %}
             <tr>
                 <td>{{ dialogue.id }}</td>
-                <td>{{ dialogue.npc.name }} 
+                <td>{{ dialogue.npc.name }} <br>
                <img class="img-fluid otherTableImg" src="{{ dialogue.npc.picture }}" alt="{{ 'image de ' ~ dialogue.npc.name }}">
     </td>
                 <td>{{ dialogue.content }}</td>

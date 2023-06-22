@@ -26,9 +26,8 @@ class GameController extends CoreApiController
         $eventA = $eventRepository->findOneBy(['title' => $biomeStart]);
 
         $npcCollection = $eventA->getNpc();
-        // dump($npcCollection);
         $npcs = $npcCollection->toArray();
-        // dump($npcs);
+        
         $arrayNpc= [];
         foreach ($npcs as $npc) {
 
@@ -56,10 +55,7 @@ class GameController extends CoreApiController
                     'answer2'  => $arrayDialogues['answer' . $i][1]->getContent(),
                     'effect2' => $arrayDialogues['answer' . $i][1]->getEffect()[0],
                 ];
-            }
-        
-            // dd($npcDialogue);
-        
+            }      
         
             $arrayNpc = [
                 "raceName" => $raceName,
@@ -99,7 +95,7 @@ class GameController extends CoreApiController
             $checkNotBossType = $eventTypeRepository->findOneBy(['id' => $eventATypeId]);
             dump($checkNotBossType);
             $checkIdName = [($endingEventAId) => ($checkNotBossType->getName())];
-            // dd($checkIdName);
+            
             foreach ($checkIdName as $getOutFromList => $EndingNameToBan) {
                 if ($EndingNameToBan === "Boss") {
                     $EndingToDelete = $getOutFromList; //* ID de l'élément ending à supprimer dans $endingsEventA
@@ -109,7 +105,6 @@ class GameController extends CoreApiController
                         dump($ending->getId() !== $EndingToDelete);
                         return $ending->getId() !== $EndingToDelete;
                     });
-                    // dd($filteredEndingsEventA);
                 }
             }
         };
@@ -117,31 +112,26 @@ class GameController extends CoreApiController
         dump($filteredEndingsEventA);
         // Random des clés de $cleanedEndingsEventA pour en garder 2
         $endingsPicked = array_rand($filteredEndingsEventA, 2);
-        // dd($endingsPicked);
 
         $eventBAndC = [];
         $endingForFront = [];
         foreach ($endingsPicked as $key => $endingsEventAKey) { // * on boucle sur les 2 endings récupéré aléatoirement
 
             $oneEnding = $endingsEventA[$endingsEventAKey]; // * on récupère chaque ending
-            dump($oneEnding);
+            
             $endingForFront[] = $oneEnding; // * on stock les deux endings dans un array $endingForFront
 
             $collectionEventType = $oneEnding->getEventType(); // * pour chaque ending, on récupère son event_type
-            dump($collectionEventType);
-
+            
             $eventTypeId = $collectionEventType->getId(); // * pour chaque event_type, on récupère son id
-            dump($eventTypeId);
 
             $events = $eventRepository->findBy(['eventType' => $eventTypeId]); // * récupération de tout les events correspondant à $eventTypeId
-            dump($events);
 
             $eventPicked = array_rand($events, 1); // * on récupère la clé de l'event choisi aléatoirement
-            dump($eventPicked);
 
             $eventBAndC[] = $events[$eventPicked]; // * on stock l'event qui la clé $eventPicked dans un array $eventBAndC
         }
-        // dd($eventBAndC);
+
         $ending1 = $endingForFront[0];
         $ending2 = $endingForFront[1];
         $event1 = $eventBAndC[0];
@@ -169,43 +159,6 @@ class GameController extends CoreApiController
         ];
         return $this->json200($data, ["game"]);
 
-        // ======================================
-
-        // $choices = [];
-        // $index = 0;
-        // foreach ($endingForFront as  $OneEnding) {
-        //     $choices[$index++] = $OneEnding->getContent();
-        // }
-        // foreach ($eventBAndC as $OneEvent) {
-        //     $choices[$index++] = $OneEvent->getId();
-        //     $choices[$index++] = $OneEvent->getOpening();
-        // }
-
-        // $eventB[] = $choices[0];
-        // $eventB[] = $choices[2];
-        // $eventB[] = $choices[3];
-
-        // $eventC[] = $choices[1];
-        // $eventC[] = $choices[4];
-        // $eventC[] = $choices[5];
-
-        // ! data choice array multiple (sans foreach coté front)
-
-        // $data = [
-        //     'eventA' => $eventA,
-        //     'choiceB' => $eventB,
-        //     'choiceC' => $eventC,
-        // ];
-        // return $this->json200($data, ["game"]);
-
-
-        // ! data initial event complet
-        // $data = [
-        //     'eventA' => $eventA,
-        //     'endingsAforB1andC2' => $endingForFront,
-        //     'eventB1andC2' => $eventBAndC
-        // ];
-        // return $this->json200($data, ["game"]);
     }
 
     /**
@@ -235,7 +188,7 @@ class GameController extends CoreApiController
             $arrayDialogues = [];
         
             foreach ($dialogues as $key => $dialogue) {
-                $arrayDialogues["dialogue" . ($key + 1)] = $dialogue->getContent();
+                $arrayDialogues["dialogue" . ($key + 1)] = $dialogue;
                 $answersCollection = $dialogue->getAnswers();
                 $answers = $answersCollection->toArray();
                 $arrayDialogues["answer" . ($key + 1)] = $answers;  
@@ -244,16 +197,13 @@ class GameController extends CoreApiController
             $countDialogue = count($dialogues);
             for ($i = 1; $i <= $countDialogue; $i++) {
                 $npcDialogue['dialogue' .$i] = [
-                    'dialogue' => $arrayDialogues['dialogue' . $i],
+                    'dialogue' => $arrayDialogues['dialogue' . $i]->getContent(),
                     'answer1' => $arrayDialogues['answer' . $i][0]->getContent(),
                     'effect1'   => $arrayDialogues['answer' . $i][0]->getEffect()[0],
                     'answer2'  => $arrayDialogues['answer' . $i][1]->getContent(),
                     'effect2' => $arrayDialogues['answer' . $i][1]->getEffect()[0],
                 ];
-            }
-        
-            // dd($npcDialogue);
-        
+            }        
         
             $arrayNpc = [
                 "raceName" => $raceName,
@@ -272,78 +222,6 @@ class GameController extends CoreApiController
         
             ];
         }
-        // foreach ($npcs as $npc) {
-        //     // dd($npc);
-        //     $npc->getRace();
-
-        //     $raceName = $npc->getRace()->getName();
-        //     $raceDescription = $npc->getRace()->getDescription();
-
-        //     $dialoguesCollection = $npc->getDialogues();
-        //     $dialogues =  $dialoguesCollection->toArray();
-
-        //     $arrayDialogues = [];
-
-        //     foreach ($dialogues as $key => $dialogue) {
-        //         $arrayDialogues["dialogue" . ($key + 1)] = $dialogue->getContent();
-        //         $answersCollection = $dialogue->getAnswers();
-        //         $answers = $answersCollection->toArray();
-        //         // dd($answers);
-        //         $arrayAnswers = [];
-        //         $arrayEffects = [];
-        //         foreach ($answers as $key => $answer) {
-        //             $arrayAnswers["answer" . ($key + 1)] = $answer->getContent();
-        //             $effectsCollection = $answer->getEffect();
-        //             $effects = $effectsCollection->toArray();
-
-        //             $arrayEffects["effect" . ($key + 1)] = $effects;
-        //         }
-        //     }
-
-        //     $countDialogue = count($arrayDialogues);
-        //     $countAnswer = count($arrayAnswers);
-          
-        //     for ($dialogueIndex = 1; $dialogueIndex <= $countDialogue; $dialogueIndex++) {
-        //         $npcDialogue = [
-        //             'dialogue'.$dialogueIndex => $arrayDialogues['dialogue' . $dialogueIndex],
-
-        //         ];
-        //     };
-
-        //     for ($answerIndex = 1; $answerIndex <= $countAnswer; $answerIndex++) {
-        //         $npcDialogue['answer' . $answerIndex] = [
-        //             'content' => $arrayAnswers['answer' . $answerIndex],
-        //             'effect' => $arrayEffects['effect' . $answerIndex][0],
-        //         ];
-        //     };
-            
-        //            dd($npcDialogue); 
-        //             // 'answer2' => $arrayAnswers['answer' . ($i +1)],
-        //             // 'effect2' => $arrayEffects['effect' . ($i +1)][0],
-        //     // dd($test);
-
-        //     // dump($arrayDialogues);
-        //     // dump($arrayAnswers);
-        //     // dump($arrayEffects);
-
-
-        //     $arrayNpc = [
-        //         "raceName" => $raceName,
-        //         "raceDescription" => $raceDescription,
-        //         "npcName" => $npc->getName(),
-        //         "npcDescription" => $npc->getDescription(),
-        //         "picture" => $npc->getPicture(),
-        //         "health" => $npc->getHealth(),
-        //         "strength" => $npc->getStrength(),
-        //         "intelligence" => $npc->getIntelligence(),
-        //         "dexterity" => $npc->getDexterity(),
-        //         "defense" => $npc->getDefense(),
-        //         "karma" => $npc->getKarma(),
-        //         "xpearned" => $npc->getXpEarned(),
-        //         "dialogue" => $npcDialogue,
-
-        //     ];
-
 
         $endingsCollection = $eventA->getEndings();
         $endingsEventA = $endingsCollection->toArray();
@@ -365,7 +243,7 @@ class GameController extends CoreApiController
             $checkNotBossType = $eventTypeRepository->findOneBy(['id' => $eventATypeId]);
             dump($checkNotBossType);
             $checkIdName = [($endingEventAId) => ($checkNotBossType->getName())];
-            // dd($checkIdName);
+            
             foreach ($checkIdName as $getOutFromList => $EndingNameToBan) {
                 if ($EndingNameToBan === "Boss") {
                     $EndingToDelete = $getOutFromList; //* ID de l'élément ending à supprimer dans $endingsEventA
@@ -375,7 +253,7 @@ class GameController extends CoreApiController
                         dump($ending->getId() !== $EndingToDelete);
                         return $ending->getId() !== $EndingToDelete;
                     });
-                    // dd($filteredEndingsEventA);
+                    
                 }
             }
         };
@@ -383,27 +261,24 @@ class GameController extends CoreApiController
         dump($filteredEndingsEventA);
         // Random des clés de $cleanedEndingsEventA pour en garder 2
         $endingsPicked = array_rand($filteredEndingsEventA, 2);
-        // dd($endingsPicked);
 
         $eventBAndC = [];
         $endingForFront = [];
         foreach ($endingsPicked as $key => $endingsEventAKey) { // * on boucle sur les 2 endings récupéré aléatoirement
 
             $oneEnding = $endingsEventA[$endingsEventAKey]; // * on récupère chaque ending
-            dump($oneEnding);
+            
             $endingForFront[] = $oneEnding; // * on stock les deux endings dans un array $endingForFront
 
             $collectionEventType = $oneEnding->getEventType(); // * pour chaque ending, on récupère son event_type
-            dump($collectionEventType);
+            
 
             $eventTypeId = $collectionEventType->getId(); // * pour chaque event_type, on récupère son id
-            dump($eventTypeId);
+            
 
             $events = $eventRepository->findBy(['eventType' => $eventTypeId]); // * récupération de tout les events correspondant à $eventTypeId
-            dump($events);
 
             $eventPicked = array_rand($events, 1); // * on récupère la clé de l'event choisi aléatoirement
-            dump($eventPicked);
 
             $eventBAndC[] = $events[$eventPicked]; // * on stock l'event qui la clé $eventPicked dans un array $eventBAndC
         }
@@ -454,9 +329,8 @@ class GameController extends CoreApiController
         // * On garde l'event classic en ouverture, mais il aura en choices 2 event random de event_type "Boss"
 
         $npcCollection = $eventA->getNpc();
-        // dump($npcCollection);
         $npcs = $npcCollection->toArray();
-        // dump($npcs);
+        
         $arrayNpc= [];
         foreach ($npcs as $npc) {
 
@@ -484,10 +358,7 @@ class GameController extends CoreApiController
                     'answer2'  => $arrayDialogues['answer' . $i][1]->getContent(),
                     'effect2' => $arrayDialogues['answer' . $i][1]->getEffect()[0],
                 ];
-            }
-        
-            // dd($npcDialogue);
-        
+            }        
         
             $arrayNpc = [
                 "raceName" => $raceName,
@@ -509,20 +380,17 @@ class GameController extends CoreApiController
 
         // Récupération ending Boss de l'eventA
         $endingsCollection = $eventA->getEndings();
-        // dd($endingsCollection);
-        $endingsEventA = $endingsCollection->toArray();
-        // dd($endingsEventA); // * Tout les endings de l'eventA
+        $endingsEventA = $endingsCollection->toArray(); // * Tout les endings de l'eventA
 
-        $eventTypeBoss = $eventTypeRepository->findOneBy(['name' => "Boss"]);
-        // dd($eventTypeBoss); // * eventType Boss complet
+        $eventTypeBoss = $eventTypeRepository->findOneBy(['name' => "Boss"]); // * eventType Boss complet
+        
         $eventTypeBossId = $eventTypeBoss->getId(); // * on stock l'id
 
         dump($eventTypeBossId);
 
         // * isoler le ending
         // * trouver le ending where eventType = $eventTypeBossId
-        $endingsBoss = $endingRepository->findBy(["eventType" => $eventTypeBossId]);
-        // dd($endingsBoss); // * Tout les Endings Boss
+        $endingsBoss = $endingRepository->findBy(["eventType" => $eventTypeBossId]); // * Tout les Endings Boss
 
         foreach ($endingsBoss as $ending) {
             $endingCurrent = $ending->getEvent();
@@ -548,7 +416,7 @@ class GameController extends CoreApiController
         foreach ($eventBossPicked as $eventsBossKey) {
 
             $pickedBossEvent = $eventsBoss[$eventsBossKey];
-            // dd($pickedBossEvent);
+            
             $arrayBossData[] = $pickedBossEvent;
         }
         dump($arrayBossData);
@@ -600,9 +468,8 @@ class GameController extends CoreApiController
         dump($eventTypeEndBiome); // * eventType Fin de Biome complet
 
         $npcCollection = $eventA->getNpc();
-        // dump($npcCollection);
         $npcs = $npcCollection->toArray();
-        // dump($npcs);
+        
         $arrayNpc= [];
         foreach ($npcs as $npc) {
 
@@ -631,10 +498,7 @@ class GameController extends CoreApiController
                     'effect2' => $arrayDialogues['answer' . $i][1]->getEffect()[0],
                 ];
             }
-        
-            // dd($npcDialogue);
-        
-        
+            
             $arrayNpc = [
                 "raceName" => $raceName,
                 "raceDescription" => $raceDescription,
@@ -707,7 +571,7 @@ class GameController extends CoreApiController
                 "Opening" => $opening
             ];
         }
-        // dd($dataForFront);
+
 
         // ! Préparation des Data souhaitées pour envoyer en Json
         $data = [
@@ -716,7 +580,7 @@ class GameController extends CoreApiController
             'currentEvent-Ending' => $contentEndingCurrent,
             'EndBiome' => $dataForFront
         ];
-        // dd($data);
+
 
         return $this->json200($data, ["game"]);
     }
@@ -736,9 +600,9 @@ class GameController extends CoreApiController
         // * On garde l'event classic en ouverture, mais il aura en choices 1 event de event_type "ENDGAME"
 
         $npcCollection = $eventA->getNpc();
-        // dump($npcCollection);
+
         $npcs = $npcCollection->toArray();
-        // dump($npcs);
+
         $arrayNpc= [];
         foreach ($npcs as $npc) {
 
@@ -768,7 +632,7 @@ class GameController extends CoreApiController
                 ];
             }
         
-            // dd($npcDialogue);
+
         
         
             $arrayNpc = [
@@ -791,9 +655,9 @@ class GameController extends CoreApiController
 
         // Récupération ending Fin de Biome de l'eventA
         $endingsCollection = $eventA->getEndings();
-        // dd($endingsCollection);
+
         $endingsEventA = $endingsCollection->toArray();
-        // dd($endingsEventA); // * Tout les endings de l'eventA
+    // * Tout les endings de l'eventA
 
         // * isoler le ending
         // * trouver le ending where eventType = $eventTypeEndGameId
@@ -828,7 +692,7 @@ class GameController extends CoreApiController
                 "Opening" => $opening
             ];
         }
-        // dd($dataForFront);
+
         // ! Préparation des Data souhaitées pour envoyer en Json
         $data = [
             'currentEvent' => $eventA,
@@ -836,7 +700,7 @@ class GameController extends CoreApiController
             'currentEvent-Ending' => $contentEndingCurrent,
             'EndGame' => $dataForFront
         ];
-        // dd($data);
+
 
         return $this->json200($data, ["game"]);
     }
@@ -852,9 +716,9 @@ class GameController extends CoreApiController
         $eventA = $eventRepository->find($id);
 
         $npcCollection = $eventA->getNpc();
-        // dump($npcCollection);
+
         $npcs = $npcCollection->toArray();
-        // dump($npcs);
+
         $arrayNpc= [];
         foreach ($npcs as $npc) {
 
@@ -884,9 +748,7 @@ class GameController extends CoreApiController
                 ];
             }
         
-            // dd($npcDialogue);
-        
-        
+              
             $arrayNpc = [
                 "raceName" => $raceName,
                 "raceDescription" => $raceDescription,
