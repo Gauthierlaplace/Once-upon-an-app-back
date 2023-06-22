@@ -3,19 +3,21 @@
 {% block body %}
 	<div class="container my-4">
 		<h1 class='text-center'>
-			{% block title %}Liste des Events
+			{% block title %}Liste des Évènement
 			{% endblock %}
 		</h1>
-		<a class='btn btn-primary show' href="{{ path('app_home') }}">Retour à l'acceuil</a>
+		<a class='btn btn-primary show' href="{{ path('app_home') }}">Retour à l'Accueil</a>
 		<a class="mb-2 btn btn-success float-end" href="{{ path('app_event_new') }}">Ajouter un nouveau évènement</a>
 		<table class="table table-hover mt-4">
 			<thead>
 				<tr>
 					<th>Id</th>
-					<th>Title</th>
-					<th>Description</th>
-					<th>Opening</th>
-					<th>Picture</th>
+					<th>Titre</th>
+					<th>Biome</th>
+					<th>Type</th>
+					{# <th>Description</th>
+					<th>Opening</th> #}
+					<th>Image</th>
 					<th class="text-center">Actions</th>
 				</tr>
 			</thead>
@@ -24,8 +26,14 @@
 					<tr>
 						<td>{{ event.id }}</td>
 						<td>{{ event.title }}</td>
-						<td>{{ event.description }}</td>
-						<td>{{ event.opening }}</td>
+						{% if event.biome.id %}
+						<td>{{ event.biome.name }}</td>
+						{% else %}
+						<td></td>
+						{% endif %}
+						<td>{{ event.eventType.name }}</td>
+						{# <td>{{ event.description }}</td>
+						<td>{{ event.opening }}</td> #}
 						<td>
 							<img class="img-fluid" src="{{ event.picture }}" alt="{{ 'image de ' ~ event.title }}">
 						</td>
@@ -37,7 +45,7 @@
 					</tr>
 				{% else %}
 					<tr>
-						<td colspan="6">no records found</td>
+						<td colspan="7">Aucune donnée trouvée</td>
 					</tr>
 				{% endfor %}
 			</tbody>

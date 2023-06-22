@@ -53,8 +53,11 @@ class NpcController extends AbstractController
      */
     public function show(Npc $npc): Response
     {
+        $items = $npc->getItem()->toArray();
+
         return $this->render('npc/show.html.twig', [
             'npc' => $npc,
+            'items' => $items
         ]);
     }
 

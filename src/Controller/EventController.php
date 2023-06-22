@@ -52,8 +52,11 @@ class EventController extends AbstractController
      */
     public function show(Event $event): Response
     {
+        $npcs = $event->getnpc()->toArray();
+
         return $this->render('event/show.html.twig', [
             'event' => $event,
+            'npcs' => $npcs
         ]);
     }
 

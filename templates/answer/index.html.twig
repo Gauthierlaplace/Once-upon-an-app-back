@@ -6,13 +6,16 @@
 			{% block title %}Liste des Réponses
 			{% endblock %}
 		</h1>
-		<a class='btn btn-primary show' href="{{ path('app_home') }}">Retour à l'acceuil</a>
+		<a class='btn btn-primary show' href="{{ path('app_home') }}">Retour à l'Accueil</a>
 		<a class="mb-2 btn btn-success float-end" href="{{ path('app_answer_new') }}">Ajouter une nouvelle réponse</a>
 		<table class="table table-hover mt-4">
 			<thead>
 				<tr>
 					<th>Id</th>
-					<th>Content</th>
+					<th>Npc - Dialogue</th>
+					<th>Réponse</th>
+					<th></th>
+
 					<th class="col-md-4 mr-auto text-center">Actions</th>
 				</tr>
 			</thead>
@@ -20,7 +23,9 @@
 				{% for answer in answers %}
 					<tr>
 						<td>{{ answer.id }}</td>
+							<td>{{ answer.dialogue.npc.name }} <br> <img class="img-fluid otherTableImg" src="{{ answer.dialogue.npc.picture }}" alt="{{ 'image de ' ~ answer.dialogue.npc.name }}"> <br> {{ answer.dialogue.content }}</td>
 						<td>{{ answer.content }}</td>
+									<td>{% dump(answer.effect) %}</td>
 						<td>
 							<a class="btn btn-primary float-end  m-1" href="{{ path('app_answer_show', {'id': answer.id}) }}">Voir</a>
 							<a class="btn btn-warning float-end  m-1" href="{{ path('app_answer_edit', {'id': answer.id}) }}">Modifier</a>
@@ -29,7 +34,7 @@
 					</tr>
 				{% else %}
 					<tr>
-						<td colspan="7">no records found</td>
+						<td colspan="5">Aucune donnée trouvée</td>
 					</tr>
 				{% endfor %}
 			</tbody>

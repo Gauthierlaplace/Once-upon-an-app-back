@@ -28,7 +28,7 @@ class Ending
     /**
      * @ORM\ManyToOne(targetEntity=Event::class, inversedBy="endings")
      * @ORM\JoinColumn(nullable=false)
-     * @Assert\NotBlank(message="Le champ Evènement ne peut pas être vide")
+     * @Assert\NotBlank(message="Le champ Évènement ne peut pas être vide")
      */
     private $event;
 

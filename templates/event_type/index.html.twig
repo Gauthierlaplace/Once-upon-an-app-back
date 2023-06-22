@@ -6,13 +6,13 @@
 			{% block title %}Liste des types d'Évènement
 			{% endblock %}
 		</h1>
-		<a class='btn btn-primary show' href="{{ path('app_home') }}">Retour à l'acceuil</a>
+		<a class='btn btn-primary show' href="{{ path('app_home') }}">Retour à l'Accueil</a>
 		<a class="mb-2 btn btn-success float-end" href="{{ path('app_event_type_new') }}">Ajouter un nouveau type d'évènement</a>
 		<table class="table table-hover mt-4">
 			<thead>
 				<tr>
 					<th>Id</th>
-					<th>Name</th>
+					<th>Nom</th>
 					<th class="col-md-4 mr-auto text-center">Actions</th>
 				</tr>
 			</thead>
@@ -29,7 +29,7 @@
 					</tr>
 				{% else %}
 					<tr>
-						<td colspan="3">no records found</td>
+						<td colspan="3">Aucune donnée trouvée</td>
 					</tr>
 				{% endfor %}
 			</tbody>

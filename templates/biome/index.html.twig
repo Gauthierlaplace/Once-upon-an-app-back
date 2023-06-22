@@ -6,14 +6,14 @@
 			{% block title %}Liste des Biomes
 			{% endblock %}
 		</h1>
-		<a class='btn btn-primary show' href="{{ path('app_home') }}">Retour à l'acceuil</a>
+		<a class='btn btn-primary show' href="{{ path('app_home') }}">Retour à l'Accueil</a>
 		<a class="mb-2 btn btn-success float-end" href="{{ path('app_biome_new') }}">Ajouter un nouveau biome</a>
 		<table class="table table-hover mt-4">
 			<thead>
 				<tr>
 					<th>Id</th>
-					<th>Name</th>
-					<th>Difficulty</th>
+					<th>Nom</th>
+					<th>Difficulté</th>
 					<th class="col-md-4 mr-auto text-center">Actions</th>
 				</tr>
 			</thead>
@@ -31,7 +31,7 @@
 					</tr>
 				{% else %}
 					<tr>
-						<td colspan="4">no records found</td>
+						<td colspan="4">Aucune donnée trouvée</td>
 					</tr>
 				{% endfor %}
 			</tbody>

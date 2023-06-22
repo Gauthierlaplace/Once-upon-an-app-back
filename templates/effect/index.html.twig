@@ -6,19 +6,19 @@
 			{% block title %}Liste des Effets
 			{% endblock %}
 		</h1>
-		<a class='btn btn-primary show' href="{{ path('app_home') }}">Retour à l'acceuil</a>
-		<a class="mb-2 btn btn-success float-end" href="{{ path('app_effect_new') }}">Ajouter un nouvelle effet</a>
+		<a class='btn btn-primary show' href="{{ path('app_home') }}">Retour à l'Accueil</a>
+		<a class="mb-2 btn btn-success float-end" href="{{ path('app_effect_new') }}">Ajouter un nouvel effet</a>
 		<table class="table table-hover mt-4">
 			<thead>
 				<tr>
 					<th>Id</th>
-					<th>Name</th>
+					<th>Nom</th>
 					<th>Description</th>
-					<th>Health</th>
-					<th>Strength</th>
+					<th>Santé</th>
+					<th>Force</th>
 					<th>Intelligence</th>
-					<th>Dexterity</th>
-					<th>Defense</th>
+					<th>Dexterité</th>
+					<th>Défense</th>
 					<th>Karma</th>
 					<th>Xp</th>
 					<th class="text-center">Actions</th>
@@ -45,7 +45,7 @@
 					</tr>
 				{% else %}
 					<tr>
-						<td colspan="11">no records found</td>
+						<td colspan="11">Aucune donnée trouvée</td>
 					</tr>
 				{% endfor %}
 			</tbody>

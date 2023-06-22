@@ -6,7 +6,7 @@
 			{% block title %}Liste des Utilisateurs
 			{% endblock %}
 		</h1>
-		<a class='btn btn-primary show' href="{{ path('app_home') }}">Retour à l'acceuil</a>
+		<a class='btn btn-primary show' href="{{ path('app_home') }}">Retour à l'Accueil</a>
 		<a class="mb-2 btn btn-success float-end" href="{{ path('app_user_new') }}">Ajouter un nouveau utilisateur
 		</a>
 		<table class="table tabletest table-hover mt-4">
@@ -14,7 +14,7 @@
 				<tr>
 					<th>Id</th>
 					<th>Email</th>
-					<th>Roles</th>
+					<th>Rôles</th>
 					<th>Pseudo</th>
 					<th>Avatar</th>
 					<th class="text-center">Actions</th>
@@ -36,7 +36,7 @@
 					</tr>
 				{% else %}
 					<tr>
-						<td colspan="7">no records found</td>
+						<td colspan="7">Aucune donnée trouvée</td>
 					</tr>
 				{% endfor %}
 			</tbody>

@@ -51,8 +51,12 @@ class HeroController extends AbstractController
      */
     public function show(Hero $hero): Response
     {
+        $items = $hero->getItem()->toArray();
+        
+
         return $this->render('hero/show.html.twig', [
             'hero' => $hero,
+            'items' => $items
         ]);
     }
 

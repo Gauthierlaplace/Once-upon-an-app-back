@@ -18,19 +18,23 @@
 									<td>{{ npc.id }}</td>
 								</tr>
 								<tr>
-									<th>Name</th>
+									<th>Nom</th>
 									<td>{{ npc.name }}</td>
+								</tr>
+								<tr>
+									<th>Race</th>
+									<td>{{ npc.race.name }}</td>
 								</tr>
 								<tr>
 									<th>Description</th>
 									<td>{{ npc.description }}</td>
 								</tr>
 								<tr>
-									<th>Health</th>
+									<th>Santé</th>
 									<td>{{ npc.health }}</td>
 								</tr>
 								<tr>
-									<th>Strength</th>
+									<th>Force</th>
 									<td>{{ npc.strength }}</td>
 								</tr>
 								<tr>
@@ -38,11 +42,11 @@
 									<td>{{ npc.intelligence }}</td>
 								</tr>
 								<tr>
-									<th>Dexterity</th>
+									<th>Dexterité</th>
 									<td>{{ npc.dexterity }}</td>
 								</tr>
 								<tr>
-									<th>Defense</th>
+									<th>Défense</th>
 									<td>{{ npc.defense }}</td>
 								</tr>
 								<tr>
@@ -50,26 +54,29 @@
 									<td>{{ npc.karma }}</td>
 								</tr>
 								<tr>
-									<th>Picture</th>
+									<th>Image</th>
 									<td>
 										<img class="img-fluid" src="{{ npc.picture }}" alt="{{ 'image de ' ~ npc.name }}">{{ npc.picture }}
 									</td>
 								</tr>
 								<tr>
-									<th>IsBoss</th>
-									<td>{{ npc.isBoss ? 'Yes' : 'No' }}</td>
+									<th>Boss</th>
+									<td>{{ npc.isBoss ? 'Oui' : 'Non' }}</td>
 								</tr>
 								<tr>
-									<th>Hostility</th>
-									<td>{{ npc.hostility ? 'Yes' : 'No' }}</td>
+									<th>Hostile</th>
+									<td>{{ npc.hostility ? 'Oui' : 'Non' }}</td>
 								</tr>
 								<tr>
-									<th>XpEarned</th>
+									<th>XP gagné</th>
 									<td>{{ npc.xpEarned }}</td>
 								<tr>
 									<th>Inventaire</th>
 									<td>
-										{# TODO npc_item a mettre en place  #}
+										{% for item in items %}
+											{{item.name}}
+											<br>
+										{% endfor %}
 									</td>
 								</tr>
 							</tbody>

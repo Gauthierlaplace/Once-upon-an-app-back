@@ -9,7 +9,7 @@ body {
     background-size: cover;
     font-family: 'Akaya Kanadaka', display;
     font-size: 1.2em;
-    
+    margin-top: 125px;
 }
 .table {
 
@@ -22,4 +22,14 @@ body {
 
 nav {
     background-color: rgba(155, 149, 149, 0.1);
+}
+
+.otherTableImg {
+width: 10vw;
+}
+
+.navFixed {
+    position: fixed;
+    width: 100%;
+    top: 0;
 }

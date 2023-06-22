@@ -51,8 +51,11 @@ class AnswerController extends AbstractController
      */
     public function show(Answer $answer): Response
     {
+        $effects = $answer->geteffect()->toArray();
+
         return $this->render('answer/show.html.twig', [
             'answer' => $answer,
+            'effects' => $effects
         ]);
     }
 

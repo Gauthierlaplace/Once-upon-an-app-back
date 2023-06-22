@@ -6,23 +6,24 @@
 			{% block title %}Liste des Héros
 			{% endblock %}
 		</h1>
-		<a class='btn btn-primary show' href="{{ path('app_home') }}">Retour à l'acceuil</a>
+		<a class='btn btn-primary show' href="{{ path('app_home') }}">Retour à l'Accueil</a>
 		<a class="mb-2 btn btn-success float-end" href="{{ path('app_hero_new') }}">Ajouter un nouveau héro</a>
 		<table class="table table-hover mt-4">
 			<thead>
 				<tr>
 					<th>Id</th>
-					<th>Name</th>
-					<th>MaxHealth</th>
-					<th>Health</th>
-					<th>Strength</th>
+					<th>Nom</th>
+					<th>Class</th>
+					<th>Santé Max</th>
+					<th>Santé</th>
+					{# <th>Force</th>
 					<th>Intelligence</th>
-					<th>Dexterity</th>
-					<th>Defense</th>
+					<th>Dexterité</th>
+					<th>Défense</th>
 					<th>Karma</th>
-					<th>Xp</th>
-					<th>Picture</th>
-					<th>Progress</th>
+					<th>Xp</th> #}
+					<th>Image</th>
+					<th>Progression</th>
 					<th class="text-center">Actions</th>
 				</tr>
 			</thead>
@@ -31,16 +32,17 @@
 					<tr>
 						<td>{{ hero.id }}</td>
 						<td>{{ hero.name }}</td>
+						<td>{{ hero.heroClass.name }}</td>
 						<td>{{ hero.maxHealth }}</td>
 						<td>{{ hero.health }}</td>
-						<td>{{ hero.strength }}</td>
+						{# <td>{{ hero.strength }}</td>
 						<td>{{ hero.intelligence }}</td>
 						<td>{{ hero.dexterity }}</td>
 						<td>{{ hero.defense }}</td>
 						<td>{{ hero.karma }}</td>
-						<td>{{ hero.xp }}</td>
+						<td>{{ hero.xp }}</td> #}
 						<td>
-							<img class="img-fluid" src="{{ hero.picture }}" alt="{{ 'image de ' ~ hero.name }}">
+							<img class="img-fluid otherTableImg" src="{{ hero.picture }}" alt="{{ 'image de ' ~ hero.name }}">
 						</td>
 						<td>{{ hero.progress }}</td>
 						<td>
@@ -51,7 +53,7 @@
 					</tr>
 				{% else %}
 					<tr>
-						<td colspan="13">no records found</td>
+						<td colspan="13">Aucune donnée trouvée</td>
 					</tr>
 				{% endfor %}
 			</tbody>

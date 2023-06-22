@@ -17,24 +17,28 @@
                 <th>Id</th>
                 <td>{{ review.id }}</td>
             </tr>
+             <tr>
+                <th>Utilisateur</th>
+                <td>{{ review.user.pseudo}}</td>
+            </tr>
             <tr>
-                <th>Title</th>
+                <th>Titre</th>
                 <td>{{ review.title }}</td>
             </tr>
             <tr>
-                <th>Content</th>
+                <th>Contenu</th>
                 <td>{{ review.content }}</td>
             </tr>
             <tr>
-                <th>Rating</th>
+                <th>Note</th>
                 <td>{{ review.rating }}</td>
             </tr>
             <tr>
-                <th>CreatedAt</th>
+                <th>Créé le</th>
                 <td>{{ review.createdAt ? review.createdAt|date('Y-m-d H:i:s') : '' }}</td>
             </tr>
             <tr>
-                <th>UpdatedAt</th>
+                <th>Modifié le</th>
                 <td>{{ review.updatedAt ? review.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
             </tr>
         </tbody>
