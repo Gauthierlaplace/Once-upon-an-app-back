@@ -28,12 +28,17 @@
 								</tr>
 								<tr>
 									<th>Effet</th>
+									{% if effects %}
 									{% for effect in effects %}
 									<td>
 											{{effect.name}}
 											<br>
 									</td>
 										{% endfor %}
+										{% else %}
+										<td></td>
+										
+									{% endif %}
 								</tr>
 
 
