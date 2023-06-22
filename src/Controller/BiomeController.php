@@ -5,6 +5,8 @@ namespace App\Controller;
 use App\Entity\Biome;
 use App\Form\BiomeType;
 use App\Repository\BiomeRepository;
+use App\Repository\EndingRepository;
+use App\Repository\EventRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -79,9 +81,23 @@ class BiomeController extends AbstractController
     /**
      * @Route("/{id}", name="app_biome_delete", methods={"POST"})
      */
-    public function delete(Request $request, Biome $biome, BiomeRepository $biomeRepository): Response
+    public function delete($id, Request $request, Biome $biome, BiomeRepository $biomeRepository, EventRepository $eventRepository, EndingRepository $endingRepository): Response
     {
         if ($this->isCsrfTokenValid('delete'.$biome->getId(), $request->request->get('_token'))) {
+            
+            $allEvents = $eventRepository->findByBiome($id);
+    
+            foreach ($allEvents as $event) {
+                $eventId = $event->getId();
+                $allEndings = $endingRepository->findByEvent($eventId);
+                foreach ($allEndings as $ending) {
+                    $endingRepository->remove($ending);
+                }
+
+
+                $eventRepository->remove($event);
+            }
+            
             $biomeRepository->remove($biome, true);
         }
 

@@ -49,6 +49,16 @@ class HeroRepository extends ServiceEntityRepository
             ->getResult();
     }
 
+    public function findByHeroClass($id)
+    {
+        return $this->createQueryBuilder('h')
+            ->where('h.heroClass = :heroClass_id')
+            ->setParameter('heroClass_id', $id)
+            ->getQuery()
+            ->getResult();
+    }
+    
+
 //    /**
 //     * @return Hero[] Returns an array of Hero objects
 //     */

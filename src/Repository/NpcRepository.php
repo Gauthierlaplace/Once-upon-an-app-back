@@ -39,6 +39,15 @@ class NpcRepository extends ServiceEntityRepository
         }
     }
 
+    public function findByRace($id)
+    {
+        return $this->createQueryBuilder('npc')
+            ->where('npc.race = :race_id')
+            ->setParameter('race_id', $id)
+            ->getQuery()
+            ->getResult();
+    }
+    
 //    /**
 //     * @return Npc[] Returns an array of Npc objects
 //     */

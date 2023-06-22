@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Event;
 use App\Form\EventType;
+use App\Repository\EndingRepository;
 use App\Repository\EventRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -51,8 +52,11 @@ class EventController extends AbstractController
      */
     public function show(Event $event): Response
     {
+        $npcs = $event->getnpc()->toArray();
+
         return $this->render('event/show.html.twig', [
             'event' => $event,
+            'npcs' => $npcs
         ]);
     }
 
@@ -79,9 +83,16 @@ class EventController extends AbstractController
     /**
      * @Route("/{id}", name="app_event_delete", methods={"POST"})
      */
-    public function delete(Request $request, Event $event, EventRepository $eventRepository): Response
+    public function delete($id, Request $request, Event $event, EventRepository $eventRepository, EndingRepository $endingRepository): Response
     {
         if ($this->isCsrfTokenValid('delete'.$event->getId(), $request->request->get('_token'))) {
+            
+            $allEndings = $endingRepository->findByEvent($id);
+    
+            foreach ($allEndings as $ending) {
+                $endingRepository->remove($ending);
+            }
+            
             $eventRepository->remove($event, true);
         }
 

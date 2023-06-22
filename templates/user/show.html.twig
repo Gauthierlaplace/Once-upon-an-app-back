@@ -21,7 +21,7 @@
 									<td>{{ user.email }}</td>
 								</tr>
 								<tr>
-									<th>Roles</th>
+									<th>Rôles</th>
 									<td>{{ user.roles ? user.roles|json_encode : '' }}</td>
 								</tr>
 								<tr>
@@ -34,7 +34,13 @@
 								</tr>
 								<tr>
 									<th>Avatar</th>
-									<td>{{ user.avatar }}</td>
+									<td>
+										{% if user.avatar %}
+											<img class="img-fluid otherTableImg" src="{{ asset(user.avatar) }}" alt="{{ 'image de ' ~ user.pseudo }}">
+											<br>
+											{{ user.avatar }}
+										{% endif %}
+									</td>
 								</tr>
 							</tbody>
 						</table>

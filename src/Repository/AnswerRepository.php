@@ -39,6 +39,15 @@ class AnswerRepository extends ServiceEntityRepository
         }
     }
 
+    public function findByDialogue($id)
+    {
+        return $this->createQueryBuilder('a')
+            ->where('a.dialogue = :dialogue_id')
+            ->setParameter('dialogue_id', $id)
+            ->getQuery()
+            ->getResult();
+    }
+
 //    /**
 //     * @return Answer[] Returns an array of Answer objects
 //     */

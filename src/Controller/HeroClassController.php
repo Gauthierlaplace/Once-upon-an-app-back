@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\HeroClass;
 use App\Form\HeroClassType;
 use App\Repository\HeroClassRepository;
+use App\Repository\HeroRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -79,9 +80,16 @@ class HeroClassController extends AbstractController
     /**
      * @Route("/{id}", name="app_hero_class_delete", methods={"POST"})
      */
-    public function delete(Request $request, HeroClass $heroClass, HeroClassRepository $heroClassRepository): Response
+    public function delete($id, Request $request, HeroClass $heroClass, HeroClassRepository $heroClassRepository, HeroRepository $heroRepository): Response
     {
         if ($this->isCsrfTokenValid('delete'.$heroClass->getId(), $request->request->get('_token'))) {
+           
+            $allheros = $heroRepository->findByHeroClass($id);
+    
+            foreach ($allheros as $hero) {
+                $heroRepository->remove($hero);
+            }
+
             $heroClassRepository->remove($heroClass, true);
         }
 

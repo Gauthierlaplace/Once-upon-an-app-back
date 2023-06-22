@@ -21,7 +21,7 @@ class EndingType extends AbstractType
                 "multiple" => false,
                 "expanded" => false,
                 "class" => Event::class,
-                'label' => "Evènement"
+                'label' => "Évènement"
             ])
             ->add('eventType', EntityType::class, [
                 "multiple" => false,

@@ -2,7 +2,10 @@
 
 namespace App\Controller\api;
 
+use App\Entity\Hero;
 use App\Entity\User;
+use App\Repository\HeroClassRepository;
+use App\Repository\HeroRepository;
 use App\Repository\UserRepository;
 use Exception;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -64,7 +67,9 @@ class UserApiController extends CoreApiController
         UserRepository $userRepository,
         SerializerInterface $serializer,
         ValidatorInterface $validatorInterface,
-        UserPasswordHasherInterface $passwordHasher
+        UserPasswordHasherInterface $passwordHasher,
+        HeroRepository $heroRepository,
+        HeroClassRepository $heroClassRepository
     ) {
         // Récupérer le contenu JSON
         $jsonContent = $request->getContent();
@@ -91,8 +96,27 @@ class UserApiController extends CoreApiController
 
             $user->setPassword($hashedPassword);
         }
-        // On sauvegarde l'entité
+
+        $heroClass = $heroClassRepository->findOneBy(['id'=> 2]);
+
+        $hero = new Hero();
+        $hero->setName($user->getPseudo());
+        $hero->setMaxHealth($heroClass->getMaxHealth());
+        $hero->setHealth($heroClass->getHealth());
+        $hero->setStrength($heroClass->getStrength());
+        $hero->setIntelligence($heroClass->getIntelligence());
+        $hero->setDexterity($heroClass->getDexterity());
+        $hero->setDefense($heroClass->getDefense());
+        $hero->setKarma(rand(0, 10));
+        $hero->setXp(0);
+        $hero->setPicture('/images/default-hero-avatar.png');
+        $hero->setProgress(0);
+        $hero->setHeroClass($heroClass);
+        $hero->setUser($user);
+
+        // On sauvegarde les entitées
         $userRepository->add($user, true);
+        $heroRepository->add($hero, true);
 
         return $this->json201($user, ["user_create"]);
     }

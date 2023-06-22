@@ -6,13 +6,15 @@
 			{% block title %}Liste des Endings
 			{% endblock %}
 		</h1>
-		<a class='btn btn-primary show' href="{{ path('app_home') }}">Retour à l'acceuil</a>
+		<a class='btn btn-primary show' href="{{ path('app_home') }}">Retour à l'Accueil</a>
 		<a class="mb-2 btn btn-success float-end" href="{{ path('app_ending_new') }}">Ajouter un nouveau ending</a>
 		<table class="table table-hover mt-4">
 			<thead>
 				<tr>
 					<th>Id</th>
-					<th>Content</th>
+					<th>Evénement</th>
+					<th>Contenu</th>
+					<th>Vers Type</th>
 					<th class="text-center">Actions</th>
 				</tr>
 			</thead>
@@ -20,7 +22,13 @@
 				{% for ending in endings %}
 					<tr>
 						<td>{{ ending.id }}</td>
+						<td>{{ ending.event.title }} 
+						{% if ending.event.picture %}							
+						<br>
+						 <img class="img-fluid otherTableImg" src="{{ asset(ending.event.picture) }}" alt="{{ 'image de ' ~ ending.event.title }}"></td>
+						{% endif %}
 						<td>{{ ending.content }}</td>
+						<td>{{ ending.eventType.name }}</td>
 						<td>
 
 							<a class="btn btn-primary float-end  m-1" href="{{ path('app_ending_show', {'id': ending.id}) }}">Voir</a>
@@ -30,7 +38,7 @@
 					</tr>
 				{% else %}
 					<tr>
-						<td colspan="3">no records found</td>
+						<td colspan="3">Aucune donnée trouvée</td>
 					</tr>
 				{% endfor %}
 			</tbody>

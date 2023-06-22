@@ -4,6 +4,8 @@ namespace App\Controller;
 
 use App\Entity\Npc;
 use App\Form\NpcType;
+use App\Repository\AnswerRepository;
+use App\Repository\DialogueRepository;
 use App\Repository\NpcRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -51,8 +53,11 @@ class NpcController extends AbstractController
      */
     public function show(Npc $npc): Response
     {
+        $items = $npc->getItem()->toArray();
+
         return $this->render('npc/show.html.twig', [
             'npc' => $npc,
+            'items' => $items
         ]);
     }
 
@@ -79,9 +84,22 @@ class NpcController extends AbstractController
     /**
      * @Route("/{id}", name="app_npc_delete", methods={"POST"})
      */
-    public function delete(Request $request, Npc $npc, NpcRepository $npcRepository): Response
+    public function delete($id, Request $request, Npc $npc, NpcRepository $npcRepository, DialogueRepository $dialogueRepository, AnswerRepository $answerRepository): Response
     {
         if ($this->isCsrfTokenValid('delete'.$npc->getId(), $request->request->get('_token'))) {
+
+            $allDialogues = $dialogueRepository->findByNpc($id);
+    
+            foreach ($allDialogues as $dialogue) {
+                $dialogueId = $dialogue->getId();
+                $allAnswers = $answerRepository->findByDialogue($dialogueId);
+                foreach ($allAnswers as $answer) {
+                    $answerRepository->remove($answer);
+                }
+                $dialogueRepository->remove($dialogue);
+            }
+
+
             $npcRepository->remove($npc, true);
         }
 

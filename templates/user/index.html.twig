@@ -6,15 +6,15 @@
 			{% block title %}Liste des Utilisateurs
 			{% endblock %}
 		</h1>
-		<a class='btn btn-primary show' href="{{ path('app_home') }}">Retour à l'acceuil</a>
+		<a class='btn btn-primary show' href="{{ path('app_home') }}">Retour à l'Accueil</a>
 		<a class="mb-2 btn btn-success float-end" href="{{ path('app_user_new') }}">Ajouter un nouveau utilisateur
 		</a>
-		<table class="table table-hover mt-4">
+		<table class="table tabletest table-hover mt-4">
 			<thead>
 				<tr>
 					<th>Id</th>
 					<th>Email</th>
-					<th>Roles</th>
+					<th>Rôles</th>
 					<th>Pseudo</th>
 					<th>Avatar</th>
 					<th class="text-center">Actions</th>
@@ -27,7 +27,11 @@
 						<td>{{ user.email }}</td>
 						<td>{{ user.roles ? user.roles|json_encode : '' }}</td>
 						<td>{{ user.pseudo }}</td>
-						<td>{{ user.avatar }}</td>
+						<td>
+						{% if user.avatar %}
+						<img class="img-fluid otherTableImg" src="{{ asset(user.avatar)  }}" alt="{{ 'image de ' ~ user.pseudo }}">
+						{% endif %}
+						</td>
 						<td>
 							<a class="btn btn-primary float-end m-1" href="{{ path('app_user_show', {'id': user.id}) }}">Voir</a>
 							<a class="btn btn-warning float-end m-1" href="{{ path('app_user_edit', {'id': user.id}) }}">Modifier</a>
@@ -36,7 +40,7 @@
 					</tr>
 				{% else %}
 					<tr>
-						<td colspan="7">no records found</td>
+						<td colspan="7">Aucune donnée trouvée</td>
 					</tr>
 				{% endfor %}
 			</tbody>
