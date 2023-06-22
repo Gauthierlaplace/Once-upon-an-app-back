@@ -89,6 +89,7 @@ class GameController extends CoreApiController
 
         $endingsCollection = $eventA->getEndings();
         $endingsEventA = $endingsCollection->toArray();
+        // dump($endingsEventA);
 
         // ! Service à Prévoir ?
         // ! Exclure les EventType Boss de la pool de pick random eventType
@@ -98,34 +99,48 @@ class GameController extends CoreApiController
             $endingEventAId = $endingEventA->getId();
             // on récupère l'EventType pour chaque
             $eventAtype = $endingEventA->getEventType();
-            dump($eventAtype);
             // on stock l'id de cet eventType
             $eventATypeId = $eventAtype->getId();
-            dump($eventATypeId);
             // on recherche l'objet eventType avec l'id
             $checkNotBossType = $eventTypeRepository->findOneBy(['id' => $eventATypeId]);
-            dump($checkNotBossType);
+
             $checkIdName = [($endingEventAId) => ($checkNotBossType->getName())];
 
             foreach ($checkIdName as $getOutFromList => $EndingNameToBan) {
                 if ($EndingNameToBan === "Boss") {
                     $EndingToDelete = $getOutFromList; //* ID de l'élément ending à supprimer dans $endingsEventA
-                    dump($EndingToDelete);
+
                     // on va filtrer $endingsEventA pour retirer tout les endings de type Boss
                     $filteredEndingsEventA = array_filter($endingsEventA, function ($ending) use ($EndingToDelete) {
-                        dump($ending->getId() !== $EndingToDelete);
+
                         return $ending->getId() !== $EndingToDelete;
                     });
                 }
             }
         };
-
         // Random des clés de $cleanedEndingsEventA pour en garder 2
         $endingsPicked = array_rand($filteredEndingsEventA, 2);
 
+        // Obtenez les clés du tableau d'origine
+        $endingsPickedKeys = array_keys($endingsPicked);
+
+        // Randomisez l'ordre des clés
+        shuffle($endingsPickedKeys);
+
+        // Créez un nouveau tableau
+        $randomizedEndingsPicked = array();
+
+        // Parcourez les clés randomisées
+        foreach ($endingsPickedKeys as $endingsPickedKey) {
+            // Assignez les valeurs correspondantes au nouveau tableau
+            $randomizedEndingsPicked[$endingsPickedKey] = $endingsPicked[$endingsPickedKey];
+        }
+
+        // Affichez le nouveau tableau avec les clés randomisées
+
         $eventBAndC = [];
         $endingForFront = [];
-        foreach ($endingsPicked as $key => $endingsEventAKey) { // * on boucle sur les 2 endings récupéré aléatoirement
+        foreach ($randomizedEndingsPicked as $key => $endingsEventAKey) { // * on boucle sur les 2 endings récupéré aléatoirement
 
             $oneEnding = $endingsEventA[$endingsEventAKey]; // * on récupère chaque ending
 
@@ -271,9 +286,29 @@ class GameController extends CoreApiController
         // Random des clés de $cleanedEndingsEventA pour en garder 2
         $endingsPicked = array_rand($filteredEndingsEventA, 2);
 
+         // Random des clés de $cleanedEndingsEventA pour en garder 2
+         $endingsPicked = array_rand($filteredEndingsEventA, 2);
+
+         // Obtenez les clés du tableau d'origine
+         $endingsPickedKeys = array_keys($endingsPicked);
+ 
+         // Randomisez l'ordre des clés
+         shuffle($endingsPickedKeys);
+ 
+         // Créez un nouveau tableau
+         $randomizedEndingsPicked = array();
+ 
+         // Parcourez les clés randomisées
+         foreach ($endingsPickedKeys as $endingsPickedKey) {
+             // Assignez les valeurs correspondantes au nouveau tableau
+             $randomizedEndingsPicked[$endingsPickedKey] = $endingsPicked[$endingsPickedKey];
+         }
+ 
+         // Affichez le nouveau tableau avec les clés randomisées
+
         $eventBAndC = [];
         $endingForFront = [];
-        foreach ($endingsPicked as $key => $endingsEventAKey) { // * on boucle sur les 2 endings récupéré aléatoirement
+        foreach ($randomizedEndingsPicked as $key => $endingsEventAKey) { // * on boucle sur les 2 endings récupéré aléatoirement
 
             $oneEnding = $endingsEventA[$endingsEventAKey]; // * on récupère chaque ending
 
@@ -421,8 +456,28 @@ class GameController extends CoreApiController
         $eventBossPicked = array_rand($eventsBoss, 2);
         dump($eventBossPicked);
 
+         // Random des clés de $cleanedEndingsEventA pour en garder 2
+        $endingsPicked = array_rand($eventBossPicked, 2);
+
+        // Obtenez les clés du tableau d'origine
+        $endingsPickedKeys = array_keys($endingsPicked);
+
+        // Randomisez l'ordre des clés
+        shuffle($endingsPickedKeys);
+
+        // Créez un nouveau tableau
+        $randomizedEndingsPicked = array();
+
+        // Parcourez les clés randomisées
+        foreach ($endingsPickedKeys as $endingsPickedKey) {
+            // Assignez les valeurs correspondantes au nouveau tableau
+            $randomizedEndingsPicked[$endingsPickedKey] = $endingsPicked[$endingsPickedKey];
+        }
+
+        // Affichez le nouveau tableau avec les clés randomisées
+
         $arrayBossData = [];
-        foreach ($eventBossPicked as $eventsBossKey) {
+        foreach ($randomizedEndingsPicked as $eventsBossKey) {
 
             $pickedBossEvent = $eventsBoss[$eventsBossKey];
 
