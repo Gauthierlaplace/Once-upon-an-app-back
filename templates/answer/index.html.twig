@@ -14,7 +14,6 @@
 					<th>Id</th>
 					<th>Npc - Dialogue</th>
 					<th>Réponse</th>
-					<th></th>
 
 					<th class="col-md-4 mr-auto text-center">Actions</th>
 				</tr>
@@ -31,7 +30,6 @@
 									<br> {{ answer.dialogue.content }}
 							</td>		
 						<td>{{ answer.content }}</td>
-									<td>{% dump(answer.effect) %}</td>
 						<td>
 							<a class="btn btn-primary float-end  m-1" href="{{ path('app_answer_show', {'id': answer.id}) }}">Voir</a>
 							<a class="btn btn-warning float-end  m-1" href="{{ path('app_answer_edit', {'id': answer.id}) }}">Modifier</a>

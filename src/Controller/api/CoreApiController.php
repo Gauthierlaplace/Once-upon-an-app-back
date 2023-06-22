@@ -80,7 +80,6 @@ class CoreApiController extends AbstractController
             return $this->json("Denormalisation : ". $e->getMessage(), Response::HTTP_BAD_REQUEST);
         } catch (Exception $exception){
             // Si on n'y arrive pas, on passe ici
-            // dd($exception);
             // code 400 ou 422
             return $this->json("JSON Invalide : " . $exception->getMessage(), Response::HTTP_BAD_REQUEST);
         }
