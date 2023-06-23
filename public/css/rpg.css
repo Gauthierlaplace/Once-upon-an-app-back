@@ -11,6 +11,22 @@ body {
     font-size: 1.2em;
     margin-top: 125px;
 }
+
+#navbar {
+    background-color: rgba(95, 91, 91, 0.1);
+    text-shadow: 2px 2px 4px #000000;
+    z-index: 9999;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    transition: background-color 1s;
+   
+}
+
+#navbar:hover {
+    background-color: rgb(24, 22, 22, 1);
+}
+
 .table {
 
     --bs-table-bg: rgba(0, 0, 0, 0.6);
@@ -20,16 +36,14 @@ body {
     --bs-card-bg: rgba(0, 0, 0, 0.6);
 }
 
-nav {
-    background-color: rgba(155, 149, 149, 0.1);
-}
-
 .otherTableImg {
 width: 10vw;
 }
 
-.navFixed {
+.avatar {
+    height: 15vh;
+    width: 15vh;
+    z-index: 9999;
     position: fixed;
-    width: 100%;
-    top: 0;
+    bottom: 0;
 }
