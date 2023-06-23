@@ -28,6 +28,7 @@ class UserType extends AbstractType
                 "choices" => [
                     "Administrateur" => 'ROLE_ADMIN',
                     "Game Master" => 'ROLE_GAMEMASTER',
+                    "Visiteur" => 'ROLE_VISITOR',
                     "Joueur" => 'ROLE_PLAYER',
                 ],
             ])
