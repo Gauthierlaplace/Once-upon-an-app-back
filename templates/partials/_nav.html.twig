@@ -1,17 +1,17 @@
-<nav class="navbar navbar-expand-lg navFixed" data-bs-theme="dark">
+<nav id="navbar" class="navbar navbar-expand-lg" data-bs-theme="dark">
 	<div class="container-fluid">
 		{% if is_granted('ROLE_ADMIN') or is_granted('ROLE_GAMEMASTER') %}
-		<div class="mb-4">
-		<div class="">
-			Bonjour  
-			{{ app.user.pseudo }}
-		</div>
-		<div>
-			<a class='btn btn-secondary mx-2' href="{{ path('app_logout') }}">
-				Déconnecter
-			</a>
+			<div class="mb-4">
+				<div class="">
+					Bonjour
+					{{ app.user.pseudo }}
+				</div>
+				<div>
+					<a class='btn btn-secondary mx-2' href="{{ path('app_logout') }}">
+						Déconnecter
+					</a>
+				</div>
 			</div>
-		</div>
 			<a class="navbar-brand" href="{{ path('app_home') }}">Accueil</a>
 			<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor02" aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation">
 				<span class="navbar-toggler-icon"></span>
@@ -38,8 +38,8 @@
 				<div class="collapse navbar-collapse" id="navbarColor02">
 					<ul class="navbar-nav me-auto">
 						<li class="nav-item text-end">
-							<a class="nav-link {% if app.request.get('_route') starts with 'app_' ~ entity  %} active {% endif %} " href="{{ path('app_' ~ entity ~ '_index') }}">{{ entity|capitalize }}</a>
-							
+							<a class="nav-link text {% if app.request.get('_route') starts with 'app_' ~ entity  %} active {% endif %} " href="{{ path('app_' ~ entity ~ '_index') }}">{{ entity|capitalize }}</a>
+
 						</li>
 
 					</ul>
