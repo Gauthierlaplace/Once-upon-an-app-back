@@ -16,24 +16,26 @@
 			<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor02" aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation">
 				<span class="navbar-toggler-icon"></span>
 			</button>
-			{% set entities = 
-                [
-                'user',
-				'review',
+			{% set entities = [
 				'hero_class',
 				'hero',
 				'item',
 				'race',
-       			'npc',				
-				'dialogue',	
-				'effect',		
+				'npc',
+				'dialogue',
+				'effect',
 				'answer',
-                'biome',
+				'biome',
 				'event_type',
-                'event',               
-                'ending'
-                ] 
-            %}
+				'event',
+				'ending',
+				'review'
+			] %}
+
+			{% if is_granted('ROLE_ADMIN') %}
+				{% set entities = entities|merge(['user']) %}
+			{% endif %}
+
 			{% for entity in entities %}
 				<div class="collapse navbar-collapse" id="navbarColor02">
 					<ul class="navbar-nav me-auto">

@@ -40,8 +40,6 @@
 						<a class="btn btn-primary float-end  m-1" href="{{ path('app_hero_class_show', {'id': hero_class.id}) }}">Voir</a>
 						{% if is_granted('ROLE_GAMEMASTER') %}
 								<a class="btn btn-warning float-end  m-1" href="{{ path('app_hero_class_edit', {'id': hero_class.id}) }}">Modifier</a>
-							{% endif %}
-							{% if is_granted('ROLE_ADMIN') %}
 								{{ include('hero_class/_delete_form.html.twig') }}
 							{% endif %}
 					</td>
