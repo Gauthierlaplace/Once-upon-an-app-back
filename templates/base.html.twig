@@ -19,7 +19,7 @@
 	{% if isHome %}
 		<body style='background-image: url("{{ asset("images/back-office-Accueil.png") }}");'>
 		{% else %}
-			<body style='background-image: url("{{ asset("images/back-office" ~ random([' -cave', ' -grotte']) ~ ".png") }}");'>
+			<body style='background-image: url("{{ asset("images/back-office" ~ random(['-cave', '-grotte']) ~ ".png") }}");'>
 			{% endif %}
 
 			{% include './partials/_nav.html.twig' %}
