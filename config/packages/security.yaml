@@ -67,12 +67,13 @@ security:
         - { path: ^\/\w+\/new$, roles: ROLE_GAMEMASTER }
         - { path: ^\/\w+\/\d+\/edit$, roles: ROLE_GAMEMASTER }
         - { path: ^\/\w+\/\d+$, roles: ROLE_ADMIN , methods: [POST]}
-        - { path: ^\/\w+\/\d+$, roles: ROLE_GAMEMASTER , methods: [GET] }
-        - { path: ^/, roles: ROLE_GAMEMASTER }
+        - { path: ^\/\w+\/\d+$, roles: ROLE_VISITOR , methods: [GET] }
+        - { path: ^/, roles: ROLE_VISITOR }
 
     role_hierarchy:
         ROLE_ADMIN:   ROLE_GAMEMASTER
-        ROLE_GAMEMASTER: ROLE_PLAYER
+        ROLE_GAMEMASTER: ROLE_VISITOR
+        ROLE_VISITOR: ROLE_PLAYER
 
 when@test:
     security:

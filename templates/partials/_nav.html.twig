@@ -1,6 +1,6 @@
 <nav id="navbar" class="navbar navbar-expand-lg" data-bs-theme="dark">
 	<div class="container-fluid">
-		{% if is_granted('ROLE_ADMIN') or is_granted('ROLE_GAMEMASTER') %}
+		{% if is_granted('ROLE_VISITOR') %}
 			<div class="mb-4">
 				<div class="">
 					Bonjour
@@ -38,7 +38,7 @@
 				<div class="collapse navbar-collapse" id="navbarColor02">
 					<ul class="navbar-nav me-auto">
 						<li class="nav-item text-end">
-							<a class="nav-link text {% if app.request.get('_route') starts with 'app_' ~ entity  %} active {% endif %} " href="{{ path('app_' ~ entity ~ '_index') }}">{{ entity|capitalize }}</a>
+							<a class="nav-link text {% if app.request.get('_route') ends with 'app_' ~ entity ~ '_index' %} active {% endif %} " href="{{ path('app_' ~ entity ~ '_index') }}">{{ entity|capitalize }}</a>
 
 						</li>
 

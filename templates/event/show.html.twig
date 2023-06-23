@@ -24,9 +24,9 @@
 								<tr>
 									<th>Biome</th>
 									{% if event.biome.id %}
-									<td>{{ event.biome.name }}</td>	
+										<td>{{ event.biome.name }}</td>
 									{% else %}
-									<td></td>									
+										<td></td>
 									{% endif %}
 								</tr>
 								<tr>
@@ -45,32 +45,35 @@
 								<tr>
 									<th>Image</th>
 									<td>
-									{% if event.picture %}									
-										<img class="img-fluid event-img" src="{{ asset(event.picture) }}" alt="{{ 'image de ' ~ event.title }}">{{ event.picture }}
-									{% endif %}
+										{% if event.picture %}
+											<img class="img-fluid event-img" src="{{ asset(event.picture) }}" alt="{{ 'image de ' ~ event.title }}">{{ event.picture }}
+										{% endif %}
 									</td>
 								</tr>
 								<tr>
 									<th>Npc</th>
 									<td>
-									{% if npcs %}
-									{% for npc in npcs %}
-											{{npc.name}}
-									{% if npc.picture %}
-											<br>
-											  <img class="img-fluid otherTableImg" src="{{ asset(npc.picture) }}" alt="{{ 'image de ' ~ npc.name }}">
-									{% endif %}
-										{% endfor %}
+										{% if npcs %}
+											{% for npc in npcs %}
+												{{npc.name}}
+												{% if npc.picture %}
+													<br>
+													<img class="img-fluid otherTableImg" src="{{ asset(npc.picture) }}" alt="{{ 'image de ' ~ npc.name }}">
+												{% endif %}
+											{% endfor %}
 										{% endif %}
-										
+
 									</td>
 								</tr>
 							</tbody>
 						</table>
-						<a class='btn btn-warning  m-1' href="{{ path('app_event_edit', {'id': event.id}) }}">Modifier</a>
-						{{ include('event/_delete_form.html.twig') }}
+						{% if is_granted('ROLE_GAMEMASTER') %}
+							<a class='btn btn-warning  m-1' href="{{ path('app_event_edit', {'id': event.id}) }}">Modifier</a>
+						{% endif %}
+						{% if is_granted('ROLE_ADMIN') %}
+							{{ include('event/_delete_form.html.twig') }}
+						{% endif %}
 						<a class='btn btn-primary  m-1' href="{{ path('app_event_index') }}">Retour à la liste</a>
-
 					</div>
 				</div>
 

@@ -7,7 +7,9 @@
 			{% endblock %}
 		</h1>
 		<a class='btn btn-primary show' href="{{ path('app_home') }}">Retour à l'Accueil</a>
-		<a class="mb-2 btn btn-success float-end" href="{{ path('app_race_new') }}">Ajouter une nouvelle race</a>
+		{% if is_granted('ROLE_GAMEMASTER') %}
+			<a class="mb-2 btn btn-success float-end" href="{{ path('app_race_new') }}">Ajouter une nouvelle race</a>
+		{% endif %}
 		<table class="table table-hover mt-4">
 			<thead>
 				<tr>
@@ -25,8 +27,12 @@
 						<td>{{ race.description }}</td>
 						<td>
 							<a class="btn btn-primary float-end  m-1" href="{{ path('app_race_show', {'id': race.id}) }}">Voir</a>
-							<a class="btn btn-warning float-end  m-1" href="{{ path('app_race_edit', {'id': race.id}) }}">Modifier</a>
-							{{ include('race/_delete_form.html.twig') }}
+							{% if is_granted('ROLE_GAMEMASTER') %}
+								<a class="btn btn-warning float-end  m-1" href="{{ path('app_race_edit', {'id': race.id}) }}">Modifier</a>
+							{% endif %}
+							{% if is_granted('ROLE_ADMIN') %}
+								{{ include('race/_delete_form.html.twig') }}
+							{% endif %}
 						</td>
 					</tr>
 				{% else %}
