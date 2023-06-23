@@ -29,8 +29,6 @@
 							<a class="btn btn-primary float-end  m-1" href="{{ path('app_race_show', {'id': race.id}) }}">Voir</a>
 							{% if is_granted('ROLE_GAMEMASTER') %}
 								<a class="btn btn-warning float-end  m-1" href="{{ path('app_race_edit', {'id': race.id}) }}">Modifier</a>
-							{% endif %}
-							{% if is_granted('ROLE_ADMIN') %}
 								{{ include('race/_delete_form.html.twig') }}
 							{% endif %}
 						</td>
