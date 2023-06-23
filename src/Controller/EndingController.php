@@ -37,6 +37,7 @@ class EndingController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $endingRepository->add($ending, true);
 
+            $this->addFlash("create", "L'ending a bien été créé.");
             return $this->redirectToRoute('app_ending_index', [], Response::HTTP_SEE_OTHER);
         }
 
@@ -67,6 +68,7 @@ class EndingController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $endingRepository->add($ending, true);
 
+            $this->addFlash("edit", "L'ending a bien été édité.");
             return $this->redirectToRoute('app_ending_index', [], Response::HTTP_SEE_OTHER);
         }
 
@@ -84,7 +86,7 @@ class EndingController extends AbstractController
         if ($this->isCsrfTokenValid('delete'.$ending->getId(), $request->request->get('_token'))) {
             $endingRepository->remove($ending, true);
         }
-
+        $this->addFlash("delete", "L'ending a bien été effacé.");
         return $this->redirectToRoute('app_ending_index', [], Response::HTTP_SEE_OTHER);
     }
 }

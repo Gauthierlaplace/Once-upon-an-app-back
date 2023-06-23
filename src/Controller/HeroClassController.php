@@ -38,6 +38,7 @@ class HeroClassController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $heroClassRepository->add($heroClass, true);
 
+            $this->addFlash("create", "La classe de héro a bien été créée.");
             return $this->redirectToRoute('app_hero_class_index', [], Response::HTTP_SEE_OTHER);
         }
 
@@ -68,6 +69,7 @@ class HeroClassController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $heroClassRepository->add($heroClass, true);
 
+            $this->addFlash("edit", "La classe de héro a bien été éditée.");
             return $this->redirectToRoute('app_hero_class_index', [], Response::HTTP_SEE_OTHER);
         }
 
@@ -92,7 +94,7 @@ class HeroClassController extends AbstractController
 
             $heroClassRepository->remove($heroClass, true);
         }
-
+        $this->addFlash("delete", "La classe de héro a bien été effacée.");
         return $this->redirectToRoute('app_hero_class_index', [], Response::HTTP_SEE_OTHER);
     }
 }

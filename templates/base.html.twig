@@ -23,7 +23,7 @@
 			{% endif %}
 
 			{% include './partials/_nav.html.twig' %}
-
+			{% include "partials/_flash.html.twig" %}
 			{% if app.user %}
 				<div>
 					<img class="avatar" src="{{ asset(app.user.avatar) }}" alt="image d'avatar de : {{app.user.pseudo}}">

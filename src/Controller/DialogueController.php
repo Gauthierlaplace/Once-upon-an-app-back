@@ -38,6 +38,7 @@ class DialogueController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $dialogueRepository->add($dialogue, true);
 
+            $this->addFlash("create", "Le dialogue a bien été créé.");
             return $this->redirectToRoute('app_dialogue_index', [], Response::HTTP_SEE_OTHER);
         }
 
@@ -68,6 +69,7 @@ class DialogueController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $dialogueRepository->add($dialogue, true);
 
+            $this->addFlash("edit", "Le dialogue a bien été édité.");
             return $this->redirectToRoute('app_dialogue_index', [], Response::HTTP_SEE_OTHER);
         }
 
@@ -93,7 +95,7 @@ class DialogueController extends AbstractController
 
             $dialogueRepository->remove($dialogue, true);
         }
-
+        $this->addFlash("delete", "Le dialogue a bien été effacé.");
         return $this->redirectToRoute('app_dialogue_index', [], Response::HTTP_SEE_OTHER);
     }
 }
