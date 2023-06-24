@@ -27,6 +27,10 @@ body {
     background-color: rgb(24, 22, 22, 1);
 }
 
+.errorPage {
+    opacity: 0.5;
+}
+
 .table {
 
     --bs-table-bg: rgba(0, 0, 0, 0.6);
@@ -46,4 +50,10 @@ width: 10vw;
     z-index: 9999;
     position: fixed;
     bottom: 0;
+}
+
+.errorText {
+    text-shadow: 2px 2px 4px #000000;
+    color : white;
+    font-style: italic;
 }
