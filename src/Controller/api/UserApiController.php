@@ -19,6 +19,7 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 class UserApiController extends CoreApiController
 {
+
     // ! Pas de Browse
     
     // ! Read alias currentUser
@@ -66,7 +67,7 @@ class UserApiController extends CoreApiController
         Request $request,
         UserRepository $userRepository,
         SerializerInterface $serializer,
-        ValidatorInterface $validatorInterface,
+        ValidatorInterface $validator,
         UserPasswordHasherInterface $passwordHasher,
         HeroRepository $heroRepository,
         HeroClassRepository $heroClassRepository
@@ -83,14 +84,13 @@ class UserApiController extends CoreApiController
         }
 
         // on valide les données de notre entité
-        $errors = $validatorInterface->validate($user);
+        $errors = $validator->validate($user);
         // Y'a-t-il des erreurs ?
         if (count($errors) > 0) {
             return $this->json($errors, Response::HTTP_UNPROCESSABLE_ENTITY);
         }
         $plainPassword = $user->getPassword();
         if (!empty($plainPassword)) {
-
             $hashedPassword = $passwordHasher->hashPassword($user, $plainPassword);
 
             $user->setPassword($hashedPassword);
@@ -136,7 +136,8 @@ class UserApiController extends CoreApiController
         Request $request,
         SerializerInterface $serializerInterface,
         UserRepository $userRepository,
-        UserPasswordHasherInterface $passwordHasher
+        UserPasswordHasherInterface $passwordHasher,
+        ValidatorInterface $validator
     ) {
         $jsonContent = $request->getContent();
         $user = $userRepository->find($id);
@@ -146,9 +147,20 @@ class UserApiController extends CoreApiController
             'json',
             [AbstractNormalizer::OBJECT_TO_POPULATE => $user]
         );
+
+        if (!$user) {
+            return new Response('Utilisateur non trouvé', Response::HTTP_NOT_FOUND);
+        }
+        
+        // on valide les données de notre entité
+        $errors = $validator->validate($user);
+        // Y'a-t-il des erreurs ?
+        if (count($errors) > 0) {
+            return $this->json($errors, Response::HTTP_UNPROCESSABLE_ENTITY);
+        }
+
         $plainPassword = $user->getPassword();
         if (!empty($plainPassword)) {
-
             $hashedPassword = $passwordHasher->hashPassword($user, $plainPassword);
 
             $user->setPassword($hashedPassword);

@@ -36,8 +36,8 @@ class UserController extends AbstractController
     {
         $user = new User();
         $form = $this->createForm(UserType::class, $user);
+        // dd($form->handleRequest($request));
         $form->handleRequest($request);
-
         if ($form->isSubmitted() && $form->isValid()) {
             // * on le récupère de l'objet remplit par le formulaire
             $plainPassword = $user->getPassword();
@@ -71,17 +71,16 @@ class UserController extends AbstractController
      */
     public function edit(Request $request, User $user, UserRepository $userRepository,  UserPasswordHasherInterface $passwordHasher): Response
     {
+
         $form = $this->createForm(UserEditType::class, $user);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            
-            $plainPassword = $request->request->get("user_edit")["password"];
-            if (!empty($plainPassword)){
-
-                $hashedPassword = $passwordHasher->hashPassword($user, $plainPassword);
-
-                $user->setPassword($hashedPassword);     
+            $plainPassword = $request->request->get("user_edit")["password"]['first'];
+          
+            if (!empty($plainPassword)){ // Mettre à jour le mot de passe seulement si le champ n'est pas vide
+                $hashedPassword = $passwordHasher->hashPassword($user, $plainPassword);               
+                    $user->setPassword($hashedPassword);     
             }
             $userRepository->add($user, true);
 

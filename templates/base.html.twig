@@ -19,15 +19,17 @@
 	{% if isHome %}
 		<body style='background-image: url("{{ asset("images/back-office-Accueil.png") }}");'>
 		{% else %}
-			<body style='background-image: url("{{ asset("images/back-office" ~ random(['-cave', '-grotte']) ~ ".png") }}");'>
+			<body style='background-image: url("{{ asset("images/back-office" ~ random(["-cave", "-grotte"]) ~ ".png") }}");'>
 			{% endif %}
 
 			{% include './partials/_nav.html.twig' %}
 
 			{% if app.user %}
-				<div>
-					<img class="avatar" src="{{ asset(app.user.avatar) }}" alt="image d'avatar de : {{app.user.pseudo}}">
-				</div>
+				{% if app.user.avatar %}
+					<div>
+						<img class="avatar" src="{{ asset(app.user.avatar) }}" alt="image d'avatar de : {{app.user.pseudo}}">
+					</div>
+				{% endif %}
 			{% endif %}
 			{% block body %}{% endblock %}
 
