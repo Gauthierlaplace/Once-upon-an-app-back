@@ -263,5 +263,19 @@
     "headers": [],
     "params": [],
     "tests": []
+  },
+  {
+    "_id": "8562b0b4-9f8c-4172-96b5-36c7312a19d6",
+    "colId": "history",
+    "containerId": "",
+    "name": "http://pierre-salhab.vpnuser.lan:8082/api/event/dead/3",
+    "url": "http://pierre-salhab.vpnuser.lan:8082/api/event/dead/3",
+    "method": "GET",
+    "sortNum": 0,
+    "created": "2023-06-26T10:48:27.348Z",
+    "modified": "2023-06-26T10:48:27.348Z",
+    "headers": [],
+    "params": [],
+    "tests": []
   }
 ]
