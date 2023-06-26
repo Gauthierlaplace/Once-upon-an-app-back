@@ -40,7 +40,7 @@ class UserType extends AbstractType
                 'required' => true, // Champ obligatoire
                 'mapped' => true,
                 'first_options' => [
-                    'label' => 'Password',
+                    'label' => 'Mot de passe',
                     'attr' => [
                         'placeholder' => 'Entrez votre mot de passe'
                     ],

@@ -46,6 +46,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * @var string The hashed password
      * @Assert\NotBlank(message="Le mot de passe est requis.")
+     * @Assert\NotNull(message="Le mot de passe est requis.")
      * @ORM\Column(type="string")
      * @Assert\Regex(
      *     pattern="/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*]).{4,}$/",

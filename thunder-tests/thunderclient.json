@@ -101,12 +101,12 @@
     "method": "GET",
     "sortNum": 10000,
     "created": "2023-06-23T14:32:02.166Z",
-    "modified": "2023-06-25T00:54:11.010Z",
+    "modified": "2023-06-26T08:55:53.567Z",
     "headers": [],
     "params": [],
     "body": {
       "type": "json",
-      "raw": "{\n  \"username\" : \"test@test.com\",\n  \"password\" : \"Aa1!\"\n}",
+      "raw": "{\n  \"username\" : \"aaa@aaa.fr\",\n  \"password\" : \"Aa1!\"\n}",
       "form": []
     },
     "tests": []
@@ -120,12 +120,12 @@
     "method": "POST",
     "sortNum": 10000,
     "created": "2023-06-23T14:32:02.167Z",
-    "modified": "2023-06-25T01:27:33.966Z",
+    "modified": "2023-06-26T09:52:18.749Z",
     "headers": [],
     "params": [],
     "body": {
       "type": "json",
-      "raw": "{\n  \"email\": \"tedddadst@tegfvfdsfkfokt.fr\", \n  \"roles\": [\"ROLE_PLAYER\", \"ROLE_ADMIN\"],\n  \"password\": \"A1a!\",\n  \"pseudo\": \"fr\",\n  \"avatar\": \"images/avatar22.png\"\n}\n",
+      "raw": "{\n  \"email\": \"aaa@aaaa.fr\", \n  \"password\" : \"Bb1!\",\n  \"pseudo\": \"test\",\n  \"avatar\": \"images/avatar22.png\"\n}\n",
       "form": []
     },
     "tests": []
@@ -135,17 +135,21 @@
     "colId": "462c6f63-ebb8-4189-9a43-ed7489279ac3",
     "containerId": "82f35152-eda6-4744-b5d9-594ee469a9c8",
     "name": "Edit User with Edit Password",
-    "url": "http://pierre-salhab.vpnuser.lan:8082/api/users/8",
+    "url": "http://pierre-salhab.vpnuser.lan:8082/api/users/67",
     "method": "PUT",
     "sortNum": 10000,
     "created": "2023-06-23T14:32:02.168Z",
-    "modified": "2023-06-25T01:35:05.190Z",
+    "modified": "2023-06-26T10:03:35.036Z",
     "headers": [],
     "params": [],
     "body": {
       "type": "json",
-      "raw": "{\n  \"email\": \"pierre@admin.fr\", \n  \"password\":\"Aa1!\",\n  \"pseudo\": \"Pierre\",\n  \"avatar\": \"images/user-pierre.png\"\n}\n",
+      "raw": "{\n  \"email\": \"aaa@aaaa.fr\", \n  \"password\" : \"Aa1!\",\n  \"pseudo\": \"test\",\n  \"avatar\": \"images/avatar22.png\"\n}\n",
       "form": []
+    },
+    "auth": {
+      "type": "bearer",
+      "bearer": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpYXQiOjE2ODc3NzA0NzQsImV4cCI6MTY4NzgzNTI3NCwicm9sZXMiOlsiUk9MRV9QTEFZRVIiXSwidXNlcm5hbWUiOiJhYWFAYWFhLmZyIn0.D_OGj4JO_yprrRM_I2hAfMjKVhc2ENVcGyZDblyDgyXushPTnPs_QAa0ghaHq1spUt_2-uV9lOl2XZ44Kcaf_jgdqQ__aremZj3aXdnA_WiDRllnf4ztfg9HYET2JEKeeBCQldLz_f4RZ5eEXsJTd-fRBLT3dPnSPTR3MQbZkudDTYfqfWOvW0kCMFPAqbOkiEXcJ85oUtQ2794xugkAXVgUrWSk3zKa_wAZEXMOOd5Zy0MxdofJ-ANXnRI6tevj8X5Xm7WF2sGrP3gorn2-fL7d1xbMKF-UdoBUnrvWOx1e85fCWkjz5F8JhvxlCFjW5RS7Mt6FxYk5KewrJUJ_mg"
     },
     "tests": []
   },
@@ -154,16 +158,16 @@
     "colId": "462c6f63-ebb8-4189-9a43-ed7489279ac3",
     "containerId": "58b35a4d-3ae0-4b51-91b9-ed16cb94108c",
     "name": "http://localhost:8000/api/users/26",
-    "url": "http://pierre-salhab.vpnuser.lan:8082/api/users/26",
+    "url": "http://pierre-salhab.vpnuser.lan:8082/api/users/59",
     "method": "DELETE",
     "sortNum": 10000,
     "created": "2023-06-23T14:32:02.169Z",
-    "modified": "2023-06-23T14:32:02.169Z",
+    "modified": "2023-06-26T09:07:06.307Z",
     "headers": [],
     "params": [],
     "auth": {
       "type": "bearer",
-      "bearer": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpYXQiOjE2ODY4MTI4ODAsImV4cCI6MTY4Njg3NzY4MCwicm9sZXMiOlsiUk9MRV9BRE1JTiIsIlJPTEVfUExBWUVSIl0sInVzZXJuYW1lIjoiYW50aG9ueUBhZG1pbi5jb20ifQ.jxZ7cBc8GUXYfn_kADTKB6Oh0jNp2hlPw7-mu_bRKWL4_HwF6J7oLo5lyNgH-TObnRVCH7t_uFLD-UWxuL3sZckKR34SwvSmjgXa9VZPUEUXIeKdFKLKvbE0irzDI3M_CxpxDzQif2UcMCa-AqIRBviGGzP5DC12HGcOn0djWW2h_l_uTCfwaoQb7r4r5YMho2xu9wnyvq_PF8UmHNMVbdPeBpIEAo50F4Xi3f76wO_zlwTUSl-2nuUnl_kSBxcVWRm1rLO1CN2bgTDHBNX440f9zFmCloSpo0KeKysSiUt4E-rZiM_2xC6WpVSK1SdRDSqOHXHQICJ3ds1k2LcV_w"
+      "bearer": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpYXQiOjE2ODc3Njk3NTMsImV4cCI6MTY4NzgzNDU1Mywicm9sZXMiOlsiUk9MRV9QTEFZRVIiXSwidXNlcm5hbWUiOiJhYWFAYWFhLmZyIn0.naIZheE0z1gTAq2HqQxbFfiyfLkCQzkJtUymoG_poROLScX5djzgimBqLYSe6yugue12KYtcicFihjuA6d_lNrF6rKA5wF2m8sYv7RoiOEKhsgW8nJbmzeC8HHnGoJKZb4Ak528Vp7FmX5WWlz8d4EIYjdlOq93An7Ic-84aHKf2fhpNs6SQE6STI5tQ7gaWoWi3oFChupQLIuGZqE4gqcFJlAbOp1JzQv9cqi2AtGYcn5q0syflv4C4DNTCHOqRqnRipgNL7Wt3QOJFmj5VpTYIE_bSW7nsklC3JTo2TJKVntFJGxNfCPprwkrWMjK-uEhotHMPvPq4WtGosD6oRg"
     },
     "tests": []
   },

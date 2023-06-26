@@ -36,7 +36,6 @@ class UserController extends AbstractController
     {
         $user = new User();
         $form = $this->createForm(UserType::class, $user);
-        // dd($form->handleRequest($request));
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             // * on le récupère de l'objet remplit par le formulaire
