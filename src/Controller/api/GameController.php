@@ -852,8 +852,7 @@ class GameController extends CoreApiController
 
         // * Hero survived the effect or not ?
         if ($hero->getHealth() <= 0) {
-            // * Hero didn't survive the effect, $hero object become a string, $data return $hero + the Death event opening + id
-            $hero = 'Vous êtes mort !';
+            $hero = $hero->setHealth(0);
             $data = [
                 'player' => $hero,
                 'GameOver' => $eventDeath
