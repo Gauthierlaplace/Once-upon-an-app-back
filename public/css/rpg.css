@@ -27,6 +27,16 @@ body {
     background-color: rgb(24, 22, 22, 1);
 }
 
+
+.errorPage {
+    opacity: 0.5;
+}
+
+.errorText {
+    text-shadow: 2px 2px 4px #000000;
+    color : white;
+    font-style: italic;
+
 #flash {
     text-align: center;
     width : 50%;
