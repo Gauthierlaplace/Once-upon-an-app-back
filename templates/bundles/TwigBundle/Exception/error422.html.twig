@@ -1,0 +1,31 @@
+{% extends "base.html.twig" %}
+
+{% block body %}
+	<div class="container my-4">
+		<div class="errorText my-5 py-5 text-center">
+			<div class="col-lg-6 mx-auto">
+				<h4>"Erreur 422 - La Forêt en Feu"</h4>
+			</div>
+			<br>
+			<div>
+				<p>
+					Oops! Il semblerait que vous ayez rencontré une erreur inattendue. Bienvenue dans la Forêt en Feu, un endroit où les problèmes se consument et où les requêtes se perdent dans les flammes de l'inattendu. Nous sommes désolés pour cette situation et nous allons faire de notre mieux pour vous guider en sécurité hors de ce brasier numérique.<br>
+					Au cœur de cette forêt brûlante, les arbres majestueux se dressent, leurs branches touffues s'élevant vers le ciel, désespérément en quête de réponses. Mais malheureusement, aujourd'hui, nous ne pouvons pas vous offrir la tranquillité que vous recherchez. Une étincelle s'est échappée et a créé une erreur 422, une barrière infranchissable sur votre chemin.<br>
+					Les flammes dansent avec férocité, illuminant le paysage numérique de teintes écarlates. Les crépitements des braises embrasées résonnent dans le silence oppressant, vous rappelant l'urgence de la situation. Mais ne vous inquiétez pas, notre équipe d'experts est en train de combattre cet incendie pour vous offrir une expérience utilisateur plus fluide.<br>
+					Dans cette situation critique, nous aimerions vous fournir quelques indications pour vous aider à traverser cette épreuve :<br>
+					Vérifiez votre connexion : Parfois, une simple interruption de votre connexion peut être à l'origine de cette erreur. Assurez-vous que votre connexion Internet est stable et réessayez.<br>
+					Actualisez la page : Les braises de cette erreur peuvent être apaisées par un simple rafraîchissement de la page. Cliquez sur le bouton de rafraîchissement de votre navigateur pour voir si cela résout le problème.<br>
+					Revenez en arrière : Parfois, il est utile de revenir en arrière et de réessayer une autre voie. Utilisez le bouton "Retour" pour repartir sur un nouveau chemin et voir si vous pouvez éviter les flammes dévorantes.<br>
+					Contactez notre équipe : Si vous continuez à rencontrer cette erreur persistante, n'hésitez pas à nous contacter. Notre équipe de secours est prête à intervenir pour vous aider à sortir indemne de cette forêt en feu.<br>
+					Nous nous excusons sincèrement pour les désagréments que cela peut causer. Nous travaillons activement pour éteindre cet incendie numérique et vous fournir une expérience en ligne sans danger.<br>
+					Dans l'espoir que vous trouviez rapidement la sortie de cette forêt en feu numérique, nous vous remercions de votre patience et de votre compréhension.<br>
+					L'équipe de Once Upon An App.
+				</p>
+			</div>
+			<br>
+			<div>
+				<a class='errorPage btn btn-danger' href="{{ path('app_home') }}">Retour à l'accueil</a>
+			</div>
+		</div>
+	</div>
+{% endblock %}
