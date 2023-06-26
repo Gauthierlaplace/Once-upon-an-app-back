@@ -2,22 +2,15 @@
 
 namespace App\Services;
 
-use App\Entity\Ending;
-use App\Entity\Event;
+use App\Repository\EffectRepository;
 use App\Repository\EndingRepository;
 use App\Repository\EventRepository;
 use App\Repository\EventTypeRepository;
-use Symfony\Component\HttpFoundation\RequestStack;
+use App\Repository\HeroRepository;
+use App\Repository\UserRepository;
 
 class GameServices
 {
-    /**
-     * le requete en cours
-     *
-     * @var RequestStack
-     */
-    private $request;
-
     /**
      *
      * @var EventTypeRepository
@@ -26,30 +19,58 @@ class GameServices
 
     /**
      *
-     * @var EventTypeRepository
+     * @var EndingRepository
      */
     private $endingRepository;
 
     /**
      *
-     * @var EventTypeRepository
+     * @var EventRepository
      */
     private $eventRepository;
 
-    public function __construct(RequestStack $request, EventTypeRepository $eventTypeRepository, EndingRepository $endingRepository, EventRepository $eventRepository)
+    /**
+     *
+     * @var HeroRepository
+     */
+    private $heroRepository;
+
+    /**
+     *
+     * @var EffectRepository
+     */
+    private $effectRepository;
+
+    /**
+     *
+     * @var UserRepository
+     */
+    private $userRepository;
+
+
+    public function __construct(EventTypeRepository $eventTypeRepository, EndingRepository $endingRepository, EventRepository $eventRepository, HeroRepository $heroRepository, EffectRepository $effectRepository, UserRepository $userRepository)
     {
-        $this->request = $request;
+
         $this->eventTypeRepository = $eventTypeRepository;
         $this->endingRepository = $endingRepository;
         $this->eventRepository = $eventRepository;
+        $this->heroRepository = $heroRepository;
+        $this->effectRepository = $effectRepository;
+        $this->userRepository = $userRepository;
     }
 
 
-
-    public function getAllNpcData(Event $eventA)
+    /**
+     *  Get Npc data with Race, Dialogue, answers, effects on the current Event
+     * 
+     * @param object $currentEnvent current event found by id
+     * 
+     * @return array $arrayNpc
+     */
+    public function getAllNpcData($currentEnvent)
     {
 
-        $npcCollection = $eventA->getNpc();
+        $npcCollection = $currentEnvent->getNpc();
         $npcs = $npcCollection->toArray();
 
         $arrayNpc = [];
@@ -102,28 +123,35 @@ class GameServices
         return $arrayNpc;
     }
 
-    public function getTwoEndingsWithoutBossType($endingsEventA)
+    /**
+     *  Get key for endings without ending event type Boss
+     * 
+     * @param array $endingsCurrentEvent current endings event 
+     * 
+     * @return array $randomizedEndingsPicked
+     */
+    public function getTwoRandomEndingsKeysWithoutBossType($endingsCurrentEvent)
     {
 
         // ! Exclure les EventType Boss de la pool de pick random eventType
-        // on explore tout les endings de l'eventA
-        foreach ($endingsEventA as $endingEventA) {
+        // on explore tout les endings du currentEnvent
+        foreach ($endingsCurrentEvent as $ending) {
             // on garde l'id de l'ending en cours
-            $endingEventAId = $endingEventA->getId();
+            $endingId = $ending->getId();
             // on récupère l'EventType pour chaque
-            $eventAtype = $endingEventA->getEventType();
+            $currentEnventtype = $ending->getEventType();
             // on stock l'id de cet eventType
-            $eventATypeId = $eventAtype->getId();
+            $currentEnventTypeId = $currentEnventtype->getId();
             // on recherche l'objet eventType avec l'id
-            $checkNotBossType = $this->eventTypeRepository->findOneBy(['id' => $eventATypeId]);
+            $checkNotBossType = $this->eventTypeRepository->findOneBy(['id' => $currentEnventTypeId]);
 
-            $checkIdName = [($endingEventAId) => ($checkNotBossType->getName())];
+            $checkIdName = [($endingId) => ($checkNotBossType->getName())];
 
             foreach ($checkIdName as $getOutFromList => $EndingNameToBan) {
                 if ($EndingNameToBan === "Boss") {
-                    $EndingToDelete = $getOutFromList; //* ID de l'élément ending à supprimer dans $endingsEventA
-                    // on va filtrer $endingsEventA pour retirer tout les endings de type Boss
-                    $filteredEndingsEventA = array_filter($endingsEventA, function ($ending) use ($EndingToDelete) {
+                    $EndingToDelete = $getOutFromList; //* ID de l'élément ending à supprimer dans $endingsCurrentEvent
+                    // on va filtrer $endingsCurrentEvent pour retirer tout les endings de type Boss
+                    $filteredEndingsEventA = array_filter($endingsCurrentEvent, function ($ending) use ($EndingToDelete) {
                         return $ending->getId() !== $EndingToDelete;
                     });
                 }
@@ -150,48 +178,50 @@ class GameServices
 
         return $randomizedEndingsPicked;
     }
-
-    public function getDynamicEnding($eventTypeBossId, $id)
+    
+    /**
+     *  Get Dynamic Ending content of the current event
+     * 
+     * @param array $endings Endings from current event
+     * @param mixed $currentEventId Id of the current Event
+     * 
+     * @return string $contentEndingCurrent Return the Current Ending content
+     */
+    public function getDynamicEnding($endings, $currentEventId)
     {
-
-        // * isoler le ending
-        // * trouver le ending where eventType = $eventTypeBossId
-        $endingsBoss = $this->endingRepository->findBy(["eventType" => $eventTypeBossId]); // * Tout les Endings Boss
-
-        foreach ($endingsBoss as $ending) {
-            $endingCurrent = $ending->getEvent();  // * object Event complet avec uniquement l'id dispo
-            $idEndingCurrent = $endingCurrent->getId(); // * on récupère uniquement l'id
-            if ($idEndingCurrent == $id) // * Si l'$id(eventA) = l'idEndingCurrent alors on a le bon Event donc on peut récupérer le contenu du bon ending de event_type : Boss
+        foreach ($endings as $ending) {
+            $endingCurrent = $ending->getEvent();  
+            $idEndingCurrent = $endingCurrent->getId(); 
+            
+            if ($idEndingCurrent == $currentEventId)
             {
                 $contentEndingCurrent = $ending->getContent();
             }
         }
-
+        
         return $contentEndingCurrent;
     }
 
+    /**
+     *  Get 2 Event Boss and shuffle the keys
+     * 
+     * @param mixed $eventTypeBossId Id of the EventType Boss
+     * 
+     * @return array $arrayBossData Return array of the 2 Event Boss picked
+     */
     public function getShuffleEventBoss($eventTypeBossId)
     {
         $eventsBoss = $this->eventRepository->findBy(['eventType' => $eventTypeBossId]);
-        // on a ici les 3 eventBoss
-        //on en veut 2
+
         $eventBossPicked = array_rand($eventsBoss, 2);
 
-        // Obtenez les clés du tableau d'origine
         $eventBossPickedKeys = array_keys($eventBossPicked);
-        // Randomisez l'ordre des clés
         shuffle($eventBossPickedKeys);
 
-        // Créez un nouveau tableau
-        $randomizedEndingsPicked = array();
-
-        // Parcourez les clés randomisées
+        $randomizedEndingsPicked = [];
         foreach ($eventBossPickedKeys as $endingsPickedKey) {
-            // Assignez les valeurs correspondantes au nouveau tableau
             $randomizedEndingsPicked[$endingsPickedKey] = $eventBossPicked[$endingsPickedKey];
         }
-
-        // Affichez le nouveau tableau avec les clés randomisées
 
         $arrayBossData = [];
         foreach ($randomizedEndingsPicked as $eventsBossKey) {
@@ -200,29 +230,71 @@ class GameServices
 
             $arrayBossData[] = $pickedBossEvent;
         }
-
-        $dataForFront = [];
-        foreach ($arrayBossData as $event) {
+        return $arrayBossData;
+    }
+    
+    /**
+     *  Get Id and Opening for the next events
+     * 
+     * @param array $eventsSelectedForNextEvents  
+     * 
+     * @return array $eventsForNextEvents
+     */
+    public function getDataForNextEventsArray($eventsSelectedForNextEvents)
+    {
+        $eventsForNextEvents = [];
+        foreach ($eventsSelectedForNextEvents as $event) {
             $id = $event->getId();
             $opening = $event->getOpening();
-            $dataForFront[] = [
+            $eventsForNextEvents[] = [
+                "Id" => $id,
+                "Opening" => $opening
+            ];
+        }
+        
+        return $eventsForNextEvents;
+    }
+
+     /**
+     *  Get Id and Opening for the next only event
+     * 
+     * @param array $eventsSelectedForNextEvents  
+     * 
+     * @return array $eventsForNextEvents
+     */
+    public function getDataForNextEventArray($eventsSelectedForNextEvents)
+    {
+
+        $eventsForNextEvents = [];
+        foreach ($eventsSelectedForNextEvents as $event) {
+            $id = $event->getId();
+            $opening = $event->getOpening();
+            $eventsForNextEvents = [
                 "Id" => $id,
                 "Opening" => $opening
             ];
         }
 
-        return $dataForFront;
+        return $eventsForNextEvents;
     }
 
-    public function getTwoEndingsWithTwoRandomEvent($randomizedEndingsPicked, $endingsEventA) {
+     /**
+     *  Get 2 Random Endings(from current Event) with 2 Random Events
+     * 
+     * @param array $randomizedEndingsPicked 
+     * @param array $endingsCurrentEvent 
+     * 
+     * @return array $choices Return array of the 2 Events to choose
+     */
+    public function getTwoEndingsWithTwoRandomEvent($randomizedEndingsPicked, $endingsCurrentEvent)
+    {
+        $nextEvents = [];
+        $endings = [];
+        foreach ($randomizedEndingsPicked as $endingsCurrentEventKey) { // * on boucle sur les 2 endings récupéré aléatoirement
 
-        $eventBAndC = [];
-        $endingForFront = [];
-        foreach ($randomizedEndingsPicked as $endingsEventAKey) { // * on boucle sur les 2 endings récupéré aléatoirement
+            $oneEnding = $endingsCurrentEvent[$endingsCurrentEventKey]; // * on récupère chaque ending
 
-            $oneEnding = $endingsEventA[$endingsEventAKey]; // * on récupère chaque ending
-
-            $endingForFront[] = $oneEnding; // * on stock les deux endings dans un array $endingForFront
+            $endings[] = $oneEnding; // * on stock les deux endings dans un array $endings
 
             $collectionEventType = $oneEnding->getEventType(); // * pour chaque ending, on récupère son event_type
 
@@ -232,13 +304,13 @@ class GameServices
 
             $eventPicked = array_rand($events, 1); // * on récupère la clé de l'event choisi aléatoirement
 
-            $eventBAndC[] = $events[$eventPicked]; // * on stock l'event qui la clé $eventPicked dans un array $eventBAndC
+            $nextEvents[] = $events[$eventPicked]; // * on stock l'event qui la clé $eventPicked dans un array $nextEvents
         }
 
-        $ending1 = $endingForFront[0];
-        $ending2 = $endingForFront[1];
-        $event1 = $eventBAndC[0];
-        $event2 = $eventBAndC[1];
+        $ending1 = $endings[0];
+        $ending2 = $endings[1];
+        $event1 = $nextEvents[0];
+        $event2 = $nextEvents[1];
 
         $choices = [
             0 => [
@@ -254,6 +326,99 @@ class GameServices
         ];
 
         return $choices;
+    }
 
+    /**
+     *  Update Hero after Effect applied
+     * 
+     * @param array $currentEventId 
+     * @param object $user The Current User
+     * 
+     * @return array $hero Return array of the 2 Events to choose
+     */
+    public function updateHeroAfterEffect($currentEventId, $user)
+    {
+        $hero = $this->heroRepository->findOneBy(["user" => $user->getId()]);
+
+        $effect = $this->effectRepository->findOneBy(['id' => $currentEventId]);
+
+        // * Applying Effect to Player ($hero)
+        if ($effect->getHealth()) {
+            $hero->setHealth($hero->getHealth() + $effect->getHealth());
+
+            if ($hero->getHealth() >= $hero->getMaxHealth()) {
+                $hero->setHealth($hero->getMaxHealth());
+            }
+        }
+        if ($effect->getStrength()) {
+            $hero->setStrength($hero->getStrength() + $effect->getStrength());
+        }
+        if ($effect->getIntelligence()) {
+            $hero->setIntelligence($hero->getIntelligence() + $effect->getIntelligence());
+        }
+        if ($effect->getDexterity()) {
+            $hero->setDexterity($hero->getDexterity() + $effect->getDexterity());
+        }
+        if ($effect->getDefense()) {
+            $hero->setDefense($hero->getDefense() + $effect->getDefense());
+        }
+        if ($effect->getKarma()) {
+            $hero->setKarma($hero->getKarma() + $effect->getKarma());
+        }
+        if ($effect->getXp()) {
+            $hero->setXp($hero->getXp() + $effect->getXp());
+        }
+
+        // Saving Hero in Database
+        $this->heroRepository->add($hero, true);
+
+        return $hero;
+    }
+
+    /**
+     *  Test to know if the Hero survived
+     * 
+     * @param object $hero 
+     * 
+     * @return array $data with $hero and $eventDeath if the Hero dies, if he is still alive it returns $hero
+     */
+    public function heroSurvivedOrNot($hero)
+    {
+        if ($hero->getHealth() <= 0) {
+            
+            $hero = $hero->setHealth(0);
+
+            // * Hero Dies, Death Event needed
+            $eventTypeDeath = $this->eventTypeRepository->findOneBy(['name' => "Death"]);
+            $eventTypeDeathId = $eventTypeDeath->getId();
+            $eventDeath = $this->eventRepository->findOneBy(['eventType' => $eventTypeDeathId]);
+            
+            $data = [
+                'player' => $hero,
+                'GameOver' => $eventDeath
+            ];
+        } else {
+            // * Hero survived the effect, the game goes on
+            $data = [
+                'player' => $hero,
+            ];
+        }
+        return $data;
+    }
+
+    /**
+     *  Reset the Hero health to his maxHealth to restart the game
+     * 
+     * @param object $user 
+     * 
+     * @return array $hero Return $hero with health reset to the maxHealth
+     */
+    public function resetHeroHealth($user)
+    {
+        $hero = $this->heroRepository->findOneBy(["user" => $user->getId()]);
+        $hero->setHealth($hero->getMaxHealth());
+        $this->heroRepository->add($hero, true);
+
+        return $hero;
     }
 }
