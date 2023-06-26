@@ -870,9 +870,9 @@ class GameController extends CoreApiController
     }
 
     /**
-     * @Route("/api/event/dead/{id}", name="app_api_event_dead", requirements={"id"="\d+"}, methods={"GET"})
+     * @Route("/api/event/death/{id}", name="app_api_event_death", requirements={"id"="\d+"}, methods={"GET"})
      */
-    public function dead(
+    public function death(
         $id,
         EventRepository $eventRepository
     )
