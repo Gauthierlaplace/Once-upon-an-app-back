@@ -89,9 +89,9 @@ class GameController extends CoreApiController
 
         $arrayNpc = $gameServices->getAllNpcData($currentEvent);
 
-        $eventTypeBoss = $eventTypeRepository->findOneBy(['name' => "Boss"]); 
+        $eventTypeBoss = $eventTypeRepository->findOneBy(['name' => "Boss"]);
 
-        $eventTypeBossId = $eventTypeBoss->getId(); 
+        $eventTypeBossId = $eventTypeBoss->getId();
 
         $endingsBoss = $endingRepository->findBy(["eventType" => $eventTypeBossId]);
 

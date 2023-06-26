@@ -178,7 +178,7 @@ class GameServices
 
         return $randomizedEndingsPicked;
     }
-    
+
     /**
      *  Get Dynamic Ending content of the current event
      * 
@@ -190,15 +190,14 @@ class GameServices
     public function getDynamicEnding($endings, $currentEventId)
     {
         foreach ($endings as $ending) {
-            $endingCurrent = $ending->getEvent();  
-            $idEndingCurrent = $endingCurrent->getId(); 
-            
-            if ($idEndingCurrent == $currentEventId)
-            {
+            $endingCurrent = $ending->getEvent();
+            $idEndingCurrent = $endingCurrent->getId();
+
+            if ($idEndingCurrent == $currentEventId) {
                 $contentEndingCurrent = $ending->getContent();
             }
         }
-        
+
         return $contentEndingCurrent;
     }
 
@@ -232,7 +231,7 @@ class GameServices
         }
         return $arrayBossData;
     }
-    
+
     /**
      *  Get Id and Opening for the next events
      * 
@@ -251,11 +250,11 @@ class GameServices
                 "Opening" => $opening
             ];
         }
-        
+
         return $eventsForNextEvents;
     }
 
-     /**
+    /**
      *  Get Id and Opening for the next only event
      * 
      * @param array $eventsSelectedForNextEvents  
@@ -278,7 +277,7 @@ class GameServices
         return $eventsForNextEvents;
     }
 
-     /**
+    /**
      *  Get 2 Random Endings(from current Event) with 2 Random Events
      * 
      * @param array $randomizedEndingsPicked 
@@ -385,14 +384,14 @@ class GameServices
     public function heroSurvivedOrNot($hero)
     {
         if ($hero->getHealth() <= 0) {
-            
+
             $hero = $hero->setHealth(0);
 
             // * Hero Dies, Death Event needed
             $eventTypeDeath = $this->eventTypeRepository->findOneBy(['name' => "Death"]);
             $eventTypeDeathId = $eventTypeDeath->getId();
             $eventDeath = $this->eventRepository->findOneBy(['eventType' => $eventTypeDeathId]);
-            
+
             $data = [
                 'player' => $hero,
                 'GameOver' => $eventDeath
