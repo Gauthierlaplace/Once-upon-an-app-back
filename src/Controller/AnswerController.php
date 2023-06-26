@@ -37,6 +37,7 @@ class AnswerController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $answerRepository->add($answer, true);
 
+            $this->addFlash("create", "La réponse a bien été créée.");
             return $this->redirectToRoute('app_answer_index', [], Response::HTTP_SEE_OTHER);
         }
 
@@ -70,6 +71,7 @@ class AnswerController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $answerRepository->add($answer, true);
 
+            $this->addFlash("edit", "La réponse a bien été éditée.");
             return $this->redirectToRoute('app_answer_index', [], Response::HTTP_SEE_OTHER);
         }
 
@@ -87,7 +89,7 @@ class AnswerController extends AbstractController
         if ($this->isCsrfTokenValid('delete'.$answer->getId(), $request->request->get('_token'))) {
             $answerRepository->remove($answer, true);
         }
-
+        $this->addFlash("delete", "La réponse a bien été éditée.");
         return $this->redirectToRoute('app_answer_index', [], Response::HTTP_SEE_OTHER);
     }
 }

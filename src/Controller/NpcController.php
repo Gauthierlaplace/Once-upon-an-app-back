@@ -39,6 +39,7 @@ class NpcController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $npcRepository->add($npc, true);
 
+            $this->addFlash("create", "Le Npc a bien été créé.");
             return $this->redirectToRoute('app_npc_index', [], Response::HTTP_SEE_OTHER);
         }
 
@@ -72,6 +73,7 @@ class NpcController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $npcRepository->add($npc, true);
 
+            $this->addFlash("edit", "Le Npc a bien été édité.");
             return $this->redirectToRoute('app_npc_index', [], Response::HTTP_SEE_OTHER);
         }
 
@@ -102,7 +104,7 @@ class NpcController extends AbstractController
 
             $npcRepository->remove($npc, true);
         }
-
+        $this->addFlash("delete", "Le Npc a bien été effacé.");
         return $this->redirectToRoute('app_npc_index', [], Response::HTTP_SEE_OTHER);
     }
 }

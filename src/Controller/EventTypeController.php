@@ -39,6 +39,7 @@ class EventTypeController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $eventTypeRepository->add($eventType, true);
 
+            $this->addFlash("create", "Le type d'événement a bien été créé.");
             return $this->redirectToRoute('app_event_type_index', [], Response::HTTP_SEE_OTHER);
         }
 
@@ -69,6 +70,7 @@ class EventTypeController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $eventTypeRepository->add($eventType, true);
 
+            $this->addFlash("edit", "Le type d'événement a bien été édité.");
             return $this->redirectToRoute('app_event_type_index', [], Response::HTTP_SEE_OTHER);
         }
 
@@ -98,7 +100,7 @@ class EventTypeController extends AbstractController
             }
             $eventTypeRepository->remove($eventType, true);
         }
-
+        $this->addFlash("delete", "Le type d'événement a bien été effacé.");
         return $this->redirectToRoute('app_event_type_index', [], Response::HTTP_SEE_OTHER);
     }
 }

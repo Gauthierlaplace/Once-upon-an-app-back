@@ -27,6 +27,12 @@ body {
     background-color: rgb(24, 22, 22, 1);
 }
 
+#flash {
+    text-align: center;
+    width : 50%;
+    opacity: 0.6;
+}
+
 .table {
 
     --bs-table-bg: rgba(0, 0, 0, 0.6);

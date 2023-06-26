@@ -37,6 +37,8 @@ class ItemController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $itemRepository->add($item, true);
 
+            $this->addFlash("create", "L'objet a bien été créé.");
+
             return $this->redirectToRoute('app_item_index', [], Response::HTTP_SEE_OTHER);
         }
 
@@ -67,6 +69,7 @@ class ItemController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $itemRepository->add($item, true);
 
+            $this->addFlash("edit", "L'objet a bien été édité.");
             return $this->redirectToRoute('app_item_index', [], Response::HTTP_SEE_OTHER);
         }
 
@@ -84,7 +87,7 @@ class ItemController extends AbstractController
         if ($this->isCsrfTokenValid('delete'.$item->getId(), $request->request->get('_token'))) {
             $itemRepository->remove($item, true);
         }
-
+        $this->addFlash("delete", "L'objet a bien été effacé.");
         return $this->redirectToRoute('app_item_index', [], Response::HTTP_SEE_OTHER);
     }
 }

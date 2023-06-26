@@ -45,7 +45,8 @@ class UserController extends AbstractController
             // * j'oublie pas de mettre à jour mon objet
             $user->setPassword($hashedPassword);
             $userRepository->add($user, true);
-
+            
+            $this->addFlash("create", "L'utilisateur a bien été créé.");
             return $this->redirectToRoute('app_user_index', [], Response::HTTP_SEE_OTHER);
         }
 
@@ -83,6 +84,7 @@ class UserController extends AbstractController
             }
             $userRepository->add($user, true);
 
+            $this->addFlash("edit", "L'utilisateur a bien été édité.");
             return $this->redirectToRoute('app_user_index', [], Response::HTTP_SEE_OTHER);
         }
 
@@ -112,7 +114,7 @@ class UserController extends AbstractController
 
             $userRepository->remove($user, true);
         }
-
+        $this->addFlash("delete", "Votre Utilisateur a bien été effacé.");
         return $this->redirectToRoute('app_user_index', [], Response::HTTP_SEE_OTHER);
     }
 

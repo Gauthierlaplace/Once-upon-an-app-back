@@ -37,6 +37,7 @@ class HeroController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $heroRepository->add($hero, true);
 
+            $this->addFlash("create", "Le héro a bien été créé.");
             return $this->redirectToRoute('app_hero_index', [], Response::HTTP_SEE_OTHER);
         }
 
@@ -71,6 +72,7 @@ class HeroController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $heroRepository->add($hero, true);
 
+            $this->addFlash("edit", "Le héro a bien été édité.");
             return $this->redirectToRoute('app_hero_index', [], Response::HTTP_SEE_OTHER);
         }
 
@@ -88,7 +90,7 @@ class HeroController extends AbstractController
         if ($this->isCsrfTokenValid('delete'.$hero->getId(), $request->request->get('_token'))) {
             $heroRepository->remove($hero, true);
         }
-
+        $this->addFlash("delete", "Le héro a bien été effacé.");
         return $this->redirectToRoute('app_hero_index', [], Response::HTTP_SEE_OTHER);
     }
 }

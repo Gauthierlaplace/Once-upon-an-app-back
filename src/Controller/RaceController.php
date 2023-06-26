@@ -40,6 +40,8 @@ class RaceController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $raceRepository->add($race, true);
 
+            $this->addFlash("create", "La race a bien été créée.");
+
             return $this->redirectToRoute('app_race_index', [], Response::HTTP_SEE_OTHER);
         }
 
@@ -70,6 +72,7 @@ class RaceController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $raceRepository->add($race, true);
 
+            $this->addFlash("edit", "La race a bien été éditée.");
             return $this->redirectToRoute('app_race_index', [], Response::HTTP_SEE_OTHER);
         }
 
@@ -106,6 +109,7 @@ class RaceController extends AbstractController
 
             $raceRepository->remove($race, true);
         }
+        $this->addFlash("delete", "La race a bien été effacée.");
 
         return $this->redirectToRoute('app_race_index', [], Response::HTTP_SEE_OTHER);
     }

@@ -37,6 +37,7 @@ class EffectController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $effectRepository->add($effect, true);
 
+            $this->addFlash("create", "L'effet a bien été créé.");
             return $this->redirectToRoute('app_effect_index', [], Response::HTTP_SEE_OTHER);
         }
 
@@ -67,6 +68,7 @@ class EffectController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $effectRepository->add($effect, true);
 
+            $this->addFlash("edit", "L'effet a bien été édité.");
             return $this->redirectToRoute('app_effect_index', [], Response::HTTP_SEE_OTHER);
         }
 
@@ -84,7 +86,7 @@ class EffectController extends AbstractController
         if ($this->isCsrfTokenValid('delete'.$effect->getId(), $request->request->get('_token'))) {
             $effectRepository->remove($effect, true);
         }
-
+        $this->addFlash("delete", "L'effet a bien été effacé.");
         return $this->redirectToRoute('app_effect_index', [], Response::HTTP_SEE_OTHER);
     }
 }
