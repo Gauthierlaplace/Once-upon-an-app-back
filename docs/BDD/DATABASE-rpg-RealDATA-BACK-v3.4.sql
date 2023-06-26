@@ -331,13 +331,14 @@ CREATE TABLE `hero` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 INSERT INTO `hero` (`id`, `name`, `max_health`, `health`, `strength`, `intelligence`, `dexterity`, `defense`, `karma`, `xp`, `picture`, `progress`, `hero_class_id`, `user_id`) VALUES
-(1,	'Sandra du Cookie Ploup-Ploup',	100,	100,	150,	150,	150,	150,	10,	0,	'https://static.vecteezy.com/system/resources/previews/018/931/604/original/cartoon-cookie-icon-png.png',	NULL,	1,	11),
-(2,	'Marine du Poney trop Stylé',	100,	100,	150,	150,	150,	150,	10,	0,	'https://www.pngmart.com/files/3/My-Little-Pony-Rarity-PNG-Clipart.png',	NULL,	1,	10),
-(6,	'Pierre de la Grotte carrelée',	100,	100,	150,	150,	150,	150,	10,	0,	'images/avatar35.png',	NULL,	1,	8),
-(7,	'Anthony de la Cave Backeux',	100,	100,	150,	150,	150,	150,	10,	NULL,	'images/avatar7.png',	NULL,	1,	9),
-(8,	'Gauthier le roi des insoumis',	100,	100,	150,	150,	150,	150,	10,	NULL,	'images/avatar2.png',	NULL,	1,	12),
+(1,	'Sandra du Cookie Ploup-Ploup',	100,	100,	100,	150,	100,	100,	10,	0,	'https://static.vecteezy.com/system/resources/previews/018/931/604/original/cartoon-cookie-icon-png.png',	NULL,	1,	11),
+(2,	'Marine du Poney trop Stylé',	100,	100,	100,	150,	100,	100,	10,	0,	'https://www.pngmart.com/files/3/My-Little-Pony-Rarity-PNG-Clipart.png',	NULL,	1,	10),
+(6,	'Pierre de la Grotte carrelée',	100,	100,	100,	150,	100,	100,	10,	0,	'images/hero-pierre.png',	NULL,	1,	8),
+(7,	'Anthony de la Cave',	100,	100,	100,	150,	100,	100,	10,	NULL,	'images/avatar7.png',	NULL,	1,	9),
+(8,	'Gauthier le roi des insoumis',	100,	100,	100,	150,	100,	100,	10,	NULL,	'images/avatar2.png',	NULL,	1,	12),
 (12,	'Testeur',	100,	100,	100,	100,	100,	100,	7,	0,	'images/default-hero-avatar.png',	0,	2,	27),
-(13,	'Visiteur',	100,	100,	100,	100,	100,	100,	0,	0,	'images/visitor.png',	0,	2,	28);
+(13,	'Visiteur',	100,	100,	100,	100,	100,	100,	0,	0,	'images/visitor.png',	0,	2,	28),
+(14,	'Death',	1,	1,	1,	1,	1,	1,	4,	0,	'images/avatar5.png',	0,	2,	29);
 
 DROP TABLE IF EXISTS `hero_class`;
 CREATE TABLE `hero_class` (
@@ -353,7 +354,7 @@ CREATE TABLE `hero_class` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 INSERT INTO `hero_class` (`id`, `name`, `max_health`, `health`, `strength`, `intelligence`, `dexterity`, `defense`) VALUES
-(1,	'Super Héro',	100,	100,	150,	150,	150,	150),
+(1,	'Super Héro',	100,	100,	100,	150,	100,	100),
 (2,	'Héro',	100,	100,	100,	100,	100,	100);
 
 DROP TABLE IF EXISTS `hero_event`;
@@ -381,10 +382,15 @@ CREATE TABLE `hero_item` (
 
 INSERT INTO `hero_item` (`hero_id`, `item_id`) VALUES
 (1,	1),
+(1,	2),
 (2,	1),
+(2,	2),
 (6,	1),
+(6,	2),
 (7,	1),
-(8,	1);
+(7,	2),
+(8,	1),
+(8,	2);
 
 DROP TABLE IF EXISTS `item`;
 CREATE TABLE `item` (
@@ -402,7 +408,8 @@ CREATE TABLE `item` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 INSERT INTO `item` (`id`, `name`, `picture`, `health`, `strength`, `intelligence`, `dexterity`, `defense`, `karma`, `xp`) VALUES
-(1,	'Epée de guerre',	'images/sword-left.png',	10,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL);
+(1,	'Epée de guerre',	'https://cdn-icons-png.flaticon.com/512/523/523813.png',	10,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL),
+(2,	'Baton étoilé',	'https://cdn-icons-png.flaticon.com/512/3122/3122411.png',	410,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL);
 
 DROP TABLE IF EXISTS `messenger_messages`;
 CREATE TABLE `messenger_messages` (
@@ -442,16 +449,16 @@ CREATE TABLE `npc` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 INSERT INTO `npc` (`id`, `name`, `description`, `health`, `strength`, `intelligence`, `dexterity`, `defense`, `karma`, `picture`, `is_boss`, `hostility`, `xp_earned`, `race_id`) VALUES
-(1,	'Brom la Chasseuse  de Monstres',	'Brom lève sa main gantée vers le ciel et un éclair d\'énergie magique crépite dans sa paume. Les champignons se mettent à briller intensément. Elle se tourne vers vous avec un sourire malicieux.',	100,	100,	100,	100,	100,	100,	'images/Brom.png',	0,	0,	0,	1),
-(2,	'Eloi le Protecteur des Animaux',	'D\'un pas léger malgré sa carrure imposante, Éloi s\'approche de vous, accompagné d\'une ménagerie d\'animaux. Il tend les bras et un écureuil s\'y précipite alors qu\'il s\'adresse à vous.',	100,	100,	100,	100,	100,	100,	'images/Eloi.png',	0,	0,	0,	1),
-(3,	'Lysandre l\'Érudite',	'Lysandre semble incarner la sagesse et la beauté des temps anciens. Elle s\'approche de vous avec grâce, ses pas résonnant doucement sur les dalles de pierre. Elle brûle de vous poser une question capitale.',	100,	100,	100,	100,	100,	100,	'images/Lysandre.png',	0,	0,	0,	2),
-(4,	'Thorgar la Rôdeuse',	'Thorgar dégage une aura féroce et semble évaluer votre potentiel. De terribles loups aux yeux dorés l\'accompagnent. Ils se postent à ses côtés en vous observant.',	100,	100,	100,	100,	100,	100,	'images/Thorgar.png',	0,	1,	0,	1),
-(5,	'Les Farfadets Chapardeurs',	'En baissant les yeux vous découvrez les Farfadets Chapardeurs, d\'étranges et espiègles créatures aux yeux malicieux.',	100,	100,	100,	100,	100,	100,	'images/FarfadetsChapardeurs.png',	0,	1,	0,	8),
-(6,	'Les Gobelins Artificiers',	'Le chef des Gobelins Artificiers se présente devant vous, redoutable inventeur déjanté, maîtrisant l\'art de la magie mécanique et de l\'alchimie déviante.',	100,	100,	100,	100,	100,	100,	'images/GobelinsArtificiers.png',	0,	1,	200,	3),
-(7,	'Le Dragon des Brumes',	'Il se dresse fièrement sur ses pattes griffues, ses ailes déployées, et pousse un hurlement déchirant qui fait vibrer vos os. Sa gueule ne crache pas du feu, mais un nuage de brume toxique.',	100,	100,	100,	100,	100,	100,	'images/DragondesBrumes.png',	1,	1,	0,	14),
-(8,	'La Gardienne des Ancêtres',	'Avec étonnement, vous constatez que le dernier grondement provient du ventre de la Gardienne des Ancêtres qui s\'avance vers vous.',	100,	100,	100,	100,	100,	100,	'images/GardiennedesAncetres.png',	1,	1,	0,	11),
-(9,	'La Sorcière de l\'humus',	'Elle s\'avance d\'un pas lent et majestueux, exsudant une aura de pouvoir corrompu. Son rire vous fait frissonner jusqu\'à la moelle.',	100,	100,	100,	100,	100,	100,	'images/Sorcieredelhumus.png',	1,	1,	0,	7),
-(10,	'Arachnus Maximus',	'L\'imposant Arachnus Maximus émerge des ombres, le corps couvert de poils noirs et brillants. Ses pattes se terminent en griffes acérées.',	100,	100,	100,	100,	100,	100,	'images/ArachnusMaximus.png',	0,	1,	100,	10);
+(1,	'Brom la Chasseuse  de Monstres',	'Brom lève sa main gantée vers le ciel et un éclair d\'énergie magique crépite dans sa paume. Les champignons se mettent à briller intensément. Elle se tourne vers vous avec un sourire malicieux.',	100,	100,	100,	100,	100,	100,	'http://imagizer.imageshack.com/v2/642x642q70/924/8kXdnt.png',	0,	0,	0,	1),
+(2,	'Eloi le Protecteur des Animaux',	'D\'un pas léger malgré sa carrure imposante, Éloi s\'approche de vous, accompagné d\'une ménagerie d\'animaux. Il tend les bras et un écureuil s\'y précipite alors qu\'il s\'adresse à vous.',	100,	100,	100,	100,	100,	100,	'https://imagizer.imageshack.com/v2/789x789q90/r/922/X6YrXf.png',	0,	0,	0,	1),
+(3,	'Lysandre l\'Érudite',	'Lysandre semble incarner la sagesse et la beauté des temps anciens. Elle s\'approche de vous avec grâce, ses pas résonnant doucement sur les dalles de pierre. Elle brûle de vous poser une question capitale.',	100,	100,	100,	100,	100,	100,	'https://cdn.midjourney.com/1bde38ab-9964-4585-b910-6e744f8152fd/0_0.png',	0,	0,	0,	2),
+(4,	'Thorgar la Rôdeuse',	'Thorgar dégage une aura féroce et semble évaluer votre potentiel. De terribles loups aux yeux dorés l\'accompagnent. Ils se postent à ses côtés en vous observant.',	100,	100,	100,	100,	100,	100,	'https://cdn.midjourney.com/7547d81a-ab55-4c18-ac75-5a3973d42ae9/0_1.png',	0,	1,	0,	1),
+(5,	'Les Farfadets Chapardeurs',	'En baissant les yeux vous découvrez les Farfadets Chapardeurs, d\'étranges et espiègles créatures aux yeux malicieux.',	100,	100,	100,	100,	100,	100,	'https://imagizer.imageshack.com/img924/5015/Q27XNl.png',	0,	1,	0,	8),
+(6,	'Les Gobelins Artificiers',	'Le chef des Gobelins Artificiers se présente devant vous, redoutable inventeur déjanté, maîtrisant l\'art de la magie mécanique et de l\'alchimie déviante.',	100,	100,	100,	100,	100,	100,	'https://cdn.midjourney.com/eba73e8c-3ccb-4bc7-8972-ee1fa133d86b/0_1.png',	0,	1,	200,	3),
+(7,	'Le Dragon des Brumes',	'Il se dresse fièrement sur ses pattes griffues, ses ailes déployées, et pousse un hurlement déchirant qui fait vibrer vos os. Sa gueule ne crache pas du feu, mais un nuage de brume toxique.',	100,	100,	100,	100,	100,	100,	'https://cdn.midjourney.com/a475dd90-cace-46f8-8829-fd9cf1b110cf/0_3.png',	1,	1,	0,	14),
+(8,	'La Gardienne des Ancêtres',	'Avec étonnement, vous constatez que le dernier grondement provient du ventre de la Gardienne des Ancêtres qui s\'avance vers vous.',	100,	100,	100,	100,	100,	100,	'https://cdn.midjourney.com/3f252c85-642c-49b8-ba7d-cdd60d40147c/0_2.png',	1,	1,	0,	11),
+(9,	'La Sorcière de l\'humus',	'Elle s\'avance d\'un pas lent et majestueux, exsudant une aura de pouvoir corrompu. Son rire vous fait frissonner jusqu\'à la moelle.',	100,	100,	100,	100,	100,	100,	'https://cdn.midjourney.com/cff72ca6-251f-4baa-8b9b-032eca3abbba/0_0.png',	1,	1,	0,	7),
+(10,	'Arachnus Maximus',	'L\'imposant Arachnus Maximus émerge des ombres, le corps couvert de poils noirs et brillants. Ses pattes se terminent en griffes acérées.',	100,	100,	100,	100,	100,	100,	'https://imagizer.imageshack.com/v2/519x519q70/r/924/HQcBIF.png',	0,	1,	100,	10);
 
 DROP TABLE IF EXISTS `npc_item`;
 CREATE TABLE `npc_item` (
@@ -519,12 +526,13 @@ CREATE TABLE `user` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 INSERT INTO `user` (`id`, `email`, `roles`, `password`, `pseudo`, `avatar`) VALUES
-(8,	'pierre@admin.com',	'[\"ROLE_ADMIN\"]',	'$2y$13$h5/TrGHUNtiCzOSAVmfV..0KJllcpnPiB90XzVq0z86jPuehUQq0m',	'Pierre',	'images/avatar32.png'),
+(8,	'pierre@admin.com',	'[\"ROLE_ADMIN\"]',	'$2y$13$h5/TrGHUNtiCzOSAVmfV..0KJllcpnPiB90XzVq0z86jPuehUQq0m',	'Pierre',	'images/user-pierre.png'),
 (9,	'anthony@admin.com',	'[\"ROLE_ADMIN\"]',	'$2y$13$h5/TrGHUNtiCzOSAVmfV..0KJllcpnPiB90XzVq0z86jPuehUQq0m',	'Anthony',	'images/avatar7.png'),
 (10,	'marine@gameMaster.com',	'[\"ROLE_GAMEMASTER\"]',	'$2y$13$LMDD1/gH0ONyuexKiVsxxu52Yx5p5q98qmmTOBgh11PcdXzUt4pf6',	'Marine',	'https://www.pngmart.com/files/3/My-Little-Pony-Rarity-PNG-Clipart.png'),
 (11,	'sandra@gameMaster.com',	'[\"ROLE_GAMEMASTER\"]',	'$2y$13$LMDD1/gH0ONyuexKiVsxxu52Yx5p5q98qmmTOBgh11PcdXzUt4pf6',	'Sandra',	'https://static.vecteezy.com/system/resources/previews/018/931/604/original/cartoon-cookie-icon-png.png'),
 (12,	'gauthier@gameMaster.com',	'[\"ROLE_GAMEMASTER\"]',	'$2y$13$LMDD1/gH0ONyuexKiVsxxu52Yx5p5q98qmmTOBgh11PcdXzUt4pf6',	'Gauthier',	'images/avatar2.png'),
 (27,	'player@player.com',	'[\"ROLE_PLAYER\"]',	'$2y$13$8Iq54Nr6N4a3QZq5SWuE7ejsZROkF5bWIXBg3gqC4rf7uvsqx63TO',	'Testeur',	'images/default-hero-avatar.png'),
-(28,	'visitor@visitor.com',	'[\"ROLE_PLAYER\",\"ROLE_VISITOR\"]',	'$2y$13$mrqRRap9c.x7i1SKQEkLEenFhKbefXOTmBCGg2YrvRL455atnIL6K',	'Visiteur',	'images/visitor.png');
+(28,	'visitor@visitor.com',	'[\"ROLE_PLAYER\",\"ROLE_VISITOR\"]',	'$2y$13$mrqRRap9c.x7i1SKQEkLEenFhKbefXOTmBCGg2YrvRL455atnIL6K',	'Visiteur',	'images/visitor.png'),
+(29,	'death@death.com',	'[\"ROLE_PLAYER\"]',	'$2y$13$GHnjN6QvKEJPiJPIk0Wjc.6bVRG2bQ2KiXVrlKp4LvCsJQxBtFpLm',	'Death',	'images/avatar5.png');
 
--- 2023-06-23 22:44:51
+-- 2023-06-26 12:06:56
