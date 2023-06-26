@@ -868,4 +868,77 @@ class GameController extends CoreApiController
         return $this->json200($data, ["game"]);
 
     }
+
+    /**
+     * @Route("/api/event/dead/{id}", name="app_api_event_dead", requirements={"id"="\d+"}, methods={"GET"})
+     */
+    public function dead(
+        $id,
+        EventRepository $eventRepository
+    )
+    {
+
+        $eventA = $eventRepository->find($id);
+
+        $npcCollection = $eventA->getNpc();
+
+        $npcs = $npcCollection->toArray();
+
+        $arrayNpc = [];
+        foreach ($npcs as $npc) {
+
+            $raceName = $npc->getRace()->getName();
+            $raceDescription = $npc->getRace()->getDescription();
+
+            $dialoguesCollection = $npc->getDialogues();
+            $dialogues =  $dialoguesCollection->toArray();
+
+            $arrayDialogues = [];
+
+            foreach ($dialogues as $key => $dialogue) {
+                $arrayDialogues["dialogue" . ($key + 1)] = $dialogue->getContent();
+                $answersCollection = $dialogue->getAnswers();
+                $answers = $answersCollection->toArray();
+                $arrayDialogues["answer" . ($key + 1)] = $answers;
+            }
+
+            $countDialogue = count($dialogues);
+            for ($i = 1; $i <= $countDialogue; $i++) {
+                $npcDialogue['dialogue' . $i] = [
+                    'dialogue' => $arrayDialogues['dialogue' . $i],
+                    'answer1' => $arrayDialogues['answer' . $i][0]->getContent(),
+                    'effect1'   => $arrayDialogues['answer' . $i][0]->getEffect()[0],
+                    'answer2'  => $arrayDialogues['answer' . $i][1]->getContent(),
+                    'effect2' => $arrayDialogues['answer' . $i][1]->getEffect()[0],
+                ];
+            }
+
+
+            $arrayNpc = [
+                "raceName" => $raceName,
+                "raceDescription" => $raceDescription,
+                "npcName" => $npc->getName(),
+                "npcDescription" => $npc->getDescription(),
+                "picture" => $npc->getPicture(),
+                "health" => $npc->getHealth(),
+                "strength" => $npc->getStrength(),
+                "intelligence" => $npc->getIntelligence(),
+                "dexterity" => $npc->getDexterity(),
+                "defense" => $npc->getDefense(),
+                "karma" => $npc->getKarma(),
+                "xpearned" => $npc->getXpEarned(),
+                "dialogues" => $npcDialogue,
+
+            ];
+        }
+
+        // ! Préparation des Data souhaitées pour envoyer en Json
+        $data = [
+            'currentEvent' => $eventA,
+            'npcCurrentEvent' => $arrayNpc,
+        ];
+
+        return $this->json200($data, ["game"]);
+
+    }
 }
