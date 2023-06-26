@@ -7,10 +7,10 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
+use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\Validator\Constraints\Regex;
 
 class UserEditType extends AbstractType
@@ -20,7 +20,8 @@ class UserEditType extends AbstractType
         $builder
             ->add('email', EmailType::class, [
                 'label' => 'Email',
-                "attr" => ["placeholder" => "hello@world.io"]
+                "attr" => ["placeholder" => "hello@world.io"],
+                "empty_data" => ''
             ])
             ->add('roles', ChoiceType::class,  [
                 "label" => 'Attribuer des rôles',
@@ -33,21 +34,39 @@ class UserEditType extends AbstractType
                     "Joueur" => 'ROLE_PLAYER',
                 ],
             ])
-            ->add('password', PasswordType::class, [
-                "mapped" => false,
-                "label" => "Password",
-                "attr" => [
-                    "placeholder" => "Laisser vide pour ne pas modifier ..."
+            
+            ->add('password', RepeatedType::class, [
+                'type' => PasswordType::class,
+                'invalid_message' => 'Les mots de passe doivent correspondre.',
+                'required' => false,
+                'mapped' => false,
+                'first_options' => [
+                    'label' => 'Mot de passe',
+                    'attr' => [
+                        'placeholder' => 'Laisser vide pour ne pas modifier...'
+                    ],
+                    'constraints' => [
+                        new Regex(
+                            "/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{4,}$/",
+                            "Le mot de passe doit contenir au minimum 4 caractères, une majuscule, un chiffre et un caractère spécial"
+                        ),
+                    ],
                 ],
-                'constraints' => [
-                    new Regex(
-                        "/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{4,}$/",
-                        "Le mot de passe doit contenir au minimum 4 caractères, une majuscule, un chiffre et un caractère spécial"
-                    ),
+                'second_options' => [
+                    'label' => 'Confirmer le mot de passe',
+                    'attr' => [
+                        'placeholder' => 'Laisser vide pour ne pas modifier...'
+                    ],
                 ],
-
             ])
-            ->add('pseudo', TextType::class, ['label' => 'Nom d\'utilisateur'])
+
+
+
+
+            ->add('pseudo', TextType::class, [
+                'label' => 'Nom d\'utilisateur',
+                "empty_data" => ''
+                ])
             ->add('avatar', TextType::class, ["label" => "Avatar"]);
     }
 

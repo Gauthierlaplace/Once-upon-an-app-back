@@ -15,17 +15,6 @@
 		<link href="https://fonts.bunny.net/css?family=akaya-kanadaka:400" rel="stylesheet"/>
 
 	</head>
-	{# {% set isHome = (app.request.attributes.get("_route") starts with "app_home")%}
-	{% if isHome %}
-		<body style='background-image: url("{{ asset("images/back-office-Accueil.png") }}");'>
-		{% else %}
-			<body style='background-image: url("{{ asset("images/back-office" ~ random(['-cave', '-grotte']) ~ ".png") }}");'>
-			{% endif %} #}
-
-	{# {% if app.request.attributes.get("_controller") == ("error_controller") %}
-		<body style='background-image: url("{{ asset("images/forrestInFire.png") }}");'>
-		{% else %}
-	{% endif %} #}
 
 	{% set isHome = (app.request.attributes.get("_route") starts with "app_home") %}
 	{% set isError = (app.request.attributes.get("_controller") == "error_controller") %}
@@ -35,18 +24,21 @@
 	{% elseif isError %}
 		<body style='background-image: url("{{ asset("images/forrestInFire.png") }}");'>
 	{% else %}
-		<body style='background-image: url("{{ asset("images/back-office" ~ random(['-cave', '-grotte']) ~ ".png") }}");'>
+<body style='background-image: url("{{ asset("images/back-office" ~ random(["-cave", "-grotte"]) ~ ".png") }}");'>
 	{% endif %}
 
 	{% if not isError %}
 		{% include './partials/_nav.html.twig' %}
+    {% include "partials/_flash.html.twig" %}
 	{% endif %}
 		{% if app.user %}
+    {% if app.user.avatar %}
 			<div>
 				<img class="avatar" src="{{ asset(app.user.avatar) }}" alt="image d'avatar de : {{app.user.pseudo}}">
 			</div>
+      	{% endif %}
 		{% endif %}
-	
+
 			{% block body %}{% endblock %}
 
 			<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>

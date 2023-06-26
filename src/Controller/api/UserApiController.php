@@ -6,6 +6,7 @@ use App\Entity\Hero;
 use App\Entity\User;
 use App\Repository\HeroClassRepository;
 use App\Repository\HeroRepository;
+use App\Repository\ReviewRepository;
 use App\Repository\UserRepository;
 use Exception;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -19,8 +20,9 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 class UserApiController extends CoreApiController
 {
+
     // ! Pas de Browse
-    
+
     // ! Read alias currentUser
     /**
      * Route giving CurrentUser details from JWT Token 
@@ -66,7 +68,7 @@ class UserApiController extends CoreApiController
         Request $request,
         UserRepository $userRepository,
         SerializerInterface $serializer,
-        ValidatorInterface $validatorInterface,
+        ValidatorInterface $validator,
         UserPasswordHasherInterface $passwordHasher,
         HeroRepository $heroRepository,
         HeroClassRepository $heroClassRepository
@@ -83,20 +85,19 @@ class UserApiController extends CoreApiController
         }
 
         // on valide les données de notre entité
-        $errors = $validatorInterface->validate($user);
+        $errors = $validator->validate($user);
         // Y'a-t-il des erreurs ?
         if (count($errors) > 0) {
             return $this->json($errors, Response::HTTP_UNPROCESSABLE_ENTITY);
         }
         $plainPassword = $user->getPassword();
         if (!empty($plainPassword)) {
-
             $hashedPassword = $passwordHasher->hashPassword($user, $plainPassword);
 
             $user->setPassword($hashedPassword);
         }
 
-        $heroClass = $heroClassRepository->findOneBy(['id'=> 2]);
+        $heroClass = $heroClassRepository->findOneBy(['id' => 2]);
 
         $hero = new Hero();
         $hero->setName($user->getPseudo());
@@ -112,6 +113,8 @@ class UserApiController extends CoreApiController
         $hero->setProgress(0);
         $hero->setHeroClass($heroClass);
         $hero->setUser($user);
+
+        $user->setRoles(["ROLE_PLAYER"]);
 
         // On sauvegarde les entitées
         $userRepository->add($user, true);
@@ -136,26 +139,41 @@ class UserApiController extends CoreApiController
         Request $request,
         SerializerInterface $serializerInterface,
         UserRepository $userRepository,
-        UserPasswordHasherInterface $passwordHasher
+        UserPasswordHasherInterface $passwordHasher,
+        ValidatorInterface $validator
     ) {
         $jsonContent = $request->getContent();
         $user = $userRepository->find($id);
-        $serializerInterface->deserialize(
+
+        if (!$user) {
+            return new Response('Utilisateur non trouvé', Response::HTTP_NOT_FOUND);
+        }
+
+        $plainPassword = $user->getPassword();
+
+        $serializeUser = $serializerInterface->deserialize(
             $jsonContent,
             User::class,
             'json',
             [AbstractNormalizer::OBJECT_TO_POPULATE => $user]
         );
-        $plainPassword = $user->getPassword();
-        if (!empty($plainPassword)) {
 
-            $hashedPassword = $passwordHasher->hashPassword($user, $plainPassword);
+        // on valide les données de notre entité
+        $errors = $validator->validate($user);
+        // Y'a-t-il des erreurs ?
+        if (count($errors) > 0) {
+            return $this->json($errors, Response::HTTP_UNPROCESSABLE_ENTITY);
+        }
+
+        $serializePassword = $serializeUser->getPassword();
+
+        if (!empty($plainPassword && $plainPassword !== $serializePassword)) {
+            $hashedPassword = $passwordHasher->hashPassword($serializeUser, $serializePassword);
 
             $user->setPassword($hashedPassword);
         }
 
         $userRepository->add($user, true);
-
         return $this->json200($user, ["user_read"]);
     }
 
@@ -164,8 +182,20 @@ class UserApiController extends CoreApiController
      *
      * @Route("/api/users/{id}",name="app_api_users_delete", requirements={"id"="\d+"}, methods={"DELETE"})
      */
-    public function delete($id, userRepository $userRepository)
+    public function delete($id, userRepository $userRepository, ReviewRepository $reviewRepository, HeroRepository $heroRepository)
     {
+        $allReviews = $reviewRepository->findByUser($id);
+
+        foreach ($allReviews as $Review) {
+            $reviewRepository->remove($Review);
+        }
+
+        $allheros = $heroRepository->findByUser($id);
+
+        foreach ($allheros as $hero) {
+            $heroRepository->remove($hero);
+        }
+
         $user = $userRepository->find($id);
         $userRepository->remove($user, true);
 

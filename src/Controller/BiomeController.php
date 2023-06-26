@@ -39,6 +39,7 @@ class BiomeController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $biomeRepository->add($biome, true);
 
+            $this->addFlash("create", "Le biome a bien été créé.");
             return $this->redirectToRoute('app_biome_index', [], Response::HTTP_SEE_OTHER);
         }
 
@@ -69,6 +70,7 @@ class BiomeController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $biomeRepository->add($biome, true);
 
+            $this->addFlash("edit", "Le biome a bien été édité.");
             return $this->redirectToRoute('app_biome_index', [], Response::HTTP_SEE_OTHER);
         }
 
@@ -100,7 +102,7 @@ class BiomeController extends AbstractController
             
             $biomeRepository->remove($biome, true);
         }
-
+        $this->addFlash("delete", "Le biome a bien été effacé.");
         return $this->redirectToRoute('app_biome_index', [], Response::HTTP_SEE_OTHER);
     }
 }

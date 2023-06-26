@@ -38,6 +38,7 @@ class ReviewController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $reviewRepository->add($review, true);
 
+            $this->addFlash("create", "Votre avis a bien été ajouté.");
             return $this->redirectToRoute('app_review_index', [], Response::HTTP_SEE_OTHER);
         }
 
@@ -70,6 +71,7 @@ class ReviewController extends AbstractController
             $review->setUpdatedAt(new DateTime("now"));
             $reviewRepository->add($review, true);
 
+            $this->addFlash("edit", "Votre avis a bien été édité.");
             return $this->redirectToRoute('app_review_index', [], Response::HTTP_SEE_OTHER);
         }
 
@@ -87,7 +89,7 @@ class ReviewController extends AbstractController
         if ($this->isCsrfTokenValid('delete'.$review->getId(), $request->request->get('_token'))) {
             $reviewRepository->remove($review, true);
         }
-
+        $this->addFlash("delete", "Votre avis a bien été effacé.");
         return $this->redirectToRoute('app_review_index', [], Response::HTTP_SEE_OTHER);
     }
 }
