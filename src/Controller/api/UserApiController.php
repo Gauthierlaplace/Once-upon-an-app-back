@@ -120,7 +120,7 @@ class UserApiController extends CoreApiController
         $user->setRoles(["ROLE_PLAYER"]);
         $user->setAvatar($defaultAvatar);
         
-        // dd($user);
+  
         // On sauvegarde les entitées
         $userRepository->add($user, true);
         $heroRepository->add($hero, true);
