@@ -216,8 +216,9 @@ class GameController extends CoreApiController
 
         /** @var App\Entity\User $user */
         $user = $this->getUser();
-
+      
         $hero = $gameServices->updateHeroAfterEffect($id, $user);
+
 
         $data = $gameServices->heroSurvivedOrNot($hero);
 
