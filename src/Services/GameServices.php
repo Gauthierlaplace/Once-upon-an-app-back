@@ -426,4 +426,24 @@ class GameServices
 
         return $hero;
     }
+
+    public function getAllCurrentEventData($currentEvent){
+
+        if ($currentEvent->getPicture()) {
+            $picturePath = $currentEvent->getPicture()->getPath();
+        } else {
+            $picturePath = '';
+        }
+
+        $allCurrentEventData = [
+            "id" => $currentEvent->getId(),
+            "title" => $currentEvent->getTitle(),
+            "description" => $currentEvent->getDescription(),
+            "opening" => $currentEvent->getOpening(),
+            "picture" => $picturePath,
+
+        ];
+        return $allCurrentEventData;
+
+    }
 }

@@ -27,6 +27,8 @@ class GameController extends CoreApiController
         $biomeStart = "L'Arche de Verdure";
         $currentEvent = $eventRepository->findOneBy(['title' => $biomeStart]);
 
+        $allCurrentEventData = $gameServices->getAllCurrentEventData($currentEvent);
+
         $arrayNpc = $gameServices->getAllNpcData($currentEvent);
 
         $endingsCollection = $currentEvent->getEndings();
@@ -38,8 +40,7 @@ class GameController extends CoreApiController
 
         $data = [
             'player' => $hero,
-            'currentEvent' => $currentEvent,
-            'currentEventPicture' => $currentEvent->getPicture()->getPath(),
+            'currentEvent' => $allCurrentEventData,
             'npcCurrentEvent' => $arrayNpc,
             'choices' => $choices
         ];
@@ -56,6 +57,7 @@ class GameController extends CoreApiController
     ): JsonResponse {
 
         $currentEvent = $eventRepository->find($id);
+         $allCurrentEventData = $gameServices->getAllCurrentEventData($currentEvent);
 
         $arrayNpc = $gameServices->getAllNpcData($currentEvent);
 
@@ -67,8 +69,7 @@ class GameController extends CoreApiController
         $choices = $gameServices->getTwoEndingsWithTwoRandomEvent($randomizedEndingsPicked, $endingscurrentEvent);
 
         $data = [
-            'currentEvent' => $currentEvent,
-            'currentEventPicture' => $currentEvent->getPicture()->getPath(),
+            'currentEvent' => $allCurrentEventData,
             'npcCurrentEvent' => $arrayNpc,
             'choices' => $choices
         ];
@@ -88,6 +89,7 @@ class GameController extends CoreApiController
     ): JsonResponse {
 
         $currentEvent = $eventRepository->find($id);
+         $allCurrentEventData = $gameServices->getAllCurrentEventData($currentEvent);
 
         $arrayNpc = $gameServices->getAllNpcData($currentEvent);
 
@@ -104,8 +106,7 @@ class GameController extends CoreApiController
         $dataForNextEvent = $gameServices->getDataForNextEventsArray($arrayBossData);
 
         $data = [
-            'currentEvent' => $currentEvent,
-            'currentEventPicture' => $currentEvent->getPicture()->getPath(),
+            'currentEvent' => $allCurrentEventData,
             'npcCurrentEvent' => $arrayNpc,
             'currentEventEnding' => $contentEndingCurrent,
             'BossA' => $dataForNextEvent[0],
@@ -126,6 +127,7 @@ class GameController extends CoreApiController
     ): JsonResponse {
 
         $currentEvent = $eventRepository->find($id);
+         $allCurrentEventData = $gameServices->getAllCurrentEventData($currentEvent);
 
         $eventTypeEndBiome = $eventTypeRepository->findOneBy(['name' => "Fin de Biome"]);
 
@@ -142,8 +144,7 @@ class GameController extends CoreApiController
         $dataForNextEvent = $gameServices->getDataForNextEventArray($eventsEndBiome);
 
         $data = [
-            'currentEvent' => $currentEvent,
-            'currentEventPicture' => $currentEvent->getPicture()->getPath(),
+            'currentEvent' => $allCurrentEventData,
             'npcCurrentEvent' => $arrayNpc,
             'currentEventEnding' => $contentEndingCurrent,
             'EndBiome' => $dataForNextEvent
@@ -163,6 +164,7 @@ class GameController extends CoreApiController
     ): JsonResponse {
 
         $currentEvent = $eventRepository->find($id);
+         $allCurrentEventData = $gameServices->getAllCurrentEventData($currentEvent);
 
         $arrayNpc = $gameServices->getAllNpcData($currentEvent);
 
@@ -179,8 +181,7 @@ class GameController extends CoreApiController
         $dataForNextEvent = $gameServices->getDataForNextEventArray($eventsEndBiome);
 
         $data = [
-            'currentEvent' => $currentEvent,
-            'currentEventPicture' => $currentEvent->getPicture()->getPath(),
+            'currentEvent' => $allCurrentEventData,
             'npcCurrentEvent' => $arrayNpc,
             'currentEventEnding' => $contentEndingCurrent,
             'EndGame' => $dataForNextEvent
@@ -198,12 +199,12 @@ class GameController extends CoreApiController
     ): JsonResponse {
 
         $currentEvent = $eventRepository->find($id);
+         $allCurrentEventData = $gameServices->getAllCurrentEventData($currentEvent);
 
         $arrayNpc = $gameServices->getAllNpcData($currentEvent);
 
         $data = [
-            'currentEvent' => $currentEvent,
-            'currentEventPicture' => $currentEvent->getPicture()->getPath(),
+            'currentEvent' => $allCurrentEventData,
             'npcCurrentEvent' => $arrayNpc,
         ];
         return $this->json200($data, ["game"]);
@@ -237,12 +238,12 @@ class GameController extends CoreApiController
     ) {
 
         $currentEvent = $eventRepository->find($id);
+         $allCurrentEventData = $gameServices->getAllCurrentEventData($currentEvent);
 
         $arrayNpc = $gameServices->getAllNpcData($currentEvent);
 
         $data = [
-            'currentEvent' => $currentEvent,
-            'currentEventPicture' => $currentEvent->getPicture()->getPath(),
+            'currentEvent' => $allCurrentEventData,
             'npcCurrentEvent' => $arrayNpc,
         ];
 
