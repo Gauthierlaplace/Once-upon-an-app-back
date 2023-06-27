@@ -171,4 +171,4 @@
 |id|INT|PRIMARY KEY, NOT NULL, UNSIGNED, AUTO_INCREMENT|Identifiant de l'image|
 |name|VARCHAR(255)|NOT NULL|Nom de l'image|
 |base64|LONGTEXT|NOT NULL|Encodage des données binaires en format texte|
-|path|INT|NOT NULL|Chemin de l'image|
+|path|VARCHAR(255)|NOT NULL|Chemin de l'image|
