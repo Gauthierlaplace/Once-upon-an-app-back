@@ -34,7 +34,7 @@
 		{% if app.user %}
     {% if app.user.avatar %}
 			<div>
-				<img class="avatar" src="{{ asset(app.user.avatar) }}" alt="image d'avatar de : {{app.user.pseudo}}">
+				<img class="avatar" src="{{ asset(app.user.avatar.path) }}" alt="image d'avatar de : {{app.user.pseudo}}">
 			</div>
       	{% endif %}
 		{% endif %}

@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Entity\Picture;
 use App\Entity\User;
+use Doctrine\ORM\EntityRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -68,6 +69,10 @@ class UserType extends AbstractType
                 "class" => Picture::class,
                 'label' => "Avatar de l'utilisateur",
                 'placeholder' => 'Sélectionnez une image',
+                'query_builder' => function (EntityRepository $er) {
+                    return $er->createQueryBuilder('p')
+                        ->orderBy('p.name', 'ASC');
+                },
             ]);
     }
 

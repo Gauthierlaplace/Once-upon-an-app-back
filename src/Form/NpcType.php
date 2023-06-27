@@ -7,6 +7,7 @@ use App\Entity\Item;
 use App\Entity\Npc;
 use App\Entity\Picture;
 use App\Entity\Race;
+use Doctrine\ORM\EntityRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -22,6 +23,17 @@ class NpcType extends AbstractType
     {
         $builder
             ->add('name', TextType::class, ["label" => "Nom du personnage"])
+            ->add('picture', EntityType::class, [
+                "multiple" => false,
+                "expanded" => false,
+                "class" => Picture::class,
+                'label' => "Image du personnage",
+                'placeholder' => 'Sélectionnez une image',
+                'query_builder' => function (EntityRepository $er) {
+                    return $er->createQueryBuilder('p')
+                        ->orderBy('p.name', 'ASC');
+                },
+            ])
             ->add('description', TextareaType::class, ["label" => "Description du personnage"])
             ->add('health', NumberType::class, ["label" => "Santé"])
             ->add('strength', NumberType::class, ["label" => "Force"])
@@ -29,13 +41,6 @@ class NpcType extends AbstractType
             ->add('dexterity', NumberType::class, ["label" => "Dextérité"])
             ->add('defense', NumberType::class, ["label" => "Défense"])
             ->add('karma', NumberType::class, ["label" => "Karma"])
-            ->add('picture', EntityType::class, [
-                "multiple" => false,
-                "expanded" => false,
-                "class" => Picture::class,
-                'label' => "Image du personnage",
-                'placeholder' => 'Sélectionnez une image',
-            ])
             ->add('isBoss', ChoiceType::class, [
                 "label" => 'Est ce un boss ?',
                 "expanded" => true,

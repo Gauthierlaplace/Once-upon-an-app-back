@@ -6,6 +6,7 @@ use App\Entity\Hero;
 use App\Entity\Item;
 use App\Entity\Npc;
 use App\Entity\Picture;
+use Doctrine\ORM\EntityRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
@@ -25,6 +26,10 @@ class ItemType extends AbstractType
                 "class" => Picture::class,
                 'label' => "Image de l'item",
                 'placeholder' => 'Sélectionnez une image',
+                'query_builder' => function (EntityRepository $er) {
+                    return $er->createQueryBuilder('p')
+                        ->orderBy('p.name', 'ASC');
+                },
             ])
             ->add('health', NumberType::class, ["label" => "Santé"])
             ->add('strength', NumberType::class, ["label" => "Force"])

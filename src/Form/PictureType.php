@@ -14,13 +14,12 @@ class PictureType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-        ->add('name', HiddenType::class, ["label" => false])
-        ->add('base64', FileType::class, [
-            'label' => 'Image',
-            'required' => true,
-        ])
-        ->add('path', HiddenType::class, ['label' => false])
-        ;
+            ->add('name', HiddenType::class, ["label" => false])
+            ->add('base64', FileType::class, [
+                'label' => 'Image',
+                'required' => true,
+            ])
+            ->add('path', HiddenType::class, ['label' => false]);
     }
 
     public function configureOptions(OptionsResolver $resolver): void
