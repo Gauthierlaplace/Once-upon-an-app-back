@@ -60,7 +60,7 @@ class PictureController extends AbstractController
                 $uploadedFile->move($this->getParameter('kernel.project_dir') . '/public/images/', $filename);
 
                 // Enregistrer les informations de l'image dans la base de données
-                $picture->setName($filename);
+                $picture->setName($originalFilename);
                 $picture->setPath('images/' . $filename);
             }
 
