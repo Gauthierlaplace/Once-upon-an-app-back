@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Ending;
 use App\Form\EndingType;
 use App\Repository\EndingRepository;
+use App\Services\PaginatorService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -18,10 +19,12 @@ class EndingController extends AbstractController
     /**
      * @Route("/", name="app_ending_index", methods={"GET"})
      */
-    public function index(EndingRepository $endingRepository): Response
+    public function index(EndingRepository $endingRepository, PaginatorService $paginatorService): Response
     {
+        $endingsToPaginate = $endingRepository->findBy([],['event' => 'ASC']);
+        $endingsPaginated = $paginatorService->paginator($endingsToPaginate, 8);
         return $this->render('ending/index.html.twig', [
-            'endings' => $endingRepository->findAll(),
+            'endings' => $endingsPaginated,
         ]);
     }
 

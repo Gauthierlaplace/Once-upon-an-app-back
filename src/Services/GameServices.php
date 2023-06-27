@@ -7,7 +7,6 @@ use App\Repository\EndingRepository;
 use App\Repository\EventRepository;
 use App\Repository\EventTypeRepository;
 use App\Repository\HeroRepository;
-use App\Repository\UserRepository;
 
 class GameServices
 {
@@ -41,14 +40,9 @@ class GameServices
      */
     private $effectRepository;
 
-    /**
-     *
-     * @var UserRepository
-     */
-    private $userRepository;
 
 
-    public function __construct(EventTypeRepository $eventTypeRepository, EndingRepository $endingRepository, EventRepository $eventRepository, HeroRepository $heroRepository, EffectRepository $effectRepository, UserRepository $userRepository)
+    public function __construct(EventTypeRepository $eventTypeRepository, EndingRepository $endingRepository, EventRepository $eventRepository, HeroRepository $heroRepository, EffectRepository $effectRepository)
     {
 
         $this->eventTypeRepository = $eventTypeRepository;
@@ -56,7 +50,6 @@ class GameServices
         $this->eventRepository = $eventRepository;
         $this->heroRepository = $heroRepository;
         $this->effectRepository = $effectRepository;
-        $this->userRepository = $userRepository;
     }
 
 

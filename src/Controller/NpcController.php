@@ -7,6 +7,7 @@ use App\Form\NpcType;
 use App\Repository\AnswerRepository;
 use App\Repository\DialogueRepository;
 use App\Repository\NpcRepository;
+use App\Services\PaginatorService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -20,10 +21,12 @@ class NpcController extends AbstractController
     /**
      * @Route("/", name="app_npc_index", methods={"GET"})
      */
-    public function index(NpcRepository $npcRepository): Response
+    public function index(NpcRepository $npcRepository, PaginatorService $paginatorService ): Response
     {
+        $npcsToPaginate = $npcRepository->findBy([],['name' => 'ASC']);
+        $npcsPaginated = $paginatorService->paginator($npcsToPaginate, 7);
         return $this->render('npc/index.html.twig', [
-            'npcs' => $npcRepository->findAll(),
+            'npcs' => $npcsPaginated,
         ]);
     }
 

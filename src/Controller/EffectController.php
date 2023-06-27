@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Effect;
 use App\Form\EffectType;
 use App\Repository\EffectRepository;
+use App\Services\PaginatorService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -18,10 +19,12 @@ class EffectController extends AbstractController
     /**
      * @Route("/", name="app_effect_index", methods={"GET"})
      */
-    public function index(EffectRepository $effectRepository): Response
+    public function index(EffectRepository $effectRepository, PaginatorService $paginatorService): Response
     {
+        $effectsToPaginate = $effectRepository->findBy([],['name' => 'ASC']);
+        $effectsPaginated = $paginatorService->paginator($effectsToPaginate, 10);
         return $this->render('effect/index.html.twig', [
-            'effects' => $effectRepository->findAll(),
+            'effects' => $effectsPaginated,
         ]);
     }
 

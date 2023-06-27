@@ -8,6 +8,7 @@ use App\Form\UserType;
 use App\Repository\HeroRepository;
 use App\Repository\ReviewRepository;
 use App\Repository\UserRepository;
+use App\Services\PaginatorService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -22,10 +23,12 @@ class UserController extends AbstractController
     /**
      * @Route("/", name="app_user_index", methods={"GET"})
      */
-    public function index(UserRepository $userRepository): Response
+    public function index(UserRepository $userRepository, PaginatorService $paginatorService): Response
     {
+        $usersToPaginate = $userRepository->findBy([],['email' => 'ASC']);
+        $usersPaginated = $paginatorService->paginator($usersToPaginate, 10);
         return $this->render('user/index.html.twig', [
-            'users' => $userRepository->findAll(),
+            'users' => $usersPaginated,
         ]);
     }
 

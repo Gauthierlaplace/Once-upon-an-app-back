@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Item;
 use App\Form\ItemType;
 use App\Repository\ItemRepository;
+use App\Services\PaginatorService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -18,10 +19,12 @@ class ItemController extends AbstractController
     /**
      * @Route("/", name="app_item_index", methods={"GET"})
      */
-    public function index(ItemRepository $itemRepository): Response
+    public function index(ItemRepository $itemRepository, PaginatorService $paginatorService): Response
     {
+        $itemsToPaginate = $itemRepository->findBy([],['name' => 'ASC']);
+        $itemsPaginated = $paginatorService->paginator($itemsToPaginate, 10);
         return $this->render('item/index.html.twig', [
-            'items' => $itemRepository->findAll(),
+            'items' => $itemsPaginated,
         ]);
     }
 

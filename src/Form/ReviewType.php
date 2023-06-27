@@ -8,6 +8,7 @@ use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -34,13 +35,6 @@ class ReviewType extends AbstractType
                 ],
                 "multiple" => false,
                 "expanded" => true,
-            ],)
-            ->add('createdAt', 
-            DateType::class,
-            [
-                "label" => "Créé le",
-                "widget" => "single_text",
-                "input" => "datetime",
             ],)
             ->add('user', EntityType::class, [
                 "multiple" => false,

@@ -6,6 +6,7 @@ use App\Entity\HeroClass;
 use App\Form\HeroClassType;
 use App\Repository\HeroClassRepository;
 use App\Repository\HeroRepository;
+use App\Services\PaginatorService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -19,10 +20,12 @@ class HeroClassController extends AbstractController
     /**
      * @Route("/", name="app_hero_class_index", methods={"GET"})
      */
-    public function index(HeroClassRepository $heroClassRepository): Response
+    public function index(HeroClassRepository $heroClassRepository, PaginatorService $paginatorService): Response
     {
+        $heroClassesToPaginate = $heroClassRepository->findBy([],['name' => 'ASC']);
+        $heroClassesPaginated = $paginatorService->paginator($heroClassesToPaginate, 10);
         return $this->render('hero_class/index.html.twig', [
-            'hero_classes' => $heroClassRepository->findAll(),
+            'hero_classes' => $heroClassesPaginated,
         ]);
     }
 
