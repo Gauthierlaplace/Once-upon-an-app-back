@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Review;
 use App\Form\ReviewType;
 use App\Repository\ReviewRepository;
+use App\Services\PaginatorService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -19,10 +20,12 @@ class ReviewController extends AbstractController
     /**
      * @Route("/", name="app_review_index", methods={"GET"})
      */
-    public function index(ReviewRepository $reviewRepository): Response
+    public function index(ReviewRepository $reviewRepository, PaginatorService $paginatorService): Response
     {
+        $reviewsToPaginate = $reviewRepository->findBy([],['title' => 'ASC']);
+        $reviewsPaginated = $paginatorService->paginator($reviewsToPaginate, 10);
         return $this->render('review/index.html.twig', [
-            'reviews' => $reviewRepository->findAll(),
+            'reviews' => $reviewsPaginated,
         ]);
     }
 
@@ -36,8 +39,11 @@ class ReviewController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+
+            $review->setCreatedAt(new DateTime("now"));
             $reviewRepository->add($review, true);
 
+            $this->addFlash("create", "Votre avis a bien été ajouté.");
             return $this->redirectToRoute('app_review_index', [], Response::HTTP_SEE_OTHER);
         }
 
@@ -70,6 +76,7 @@ class ReviewController extends AbstractController
             $review->setUpdatedAt(new DateTime("now"));
             $reviewRepository->add($review, true);
 
+            $this->addFlash("edit", "Votre avis a bien été édité.");
             return $this->redirectToRoute('app_review_index', [], Response::HTTP_SEE_OTHER);
         }
 
@@ -87,7 +94,7 @@ class ReviewController extends AbstractController
         if ($this->isCsrfTokenValid('delete'.$review->getId(), $request->request->get('_token'))) {
             $reviewRepository->remove($review, true);
         }
-
+        $this->addFlash("delete", "Votre avis a bien été effacé.");
         return $this->redirectToRoute('app_review_index', [], Response::HTTP_SEE_OTHER);
     }
 }

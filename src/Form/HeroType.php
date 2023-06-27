@@ -5,7 +5,9 @@ namespace App\Form;
 use App\Entity\Hero;
 use App\Entity\HeroClass;
 use App\Entity\Item;
+use App\Entity\Picture;
 use App\Entity\User;
+use Doctrine\ORM\EntityRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
@@ -19,6 +21,17 @@ class HeroType extends AbstractType
     {
         $builder
             ->add('name', TextType::class, ["label" => "Nom du héro"])
+            ->add('picture', EntityType::class, [
+                "multiple" => false,
+                "expanded" => false,
+                "class" => Picture::class,
+                'label' => "Image du héro",
+                'placeholder' => 'Sélectionnez une image',
+                'query_builder' => function (EntityRepository $er) {
+                    return $er->createQueryBuilder('p')
+                        ->orderBy('p.name', 'ASC');
+                },
+            ])
             ->add('maxHealth', NumberType::class, ["label" => "Santé Maximum"])
             ->add('health', NumberType::class, ["label" => "Santé"])
             ->add('strength', NumberType::class, ["label" => "Force"])
@@ -27,7 +40,6 @@ class HeroType extends AbstractType
             ->add('defense', NumberType::class, ["label" => "Défense"])
             ->add('karma', NumberType::class, ["label" => "Karma"])
             ->add('xp', NumberType::class, ["label" => "Expérience"])
-            ->add('picture', TextType::class, ["label" => "Image du Héro"])
             ->add('progress', NumberType::class, ["label" => "Niveau atteint"])
             ->add('heroClass', EntityType::class, [
                 "multiple" => false,

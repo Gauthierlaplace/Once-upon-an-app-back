@@ -1,0 +1,19 @@
+{% extends "base.html.twig" %}
+
+{% block body %}
+<div class="container my-4">
+    <div class="errorText my-5 py-5 text-center">
+        <div class="col-lg-6 mx-auto">
+			<h4>Cette forêt enflammée me rappelle étrangement les pages 404 sur internet.</h4>
+		</div> 
+        <br>
+        <div>
+            <h5>"Elles sont remplies de flammes de frustration et d'erreurs. On pourrait presque dire que c'est le "feu sacré" des développeurs." #code404</h5>
+        </div>
+        <br>
+        <div>
+            <a class='errorPage btn btn-danger' href="{{ path('app_home') }}">Retour à l'accueil</a>
+        </div>
+	</div>
+</div>
+{% endblock %}

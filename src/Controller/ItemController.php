@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Item;
 use App\Form\ItemType;
 use App\Repository\ItemRepository;
+use App\Services\PaginatorService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -18,10 +19,12 @@ class ItemController extends AbstractController
     /**
      * @Route("/", name="app_item_index", methods={"GET"})
      */
-    public function index(ItemRepository $itemRepository): Response
+    public function index(ItemRepository $itemRepository, PaginatorService $paginatorService): Response
     {
+        $itemsToPaginate = $itemRepository->findBy([],['name' => 'ASC']);
+        $itemsPaginated = $paginatorService->paginator($itemsToPaginate, 10);
         return $this->render('item/index.html.twig', [
-            'items' => $itemRepository->findAll(),
+            'items' => $itemsPaginated,
         ]);
     }
 
@@ -36,6 +39,8 @@ class ItemController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $itemRepository->add($item, true);
+
+            $this->addFlash("create", "L'objet a bien été créé.");
 
             return $this->redirectToRoute('app_item_index', [], Response::HTTP_SEE_OTHER);
         }
@@ -67,6 +72,7 @@ class ItemController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $itemRepository->add($item, true);
 
+            $this->addFlash("edit", "L'objet a bien été édité.");
             return $this->redirectToRoute('app_item_index', [], Response::HTTP_SEE_OTHER);
         }
 
@@ -84,7 +90,7 @@ class ItemController extends AbstractController
         if ($this->isCsrfTokenValid('delete'.$item->getId(), $request->request->get('_token'))) {
             $itemRepository->remove($item, true);
         }
-
+        $this->addFlash("delete", "L'objet a bien été effacé.");
         return $this->redirectToRoute('app_item_index', [], Response::HTTP_SEE_OTHER);
     }
 }

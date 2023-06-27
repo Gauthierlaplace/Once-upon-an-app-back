@@ -27,6 +27,10 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     /** 
      * @Assert\NotBlank(message="Veuillez entrer une adresse email !")
      * @Assert\NotNull(message="Veuillez entrer une adresse email 'VALIDE'!")
+     * @Assert\Regex(
+     *     pattern="/^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/",
+     *     message="Veuillez entrer une adresse email valide !"
+     * )
      * @ORM\Column(type="string", length=180, unique=true)
      * @Groups({"user_read", "user_create"})
      */
@@ -41,8 +45,13 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     /**
      * @var string The hashed password
-     * @Assert\NotNull(message="Veuillez entrer un mot de passe !")
+     * @Assert\NotBlank(message="Le mot de passe est requis.")
+     * @Assert\NotNull(message="Le mot de passe est requis.")
      * @ORM\Column(type="string")
+     * @Assert\Regex(
+     *     pattern="/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*]).{4,}$/",
+     *     message="Le mot de passe doit contenir au moins une majuscule, une minuscule, un chiffre et un caractère spécial."
+     * )
      */
     private $password;
 
@@ -54,11 +63,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     private $pseudo;
 
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     * @Groups({"user_read", "user_create"})
-     */
-    private $avatar;
+    // /**
+    //  * @ORM\Column(type="string", length=255, nullable=true)
+    //  * @Groups({"user_read", "user_create"})
+    //  */
+    // private $avatar;
 
     /**
      * @ORM\OneToMany(targetEntity=Review::class, mappedBy="user")
@@ -69,6 +78,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * @ORM\OneToMany(targetEntity=Hero::class, mappedBy="user")
      */
     private $heroes;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Picture::class, inversedBy="users",  cascade={"persist"})
+     * * @Groups({"user_read", "user_create"})
+     */
+    private $avatar;
 
     public function __construct()
     {
@@ -177,17 +192,17 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function getAvatar(): ?string
-    {
-        return $this->avatar;
-    }
+    // public function getAvatar(): ?string
+    // {
+    //     return $this->avatar;
+    // }
 
-    public function setAvatar(?string $avatar): self
-    {
-        $this->avatar = $avatar;
+    // public function setAvatar(?string $avatar): self
+    // {
+    //     $this->avatar = $avatar;
 
-        return $this;
-    }
+    //     return $this;
+    // }
 
     /**
      * @return Collection<int, Review>
@@ -252,5 +267,17 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function __toString(): string
     {
         return $this->email;
+    }
+
+    public function getAvatar(): ?Picture
+    {
+        return $this->avatar;
+    }
+
+    public function setAvatar(?Picture $avatar): self
+    {
+        $this->avatar = $avatar;
+
+        return $this;
     }
 }

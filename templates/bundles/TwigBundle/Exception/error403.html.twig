@@ -1,0 +1,28 @@
+{% extends "base.html.twig" %}
+
+{% block body %}
+	<div class="container my-4">
+		<div class="errorText my-5 py-5 text-center">
+			<h1 class="fw-bold display-1">Accès refusé</h1>
+			<br>
+			<div>
+				<img src="https://media.giphy.com/media/njYrp176NQsHS/giphy.gif" alt="Gandalf">
+			</div>
+			<br>
+			{% if is_granted('ROLE_VISITOR') %}
+				<div>
+                <p>Vous êtes déjà connécté à
+					{{ app.user.userIdentifier }}, Cette partie du back office vous est interdit</p>
+					<a class='errorPage btn btn-danger' href="{{ path('app_home') }}">Retour à l'accueil</a>
+				</div>
+			{% else %}
+				<div class="mb-4 ">
+					 <p>Vous êtes déjà connécté à
+					{{ app.user.userIdentifier }}, Le back office vous est interdit</p>
+					<a class='btn btn-danger errorPage mx-1' href="{{ path('app_logout') }}">Déconnexion</a>
+				</div>
+
+			{% endif %}
+		</div>
+	</div>
+{% endblock %}

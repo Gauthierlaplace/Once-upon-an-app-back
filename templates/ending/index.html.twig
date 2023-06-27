@@ -28,7 +28,7 @@
 						<td>{{ ending.event.title }} 
 						{% if ending.event.picture %}							
 						<br>
-						 <img class="img-fluid otherTableImg" src="{{ asset(ending.event.picture) }}" alt="{{ 'image de ' ~ ending.event.title }}"></td>
+						 <img class="img-fluid otherTableImg" src="{{ asset(ending.event.picture.path) }}" alt="{{ 'image de ' ~ ending.event.title }}"></td>
 						{% endif %}
 						<td>{{ ending.content }}</td>
 						<td>{{ ending.eventType.name }}</td>
@@ -48,5 +48,8 @@
 				{% endfor %}
 			</tbody>
 		</table>
+		<div class='navKnp'>
+			{{ knp_pagination_render(endings) }}
+		</div>
 	</div>
 {% endblock %}

@@ -101,7 +101,7 @@
     "method": "GET",
     "sortNum": 10000,
     "created": "2023-06-23T14:32:02.166Z",
-    "modified": "2023-06-23T14:32:02.166Z",
+    "modified": "2023-06-27T10:02:10.244Z",
     "headers": [],
     "params": [],
     "body": {
@@ -120,12 +120,12 @@
     "method": "POST",
     "sortNum": 10000,
     "created": "2023-06-23T14:32:02.167Z",
-    "modified": "2023-06-23T14:34:19.167Z",
+    "modified": "2023-06-27T01:17:13.770Z",
     "headers": [],
     "params": [],
     "body": {
       "type": "json",
-      "raw": "{\n  \"email\": \"visitor@visitor.com\", \n  \"roles\": [\"ROLE_PLAYER\", \"ROLE_VISITOR\"],\n  \"password\": \"visitor\",\n  \"pseudo\": \"Visiteur\",\n  \"avatar\": \"images/visitor.png\"\n}\n",
+      "raw": "{\n  \"email\": \"dsezds@death.com\", \n  \"password\" : \"Death1!\",\n  \"pseudo\": \"dfsdfdsf\"\n}\n",
       "form": []
     },
     "tests": []
@@ -135,21 +135,21 @@
     "colId": "462c6f63-ebb8-4189-9a43-ed7489279ac3",
     "containerId": "82f35152-eda6-4744-b5d9-594ee469a9c8",
     "name": "Edit User with Edit Password",
-    "url": "http://pierre-salhab.vpnuser.lan:8082/api/users/27",
+    "url": "http://pierre-salhab.vpnuser.lan:8082/api/users/30",
     "method": "PUT",
     "sortNum": 10000,
     "created": "2023-06-23T14:32:02.168Z",
-    "modified": "2023-06-23T14:32:02.168Z",
+    "modified": "2023-06-27T01:21:10.861Z",
     "headers": [],
     "params": [],
     "body": {
       "type": "json",
-      "raw": "{\n  \"email\": \"antho@player.com\", \n  \"roles\": [\"ROLE_PLAYER\"],\n  \"password\":\"Bb1!\",\n  \"pseudo\": \"Anthony\",\n  \"avatar\": \"\"\n}\n",
+      "raw": "{\n   \"email\": \"dsezds@death.com\", \n  \"password\" : \"Death1!\",\n  \"pseudo\": \"test\"\n}\n",
       "form": []
     },
     "auth": {
       "type": "bearer",
-      "bearer": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpYXQiOjE2ODY4MTI4ODAsImV4cCI6MTY4Njg3NzY4MCwicm9sZXMiOlsiUk9MRV9BRE1JTiIsIlJPTEVfUExBWUVSIl0sInVzZXJuYW1lIjoiYW50aG9ueUBhZG1pbi5jb20ifQ.jxZ7cBc8GUXYfn_kADTKB6Oh0jNp2hlPw7-mu_bRKWL4_HwF6J7oLo5lyNgH-TObnRVCH7t_uFLD-UWxuL3sZckKR34SwvSmjgXa9VZPUEUXIeKdFKLKvbE0irzDI3M_CxpxDzQif2UcMCa-AqIRBviGGzP5DC12HGcOn0djWW2h_l_uTCfwaoQb7r4r5YMho2xu9wnyvq_PF8UmHNMVbdPeBpIEAo50F4Xi3f76wO_zlwTUSl-2nuUnl_kSBxcVWRm1rLO1CN2bgTDHBNX440f9zFmCloSpo0KeKysSiUt4E-rZiM_2xC6WpVSK1SdRDSqOHXHQICJ3ds1k2LcV_w"
+      "bearer": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpYXQiOjE2ODc4Mjg3NzgsImV4cCI6MTY4Nzg5MzU3OCwicm9sZXMiOlsiUk9MRV9QTEFZRVIiXSwidXNlcm5hbWUiOiJkc2V6ZHNAZGVhdGguY29tIn0.JJF-UK5Y4s6NL0QIkyijcMjc7-0Bp1foJYsJGyPAY-cNe5I4VHOD5csgQx2-yUmD9E3D4h2Gx5kV6odqEDORikw8R1jXyMNNpeT96QQqUOnmOjEVXexQ2X52AQsNXXPw-f49hGb1kTnklxX3W8kVLQZaO-eAPkrb8_2ntrQanmELTUuTj_ZCAnlaGh-GsXeu1RDndSY8uOn9_6stTRctphEjKo1vyMfotUXa1e3r-HNuXXdfNKs2p89pTf2gOVPpRAItvmAndTBugzZ79rWbaB35OWMMxtNzF8J73IE6sdjKKZpyBwaCA-AKAsW2_zOhq0W9wY2re4n1QTU21mYu4Q"
     },
     "tests": []
   },
@@ -158,16 +158,16 @@
     "colId": "462c6f63-ebb8-4189-9a43-ed7489279ac3",
     "containerId": "58b35a4d-3ae0-4b51-91b9-ed16cb94108c",
     "name": "http://localhost:8000/api/users/26",
-    "url": "http://pierre-salhab.vpnuser.lan:8082/api/users/26",
+    "url": "http://pierre-salhab.vpnuser.lan:8082/api/users/30",
     "method": "DELETE",
     "sortNum": 10000,
     "created": "2023-06-23T14:32:02.169Z",
-    "modified": "2023-06-23T14:32:02.169Z",
+    "modified": "2023-06-27T01:21:46.611Z",
     "headers": [],
     "params": [],
     "auth": {
       "type": "bearer",
-      "bearer": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpYXQiOjE2ODY4MTI4ODAsImV4cCI6MTY4Njg3NzY4MCwicm9sZXMiOlsiUk9MRV9BRE1JTiIsIlJPTEVfUExBWUVSIl0sInVzZXJuYW1lIjoiYW50aG9ueUBhZG1pbi5jb20ifQ.jxZ7cBc8GUXYfn_kADTKB6Oh0jNp2hlPw7-mu_bRKWL4_HwF6J7oLo5lyNgH-TObnRVCH7t_uFLD-UWxuL3sZckKR34SwvSmjgXa9VZPUEUXIeKdFKLKvbE0irzDI3M_CxpxDzQif2UcMCa-AqIRBviGGzP5DC12HGcOn0djWW2h_l_uTCfwaoQb7r4r5YMho2xu9wnyvq_PF8UmHNMVbdPeBpIEAo50F4Xi3f76wO_zlwTUSl-2nuUnl_kSBxcVWRm1rLO1CN2bgTDHBNX440f9zFmCloSpo0KeKysSiUt4E-rZiM_2xC6WpVSK1SdRDSqOHXHQICJ3ds1k2LcV_w"
+      "bearer": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpYXQiOjE2ODc4Mjg3NzgsImV4cCI6MTY4Nzg5MzU3OCwicm9sZXMiOlsiUk9MRV9QTEFZRVIiXSwidXNlcm5hbWUiOiJkc2V6ZHNAZGVhdGguY29tIn0.JJF-UK5Y4s6NL0QIkyijcMjc7-0Bp1foJYsJGyPAY-cNe5I4VHOD5csgQx2-yUmD9E3D4h2Gx5kV6odqEDORikw8R1jXyMNNpeT96QQqUOnmOjEVXexQ2X52AQsNXXPw-f49hGb1kTnklxX3W8kVLQZaO-eAPkrb8_2ntrQanmELTUuTj_ZCAnlaGh-GsXeu1RDndSY8uOn9_6stTRctphEjKo1vyMfotUXa1e3r-HNuXXdfNKs2p89pTf2gOVPpRAItvmAndTBugzZ79rWbaB35OWMMxtNzF8J73IE6sdjKKZpyBwaCA-AKAsW2_zOhq0W9wY2re4n1QTU21mYu4Q"
     },
     "tests": []
   },
@@ -394,9 +394,13 @@
     "method": "GET",
     "sortNum": 20000,
     "created": "2023-06-23T14:32:02.182Z",
-    "modified": "2023-06-23T14:32:02.182Z",
+    "modified": "2023-06-27T01:19:50.819Z",
     "headers": [],
     "params": [],
+    "auth": {
+      "type": "bearer",
+      "bearer": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpYXQiOjE2ODc4Mjg3NzgsImV4cCI6MTY4Nzg5MzU3OCwicm9sZXMiOlsiUk9MRV9QTEFZRVIiXSwidXNlcm5hbWUiOiJkc2V6ZHNAZGVhdGguY29tIn0.JJF-UK5Y4s6NL0QIkyijcMjc7-0Bp1foJYsJGyPAY-cNe5I4VHOD5csgQx2-yUmD9E3D4h2Gx5kV6odqEDORikw8R1jXyMNNpeT96QQqUOnmOjEVXexQ2X52AQsNXXPw-f49hGb1kTnklxX3W8kVLQZaO-eAPkrb8_2ntrQanmELTUuTj_ZCAnlaGh-GsXeu1RDndSY8uOn9_6stTRctphEjKo1vyMfotUXa1e3r-HNuXXdfNKs2p89pTf2gOVPpRAItvmAndTBugzZ79rWbaB35OWMMxtNzF8J73IE6sdjKKZpyBwaCA-AKAsW2_zOhq0W9wY2re4n1QTU21mYu4Q"
+    },
     "tests": []
   },
   {
@@ -427,11 +431,11 @@
     "colId": "462c6f63-ebb8-4189-9a43-ed7489279ac3",
     "containerId": "3d1a3e1a-2def-4162-9eee-0b44eb88251c",
     "name": "Event Roll",
-    "url": "http://pierre-salhab.vpnuser.lan:8082/api/event/roll/9",
+    "url": "http://pierre-salhab.vpnuser.lan:8082/api/event/roll/4",
     "method": "GET",
     "sortNum": 20000,
     "created": "2023-06-23T14:32:02.184Z",
-    "modified": "2023-06-23T14:32:02.184Z",
+    "modified": "2023-06-27T00:27:23.187Z",
     "headers": [],
     "params": [],
     "tests": []
@@ -511,11 +515,11 @@
     "colId": "462c6f63-ebb8-4189-9a43-ed7489279ac3",
     "containerId": "3d1a3e1a-2def-4162-9eee-0b44eb88251c",
     "name": "Last Event with [2 Opening and 2 Id] Boss",
-    "url": "http://pierre-salhab.vpnuser.lan:8082/api/event/last/4",
+    "url": "http://pierre-salhab.vpnuser.lan:8082/api/event/last/5",
     "method": "GET",
     "sortNum": 30000,
     "created": "2023-06-23T14:32:02.189Z",
-    "modified": "2023-06-23T14:32:02.189Z",
+    "modified": "2023-06-27T00:28:56.902Z",
     "headers": [],
     "params": [],
     "tests": []
@@ -553,11 +557,11 @@
     "colId": "462c6f63-ebb8-4189-9a43-ed7489279ac3",
     "containerId": "3d1a3e1a-2def-4162-9eee-0b44eb88251c",
     "name": "Event Boss with [Opening and Id] de Fin de Biome",
-    "url": "http://pierre-salhab.vpnuser.lan:8082/api/event/boss/11",
+    "url": "http://pierre-salhab.vpnuser.lan:8082/api/event/boss/10",
     "method": "GET",
     "sortNum": 40000,
     "created": "2023-06-23T14:32:02.192Z",
-    "modified": "2023-06-23T14:32:02.192Z",
+    "modified": "2023-06-27T10:10:50.960Z",
     "headers": [],
     "params": [],
     "tests": []
@@ -698,6 +702,48 @@
     "sortNum": 80000,
     "created": "2023-06-23T14:32:02.202Z",
     "modified": "2023-06-23T14:32:02.202Z",
+    "headers": [],
+    "params": [],
+    "tests": []
+  },
+  {
+    "_id": "549281f0-9955-4752-b106-f1dc9305fdf8",
+    "colId": "462c6f63-ebb8-4189-9a43-ed7489279ac3",
+    "containerId": "3d1a3e1a-2def-4162-9eee-0b44eb88251c",
+    "name": "Dead",
+    "url": "http://pierre-salhab.vpnuser.lan:8082/api/event/death/18",
+    "method": "GET",
+    "sortNum": 90000,
+    "created": "2023-06-26T10:48:52.898Z",
+    "modified": "2023-06-27T00:30:47.256Z",
+    "headers": [],
+    "params": [],
+    "tests": []
+  },
+  {
+    "_id": "a62c7a5a-a8ea-4a89-bafa-ed61ba6baf4a",
+    "colId": "462c6f63-ebb8-4189-9a43-ed7489279ac3",
+    "containerId": "22e7c750-eadc-493e-934f-bd26e9cd7a48",
+    "name": "Dead",
+    "url": "http://pierre-salhab.vpnuser.lan:8082/api/event/dead/18",
+    "method": "GET",
+    "sortNum": 90000,
+    "created": "2023-06-26T10:51:34.328Z",
+    "modified": "2023-06-26T10:51:42.438Z",
+    "headers": [],
+    "params": [],
+    "tests": []
+  },
+  {
+    "_id": "f22306e7-b309-463d-a34f-e97d6ed89fd7",
+    "colId": "462c6f63-ebb8-4189-9a43-ed7489279ac3",
+    "containerId": "a7a100e2-7a24-48a5-8cf6-0244079d079d",
+    "name": "Dead",
+    "url": "http://localhost:8000/api/event/dead/18",
+    "method": "GET",
+    "sortNum": 90000,
+    "created": "2023-06-26T10:53:08.195Z",
+    "modified": "2023-06-26T10:53:28.367Z",
     "headers": [],
     "params": [],
     "tests": []

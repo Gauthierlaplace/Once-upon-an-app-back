@@ -26,7 +26,7 @@
 						<td>{{ dialogue.npc.name }}
 							{% if dialogue.npc.picture %}
 							<br>
-								<img class="img-fluid otherTableImg" src="{{ asset(dialogue.npc.picture) }}" alt="{{ 'image de ' ~ dialogue.npc.name }}">
+								<img class="img-fluid otherTableImg" src="{{ asset(dialogue.npc.picture.path) }}" alt="{{ 'image de ' ~ dialogue.npc.name }}">
 							{% endif %}
 						</td>
 						<td>{{ dialogue.content }}</td>
@@ -45,5 +45,8 @@
 				{% endfor %}
 			</tbody>
 		</table>
+		<div class='navKnp'>
+			{{ knp_pagination_render(dialogues) }}
+		</div>
 	</div>
 {% endblock %}

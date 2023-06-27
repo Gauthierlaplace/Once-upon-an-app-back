@@ -68,10 +68,10 @@ class Npc
      */
     private $karma;
 
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
-    private $picture;
+    // /**
+    //  * @ORM\Column(type="string", length=255, nullable=true)
+    //  */
+    // private $picture;
 
     /**
      * @Assert\NotNull(message="Veuillez sélectionner au moins une réponse!")
@@ -114,6 +114,11 @@ class Npc
      * @ORM\ManyToMany(targetEntity=Event::class, mappedBy="npc")
      */
     private $events;
+
+    /**
+     * @ORM\OneToOne(targetEntity=Picture::class, cascade={"persist", "remove"})
+     */
+    private $picture;
 
     public function __construct()
     {
@@ -223,17 +228,17 @@ class Npc
         return $this;
     }
 
-    public function getPicture(): ?string
-    {
-        return $this->picture;
-    }
+    // public function getPicture(): ?string
+    // {
+    //     return $this->picture;
+    // }
 
-    public function setPicture(?string $picture): self
-    {
-        $this->picture = $picture;
+    // public function setPicture(?string $picture): self
+    // {
+    //     $this->picture = $picture;
 
-        return $this;
-    }
+    //     return $this;
+    // }
 
     public function isIsBoss(): ?bool
     {
@@ -367,5 +372,17 @@ class Npc
     public function __toString(): string
     {
         return $this->name;
+    }
+
+    public function getPicture(): ?Picture
+    {
+        return $this->picture;
+    }
+
+    public function setPicture(?Picture $picture): self
+    {
+        $this->picture = $picture;
+
+        return $this;
     }
 }

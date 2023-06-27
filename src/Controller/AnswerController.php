@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Answer;
 use App\Form\AnswerType;
 use App\Repository\AnswerRepository;
+use App\Services\PaginatorService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -18,10 +19,12 @@ class AnswerController extends AbstractController
     /**
      * @Route("/", name="app_answer_index", methods={"GET"})
      */
-    public function index(AnswerRepository $answerRepository): Response
+    public function index(AnswerRepository $answerRepository, PaginatorService $paginatorService): Response
     {
+        $answersToPaginate = $answerRepository->findBy([],['dialogue' => 'ASC']);
+        $answersPaginated = $paginatorService->paginator($answersToPaginate, 10);
         return $this->render('answer/index.html.twig', [
-            'answers' => $answerRepository->findAll(),
+            'answers' => $answersPaginated,
         ]);
     }
 
@@ -37,6 +40,7 @@ class AnswerController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $answerRepository->add($answer, true);
 
+            $this->addFlash("create", "La réponse a bien été créée.");
             return $this->redirectToRoute('app_answer_index', [], Response::HTTP_SEE_OTHER);
         }
 
@@ -70,6 +74,7 @@ class AnswerController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $answerRepository->add($answer, true);
 
+            $this->addFlash("edit", "La réponse a bien été éditée.");
             return $this->redirectToRoute('app_answer_index', [], Response::HTTP_SEE_OTHER);
         }
 
@@ -87,7 +92,7 @@ class AnswerController extends AbstractController
         if ($this->isCsrfTokenValid('delete'.$answer->getId(), $request->request->get('_token'))) {
             $answerRepository->remove($answer, true);
         }
-
+        $this->addFlash("delete", "La réponse a bien été éditée.");
         return $this->redirectToRoute('app_answer_index', [], Response::HTTP_SEE_OTHER);
     }
 }

@@ -6,6 +6,7 @@ use App\Entity\Event;
 use App\Form\EventType;
 use App\Repository\EndingRepository;
 use App\Repository\EventRepository;
+use App\Services\PaginatorService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -19,10 +20,12 @@ class EventController extends AbstractController
     /**
      * @Route("/", name="app_event_index", methods={"GET"})
      */
-    public function index(EventRepository $eventRepository): Response
+    public function index(EventRepository $eventRepository, PaginatorService $paginatorService): Response
     {
+        $eventsToPaginate = $eventRepository->findBy([],['title' => 'ASC']);
+        $eventsPaginated = $paginatorService->paginator($eventsToPaginate, 5);
         return $this->render('event/index.html.twig', [
-            'events' => $eventRepository->findAll(),
+            'events' => $eventsPaginated,
         ]);
     }
 
@@ -38,6 +41,7 @@ class EventController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $eventRepository->add($event, true);
 
+            $this->addFlash("create", "L'événement a bien été créé.");
             return $this->redirectToRoute('app_event_index', [], Response::HTTP_SEE_OTHER);
         }
 
@@ -71,6 +75,7 @@ class EventController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $eventRepository->add($event, true);
 
+            $this->addFlash("edit", "L'événement a bien été édité.");
             return $this->redirectToRoute('app_event_index', [], Response::HTTP_SEE_OTHER);
         }
 
@@ -95,7 +100,7 @@ class EventController extends AbstractController
             
             $eventRepository->remove($event, true);
         }
-
+        $this->addFlash("delete", "L'événement a bien été effacé.");
         return $this->redirectToRoute('app_event_index', [], Response::HTTP_SEE_OTHER);
     }
 

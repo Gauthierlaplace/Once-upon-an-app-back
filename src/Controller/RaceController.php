@@ -8,6 +8,7 @@ use App\Repository\AnswerRepository;
 use App\Repository\DialogueRepository;
 use App\Repository\NpcRepository;
 use App\Repository\RaceRepository;
+use App\Services\PaginatorService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -21,10 +22,12 @@ class RaceController extends AbstractController
     /**
      * @Route("/", name="app_race_index", methods={"GET"})
      */
-    public function index(RaceRepository $raceRepository): Response
+    public function index(RaceRepository $raceRepository, PaginatorService $paginatorService): Response
     {
+        $racesToPaginate = $raceRepository->findBy([],['name' => 'ASC']);
+        $racesPaginated = $paginatorService->paginator($racesToPaginate, 10);
         return $this->render('race/index.html.twig', [
-            'races' => $raceRepository->findAll(),
+            'races' => $racesPaginated,
         ]);
     }
 
@@ -39,6 +42,8 @@ class RaceController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $raceRepository->add($race, true);
+
+            $this->addFlash("create", "La race a bien été créée.");
 
             return $this->redirectToRoute('app_race_index', [], Response::HTTP_SEE_OTHER);
         }
@@ -70,6 +75,7 @@ class RaceController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $raceRepository->add($race, true);
 
+            $this->addFlash("edit", "La race a bien été éditée.");
             return $this->redirectToRoute('app_race_index', [], Response::HTTP_SEE_OTHER);
         }
 
@@ -106,6 +112,7 @@ class RaceController extends AbstractController
 
             $raceRepository->remove($race, true);
         }
+        $this->addFlash("delete", "La race a bien été effacée.");
 
         return $this->redirectToRoute('app_race_index', [], Response::HTTP_SEE_OTHER);
     }

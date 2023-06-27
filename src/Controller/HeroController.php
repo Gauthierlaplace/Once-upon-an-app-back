@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Hero;
 use App\Form\HeroType;
 use App\Repository\HeroRepository;
+use App\Services\PaginatorService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -18,10 +19,12 @@ class HeroController extends AbstractController
     /**
      * @Route("/", name="app_hero_index", methods={"GET"})
      */
-    public function index(HeroRepository $heroRepository): Response
+    public function index(HeroRepository $heroRepository, PaginatorService $paginatorService): Response
     {
+        $heroesToPaginate = $heroRepository->findBy([],['name' => 'ASC']);
+        $heroesPaginated = $paginatorService->paginator($heroesToPaginate, 5);
         return $this->render('hero/index.html.twig', [
-            'heroes' => $heroRepository->findAll(),
+            'heroes' => $heroesPaginated,
         ]);
     }
 
@@ -37,6 +40,7 @@ class HeroController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $heroRepository->add($hero, true);
 
+            $this->addFlash("create", "Le héro a bien été créé.");
             return $this->redirectToRoute('app_hero_index', [], Response::HTTP_SEE_OTHER);
         }
 
@@ -71,6 +75,7 @@ class HeroController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $heroRepository->add($hero, true);
 
+            $this->addFlash("edit", "Le héro a bien été édité.");
             return $this->redirectToRoute('app_hero_index', [], Response::HTTP_SEE_OTHER);
         }
 
@@ -88,7 +93,7 @@ class HeroController extends AbstractController
         if ($this->isCsrfTokenValid('delete'.$hero->getId(), $request->request->get('_token'))) {
             $heroRepository->remove($hero, true);
         }
-
+        $this->addFlash("delete", "Le héro a bien été effacé.");
         return $this->redirectToRoute('app_hero_index', [], Response::HTTP_SEE_OTHER);
     }
 }
