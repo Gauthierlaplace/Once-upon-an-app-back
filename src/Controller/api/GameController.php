@@ -19,14 +19,26 @@ class GameController extends CoreApiController
         GameServices $gameServices
     ): JsonResponse {
 
+
         /** @var App\Entity\User $user */
         $user = $this->getUser();
+
 
         $hero = $gameServices->resetHeroHealth($user);
 
         $biomeStart = "L'Arche de Verdure";
         $currentEvent = $eventRepository->findOneBy(['title' => $biomeStart]);
 
+      ========================================================================
+      if ($npc->getPicture()){
+    $npcPicture = $npc->getPicture()->getPath();
+}
+else {
+    $npcPicture = [];
+}
+      
+                "picture" => $npcPicture,
+ ========================================================================
         $arrayNpc = $gameServices->getAllNpcData($currentEvent);
 
         $endingsCollection = $currentEvent->getEndings();
@@ -34,11 +46,15 @@ class GameController extends CoreApiController
 
         $randomizedEndingsPicked = $gameServices->getTwoRandomEndingsKeysWithoutBossType($endingscurrentEvent);
 
+
         $choices = $gameServices->getTwoEndingsWithTwoRandomEvent($randomizedEndingsPicked, $endingscurrentEvent);
 
         $data = [
             'player' => $hero,
+
             'currentEvent' => $currentEvent,
+            'currentEventPicture' => $currentEvent->getPicture()->getPath(),
+
             'npcCurrentEvent' => $arrayNpc,
             'choices' => $choices
         ];
@@ -53,6 +69,7 @@ class GameController extends CoreApiController
         EventRepository $eventRepository,
         GameServices $gameServices
     ): JsonResponse {
+
 
         $currentEvent = $eventRepository->find($id);
 
@@ -93,6 +110,7 @@ class GameController extends CoreApiController
 
         $eventTypeBossId = $eventTypeBoss->getId();
 
+
         $endingsBoss = $endingRepository->findBy(["eventType" => $eventTypeBossId]);
 
         $contentEndingCurrent = $gameServices->getDynamicEnding($endingsBoss, $id);
@@ -126,6 +144,7 @@ class GameController extends CoreApiController
         $currentEvent = $eventRepository->find($id);
 
         $eventTypeEndBiome = $eventTypeRepository->findOneBy(['name' => "Fin de Biome"]);
+
 
         $arrayNpc = $gameServices->getAllNpcData($currentEvent);
 
@@ -167,6 +186,7 @@ class GameController extends CoreApiController
         $endingscurrentEvent = $endingsCollection->toArray();
 
         $contentEndingCurrent = $gameServices->getDynamicEnding($endingscurrentEvent, $id);
+
 
         $eventTypeEndBiome = $eventTypeRepository->findOneBy(['name' => "Endgame"]);
         $eventTypeEndBiomeId = $eventTypeEndBiome->getId();

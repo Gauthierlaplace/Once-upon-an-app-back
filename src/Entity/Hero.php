@@ -87,11 +87,11 @@ class Hero
      */
     private $xp;
 
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     * @Groups({"game"})
-     */
-    private $picture;
+    // /**
+    //  * @ORM\Column(type="string", length=255, nullable=true)
+    //  * @Groups({"game"})
+    //  */
+    // private $picture;
 
     /**
      * 
@@ -126,6 +126,12 @@ class Hero
      * @ORM\ManyToMany(targetEntity=Event::class, inversedBy="heroes")
      */
     private $event;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Picture::class, inversedBy="heroes")
+     * @Groups({"game"})
+     */
+    private $picture;
 
     public function __construct()
     {
@@ -246,17 +252,17 @@ class Hero
         return $this;
     }
 
-    public function getPicture(): ?string
-    {
-        return $this->picture;
-    }
+    // public function getPicture(): ?string
+    // {
+    //     return $this->picture;
+    // }
 
-    public function setPicture(?string $picture): self
-    {
-        $this->picture = $picture;
+    // public function setPicture(?string $picture): self
+    // {
+    //     $this->picture = $picture;
 
-        return $this;
-    }
+    //     return $this;
+    // }
 
     public function getProgress(): ?int
     {
@@ -345,6 +351,18 @@ class Hero
     public function __toString(): string
     {
         return $this->name;
+    }
+
+    public function getPicture(): ?Picture
+    {
+        return $this->picture;
+    }
+
+    public function setPicture(?Picture $picture): self
+    {
+        $this->picture = $picture;
+
+        return $this;
     }
     
 }

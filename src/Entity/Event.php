@@ -43,11 +43,11 @@ class Event
      */
     private $opening;
 
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     * @Groups({"game"})
-     */
-    private $picture;
+    // /**
+    //  * @ORM\Column(type="string", length=255, nullable=true)
+    //  * @Groups({"game"})
+    //  */
+    // private $picture;
 
     /**
      * @ORM\ManyToOne(targetEntity=EventType::class, inversedBy="events")
@@ -78,6 +78,12 @@ class Event
      * @ORM\ManyToMany(targetEntity=Npc::class, inversedBy="events")
      */
     private $npc;
+
+    /**
+     * @ORM\OneToOne(targetEntity=Picture::class, cascade={"persist", "remove"})
+     * @Groups({"game"})
+     */
+    private $picture;
 
     public function __construct()
     {
@@ -127,17 +133,17 @@ class Event
         return $this;
     }
 
-    public function getPicture(): ?string
-    {
-        return $this->picture;
-    }
+    // public function getPicture(): ?string
+    // {
+    //     return $this->picture;
+    // }
 
-    public function setPicture(?string $picture): self
-    {
-        $this->picture = $picture;
+    // public function setPicture(?string $picture): self
+    // {
+    //     $this->picture = $picture;
 
-        return $this;
-    }
+    //     return $this;
+    // }
 
     public function getEventType(): ?EventType
     {
@@ -246,5 +252,17 @@ class Event
     public function __toString(): string
     {
         return $this->title;
+    }
+
+    public function getPicture(): ?Picture
+    {
+        return $this->picture;
+    }
+
+    public function setPicture(?Picture $picture): self
+    {
+        $this->picture = $picture;
+
+        return $this;
     }
 }

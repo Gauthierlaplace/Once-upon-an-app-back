@@ -45,7 +45,7 @@
 												<td>{{ npc.karma }}</td> #}
 						<td>
 							{% if npc.picture %}
-								<img class="img-fluid" src="{{ asset(npc.picture) }}" alt="{{ 'image de ' ~ npc.name }}">
+								<img class="img-fluid" src="{{ asset(npc.picture.path) }}" alt="{{ 'image de ' ~ npc.name }}">
 							{% endif %}
 						</td>
 						<td>{{ npc.isBoss ? 'Oui' : 'Non' }}</td>

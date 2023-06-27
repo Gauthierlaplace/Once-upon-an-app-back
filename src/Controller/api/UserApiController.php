@@ -6,6 +6,7 @@ use App\Entity\Hero;
 use App\Entity\User;
 use App\Repository\HeroClassRepository;
 use App\Repository\HeroRepository;
+use App\Repository\PictureRepository;
 use App\Repository\ReviewRepository;
 use App\Repository\UserRepository;
 use Exception;
@@ -43,7 +44,7 @@ class UserApiController extends CoreApiController
         $userId = $user->getId();
         $email = $user->getEmail();
         $pseudo = $user->getPseudo();
-        $avatar = $user->getAvatar();
+        $avatar = $user->getAvatar()->getPath();
 
         // Retournez les détails de l'utilisateur au format JSON
         return new JsonResponse([
@@ -71,7 +72,8 @@ class UserApiController extends CoreApiController
         ValidatorInterface $validator,
         UserPasswordHasherInterface $passwordHasher,
         HeroRepository $heroRepository,
-        HeroClassRepository $heroClassRepository
+        HeroClassRepository $heroClassRepository,
+        PictureRepository $pictureRepository
     ) {
         // Récupérer le contenu JSON
         $jsonContent = $request->getContent();
@@ -96,9 +98,10 @@ class UserApiController extends CoreApiController
 
             $user->setPassword($hashedPassword);
         }
-
         $heroClass = $heroClassRepository->findOneBy(['id' => 2]);
-
+        $defaultAvatar = $pictureRepository->findOneBy(["name" => 'default-hero-avatar.png']);
+        
+        
         $hero = new Hero();
         $hero->setName($user->getPseudo());
         $hero->setMaxHealth($heroClass->getMaxHealth());
@@ -109,13 +112,15 @@ class UserApiController extends CoreApiController
         $hero->setDefense($heroClass->getDefense());
         $hero->setKarma(rand(0, 10));
         $hero->setXp(0);
-        $hero->setPicture('images/default-hero-avatar.png');
+        $hero->setPicture($defaultAvatar)->getName();
         $hero->setProgress(0);
         $hero->setHeroClass($heroClass);
         $hero->setUser($user);
-
+        
         $user->setRoles(["ROLE_PLAYER"]);
-
+        $user->setAvatar($defaultAvatar);
+        
+        // dd($user);
         // On sauvegarde les entitées
         $userRepository->add($user, true);
         $heroRepository->add($hero, true);

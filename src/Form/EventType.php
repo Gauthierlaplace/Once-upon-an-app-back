@@ -6,6 +6,8 @@ use App\Entity\Biome;
 use App\Entity\Event;
 use App\Entity\EventType as EntityEventType;
 use App\Entity\Npc;
+use App\Entity\Picture;
+use Doctrine\ORM\EntityRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
@@ -19,9 +21,19 @@ class EventType extends AbstractType
     {
         $builder
             ->add('title', TextType::class, ["label" => "Titre de l'évènement"])
+            ->add('picture', EntityType::class, [
+                "multiple" => false,
+                "expanded" => false,
+                "class" => Picture::class,
+                'label' => "Image de l'évènement",
+                'placeholder' => 'Sélectionnez une image',
+                'query_builder' => function (EntityRepository $er) {
+                    return $er->createQueryBuilder('p')
+                        ->orderBy('p.name', 'ASC');
+                },
+            ])
             ->add('description', TextareaType::class, ["label" => "Description de L'évènement"])
             ->add('opening', TextareaType::class, ["label" => "Opening"])
-            ->add('picture', TextType::class, ["label" => "Image de l'évènement"])
             ->add('eventType', EntityType::class, [
                 "multiple" => false,
                 "expanded" => true,

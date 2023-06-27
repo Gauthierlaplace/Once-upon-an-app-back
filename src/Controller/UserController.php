@@ -38,14 +38,28 @@ class UserController extends AbstractController
         $form = $this->createForm(UserType::class, $user);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-            // * on le récupère de l'objet remplit par le formulaire
+            // On récupère l'email de l'utilisateur
+            $email = $user->getEmail();
+
+            // Vérifier si un enregistrement avec le même email existe déjà
+            $existingUser = $userRepository->findOneBy(['email' => $email]);
+            if ($existingUser) {
+                $errorMessage = 'Un utilisateur avec le même email existe déjà. Veuillez choisir un email différent.';
+                return new Response($errorMessage, Response::HTTP_BAD_REQUEST);
+            }
+
+            // On récupère le mot de passe en clair
             $plainPassword = $user->getPassword();
-            // * je hash le mot de passe
+
+            // On hash le mot de passe
             $hashedPassword = $passwordHasher->hashPassword($user, $plainPassword);
-            // * j'oublie pas de mettre à jour mon objet
+
+            // Mettre à jour le mot de passe dans l'objet utilisateur
             $user->setPassword($hashedPassword);
+
+            // Enregistrer l'utilisateur dans la base de données
             $userRepository->add($user, true);
-            
+
             $this->addFlash("create", "L'utilisateur a bien été créé.");
             return $this->redirectToRoute('app_user_index', [], Response::HTTP_SEE_OTHER);
         }
@@ -76,12 +90,26 @@ class UserController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $plainPassword = $request->request->get("user_edit")["password"]['first'];
-          
-            if (!empty($plainPassword)){ // Mettre à jour le mot de passe seulement si le champ n'est pas vide
-                $hashedPassword = $passwordHasher->hashPassword($user, $plainPassword);               
-                    $user->setPassword($hashedPassword);     
+            // On récupère l'email de l'utilisateur
+            $email = $user->getEmail();
+
+            // Vérifier si un autre utilisateur avec le même email existe déjà
+            $existingUser = $userRepository->findOneByEmailExceptUser($email, $user);
+            if ($existingUser) {
+                $errorMessage = 'Un autre utilisateur avec le même email existe déjà. Veuillez choisir un email différent.';
+                return new Response($errorMessage, Response::HTTP_BAD_REQUEST);
             }
+
+            // On récupère le mot de passe en clair
+            $plainPassword = $request->request->get("user_edit")["password"]['first'];
+
+            if (!empty($plainPassword)) { // Mettre à jour le mot de passe seulement si le champ n'est pas vide
+                // On hash le mot de passe
+                $hashedPassword = $passwordHasher->hashPassword($user, $plainPassword);
+                $user->setPassword($hashedPassword);
+            }
+
+            // Mettre à jour l'utilisateur dans la base de données
             $userRepository->add($user, true);
 
             $this->addFlash("edit", "L'utilisateur a bien été édité.");
@@ -99,15 +127,15 @@ class UserController extends AbstractController
      */
     public function delete($id, Request $request, User $user, UserRepository $userRepository, ReviewRepository $reviewRepository, HeroRepository $heroRepository): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$user->getId(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete' . $user->getId(), $request->request->get('_token'))) {
             $allReviews = $reviewRepository->findByUser($id);
-    
+
             foreach ($allReviews as $Review) {
                 $reviewRepository->remove($Review);
             }
 
             $allheros = $heroRepository->findByUser($id);
-    
+
             foreach ($allheros as $hero) {
                 $heroRepository->remove($hero);
             }
@@ -117,6 +145,4 @@ class UserController extends AbstractController
         $this->addFlash("delete", "Votre Utilisateur a bien été effacé.");
         return $this->redirectToRoute('app_user_index', [], Response::HTTP_SEE_OTHER);
     }
-
-    
 }

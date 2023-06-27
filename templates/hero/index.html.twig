@@ -46,7 +46,7 @@
 												<td>{{ hero.xp }}</td> #}
 						<td>
 							{% if hero.picture %}
-								<img class="img-fluid otherTableImg" src="{{ asset(hero.picture) }}" alt="{{ 'image de ' ~ hero.name }}">
+								<img class="img-fluid otherTableImg" src="{{ asset(hero.picture.path) }}" alt="{{ 'image de ' ~ hero.name }}">
 							{% endif %}
 						</td>
 						<td>{{ hero.progress }}</td>

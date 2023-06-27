@@ -35,7 +35,7 @@
 						<td>{{ event.opening }}</td> #}
 						<td>
 						{% if event.picture %}
-							<img class="img-fluid" src="{{ asset(event.picture) }}" alt="{{ 'image de ' ~ event.title }}">
+							<img class="img-fluid" src="{{ asset(event.picture.path) }}" alt="{{ 'image de ' ~ event.title }}">
 						{% endif %}
 						</td>
 						<td>

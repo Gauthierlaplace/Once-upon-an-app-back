@@ -2,7 +2,10 @@
 
 namespace App\Form;
 
+use App\Entity\Picture;
 use App\Entity\User;
+use Doctrine\ORM\EntityRepository;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
@@ -60,7 +63,17 @@ class UserType extends AbstractType
             ])
 
             ->add('pseudo', TextType::class, ['label' => 'Nom d\'utilisateur'])
-            ->add('avatar', TextType::class, ["label" => "Avatar"]);
+            ->add('avatar', EntityType::class, [
+                "multiple" => false,
+                "expanded" => false,
+                "class" => Picture::class,
+                'label' => "Avatar de l'utilisateur",
+                'placeholder' => 'Sélectionnez une image',
+                'query_builder' => function (EntityRepository $er) {
+                    return $er->createQueryBuilder('p')
+                        ->orderBy('p.name', 'ASC');
+                },
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver): void
