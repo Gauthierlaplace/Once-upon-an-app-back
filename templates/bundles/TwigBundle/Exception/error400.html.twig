@@ -1,0 +1,23 @@
+{% extends "base.html.twig" %}
+
+{% block body %}
+	<div class="container my-4">
+		<div class="errorText my-5 py-5 text-center">
+			<div class="col-lg-6 mx-auto">
+				<h4>Erreur
+					{{status_code}}
+					{{status_text}}
+				</h4>
+			</div>
+			<br>
+			<div>
+				Le message d'erreur :
+				{{ exception.message }}
+			</div>
+			<br>
+			<div>
+				<a class='errorPage btn btn-danger' href="{{ path('app_home') }}">Retour à l'accueil</a>
+			</div>
+		</div>
+	</div>
+{% endblock %}
