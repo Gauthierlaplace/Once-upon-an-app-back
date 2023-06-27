@@ -65,7 +65,7 @@ class PictureController extends AbstractController
             }
 
             $pictureRepository->add($picture, true);
-
+            $this->addFlash("create", "L'image a bien été enregistrée.");
             return $this->redirectToRoute('app_picture_index', [], Response::HTTP_SEE_OTHER);
         }
 
@@ -96,6 +96,7 @@ class PictureController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $pictureRepository->add($picture, true);
 
+            $this->addFlash("edit", "L'image a bien été éditée.");
             return $this->redirectToRoute('app_picture_index', [], Response::HTTP_SEE_OTHER);
         }
 
@@ -113,7 +114,7 @@ class PictureController extends AbstractController
         if ($this->isCsrfTokenValid('delete' . $picture->getId(), $request->request->get('_token'))) {
             $pictureRepository->remove($picture, true);
         }
-
+        $this->addFlash("delete", "L'image a bien été effacée.");
         return $this->redirectToRoute('app_picture_index', [], Response::HTTP_SEE_OTHER);
     }
 }
