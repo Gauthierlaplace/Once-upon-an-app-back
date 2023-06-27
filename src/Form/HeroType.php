@@ -5,6 +5,7 @@ namespace App\Form;
 use App\Entity\Hero;
 use App\Entity\HeroClass;
 use App\Entity\Item;
+use App\Entity\Picture;
 use App\Entity\User;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
@@ -27,7 +28,13 @@ class HeroType extends AbstractType
             ->add('defense', NumberType::class, ["label" => "Défense"])
             ->add('karma', NumberType::class, ["label" => "Karma"])
             ->add('xp', NumberType::class, ["label" => "Expérience"])
-            ->add('picture', TextType::class, ["label" => "Image du Héro"])
+            ->add('picture', EntityType::class, [
+                "multiple" => false,
+                "expanded" => false,
+                "class" => Picture::class,
+                'label' => "Image du héro",
+                'placeholder' => 'Sélectionnez une image',
+            ])
             ->add('progress', NumberType::class, ["label" => "Niveau atteint"])
             ->add('heroClass', EntityType::class, [
                 "multiple" => false,

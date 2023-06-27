@@ -36,6 +36,7 @@ class GameController extends CoreApiController
         $biomeStart = "L'Arche de Verdure"; //* With Real Data
         // $biomeStart = "Départ Biome 1";
         $eventA = $eventRepository->findOneBy(['title' => $biomeStart]);
+       
 
         $npcCollection = $eventA->getNpc();
         $npcs = $npcCollection->toArray();
@@ -68,13 +69,18 @@ class GameController extends CoreApiController
                     'effect2' => $arrayDialogues['answer' . $i][1]->getEffect()[0],
                 ];
             }
-
+if ($npc->getPicture()){
+    $npcPicture = $npc->getPicture()->getPath();
+}
+else {
+    $npcPicture = [];
+}
             $arrayNpc = [
                 "raceName" => $raceName,
                 "raceDescription" => $raceDescription,
                 "npcName" => $npc->getName(),
                 "npcDescription" => $npc->getDescription(),
-                "picture" => $npc->getPicture(),
+                "picture" => $npcPicture,
                 "health" => $npc->getHealth(),
                 "strength" => $npc->getStrength(),
                 "intelligence" => $npc->getIntelligence(),
@@ -179,6 +185,7 @@ class GameController extends CoreApiController
         $data = [
             'player' => $hero,
             'currentEvent' => $eventA,
+            'Picture' => $eventA->getPicture()->getPath(),
             'npcCurrentEvent' => $arrayNpc,
             'choices' => $choices
         ];
@@ -228,13 +235,18 @@ class GameController extends CoreApiController
                     'effect2' => $arrayDialogues['answer' . $i][1]->getEffect()[0],
                 ];
             }
-
+if ($npc->getPicture()){
+    $npcPicture = $npc->getPicture()->getPath();
+}
+else {
+    $npcPicture = [];
+}
             $arrayNpc = [
                 "raceName" => $raceName,
                 "raceDescription" => $raceDescription,
                 "npcName" => $npc->getName(),
                 "npcDescription" => $npc->getDescription(),
-                "picture" => $npc->getPicture(),
+                "picture" => $npcPicture,
                 "health" => $npc->getHealth(),
                 "strength" => $npc->getStrength(),
                 "intelligence" => $npc->getIntelligence(),
@@ -395,13 +407,18 @@ class GameController extends CoreApiController
                     'effect2' => $arrayDialogues['answer' . $i][1]->getEffect()[0],
                 ];
             }
-
+if ($npc->getPicture()){
+    $npcPicture = $npc->getPicture()->getPath();
+}
+else {
+    $npcPicture = [];
+}
             $arrayNpc = [
                 "raceName" => $raceName,
                 "raceDescription" => $raceDescription,
                 "npcName" => $npc->getName(),
                 "npcDescription" => $npc->getDescription(),
-                "picture" => $npc->getPicture(),
+                "picture" => $npcPicture,
                 "health" => $npc->getHealth(),
                 "strength" => $npc->getStrength(),
                 "intelligence" => $npc->getIntelligence(),
@@ -540,13 +557,18 @@ class GameController extends CoreApiController
                     'effect2' => $arrayDialogues['answer' . $i][1]->getEffect()[0],
                 ];
             }
-
+if ($npc->getPicture()){
+    $npcPicture = $npc->getPicture()->getPath();
+}
+else {
+    $npcPicture = [];
+}
             $arrayNpc = [
                 "raceName" => $raceName,
                 "raceDescription" => $raceDescription,
                 "npcName" => $npc->getName(),
                 "npcDescription" => $npc->getDescription(),
-                "picture" => $npc->getPicture(),
+                "picture" => $npcPicture,
                 "health" => $npc->getHealth(),
                 "strength" => $npc->getStrength(),
                 "intelligence" => $npc->getIntelligence(),
@@ -663,13 +685,18 @@ class GameController extends CoreApiController
 
 
 
-
+if ($npc->getPicture()){
+    $npcPicture = $npc->getPicture()->getPath();
+}
+else {
+    $npcPicture = [];
+}
             $arrayNpc = [
                 "raceName" => $raceName,
                 "raceDescription" => $raceDescription,
                 "npcName" => $npc->getName(),
                 "npcDescription" => $npc->getDescription(),
-                "picture" => $npc->getPicture(),
+                "picture" => $npcPicture,
                 "health" => $npc->getHealth(),
                 "strength" => $npc->getStrength(),
                 "intelligence" => $npc->getIntelligence(),
@@ -769,13 +796,18 @@ class GameController extends CoreApiController
                 ];
             }
 
-
+if ($npc->getPicture()){
+    $npcPicture = $npc->getPicture()->getPath();
+}
+else {
+    $npcPicture = [];
+}
             $arrayNpc = [
                 "raceName" => $raceName,
                 "raceDescription" => $raceDescription,
                 "npcName" => $npc->getName(),
                 "npcDescription" => $npc->getDescription(),
-                "picture" => $npc->getPicture(),
+                "picture" => $npcPicture,
                 "health" => $npc->getHealth(),
                 "strength" => $npc->getStrength(),
                 "intelligence" => $npc->getIntelligence(),
@@ -912,13 +944,18 @@ class GameController extends CoreApiController
                 ];
             }
 
-
+if ($npc->getPicture()){
+    $npcPicture = $npc->getPicture()->getPath();
+}
+else {
+    $npcPicture = [];
+}
             $arrayNpc = [
                 "raceName" => $raceName,
                 "raceDescription" => $raceDescription,
                 "npcName" => $npc->getName(),
                 "npcDescription" => $npc->getDescription(),
-                "picture" => $npc->getPicture(),
+                "picture" => $npcPicture,
                 "health" => $npc->getHealth(),
                 "strength" => $npc->getStrength(),
                 "intelligence" => $npc->getIntelligence(),

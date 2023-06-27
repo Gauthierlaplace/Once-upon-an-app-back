@@ -63,11 +63,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     private $pseudo;
 
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     * @Groups({"user_read", "user_create"})
-     */
-    private $avatar;
+    // /**
+    //  * @ORM\Column(type="string", length=255, nullable=true)
+    //  * @Groups({"user_read", "user_create"})
+    //  */
+    // private $avatar;
 
     /**
      * @ORM\OneToMany(targetEntity=Review::class, mappedBy="user")
@@ -78,6 +78,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * @ORM\OneToMany(targetEntity=Hero::class, mappedBy="user")
      */
     private $heroes;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Picture::class, inversedBy="users",  cascade={"persist"})
+     * * @Groups({"user_read", "user_create"})
+     */
+    private $avatar;
 
     public function __construct()
     {
@@ -186,17 +192,17 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function getAvatar(): ?string
-    {
-        return $this->avatar;
-    }
+    // public function getAvatar(): ?string
+    // {
+    //     return $this->avatar;
+    // }
 
-    public function setAvatar(?string $avatar): self
-    {
-        $this->avatar = $avatar;
+    // public function setAvatar(?string $avatar): self
+    // {
+    //     $this->avatar = $avatar;
 
-        return $this;
-    }
+    //     return $this;
+    // }
 
     /**
      * @return Collection<int, Review>
@@ -261,5 +267,17 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function __toString(): string
     {
         return $this->email;
+    }
+
+    public function getAvatar(): ?Picture
+    {
+        return $this->avatar;
+    }
+
+    public function setAvatar(?Picture $avatar): self
+    {
+        $this->avatar = $avatar;
+
+        return $this;
     }
 }

@@ -5,6 +5,7 @@ namespace App\Form;
 use App\Entity\Hero;
 use App\Entity\Item;
 use App\Entity\Npc;
+use App\Entity\Picture;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
@@ -18,7 +19,13 @@ class ItemType extends AbstractType
     {
         $builder
             ->add('name', TextType::class, ["label" => "Nom de l'objet"])
-            ->add('picture', TextType::class, ["label" => "Image de l'objet"])
+            ->add('picture', EntityType::class, [
+                "multiple" => false,
+                "expanded" => false,
+                "class" => Picture::class,
+                'label' => "Image de l'item",
+                'placeholder' => 'Sélectionnez une image',
+            ])
             ->add('health', NumberType::class, ["label" => "Santé"])
             ->add('strength', NumberType::class, ["label" => "Force"])
             ->add('intelligence', NumberType::class, ["label" => "Intelligence"])

@@ -29,11 +29,11 @@ class Item
      */
     private $name;
 
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     * @Groups({"game"})
-     */
-    private $picture;
+    // /**
+    //  * @ORM\Column(type="string", length=255, nullable=true)
+    //  * @Groups({"game"})
+    //  */
+    // private $picture;
 
     /**
      * @ORM\Column(type="integer", nullable=true)
@@ -94,6 +94,12 @@ class Item
      */
     private $npcs;
 
+    /**
+     * @ORM\OneToOne(targetEntity=Picture::class, cascade={"persist", "remove"})
+     * @Groups({"game"})
+     */
+    private $picture;
+
     public function __construct()
     {
         $this->heroes = new ArrayCollection();
@@ -117,17 +123,17 @@ class Item
         return $this;
     }
 
-    public function getPicture(): ?string
-    {
-        return $this->picture;
-    }
+    // public function getPicture(): ?string
+    // {
+    //     return $this->picture;
+    // }
 
-    public function setPicture(?string $picture): self
-    {
-        $this->picture = $picture;
+    // public function setPicture(?string $picture): self
+    // {
+    //     $this->picture = $picture;
 
-        return $this;
-    }
+    //     return $this;
+    // }
 
     public function getHealth(): ?int
     {
@@ -270,5 +276,17 @@ class Item
     public function __toString(): string
     {
         return $this->name;
+    }
+
+    public function getPicture(): ?Picture
+    {
+        return $this->picture;
+    }
+
+    public function setPicture(?Picture $picture): self
+    {
+        $this->picture = $picture;
+
+        return $this;
     }
 }

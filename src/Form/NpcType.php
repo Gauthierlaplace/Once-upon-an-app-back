@@ -5,6 +5,7 @@ namespace App\Form;
 use App\Entity\Event;
 use App\Entity\Item;
 use App\Entity\Npc;
+use App\Entity\Picture;
 use App\Entity\Race;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
@@ -28,7 +29,13 @@ class NpcType extends AbstractType
             ->add('dexterity', NumberType::class, ["label" => "Dextérité"])
             ->add('defense', NumberType::class, ["label" => "Défense"])
             ->add('karma', NumberType::class, ["label" => "Karma"])
-            ->add('picture', TextType::class, ["label" => "Image du personnage"])
+            ->add('picture', EntityType::class, [
+                "multiple" => false,
+                "expanded" => false,
+                "class" => Picture::class,
+                'label' => "Image du personnage",
+                'placeholder' => 'Sélectionnez une image',
+            ])
             ->add('isBoss', ChoiceType::class, [
                 "label" => 'Est ce un boss ?',
                 "expanded" => true,

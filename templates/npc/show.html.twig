@@ -57,7 +57,7 @@
 									<th>Image</th>
 									<td>
 									{% if npc.picture %}										
-										<img class="img-fluid" src="{{ asset(npc.picture) }}" alt="{{ 'image de ' ~ npc.name }}">{{ npc.picture }}
+										<img class="img-fluid" src="{{ asset(npc.picture.path) }}" alt="{{ 'image de ' ~ npc.name }}">{{ npc.picture }}
 									{% endif %}
 									</td>
 								</tr>

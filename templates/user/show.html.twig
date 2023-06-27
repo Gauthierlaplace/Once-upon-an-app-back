@@ -32,7 +32,7 @@
 									<th>Avatar</th>
 									<td>
 										{% if user.avatar %}
-											<img class="img-fluid otherTableImg" src="{{ asset(user.avatar) }}" alt="{{ 'image de ' ~ user.pseudo }}">
+											<img class="img-fluid otherTableImg" src="{{ asset(user.avatar.path) }}" alt="{{ 'image de ' ~ user.pseudo }}">
 											<br>
 											{{ user.avatar }}
 										{% endif %}
