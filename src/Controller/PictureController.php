@@ -23,7 +23,7 @@ class PictureController extends AbstractController
      */
     public function index(PictureRepository $pictureRepository, PaginatorService $paginatorService): Response
     {
-        $picturesToPaginate = $pictureRepository->findBy([],['name' => 'ASC']);
+        $picturesToPaginate = $pictureRepository->findBy([],['id' => 'DESC']);
         $picturesPaginated = $paginatorService->paginator($picturesToPaginate, 10);
         return $this->render('picture/index.html.twig', [
             'pictures' => $picturesPaginated,
