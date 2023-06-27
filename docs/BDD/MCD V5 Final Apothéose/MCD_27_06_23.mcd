@@ -1,0 +1,56 @@
+EFFECT : code_effect, name, description, health, strength, intelligence, dexterity, defense, karma, xp
+ANSWER_EFFECT, 0N EFFECT, 0N ANSWER: answer_code, effect_code
+ANSWER : code_answer, content, dialogue_code
+HAS ANSWER, 0N DIALOGUE, 11 ANSWER
+DIALOGUE : code_dialogue, content, npc_code
+HAS4, 0N NPC, 11 DIALOGUE
+
+HERO_CLASS: code_hero_class, name, max_health, health, strength, intelligence, dexterity, defense
+BELONGS TO2,11 HERO,0N HERO_CLASS
+HERO: code_hero, name,max_health, health, strength, intelligence, dexterity, defense, karma, xp, progress, user_code, hero_class_code, picture_code
+HERO_ITEM, 0N HERO, 0N ITEM: hero_code, item_code
+ITEM: code_item, name, health, strength, intelligence, dexterity, defense, karma, xp, picture_code
+NPC_ITEM,0N ITEM, 0N NPC: item_code, npc_code
+NPC: code_npc, name, description, health, strength, intelligence, dexterity, defense, karma, is_boss, hostility, xp_earned, race_code, picture_code
+BELONGS TO8,0N RACE,11 NPC
+RACE: code_race, name, description
+
+HAS1,0N USER,11 HERO
+HAS PICTURE3, 0N PICTURE, 01 HERO
+HAS PICTURE4, 01 PICTURE, 01 ITEM
+HAS PICTURE2, 01 PICTURE, 01 NPC
+:
+
+:
+
+HERO_EVENT, 0N HERO,0N EVENT: event_code, hero_code
+:
+USER: code_user, email, password, role, pseudo, avatar
+HAS PICTURE1, 0N PICTURE, 01 USER
+PICTURE: code picture, name, base64, path
+:
+EVENT_NPC,0N NPC,0N EVENT: event_code, npc_code
+
+:
+BELONGS TO1, 0N USER, 11 REVIEW
+REVIEW : code_review, title, content, rating, createdAt, updatedAt, user_code
+HAS PICTURE, 01 PICTURE, 01 EVENT
+:
+
+:
+
+:
+EVENT: code_event, title, description, opening, event_type_code,biome_code, picture_code
+
+BELONGS TO4,11 EVENT,0N EVENT_TYPE
+HAS5,0N EVENT,11 ENDING
+HAS3, 0N BIOME,11 EVENT
+
+EVENT_TYPE: code_event_type, name
+HAS7,11 ENDING,0N EVENT_TYPE
+ENDING: code_ending, content, event_code, event_type_code
+BIOME: code_biome, name, difficulty
+
+
+
+
