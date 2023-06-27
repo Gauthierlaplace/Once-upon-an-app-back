@@ -101,12 +101,12 @@
     "method": "GET",
     "sortNum": 10000,
     "created": "2023-06-23T14:32:02.166Z",
-    "modified": "2023-06-27T01:19:38.054Z",
+    "modified": "2023-06-27T10:02:10.244Z",
     "headers": [],
     "params": [],
     "body": {
       "type": "json",
-      "raw": "{\n  \"username\" : \"dsezds@death.com\",\n  \"password\" : \"Death1!\"\n}",
+      "raw": "{\n  \"username\" : \"pierre@admin.com\",\n  \"password\" : \"admin\"\n}",
       "form": []
     },
     "tests": []
@@ -557,11 +557,11 @@
     "colId": "462c6f63-ebb8-4189-9a43-ed7489279ac3",
     "containerId": "3d1a3e1a-2def-4162-9eee-0b44eb88251c",
     "name": "Event Boss with [Opening and Id] de Fin de Biome",
-    "url": "http://pierre-salhab.vpnuser.lan:8082/api/event/boss/11",
+    "url": "http://pierre-salhab.vpnuser.lan:8082/api/event/boss/10",
     "method": "GET",
     "sortNum": 40000,
     "created": "2023-06-23T14:32:02.192Z",
-    "modified": "2023-06-23T14:32:02.192Z",
+    "modified": "2023-06-27T10:10:50.960Z",
     "headers": [],
     "params": [],
     "tests": []

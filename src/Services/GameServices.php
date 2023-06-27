@@ -91,6 +91,7 @@ class GameServices
                 $arrayDialogues["answer" . ($key + 1)] = $answers;
             }
 
+
             $countDialogue = count($dialogues);
             for ($i = 1; $i <= $countDialogue; $i++) {
                 $npcDialogue['dialogue' . $i] = [
@@ -101,13 +102,18 @@ class GameServices
                     'effect2' => $arrayDialogues['answer' . $i][1]->getEffect()[0],
                 ];
             }
+            if ($npc->getPicture()) {
+                $npcPicture = $npc->getPicture()->getPath();
+            } else {
+                $npcPicture = [];
+            }
 
             $arrayNpc = [
                 "raceName" => $raceName,
                 "raceDescription" => $raceDescription,
                 "npcName" => $npc->getName(),
                 "npcDescription" => $npc->getDescription(),
-                "picture" => $npc->getPicture(),
+                "picture" => $npcPicture,
                 "health" => $npc->getHealth(),
                 "strength" => $npc->getStrength(),
                 "intelligence" => $npc->getIntelligence(),

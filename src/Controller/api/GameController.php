@@ -19,26 +19,14 @@ class GameController extends CoreApiController
         GameServices $gameServices
     ): JsonResponse {
 
-
         /** @var App\Entity\User $user */
         $user = $this->getUser();
-
 
         $hero = $gameServices->resetHeroHealth($user);
 
         $biomeStart = "L'Arche de Verdure";
         $currentEvent = $eventRepository->findOneBy(['title' => $biomeStart]);
 
-      ========================================================================
-      if ($npc->getPicture()){
-    $npcPicture = $npc->getPicture()->getPath();
-}
-else {
-    $npcPicture = [];
-}
-      
-                "picture" => $npcPicture,
- ========================================================================
         $arrayNpc = $gameServices->getAllNpcData($currentEvent);
 
         $endingsCollection = $currentEvent->getEndings();
@@ -46,15 +34,12 @@ else {
 
         $randomizedEndingsPicked = $gameServices->getTwoRandomEndingsKeysWithoutBossType($endingscurrentEvent);
 
-
         $choices = $gameServices->getTwoEndingsWithTwoRandomEvent($randomizedEndingsPicked, $endingscurrentEvent);
 
         $data = [
             'player' => $hero,
-
             'currentEvent' => $currentEvent,
             'currentEventPicture' => $currentEvent->getPicture()->getPath(),
-
             'npcCurrentEvent' => $arrayNpc,
             'choices' => $choices
         ];
@@ -70,7 +55,6 @@ else {
         GameServices $gameServices
     ): JsonResponse {
 
-
         $currentEvent = $eventRepository->find($id);
 
         $arrayNpc = $gameServices->getAllNpcData($currentEvent);
@@ -84,6 +68,7 @@ else {
 
         $data = [
             'currentEvent' => $currentEvent,
+            'currentEventPicture' => $currentEvent->getPicture()->getPath(),
             'npcCurrentEvent' => $arrayNpc,
             'choices' => $choices
         ];
@@ -110,7 +95,6 @@ else {
 
         $eventTypeBossId = $eventTypeBoss->getId();
 
-
         $endingsBoss = $endingRepository->findBy(["eventType" => $eventTypeBossId]);
 
         $contentEndingCurrent = $gameServices->getDynamicEnding($endingsBoss, $id);
@@ -121,12 +105,12 @@ else {
 
         $data = [
             'currentEvent' => $currentEvent,
+            'currentEventPicture' => $currentEvent->getPicture()->getPath(),
             'npcCurrentEvent' => $arrayNpc,
             'currentEventEnding' => $contentEndingCurrent,
             'BossA' => $dataForNextEvent[0],
             'BossB' => $dataForNextEvent[1]
         ];
-
         return $this->json200($data, ["game"]);
     }
 
@@ -145,7 +129,6 @@ else {
 
         $eventTypeEndBiome = $eventTypeRepository->findOneBy(['name' => "Fin de Biome"]);
 
-
         $arrayNpc = $gameServices->getAllNpcData($currentEvent);
 
         $eventTypeEndBiomeId = $eventTypeEndBiome->getId();
@@ -160,6 +143,7 @@ else {
 
         $data = [
             'currentEvent' => $currentEvent,
+            'currentEventPicture' => $currentEvent->getPicture()->getPath(),
             'npcCurrentEvent' => $arrayNpc,
             'currentEventEnding' => $contentEndingCurrent,
             'EndBiome' => $dataForNextEvent
@@ -187,7 +171,6 @@ else {
 
         $contentEndingCurrent = $gameServices->getDynamicEnding($endingscurrentEvent, $id);
 
-
         $eventTypeEndBiome = $eventTypeRepository->findOneBy(['name' => "Endgame"]);
         $eventTypeEndBiomeId = $eventTypeEndBiome->getId();
 
@@ -197,11 +180,11 @@ else {
 
         $data = [
             'currentEvent' => $currentEvent,
+            'currentEventPicture' => $currentEvent->getPicture()->getPath(),
             'npcCurrentEvent' => $arrayNpc,
             'currentEventEnding' => $contentEndingCurrent,
             'EndGame' => $dataForNextEvent
         ];
-
         return $this->json200($data, ["game"]);
     }
 
@@ -220,9 +203,9 @@ else {
 
         $data = [
             'currentEvent' => $currentEvent,
+            'currentEventPicture' => $currentEvent->getPicture()->getPath(),
             'npcCurrentEvent' => $arrayNpc,
         ];
-
         return $this->json200($data, ["game"]);
     }
 
@@ -236,9 +219,8 @@ else {
 
         /** @var App\Entity\User $user */
         $user = $this->getUser();
-      
-        $hero = $gameServices->updateHeroAfterEffect($id, $user);
 
+        $hero = $gameServices->updateHeroAfterEffect($id, $user);
 
         $data = $gameServices->heroSurvivedOrNot($hero);
 
@@ -260,6 +242,7 @@ else {
 
         $data = [
             'currentEvent' => $currentEvent,
+            'currentEventPicture' => $currentEvent->getPicture()->getPath(),
             'npcCurrentEvent' => $arrayNpc,
         ];
 
