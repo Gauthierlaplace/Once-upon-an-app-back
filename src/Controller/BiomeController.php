@@ -7,6 +7,7 @@ use App\Form\BiomeType;
 use App\Repository\BiomeRepository;
 use App\Repository\EndingRepository;
 use App\Repository\EventRepository;
+use App\Services\PaginatorService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -20,10 +21,12 @@ class BiomeController extends AbstractController
     /**
      * @Route("/", name="app_biome_index", methods={"GET"})
      */
-    public function index(BiomeRepository $biomeRepository): Response
+    public function index(BiomeRepository $biomeRepository, PaginatorService $paginatorService): Response
     {
+        $biomesToPaginate = $biomeRepository->findBy([],['name' => 'ASC']);
+        $biomesPaginated = $paginatorService->paginator($biomesToPaginate, 10);
         return $this->render('biome/index.html.twig', [
-            'biomes' => $biomeRepository->findAll(),
+            'biomes' => $biomesPaginated,
         ]);
     }
 

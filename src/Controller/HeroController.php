@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Hero;
 use App\Form\HeroType;
 use App\Repository\HeroRepository;
+use App\Services\PaginatorService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -18,10 +19,12 @@ class HeroController extends AbstractController
     /**
      * @Route("/", name="app_hero_index", methods={"GET"})
      */
-    public function index(HeroRepository $heroRepository): Response
+    public function index(HeroRepository $heroRepository, PaginatorService $paginatorService): Response
     {
+        $heroesToPaginate = $heroRepository->findBy([],['name' => 'ASC']);
+        $heroesPaginated = $paginatorService->paginator($heroesToPaginate, 5);
         return $this->render('hero/index.html.twig', [
-            'heroes' => $heroRepository->findAll(),
+            'heroes' => $heroesPaginated,
         ]);
     }
 

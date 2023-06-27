@@ -44,9 +44,6 @@ class Review
 
     /**
      * @ORM\Column(type="datetime")
-     * @Assert\NotBlank(
-     *     message = "Merci de renseigner une date"
-     * )
      * @Assert\Type("\DateTimeInterface")
      */
     private $createdAt;
@@ -137,5 +134,9 @@ class Review
         $this->user = $user;
 
         return $this;
+    }
+    public function __toString(): string
+    {
+        return $this->createdAt->format('Y-m-d H:i:s');
     }
 }

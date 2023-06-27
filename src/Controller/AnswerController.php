@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Answer;
 use App\Form\AnswerType;
 use App\Repository\AnswerRepository;
+use App\Services\PaginatorService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -18,10 +19,12 @@ class AnswerController extends AbstractController
     /**
      * @Route("/", name="app_answer_index", methods={"GET"})
      */
-    public function index(AnswerRepository $answerRepository): Response
+    public function index(AnswerRepository $answerRepository, PaginatorService $paginatorService): Response
     {
+        $answersToPaginate = $answerRepository->findBy([],['dialogue' => 'ASC']);
+        $answersPaginated = $paginatorService->paginator($answersToPaginate, 10);
         return $this->render('answer/index.html.twig', [
-            'answers' => $answerRepository->findAll(),
+            'answers' => $answersPaginated,
         ]);
     }
 

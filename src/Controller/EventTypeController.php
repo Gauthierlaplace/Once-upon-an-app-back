@@ -7,6 +7,7 @@ use App\Form\EventTypeType;
 use App\Repository\EndingRepository;
 use App\Repository\EventRepository;
 use App\Repository\EventTypeRepository;
+use App\Services\PaginatorService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -20,10 +21,12 @@ class EventTypeController extends AbstractController
     /**
      * @Route("/", name="app_event_type_index", methods={"GET"})
      */
-    public function index(EventTypeRepository $eventTypeRepository): Response
+    public function index(EventTypeRepository $eventTypeRepository, PaginatorService $paginatorService): Response
     {
+        $eventTypesToPaginate = $eventTypeRepository->findBy([],['name' => 'ASC']);
+        $eventTypesPaginated = $paginatorService->paginator($eventTypesToPaginate, 10);
         return $this->render('event_type/index.html.twig', [
-            'event_types' => $eventTypeRepository->findAll(),
+            'event_types' => $eventTypesPaginated,
         ]);
     }
 
