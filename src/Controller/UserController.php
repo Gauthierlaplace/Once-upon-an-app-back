@@ -8,6 +8,7 @@ use App\Form\UserType;
 use App\Repository\HeroRepository;
 use App\Repository\ReviewRepository;
 use App\Repository\UserRepository;
+use App\Services\MailServices;
 use App\Services\PaginatorService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -35,7 +36,7 @@ class UserController extends AbstractController
     /**
      * @Route("/new", name="app_user_new", methods={"GET", "POST"})
      */
-    public function new(Request $request, UserRepository $userRepository, UserPasswordHasherInterface $passwordHasher): Response
+    public function new(Request $request, UserRepository $userRepository, UserPasswordHasherInterface $passwordHasher, MailServices $mailServices): Response
     {
         $user = new User();
         $form = $this->createForm(UserType::class, $user);
@@ -62,6 +63,8 @@ class UserController extends AbstractController
 
             // Enregistrer l'utilisateur dans la base de données
             $userRepository->add($user, true);
+
+            $mailServices->newUserConfirm($user);
 
             $this->addFlash("create", "L'utilisateur a bien été créé.");
             return $this->redirectToRoute('app_user_index', [], Response::HTTP_SEE_OTHER);

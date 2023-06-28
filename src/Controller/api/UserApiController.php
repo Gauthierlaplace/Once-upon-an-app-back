@@ -9,6 +9,7 @@ use App\Repository\HeroRepository;
 use App\Repository\PictureRepository;
 use App\Repository\ReviewRepository;
 use App\Repository\UserRepository;
+use App\Services\MailServices;
 use Exception;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -73,7 +74,8 @@ class UserApiController extends CoreApiController
         UserPasswordHasherInterface $passwordHasher,
         HeroRepository $heroRepository,
         HeroClassRepository $heroClassRepository,
-        PictureRepository $pictureRepository
+        PictureRepository $pictureRepository,
+        MailServices $mailServices
     ) {
         // Récupérer le contenu JSON
         $jsonContent = $request->getContent();
@@ -124,6 +126,8 @@ class UserApiController extends CoreApiController
         // On sauvegarde les entitées
         $userRepository->add($user, true);
         $heroRepository->add($hero, true);
+
+        $mailServices->newUserConfirm($user);
 
         return $this->json201($user, ["user_create"]);
     }
