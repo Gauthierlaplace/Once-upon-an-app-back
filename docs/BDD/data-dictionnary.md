@@ -9,7 +9,7 @@
 |password|VARCHAR(255)|NOT NULL|Mot de passe|
 |roles|LONGTEXT|NOT NULL|Droits|
 |pseudo|VARCHAR(64)|NOT NULL|Nom de joueur|
-|avatar|VARCHAR(255)|NULL|Portrait du joueur|
+|avatar|entity|NULL|Jointure (picture)|
 
 ## Avis (review)
 
@@ -37,10 +37,10 @@
 |defense|INT|NULL|Défence|
 |karma|INT|NULL|Taux de chance|
 |xp|INT|NULL|Expérience|
-|picture|VARCHAR(255)|NULL|Image du joueur|
 |progress|INT|NULL|Sauvegarde|
 |hero_class|entity|NOT NULL|Jointure|
 |user|entity|NOT NULL|Jointure|
+|picture|entity|NULL|Jointure|
 
 ## Classe de joueur (hero_class)
 
@@ -63,9 +63,9 @@
 |title|VARCHAR(255)|NOT NULL|Titre de l'evenement|
 |description|LONGTEXT|NULL|Description de l'evenement|
 |opening|LONGTEXT|NULL|Entrée en scène|
-|picture|VARCHAR(255)|NULL|Image du personnage|
 |event_type|entity|NOT NULL|Jointure|
 |biome|entity|NOT NULL|Jointure|
+|picture|entity|NULL|Jointure|
 
 ## Theme (biome)
 
@@ -104,11 +104,11 @@
 |dexterity|INT|NULL|Dextérité|
 |defense|INT|NULL|Défence|
 |karma|INT|NULL|Taux de chance|
-|picture|VARCHAR(255)|NULL|Image du personnage|
 |is_boss|TINYINT(1)|NOT NULL|Boss = 1, Normal=0|
 |hostility|TINYINT(1)|NOT NULL|Hostile = 1, Amical = 0|
 |xp_earned|INT|NULL|Donne de l'expérience au joueur en fonction des actions|
 |race|entity|NOT NULL|Jointure|
+|picture|entity|NULL|Jointure|
 
 ## Race (race)
 
@@ -155,7 +155,6 @@
 |-|-|-|-|
 |id|INT|PRIMARY KEY, NOT NULL, UNSIGNED, AUTO_INCREMENT|Identifiant de l'objet|
 |name|VARCHAR(255)|NOT NULL|Nom de l'objet|
-|picture|VARCHAR(255)|NULL|Image de l'objet|
 |health|INT|NULL|Bonus-Malus de Santé|
 |strength|INT|NULL|Bonus-Malus de Force|
 |intelligence|INT|NULL|Bonus-Malus d'intelligence|
@@ -163,3 +162,13 @@
 |defense|INT|NULL|Bonus-Malus de Défence|
 |karma|INT|NULL|Bonus-Malus du taux de chance|
 |xp|INT|NULL|Bonus-Malus d'expérience|
+|picture|entity|NULL|Jointure|
+
+## Images (picture)
+
+|Champ|Type|Spécificités|Description|
+|-|-|-|-|
+|id|INT|PRIMARY KEY, NOT NULL, UNSIGNED, AUTO_INCREMENT|Identifiant de l'image|
+|name|VARCHAR(255)|NOT NULL|Nom de l'image|
+|base64|LONGTEXT|NOT NULL|Encodage des données binaires en format texte|
+|path|VARCHAR(255)|NOT NULL|Chemin de l'image|

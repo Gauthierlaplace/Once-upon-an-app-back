@@ -1,0 +1,351 @@
+<html>
+<head>
+<meta charset='utf-8'>
+<style>
+  #mld .relation { font-variant: small-caps; font-weight: bold }
+  #mld .primary { text-decoration: underline }
+  #mld .foreign { font-style: oblique }
+  #mld .normal { }
+  #mld strong { font-weight: bold }
+  #mld i { font-style: italic }
+  #mld ul { list-style-type:square; margin: 0 0 1em 2em }
+</style>
+</head>
+<body>
+<div id='mld'>
+<div>
+  <details><summary><span class='relation'>ANSWER</span> (
+    <span title='primary_key (None)' class='primary'>code_answer</span>,
+    <span title='normal_attribute (None)' class='normal'>content</span>,
+    <span title='normal_attribute (None)' class='normal'>dialogue_code</span>,
+    <span title='foreign_key (DIALOGUE)' class='foreign'>#code_dialogue</span>
+  )</summary>
+  <ul>
+    <li>Le champ <i>code_answer</i> constitue la clé primaire de la table. C'était déjà un identifiant de l'entité <i>ANSWER</i>.</li>
+    <li>Les champs <i>content</i> et <i>dialogue_code</i> étaient déjà de simples attributs de l'entité <i>ANSWER</i>.</li>
+    <li>Le champ <i>code_dialogue</i> est une clé étrangère. Il a migré par l'association de dépendance fonctionnelle <i>HAS ANSWER</i> à partir de l'entité <i>DIALOGUE</i> en perdant son caractère identifiant.</li>
+  </ul></details>
+</div>
+
+<div>
+  <details><summary><span class='relation'>ANSWER_EFFECT</span> (
+    <span title='primary_foreign_key (EFFECT)' class='foreign primary'>#code_effect</span>,
+    <span title='primary_foreign_key (ANSWER)' class='foreign primary'>#code_answer</span>,
+    <span title='association_attribute (None)' class='normal'>answer_code</span>,
+    <span title='association_attribute (None)' class='normal'>effect_code</span>
+  )</summary>
+  <ul>
+    <li>Le champ <i>code_effect</i> fait partie de la clé primaire de la table. C'est une clé étrangère qui a migré directement à partir de l'entité <i>EFFECT</i>.</li>
+    <li>Le champ <i>code_answer</i> fait partie de la clé primaire de la table. C'est une clé étrangère qui a migré directement à partir de l'entité <i>ANSWER</i>.</li>
+    <li>Les champs <i>answer_code</i> et <i>effect_code</i> étaient déjà de simples attributs de l'association <i>ANSWER_EFFECT</i>.</li>
+  </ul></details>
+</div>
+
+<div>
+  <details><summary><span class='relation'>BIOME</span> (
+    <span title='primary_key (None)' class='primary'>code_biome</span>,
+    <span title='normal_attribute (None)' class='normal'>name</span>,
+    <span title='normal_attribute (None)' class='normal'>difficulty</span>
+  )</summary>
+  <ul>
+    <li>Le champ <i>code_biome</i> constitue la clé primaire de la table. C'était déjà un identifiant de l'entité <i>BIOME</i>.</li>
+    <li>Les champs <i>name</i> et <i>difficulty</i> étaient déjà de simples attributs de l'entité <i>BIOME</i>.</li>
+  </ul></details>
+</div>
+
+<div>
+  <details><summary><span class='relation'>DIALOGUE</span> (
+    <span title='primary_key (None)' class='primary'>code_dialogue</span>,
+    <span title='normal_attribute (None)' class='normal'>content</span>,
+    <span title='normal_attribute (None)' class='normal'>npc_code</span>,
+    <span title='foreign_key (NPC)' class='foreign'>#code_npc</span>
+  )</summary>
+  <ul>
+    <li>Le champ <i>code_dialogue</i> constitue la clé primaire de la table. C'était déjà un identifiant de l'entité <i>DIALOGUE</i>.</li>
+    <li>Les champs <i>content</i> et <i>npc_code</i> étaient déjà de simples attributs de l'entité <i>DIALOGUE</i>.</li>
+    <li>Le champ <i>code_npc</i> est une clé étrangère. Il a migré par l'association de dépendance fonctionnelle <i>HAS4</i> à partir de l'entité <i>NPC</i> en perdant son caractère identifiant.</li>
+  </ul></details>
+</div>
+
+<div>
+  <details><summary><span class='relation'>EFFECT</span> (
+    <span title='primary_key (None)' class='primary'>code_effect</span>,
+    <span title='normal_attribute (None)' class='normal'>name</span>,
+    <span title='normal_attribute (None)' class='normal'>description</span>,
+    <span title='normal_attribute (None)' class='normal'>health</span>,
+    <span title='normal_attribute (None)' class='normal'>strength</span>,
+    <span title='normal_attribute (None)' class='normal'>intelligence</span>,
+    <span title='normal_attribute (None)' class='normal'>dexterity</span>,
+    <span title='normal_attribute (None)' class='normal'>defense</span>,
+    <span title='normal_attribute (None)' class='normal'>karma</span>,
+    <span title='normal_attribute (None)' class='normal'>xp</span>
+  )</summary>
+  <ul>
+    <li>Le champ <i>code_effect</i> constitue la clé primaire de la table. C'était déjà un identifiant de l'entité <i>EFFECT</i>.</li>
+    <li>Les champs <i>name</i>, <i>description</i>, <i>health</i>, <i>strength</i>, <i>intelligence</i>, <i>dexterity</i>, <i>defense</i>, <i>karma</i> et <i>xp</i> étaient déjà de simples attributs de l'entité <i>EFFECT</i>.</li>
+  </ul></details>
+</div>
+
+<div>
+  <details><summary><span class='relation'>ENDING</span> (
+    <span title='primary_key (None)' class='primary'>code_ending</span>,
+    <span title='normal_attribute (None)' class='normal'>content</span>,
+    <span title='normal_attribute (None)' class='normal'>event_code</span>,
+    <span title='normal_attribute (None)' class='normal'>event_type_code</span>,
+    <span title='foreign_key (EVENT)' class='foreign'>#code_event</span>,
+    <span title='foreign_key (EVENT_TYPE)' class='foreign'>#code_event_type</span>
+  )</summary>
+  <ul>
+    <li>Le champ <i>code_ending</i> constitue la clé primaire de la table. C'était déjà un identifiant de l'entité <i>ENDING</i>.</li>
+    <li>Les champs <i>content</i>, <i>event_code</i> et <i>event_type_code</i> étaient déjà de simples attributs de l'entité <i>ENDING</i>.</li>
+    <li>Le champ <i>code_event</i> est une clé étrangère. Il a migré par l'association de dépendance fonctionnelle <i>HAS5</i> à partir de l'entité <i>EVENT</i> en perdant son caractère identifiant.</li>
+    <li>Le champ <i>code_event_type</i> est une clé étrangère. Il a migré par l'association de dépendance fonctionnelle <i>HAS7</i> à partir de l'entité <i>EVENT_TYPE</i> en perdant son caractère identifiant.</li>
+  </ul></details>
+</div>
+
+<div>
+  <details><summary><span class='relation'>EVENT</span> (
+    <span title='primary_key (None)' class='primary'>code_event</span>,
+    <span title='normal_attribute (None)' class='normal'>title</span>,
+    <span title='normal_attribute (None)' class='normal'>description</span>,
+    <span title='normal_attribute (None)' class='normal'>opening</span>,
+    <span title='normal_attribute (None)' class='normal'>event_type_code</span>,
+    <span title='normal_attribute (None)' class='normal'>biome_code</span>,
+    <span title='normal_attribute (None)' class='normal'>picture_code</span>,
+    <span title='foreign_key (PICTURE)' class='foreign'>#code picture</span>,
+    <span title='foreign_key (EVENT_TYPE)' class='foreign'>#code_event_type</span>,
+    <span title='foreign_key (BIOME)' class='foreign'>#code_biome</span>
+  )</summary>
+  <ul>
+    <li>Le champ <i>code_event</i> constitue la clé primaire de la table. C'était déjà un identifiant de l'entité <i>EVENT</i>.</li>
+    <li>Les champs <i>title</i>, <i>description</i>, <i>opening</i>, <i>event_type_code</i>, <i>biome_code</i> et <i>picture_code</i> étaient déjà de simples attributs de l'entité <i>EVENT</i>.</li>
+    <li>Le champ <i>code picture</i> est une clé étrangère. Il a migré par l'association de dépendance fonctionnelle <i>HAS PICTURE</i> à partir de l'entité <i>PICTURE</i> en perdant son caractère identifiant.</li>
+    <li>Le champ <i>code_event_type</i> est une clé étrangère. Il a migré par l'association de dépendance fonctionnelle <i>BELONGS TO4</i> à partir de l'entité <i>EVENT_TYPE</i> en perdant son caractère identifiant.</li>
+    <li>Le champ <i>code_biome</i> est une clé étrangère. Il a migré par l'association de dépendance fonctionnelle <i>HAS3</i> à partir de l'entité <i>BIOME</i> en perdant son caractère identifiant.</li>
+  </ul></details>
+</div>
+
+<div>
+  <details><summary><span class='relation'>EVENT_NPC</span> (
+    <span title='primary_foreign_key (NPC)' class='foreign primary'>#code_npc</span>,
+    <span title='primary_foreign_key (EVENT)' class='foreign primary'>#code_event</span>,
+    <span title='association_attribute (None)' class='normal'>event_code</span>,
+    <span title='association_attribute (None)' class='normal'>npc_code</span>
+  )</summary>
+  <ul>
+    <li>Le champ <i>code_npc</i> fait partie de la clé primaire de la table. C'est une clé étrangère qui a migré directement à partir de l'entité <i>NPC</i>.</li>
+    <li>Le champ <i>code_event</i> fait partie de la clé primaire de la table. C'est une clé étrangère qui a migré directement à partir de l'entité <i>EVENT</i>.</li>
+    <li>Les champs <i>event_code</i> et <i>npc_code</i> étaient déjà de simples attributs de l'association <i>EVENT_NPC</i>.</li>
+  </ul></details>
+</div>
+
+<div>
+  <details><summary><span class='relation'>EVENT_TYPE</span> (
+    <span title='primary_key (None)' class='primary'>code_event_type</span>,
+    <span title='normal_attribute (None)' class='normal'>name</span>
+  )</summary>
+  <ul>
+    <li>Le champ <i>code_event_type</i> constitue la clé primaire de la table. C'était déjà un identifiant de l'entité <i>EVENT_TYPE</i>.</li>
+    <li>Le champ <i>name</i> était déjà un simple attribut de l'entité <i>EVENT_TYPE</i>.</li>
+  </ul></details>
+</div>
+
+<div>
+  <details><summary><span class='relation'>HERO</span> (
+    <span title='primary_key (None)' class='primary'>code_hero</span>,
+    <span title='normal_attribute (None)' class='normal'>name</span>,
+    <span title='normal_attribute (None)' class='normal'>max_health</span>,
+    <span title='normal_attribute (None)' class='normal'>health</span>,
+    <span title='normal_attribute (None)' class='normal'>strength</span>,
+    <span title='normal_attribute (None)' class='normal'>intelligence</span>,
+    <span title='normal_attribute (None)' class='normal'>dexterity</span>,
+    <span title='normal_attribute (None)' class='normal'>defense</span>,
+    <span title='normal_attribute (None)' class='normal'>karma</span>,
+    <span title='normal_attribute (None)' class='normal'>xp</span>,
+    <span title='normal_attribute (None)' class='normal'>progress</span>,
+    <span title='normal_attribute (None)' class='normal'>user_code</span>,
+    <span title='normal_attribute (None)' class='normal'>hero_class_code</span>,
+    <span title='normal_attribute (None)' class='normal'>picture_code</span>,
+    <span title='foreign_key (HERO_CLASS)' class='foreign'>#code_hero_class</span>,
+    <span title='foreign_key (USER)' class='foreign'>#code_user</span>,
+    <span title='foreign_key (PICTURE)' class='foreign'>#code picture</span>
+  )</summary>
+  <ul>
+    <li>Le champ <i>code_hero</i> constitue la clé primaire de la table. C'était déjà un identifiant de l'entité <i>HERO</i>.</li>
+    <li>Les champs <i>name</i>, <i>max_health</i>, <i>health</i>, <i>strength</i>, <i>intelligence</i>, <i>dexterity</i>, <i>defense</i>, <i>karma</i>, <i>xp</i>, <i>progress</i>, <i>user_code</i>, <i>hero_class_code</i> et <i>picture_code</i> étaient déjà de simples attributs de l'entité <i>HERO</i>.</li>
+    <li>Le champ <i>code_hero_class</i> est une clé étrangère. Il a migré par l'association de dépendance fonctionnelle <i>BELONGS TO2</i> à partir de l'entité <i>HERO_CLASS</i> en perdant son caractère identifiant.</li>
+    <li>Le champ <i>code_user</i> est une clé étrangère. Il a migré par l'association de dépendance fonctionnelle <i>HAS1</i> à partir de l'entité <i>USER</i> en perdant son caractère identifiant.</li>
+    <li>Le champ <i>code picture</i> est une clé étrangère. Il a migré par l'association de dépendance fonctionnelle <i>HAS PICTURE3</i> à partir de l'entité <i>PICTURE</i> en perdant son caractère identifiant.</li>
+  </ul></details>
+</div>
+
+<div>
+  <details><summary><span class='relation'>HERO_CLASS</span> (
+    <span title='primary_key (None)' class='primary'>code_hero_class</span>,
+    <span title='normal_attribute (None)' class='normal'>name</span>,
+    <span title='normal_attribute (None)' class='normal'>max_health</span>,
+    <span title='normal_attribute (None)' class='normal'>health</span>,
+    <span title='normal_attribute (None)' class='normal'>strength</span>,
+    <span title='normal_attribute (None)' class='normal'>intelligence</span>,
+    <span title='normal_attribute (None)' class='normal'>dexterity</span>,
+    <span title='normal_attribute (None)' class='normal'>defense</span>
+  )</summary>
+  <ul>
+    <li>Le champ <i>code_hero_class</i> constitue la clé primaire de la table. C'était déjà un identifiant de l'entité <i>HERO_CLASS</i>.</li>
+    <li>Les champs <i>name</i>, <i>max_health</i>, <i>health</i>, <i>strength</i>, <i>intelligence</i>, <i>dexterity</i> et <i>defense</i> étaient déjà de simples attributs de l'entité <i>HERO_CLASS</i>.</li>
+  </ul></details>
+</div>
+
+<div>
+  <details><summary><span class='relation'>HERO_EVENT</span> (
+    <span title='primary_foreign_key (HERO)' class='foreign primary'>#code_hero</span>,
+    <span title='primary_foreign_key (EVENT)' class='foreign primary'>#code_event</span>,
+    <span title='association_attribute (None)' class='normal'>event_code</span>,
+    <span title='association_attribute (None)' class='normal'>hero_code</span>
+  )</summary>
+  <ul>
+    <li>Le champ <i>code_hero</i> fait partie de la clé primaire de la table. C'est une clé étrangère qui a migré directement à partir de l'entité <i>HERO</i>.</li>
+    <li>Le champ <i>code_event</i> fait partie de la clé primaire de la table. C'est une clé étrangère qui a migré directement à partir de l'entité <i>EVENT</i>.</li>
+    <li>Les champs <i>event_code</i> et <i>hero_code</i> étaient déjà de simples attributs de l'association <i>HERO_EVENT</i>.</li>
+  </ul></details>
+</div>
+
+<div>
+  <details><summary><span class='relation'>HERO_ITEM</span> (
+    <span title='primary_foreign_key (HERO)' class='foreign primary'>#code_hero</span>,
+    <span title='primary_foreign_key (ITEM)' class='foreign primary'>#code_item</span>,
+    <span title='association_attribute (None)' class='normal'>hero_code</span>,
+    <span title='association_attribute (None)' class='normal'>item_code</span>
+  )</summary>
+  <ul>
+    <li>Le champ <i>code_hero</i> fait partie de la clé primaire de la table. C'est une clé étrangère qui a migré directement à partir de l'entité <i>HERO</i>.</li>
+    <li>Le champ <i>code_item</i> fait partie de la clé primaire de la table. C'est une clé étrangère qui a migré directement à partir de l'entité <i>ITEM</i>.</li>
+    <li>Les champs <i>hero_code</i> et <i>item_code</i> étaient déjà de simples attributs de l'association <i>HERO_ITEM</i>.</li>
+  </ul></details>
+</div>
+
+<div>
+  <details><summary><span class='relation'>ITEM</span> (
+    <span title='primary_key (None)' class='primary'>code_item</span>,
+    <span title='normal_attribute (None)' class='normal'>name</span>,
+    <span title='normal_attribute (None)' class='normal'>health</span>,
+    <span title='normal_attribute (None)' class='normal'>strength</span>,
+    <span title='normal_attribute (None)' class='normal'>intelligence</span>,
+    <span title='normal_attribute (None)' class='normal'>dexterity</span>,
+    <span title='normal_attribute (None)' class='normal'>defense</span>,
+    <span title='normal_attribute (None)' class='normal'>karma</span>,
+    <span title='normal_attribute (None)' class='normal'>xp</span>,
+    <span title='normal_attribute (None)' class='normal'>picture_code</span>,
+    <span title='foreign_key (PICTURE)' class='foreign'>#code picture</span>
+  )</summary>
+  <ul>
+    <li>Le champ <i>code_item</i> constitue la clé primaire de la table. C'était déjà un identifiant de l'entité <i>ITEM</i>.</li>
+    <li>Les champs <i>name</i>, <i>health</i>, <i>strength</i>, <i>intelligence</i>, <i>dexterity</i>, <i>defense</i>, <i>karma</i>, <i>xp</i> et <i>picture_code</i> étaient déjà de simples attributs de l'entité <i>ITEM</i>.</li>
+    <li>Le champ <i>code picture</i> est une clé étrangère. Il a migré par l'association de dépendance fonctionnelle <i>HAS PICTURE4</i> à partir de l'entité <i>PICTURE</i> en perdant son caractère identifiant.</li>
+  </ul></details>
+</div>
+
+<div>
+  <details><summary><span class='relation'>NPC</span> (
+    <span title='primary_key (None)' class='primary'>code_npc</span>,
+    <span title='normal_attribute (None)' class='normal'>name</span>,
+    <span title='normal_attribute (None)' class='normal'>description</span>,
+    <span title='normal_attribute (None)' class='normal'>health</span>,
+    <span title='normal_attribute (None)' class='normal'>strength</span>,
+    <span title='normal_attribute (None)' class='normal'>intelligence</span>,
+    <span title='normal_attribute (None)' class='normal'>dexterity</span>,
+    <span title='normal_attribute (None)' class='normal'>defense</span>,
+    <span title='normal_attribute (None)' class='normal'>karma</span>,
+    <span title='normal_attribute (None)' class='normal'>is_boss</span>,
+    <span title='normal_attribute (None)' class='normal'>hostility</span>,
+    <span title='normal_attribute (None)' class='normal'>xp_earned</span>,
+    <span title='normal_attribute (None)' class='normal'>race_code</span>,
+    <span title='normal_attribute (None)' class='normal'>picture_code</span>,
+    <span title='foreign_key (RACE)' class='foreign'>#code_race</span>,
+    <span title='foreign_key (PICTURE)' class='foreign'>#code picture</span>
+  )</summary>
+  <ul>
+    <li>Le champ <i>code_npc</i> constitue la clé primaire de la table. C'était déjà un identifiant de l'entité <i>NPC</i>.</li>
+    <li>Les champs <i>name</i>, <i>description</i>, <i>health</i>, <i>strength</i>, <i>intelligence</i>, <i>dexterity</i>, <i>defense</i>, <i>karma</i>, <i>is_boss</i>, <i>hostility</i>, <i>xp_earned</i>, <i>race_code</i> et <i>picture_code</i> étaient déjà de simples attributs de l'entité <i>NPC</i>.</li>
+    <li>Le champ <i>code_race</i> est une clé étrangère. Il a migré par l'association de dépendance fonctionnelle <i>BELONGS TO8</i> à partir de l'entité <i>RACE</i> en perdant son caractère identifiant.</li>
+    <li>Le champ <i>code picture</i> est une clé étrangère. Il a migré par l'association de dépendance fonctionnelle <i>HAS PICTURE2</i> à partir de l'entité <i>PICTURE</i> en perdant son caractère identifiant.</li>
+  </ul></details>
+</div>
+
+<div>
+  <details><summary><span class='relation'>NPC_ITEM</span> (
+    <span title='primary_foreign_key (ITEM)' class='foreign primary'>#code_item</span>,
+    <span title='primary_foreign_key (NPC)' class='foreign primary'>#code_npc</span>,
+    <span title='association_attribute (None)' class='normal'>item_code</span>,
+    <span title='association_attribute (None)' class='normal'>npc_code</span>
+  )</summary>
+  <ul>
+    <li>Le champ <i>code_item</i> fait partie de la clé primaire de la table. C'est une clé étrangère qui a migré directement à partir de l'entité <i>ITEM</i>.</li>
+    <li>Le champ <i>code_npc</i> fait partie de la clé primaire de la table. C'est une clé étrangère qui a migré directement à partir de l'entité <i>NPC</i>.</li>
+    <li>Les champs <i>item_code</i> et <i>npc_code</i> étaient déjà de simples attributs de l'association <i>NPC_ITEM</i>.</li>
+  </ul></details>
+</div>
+
+<div>
+  <details><summary><span class='relation'>PICTURE</span> (
+    <span title='primary_key (None)' class='primary'>code picture</span>,
+    <span title='normal_attribute (None)' class='normal'>name</span>,
+    <span title='normal_attribute (None)' class='normal'>base64</span>,
+    <span title='normal_attribute (None)' class='normal'>path</span>
+  )</summary>
+  <ul>
+    <li>Le champ <i>code picture</i> constitue la clé primaire de la table. C'était déjà un identifiant de l'entité <i>PICTURE</i>.</li>
+    <li>Les champs <i>name</i>, <i>base64</i> et <i>path</i> étaient déjà de simples attributs de l'entité <i>PICTURE</i>.</li>
+  </ul></details>
+</div>
+
+<div>
+  <details><summary><span class='relation'>RACE</span> (
+    <span title='primary_key (None)' class='primary'>code_race</span>,
+    <span title='normal_attribute (None)' class='normal'>name</span>,
+    <span title='normal_attribute (None)' class='normal'>description</span>
+  )</summary>
+  <ul>
+    <li>Le champ <i>code_race</i> constitue la clé primaire de la table. C'était déjà un identifiant de l'entité <i>RACE</i>.</li>
+    <li>Les champs <i>name</i> et <i>description</i> étaient déjà de simples attributs de l'entité <i>RACE</i>.</li>
+  </ul></details>
+</div>
+
+<div>
+  <details><summary><span class='relation'>REVIEW</span> (
+    <span title='primary_key (None)' class='primary'>code_review</span>,
+    <span title='normal_attribute (None)' class='normal'>title</span>,
+    <span title='normal_attribute (None)' class='normal'>content</span>,
+    <span title='normal_attribute (None)' class='normal'>rating</span>,
+    <span title='normal_attribute (None)' class='normal'>createdAt</span>,
+    <span title='normal_attribute (None)' class='normal'>updatedAt</span>,
+    <span title='normal_attribute (None)' class='normal'>user_code</span>,
+    <span title='foreign_key (USER)' class='foreign'>#code_user</span>
+  )</summary>
+  <ul>
+    <li>Le champ <i>code_review</i> constitue la clé primaire de la table. C'était déjà un identifiant de l'entité <i>REVIEW</i>.</li>
+    <li>Les champs <i>title</i>, <i>content</i>, <i>rating</i>, <i>createdAt</i>, <i>updatedAt</i> et <i>user_code</i> étaient déjà de simples attributs de l'entité <i>REVIEW</i>.</li>
+    <li>Le champ <i>code_user</i> est une clé étrangère. Il a migré par l'association de dépendance fonctionnelle <i>BELONGS TO1</i> à partir de l'entité <i>USER</i> en perdant son caractère identifiant.</li>
+  </ul></details>
+</div>
+
+<div>
+  <details><summary><span class='relation'>USER</span> (
+    <span title='primary_key (None)' class='primary'>code_user</span>,
+    <span title='normal_attribute (None)' class='normal'>email</span>,
+    <span title='normal_attribute (None)' class='normal'>password</span>,
+    <span title='normal_attribute (None)' class='normal'>role</span>,
+    <span title='normal_attribute (None)' class='normal'>pseudo</span>,
+    <span title='normal_attribute (None)' class='normal'>avatar</span>,
+    <span title='foreign_key (PICTURE)' class='foreign'>#code picture</span>
+  )</summary>
+  <ul>
+    <li>Le champ <i>code_user</i> constitue la clé primaire de la table. C'était déjà un identifiant de l'entité <i>USER</i>.</li>
+    <li>Les champs <i>email</i>, <i>password</i>, <i>role</i>, <i>pseudo</i> et <i>avatar</i> étaient déjà de simples attributs de l'entité <i>USER</i>.</li>
+    <li>Le champ <i>code picture</i> est une clé étrangère. Il a migré par l'association de dépendance fonctionnelle <i>HAS PICTURE1</i> à partir de l'entité <i>PICTURE</i> en perdant son caractère identifiant.</li>
+  </ul></details>
+</div>
+
+</div>
+</body>
+</html>
