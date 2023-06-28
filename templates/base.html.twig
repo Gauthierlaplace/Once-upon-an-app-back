@@ -22,7 +22,7 @@
 	{% if isHome %}
 		<body style='background-image: url("{{ asset("images/back-office-Accueil.png") }}");'>
 	{% elseif isError %}
-		<body style='background-image: url("{{ asset("images/forrestInFire.png") }}");'>
+		<body style='background-image: url("{{ asset("images/forrestInFire.jpg") }}");'>
 	{% else %}
 <body style='background-image: url("{{ asset("images/back-office" ~ random(["-cave", "-grotte"]) ~ ".png") }}");'>
 	{% endif %}
