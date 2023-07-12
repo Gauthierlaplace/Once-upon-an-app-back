@@ -99,8 +99,7 @@ class UserApiController extends CoreApiController
             $user->setPassword($hashedPassword);
         }
         $heroClass = $heroClassRepository->findOneBy(['id' => 2]);
-        $defaultAvatar = $pictureRepository->findOneBy(["name" => 'default-hero-avatar.png']);
-        
+        $defaultAvatar = $pictureRepository->findOneBy(["name" => 'Default Hero Avatar']);
         
         $hero = new Hero();
         $hero->setName($user->getPseudo());
