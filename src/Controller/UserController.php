@@ -2,16 +2,20 @@
 
 namespace App\Controller;
 
+use App\Entity\Hero;
 use App\Entity\User;
 use App\Form\UserEditType;
 use App\Form\UserType;
+use App\Repository\HeroClassRepository;
 use App\Repository\HeroRepository;
+use App\Repository\PictureRepository;
 use App\Repository\ReviewRepository;
 use App\Repository\UserRepository;
 use App\Services\PaginatorService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -25,7 +29,7 @@ class UserController extends AbstractController
      */
     public function index(UserRepository $userRepository, PaginatorService $paginatorService): Response
     {
-        $usersToPaginate = $userRepository->findBy([],['email' => 'ASC']);
+        $usersToPaginate = $userRepository->findBy([], ['email' => 'ASC']);
         $usersPaginated = $paginatorService->paginator($usersToPaginate, 10);
         return $this->render('user/index.html.twig', [
             'users' => $usersPaginated,
@@ -35,7 +39,7 @@ class UserController extends AbstractController
     /**
      * @Route("/new", name="app_user_new", methods={"GET", "POST"})
      */
-    public function new(Request $request, UserRepository $userRepository, UserPasswordHasherInterface $passwordHasher): Response
+    public function new(Request $request, UserRepository $userRepository, UserPasswordHasherInterface $passwordHasher, PictureRepository $pictureRepository, HeroClassRepository $heroClassRepository, HeroRepository $heroRepository): Response
     {
         $user = new User();
         $form = $this->createForm(UserType::class, $user);
@@ -48,7 +52,11 @@ class UserController extends AbstractController
             $existingUser = $userRepository->findOneBy(['email' => $email]);
             if ($existingUser) {
                 $errorMessage = 'Un utilisateur avec le même email existe déjà. Veuillez choisir un email différent.';
-                return new Response($errorMessage, Response::HTTP_BAD_REQUEST);
+                return $this->render('@Twig/Exception/error400.html.twig', [
+                    'status_code' => Response::HTTP_BAD_REQUEST,
+                    'status_text' => 'Bad Request',
+                    'exception' => new BadRequestHttpException($errorMessage),
+                ]);
             }
 
             // On récupère le mot de passe en clair
@@ -62,6 +70,26 @@ class UserController extends AbstractController
 
             // Enregistrer l'utilisateur dans la base de données
             $userRepository->add($user, true);
+
+            $heroClass = $heroClassRepository->findOneBy(['id' => 2]);
+            $defaultAvatar = $pictureRepository->findOneBy(["name" => 'Default Hero Avatar']);
+
+            $hero = new Hero();
+            $hero->setName($user->getPseudo());
+            $hero->setMaxHealth($heroClass->getMaxHealth());
+            $hero->setHealth($heroClass->getHealth());
+            $hero->setStrength($heroClass->getStrength());
+            $hero->setIntelligence($heroClass->getIntelligence());
+            $hero->setDexterity($heroClass->getDexterity());
+            $hero->setDefense($heroClass->getDefense());
+            $hero->setKarma(rand(0, 10));
+            $hero->setXp(0);
+            $hero->setPicture($defaultAvatar)->getName();
+            $hero->setProgress(0);
+            $hero->setHeroClass($heroClass);
+            $hero->setUser($user);
+
+            $heroRepository->add($hero, true);
 
             $this->addFlash("create", "L'utilisateur a bien été créé.");
             return $this->redirectToRoute('app_user_index', [], Response::HTTP_SEE_OTHER);
@@ -100,7 +128,11 @@ class UserController extends AbstractController
             $existingUser = $userRepository->findOneByEmailExceptUser($email, $user);
             if ($existingUser) {
                 $errorMessage = 'Un autre utilisateur avec le même email existe déjà. Veuillez choisir un email différent.';
-                return new Response($errorMessage, Response::HTTP_BAD_REQUEST);
+                return $this->render('@Twig/Exception/error400.html.twig', [
+                    'status_code' => Response::HTTP_BAD_REQUEST,
+                    'status_text' => 'Bad Request',
+                    'exception' => new BadRequestHttpException($errorMessage),
+                ]);
             }
 
             // On récupère le mot de passe en clair

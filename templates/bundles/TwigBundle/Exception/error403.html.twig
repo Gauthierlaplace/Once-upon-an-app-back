@@ -11,13 +11,13 @@
 			<br>
 			{% if is_granted('ROLE_VISITOR') %}
 				<div>
-                <p>Vous êtes déjà connécté à
-					{{ app.user.userIdentifier }}, Cette partie du back office vous est interdit</p>
+                <p>Vous êtes connecté à
+					{{ app.user.userIdentifier }}, cette partie du back office vous est interdite</p>
 					<a class='errorPage btn btn-danger' href="{{ path('app_home') }}">Retour à l'accueil</a>
 				</div>
 			{% else %}
 				<div class="mb-4 ">
-					 <p>Vous êtes déjà connécté à
+					 <p>Vous êtes connecté à
 					{{ app.user.userIdentifier }}, Le back office vous est interdit</p>
 					<a class='btn btn-danger errorPage mx-1' href="{{ path('app_logout') }}">Déconnexion</a>
 				</div>

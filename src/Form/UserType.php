@@ -40,18 +40,10 @@ class UserType extends AbstractType
             ->add('password', RepeatedType::class, [
                 'type' => PasswordType::class,
                 'invalid_message' => 'Les mots de passe doivent correspondre.',
-                'required' => true, // Champ obligatoire
-                'mapped' => true,
                 'first_options' => [
                     'label' => 'Mot de passe',
                     'attr' => [
                         'placeholder' => 'Entrez votre mot de passe'
-                    ],
-                    'constraints' => [
-                        new Regex(
-                            "/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{4,}$/",
-                            "Le mot de passe doit contenir au minimum 4 caractères, une majuscule, un chiffre et un caractère spécial"
-                        ),
                     ],
                 ],
                 'second_options' => [

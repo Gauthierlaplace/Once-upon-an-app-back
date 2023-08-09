@@ -41,18 +41,11 @@ class UserEditType extends AbstractType
             ->add('password', RepeatedType::class, [
                 'type' => PasswordType::class,
                 'invalid_message' => 'Les mots de passe doivent correspondre.',
-                'required' => false,
                 'mapped' => false,
                 'first_options' => [
                     'label' => 'Mot de passe',
                     'attr' => [
                         'placeholder' => 'Laisser vide pour ne pas modifier...'
-                    ],
-                    'constraints' => [
-                        new Regex(
-                            "/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{4,}$/",
-                            "Le mot de passe doit contenir au minimum 4 caractères, une majuscule, un chiffre et un caractère spécial"
-                        ),
                     ],
                 ],
                 'second_options' => [
@@ -61,7 +54,13 @@ class UserEditType extends AbstractType
                         'placeholder' => 'Laisser vide pour ne pas modifier...'
                     ],
                 ],
-            ])
+                'constraints' => [
+                    new Regex(
+                        "/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{4,}$/",
+                        "Le mot de passe doit contenir au moins une majuscule, une minuscule, un chiffre et un caractère spécial."
+                    ),
+                ],
+                ])
 
 
 
