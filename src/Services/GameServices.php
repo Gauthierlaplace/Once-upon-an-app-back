@@ -160,18 +160,18 @@ class GameServices
         // Random des clés de $cleanedEndingsEventA pour en garder 2
         $endingsPicked = array_rand($filteredEndingsEventA, 2);
 
-        // Obtenez les clés du tableau d'origine
+        // On obtient les clés du tableau d'origine
         $endingsPickedKeys = array_keys($endingsPicked);
 
-        // Randomisez l'ordre des clés
+        // Random de l'ordre des clés
         shuffle($endingsPickedKeys);
 
-        // Créez un nouveau tableau
+        // Création d'un nouveau tableau
         $randomizedEndingsPicked = array();
 
-        // Parcourez les clés randomisées
+        // Parcours des clés randomisées
         foreach ($endingsPickedKeys as $endingsPickedKey) {
-            // Assignez les valeurs correspondantes au nouveau tableau
+            // On assigne les valeurs correspondantes au nouveau tableau
             $randomizedEndingsPicked[$endingsPickedKey] = $endingsPicked[$endingsPickedKey];
         }
 

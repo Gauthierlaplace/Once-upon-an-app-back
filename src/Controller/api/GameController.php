@@ -57,7 +57,7 @@ class GameController extends CoreApiController
     ): JsonResponse {
 
         $currentEvent = $eventRepository->find($id);
-         $allCurrentEventData = $gameServices->getAllCurrentEventData($currentEvent);
+        $allCurrentEventData = $gameServices->getAllCurrentEventData($currentEvent);
 
         $arrayNpc = $gameServices->getAllNpcData($currentEvent);
 
