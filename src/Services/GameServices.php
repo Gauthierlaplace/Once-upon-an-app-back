@@ -329,16 +329,16 @@ class GameServices
     /**
      *  Update Hero after Effect applied
      * 
-     * @param array $currentEventId 
-     * @param object $user The Current User
+     * @param mixed $id The id of the effect
+     * @param array $user The Current User
      * 
-     * @return array $hero Return array of the 2 Events to choose
+     * @return array $hero Returns updated $hero
      */
-    public function updateHeroAfterEffect($currentEventId, $user)
+    public function updateHeroAfterEffect($id, $user)
     {
         $hero = $this->heroRepository->findOneBy(["user" => $user->getId()]);
 
-        $effect = $this->effectRepository->findOneBy(['id' => $currentEventId]);
+        $effect = $this->effectRepository->findOneBy(['id' => $id]);
 
         // * Applying Effect to Player ($hero)
         if ($effect->getHealth()) {
