@@ -1,7 +1,7 @@
 {
     "client": "Thunder Client",
     "collectionName": "Adventure RPG [Once Upon An App]",
-    "dateExported": "2023-09-06T23:13:58.226Z",
+    "dateExported": "2023-09-06T23:19:25.817Z",
     "version": "1.1",
     "folders": [
         {
@@ -16,34 +16,6 @@
             "name": "Delete User",
             "containerId": "8b582c78-6dcf-4840-9589-e322d1a3e099",
             "created": "2023-07-09T13:26:58.664Z",
-            "sortNum": 10000
-        },
-        {
-            "_id": "9945af3f-452b-46a8-8869-afd098d5bfda",
-            "name": "Delete User",
-            "containerId": "a74fd29a-7c17-42c0-a5ba-9d235de028bf",
-            "created": "2023-07-09T13:26:58.665Z",
-            "sortNum": 10000
-        },
-        {
-            "_id": "473a6cd6-404c-4ae6-8f95-9971542b9cf3",
-            "name": "JWT Token generation + Data User",
-            "containerId": "6a98bff6-7813-4b0a-a9d5-8d54a7f58764",
-            "created": "2023-07-09T13:26:58.666Z",
-            "sortNum": 10000
-        },
-        {
-            "_id": "4cb6140b-8d22-4688-a736-2d8c978d39f1",
-            "name": "Delete User",
-            "containerId": "af6ff03a-6b62-48aa-af59-4a230ea85f56",
-            "created": "2023-07-09T13:26:58.667Z",
-            "sortNum": 10000
-        },
-        {
-            "_id": "00acf129-6a98-44fb-a0ba-00edaecc78c0",
-            "name": "JWT Token generation + Data User",
-            "containerId": "519a96ec-0945-44d3-8329-fca5c6472a2b",
-            "created": "2023-07-09T13:26:58.668Z",
             "sortNum": 10000
         },
         {
@@ -74,47 +46,6 @@
             "sortNum": 20000
         },
         {
-            "_id": "940b8cf8-9b26-49db-a1dc-e13417ab660a",
-            "name": "Edit User",
-            "containerId": "a74fd29a-7c17-42c0-a5ba-9d235de028bf",
-            "created": "2023-07-09T13:26:58.672Z",
-            "sortNum": 20000
-        },
-        {
-            "_id": "8867a243-6583-4945-b329-8dec3dc1ec85",
-            "name": "Game",
-            "containerId": "6a98bff6-7813-4b0a-a9d5-8d54a7f58764",
-            "created": "2023-07-09T13:26:58.673Z",
-            "sortNum": 20000
-        },
-        {
-            "_id": "d66b6f1a-784d-4950-80a6-256d4ddc6517",
-            "name": "Edit User",
-            "containerId": "af6ff03a-6b62-48aa-af59-4a230ea85f56",
-            "created": "2023-07-09T13:26:58.674Z",
-            "sortNum": 20000
-        },
-        {
-            "_id": "d3529dee-22e4-4704-8746-6542109bcb23",
-            "name": "Game",
-            "containerId": "519a96ec-0945-44d3-8329-fca5c6472a2b",
-            "created": "2023-07-09T13:26:58.675Z",
-            "sortNum": 20000
-        },
-        {
-            "_id": "6a98bff6-7813-4b0a-a9d5-8d54a7f58764",
-            "name": "Adventure RPG VPN Pierre",
-            "containerId": "",
-            "created": "2023-07-09T13:26:58.676Z",
-            "sortNum": 20000,
-            "settings": {
-                "auth": {
-                    "type": "bearer",
-                    "bearer": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpYXQiOjE2ODc3NjcxMjksImV4cCI6MTY4NzgzMTkyOSwicm9sZXMiOlsiUk9MRV9QTEFZRVIiLCJST0xFX0FETUlOIl0sInVzZXJuYW1lIjoicGllcnJlQGFkbWluLmZyIn0.cB5Ho6NRqTsSnRsqgdC_rRe-4zupzlu25ySga03-jiU9UbfuhPV33cI6E1PU1W5LNCcDVPro8KqvilmnnYb4VR0sZ5cyR2nOE_uf5lRDBQiwUdUnD3MxsjKQxWr1o6V7It3OyZCBMFMfAAlfnUC_pmMZHXZ3YZkpsqctmk5s73ex-_icRS_R5twx1BoJHQlGnNSD9ogvhV2EMZuC1CjJmaAtH2-C3pjPXwNZvmtP1DRRM_ZBSScK9luC28clz5OcE3M0xZazpNrvhUjXupTdrSTL4-Vb7W14jdZHiGU4DMv4Sp50BoLiQRfT15l_hnoO9f388AjRCXNijlZyr1XcuA"
-                }
-            }
-        },
-        {
             "_id": "1ab2d048-375b-483c-b696-6bf1127cab25",
             "name": "Register USER",
             "containerId": "8b582c78-6dcf-4840-9589-e322d1a3e099",
@@ -129,59 +60,10 @@
             "sortNum": 30000
         },
         {
-            "_id": "89a227f6-4a51-4bbc-8d5c-54e8b19f8574",
-            "name": "Add User",
-            "containerId": "a74fd29a-7c17-42c0-a5ba-9d235de028bf",
-            "created": "2023-07-09T13:26:58.679Z",
-            "sortNum": 30000
-        },
-        {
-            "_id": "a74fd29a-7c17-42c0-a5ba-9d235de028bf",
-            "name": "User",
-            "containerId": "6a98bff6-7813-4b0a-a9d5-8d54a7f58764",
-            "created": "2023-07-09T13:26:58.680Z",
-            "sortNum": 30000
-        },
-        {
-            "_id": "bb501550-cb43-4d80-9a6b-fab0fdfac50d",
-            "name": "Add User",
-            "containerId": "af6ff03a-6b62-48aa-af59-4a230ea85f56",
-            "created": "2023-07-09T13:26:58.681Z",
-            "sortNum": 30000
-        },
-        {
-            "_id": "af6ff03a-6b62-48aa-af59-4a230ea85f56",
-            "name": "User",
-            "containerId": "519a96ec-0945-44d3-8329-fca5c6472a2b",
-            "created": "2023-07-09T13:26:58.682Z",
-            "sortNum": 30000
-        },
-        {
             "_id": "f157ebfb-a231-4441-803e-2895a78f0274",
             "name": "Read currentUser",
             "containerId": "8b582c78-6dcf-4840-9589-e322d1a3e099",
             "created": "2023-07-09T13:26:58.683Z",
-            "sortNum": 40000
-        },
-        {
-            "_id": "d204c807-c8b6-4a7b-87b3-b778182c5087",
-            "name": "Read currentUser",
-            "containerId": "a74fd29a-7c17-42c0-a5ba-9d235de028bf",
-            "created": "2023-07-09T13:26:58.684Z",
-            "sortNum": 40000
-        },
-        {
-            "_id": "abc555b9-6382-45a1-ba3b-9700cd02a3c0",
-            "name": "Read currentUser",
-            "containerId": "af6ff03a-6b62-48aa-af59-4a230ea85f56",
-            "created": "2023-07-09T13:26:58.685Z",
-            "sortNum": 40000
-        },
-        {
-            "_id": "519a96ec-0945-44d3-8329-fca5c6472a2b",
-            "name": "Adventure RPG VPN Anthony",
-            "containerId": "",
-            "created": "2023-07-09T13:26:58.686Z",
             "sortNum": 40000
         },
         {
@@ -287,210 +169,6 @@
             "tests": []
         },
         {
-            "_id": "4d08b29f-90dd-4dc7-bf3b-f73b8322a8ec",
-            "colId": "06e4c970-b295-4733-beee-a80e59d96237",
-            "containerId": "473a6cd6-404c-4ae6-8f95-9971542b9cf3",
-            "name": "JWT Token generation for Pierre",
-            "url": "http://pierre-salhab.vpnuser.lan:8082/api/login_check",
-            "method": "GET",
-            "sortNum": 10000,
-            "created": "2023-07-09T13:26:58.668Z",
-            "modified": "2023-07-09T13:26:58.668Z",
-            "headers": [],
-            "params": [],
-            "body": {
-                "type": "json",
-                "raw": "{\n  \"username\" : \"aaa@aaa.fr\",\n  \"password\" : \"Aa1!\"\n}",
-                "form": []
-            },
-            "tests": []
-        },
-        {
-            "_id": "ada6d9ea-9662-48cd-b0a7-57d623e284ac",
-            "colId": "06e4c970-b295-4733-beee-a80e59d96237",
-            "containerId": "89a227f6-4a51-4bbc-8d5c-54e8b19f8574",
-            "name": "http://localhost:8000/api/users",
-            "url": "http://pierre-salhab.vpnuser.lan:8082/api/users",
-            "method": "POST",
-            "sortNum": 10000,
-            "created": "2023-07-09T13:26:58.669Z",
-            "modified": "2023-07-09T13:26:58.669Z",
-            "headers": [],
-            "params": [],
-            "body": {
-                "type": "json",
-                "raw": "{\n  \"email\": \"aaa@aaaa.fr\", \n  \"password\" : \"Bb1!\",\n  \"pseudo\": \"test\",\n  \"avatar\": \"images/avatar22.png\"\n}\n",
-                "form": []
-            },
-            "tests": []
-        },
-        {
-            "_id": "238bd30b-e3c8-4597-a4ba-eb940b099def",
-            "colId": "06e4c970-b295-4733-beee-a80e59d96237",
-            "containerId": "940b8cf8-9b26-49db-a1dc-e13417ab660a",
-            "name": "Edit User with Edit Password",
-            "url": "http://pierre-salhab.vpnuser.lan:8082/api/users/67",
-            "method": "PUT",
-            "sortNum": 10000,
-            "created": "2023-07-09T13:26:58.670Z",
-            "modified": "2023-07-09T13:26:58.670Z",
-            "headers": [],
-            "params": [],
-            "body": {
-                "type": "json",
-                "raw": "{\n  \"email\": \"aaa@aaaa.fr\", \n  \"password\" : \"Aa1!\",\n  \"pseudo\": \"test\",\n  \"avatar\": \"images/avatar22.png\"\n}\n",
-                "form": []
-            },
-            "auth": {
-                "type": "bearer",
-                "bearer": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpYXQiOjE2ODc3NzA0NzQsImV4cCI6MTY4NzgzNTI3NCwicm9sZXMiOlsiUk9MRV9QTEFZRVIiXSwidXNlcm5hbWUiOiJhYWFAYWFhLmZyIn0.D_OGj4JO_yprrRM_I2hAfMjKVhc2ENVcGyZDblyDgyXushPTnPs_QAa0ghaHq1spUt_2-uV9lOl2XZ44Kcaf_jgdqQ__aremZj3aXdnA_WiDRllnf4ztfg9HYET2JEKeeBCQldLz_f4RZ5eEXsJTd-fRBLT3dPnSPTR3MQbZkudDTYfqfWOvW0kCMFPAqbOkiEXcJ85oUtQ2794xugkAXVgUrWSk3zKa_wAZEXMOOd5Zy0MxdofJ-ANXnRI6tevj8X5Xm7WF2sGrP3gorn2-fL7d1xbMKF-UdoBUnrvWOx1e85fCWkjz5F8JhvxlCFjW5RS7Mt6FxYk5KewrJUJ_mg"
-            },
-            "tests": []
-        },
-        {
-            "_id": "c6c12c73-6131-4897-9f35-c65deb565ce7",
-            "colId": "06e4c970-b295-4733-beee-a80e59d96237",
-            "containerId": "9945af3f-452b-46a8-8869-afd098d5bfda",
-            "name": "http://localhost:8000/api/users/26",
-            "url": "http://pierre-salhab.vpnuser.lan:8082/api/users/59",
-            "method": "DELETE",
-            "sortNum": 10000,
-            "created": "2023-07-09T13:26:58.671Z",
-            "modified": "2023-07-09T13:26:58.671Z",
-            "headers": [],
-            "params": [],
-            "auth": {
-                "type": "bearer",
-                "bearer": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpYXQiOjE2ODc3Njk3NTMsImV4cCI6MTY4NzgzNDU1Mywicm9sZXMiOlsiUk9MRV9QTEFZRVIiXSwidXNlcm5hbWUiOiJhYWFAYWFhLmZyIn0.naIZheE0z1gTAq2HqQxbFfiyfLkCQzkJtUymoG_poROLScX5djzgimBqLYSe6yugue12KYtcicFihjuA6d_lNrF6rKA5wF2m8sYv7RoiOEKhsgW8nJbmzeC8HHnGoJKZb4Ak528Vp7FmX5WWlz8d4EIYjdlOq93An7Ic-84aHKf2fhpNs6SQE6STI5tQ7gaWoWi3oFChupQLIuGZqE4gqcFJlAbOp1JzQv9cqi2AtGYcn5q0syflv4C4DNTCHOqRqnRipgNL7Wt3QOJFmj5VpTYIE_bSW7nsklC3JTo2TJKVntFJGxNfCPprwkrWMjK-uEhotHMPvPq4WtGosD6oRg"
-            },
-            "tests": []
-        },
-        {
-            "_id": "739bee23-2586-42bb-b277-82c9fffa8667",
-            "colId": "06e4c970-b295-4733-beee-a80e59d96237",
-            "containerId": "8867a243-6583-4945-b329-8dec3dc1ec85",
-            "name": "Btn Play",
-            "url": "http://pierre-salhab.vpnuser.lan:8082/api/play",
-            "method": "GET",
-            "sortNum": 10000,
-            "created": "2023-07-09T13:26:58.673Z",
-            "modified": "2023-07-09T13:26:58.673Z",
-            "headers": [],
-            "params": [],
-            "tests": []
-        },
-        {
-            "_id": "445ebd0f-f9e0-49f6-90b0-833c91485084",
-            "colId": "06e4c970-b295-4733-beee-a80e59d96237",
-            "containerId": "00acf129-6a98-44fb-a0ba-00edaecc78c0",
-            "name": "JWT Token generation for Anthony",
-            "url": "http://onceuponanapp.fr/api/login_check",
-            "method": "GET",
-            "sortNum": 10000,
-            "created": "2023-07-09T13:26:58.674Z",
-            "modified": "2023-07-18T11:32:24.808Z",
-            "headers": [],
-            "params": [],
-            "body": {
-                "type": "json",
-                "raw": "{\n  \"username\" : \"anthony.boutherin@gmail.com\",\n  \"password\" : \"Fr120385!!!\"\n}",
-                "form": []
-            },
-            "tests": []
-        },
-        {
-            "_id": "a17b8a3b-e2cf-44d3-bc36-c1aa9ee26e25",
-            "colId": "06e4c970-b295-4733-beee-a80e59d96237",
-            "containerId": "bb501550-cb43-4d80-9a6b-fab0fdfac50d",
-            "name": "http://localhost:8000/api/users",
-            "url": "http://anthony-boutherin.vpnuser.lan:8000/api/users",
-            "method": "POST",
-            "sortNum": 10000,
-            "created": "2023-07-09T13:26:58.675Z",
-            "modified": "2023-07-09T13:26:58.675Z",
-            "headers": [],
-            "params": [],
-            "body": {
-                "type": "json",
-                "raw": "{\n  \"email\": \"antho@player.com\", \n  \"roles\": [\"ROLE_PLAYER\"],\n  \"password\": \"Aa1!\",\n  \"pseudo\": \"antho\",\n  \"avatar\": \"\"\n}\n",
-                "form": []
-            },
-            "tests": []
-        },
-        {
-            "_id": "f0d02701-4daf-4eb1-b80a-53779c61cb98",
-            "colId": "06e4c970-b295-4733-beee-a80e59d96237",
-            "containerId": "abc555b9-6382-45a1-ba3b-9700cd02a3c0",
-            "name": "User detail from JWT Token",
-            "url": "http://anthony-boutherin.vpnuser.lan:8000/api/users/details",
-            "method": "GET",
-            "sortNum": 10000,
-            "created": "2023-07-09T13:26:58.676Z",
-            "modified": "2023-07-09T13:26:58.676Z",
-            "headers": [],
-            "params": [],
-            "auth": {
-                "type": "bearer",
-                "bearer": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpYXQiOjE2ODY4MTI4ODAsImV4cCI6MTY4Njg3NzY4MCwicm9sZXMiOlsiUk9MRV9BRE1JTiIsIlJPTEVfUExBWUVSIl0sInVzZXJuYW1lIjoiYW50aG9ueUBhZG1pbi5jb20ifQ.jxZ7cBc8GUXYfn_kADTKB6Oh0jNp2hlPw7-mu_bRKWL4_HwF6J7oLo5lyNgH-TObnRVCH7t_uFLD-UWxuL3sZckKR34SwvSmjgXa9VZPUEUXIeKdFKLKvbE0irzDI3M_CxpxDzQif2UcMCa-AqIRBviGGzP5DC12HGcOn0djWW2h_l_uTCfwaoQb7r4r5YMho2xu9wnyvq_PF8UmHNMVbdPeBpIEAo50F4Xi3f76wO_zlwTUSl-2nuUnl_kSBxcVWRm1rLO1CN2bgTDHBNX440f9zFmCloSpo0KeKysSiUt4E-rZiM_2xC6WpVSK1SdRDSqOHXHQICJ3ds1k2LcV_w"
-            },
-            "tests": []
-        },
-        {
-            "_id": "3d3636e9-eb49-4218-84b8-249040072cc5",
-            "colId": "06e4c970-b295-4733-beee-a80e59d96237",
-            "containerId": "d66b6f1a-784d-4950-80a6-256d4ddc6517",
-            "name": "Edit User with Edit Password",
-            "url": "http://anthony-boutherin.vpnuser.lan:8000/api/users/27",
-            "method": "PUT",
-            "sortNum": 10000,
-            "created": "2023-07-09T13:26:58.677Z",
-            "modified": "2023-07-09T13:26:58.677Z",
-            "headers": [],
-            "params": [],
-            "body": {
-                "type": "json",
-                "raw": "{\n  \"email\": \"antho@player.com\", \n  \"roles\": [\"ROLE_PLAYER\"],\n  \"password\":\"Bb1!\",\n  \"pseudo\": \"Anthony\",\n  \"avatar\": \"\"\n}\n",
-                "form": []
-            },
-            "auth": {
-                "type": "bearer",
-                "bearer": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpYXQiOjE2ODY4MTI4ODAsImV4cCI6MTY4Njg3NzY4MCwicm9sZXMiOlsiUk9MRV9BRE1JTiIsIlJPTEVfUExBWUVSIl0sInVzZXJuYW1lIjoiYW50aG9ueUBhZG1pbi5jb20ifQ.jxZ7cBc8GUXYfn_kADTKB6Oh0jNp2hlPw7-mu_bRKWL4_HwF6J7oLo5lyNgH-TObnRVCH7t_uFLD-UWxuL3sZckKR34SwvSmjgXa9VZPUEUXIeKdFKLKvbE0irzDI3M_CxpxDzQif2UcMCa-AqIRBviGGzP5DC12HGcOn0djWW2h_l_uTCfwaoQb7r4r5YMho2xu9wnyvq_PF8UmHNMVbdPeBpIEAo50F4Xi3f76wO_zlwTUSl-2nuUnl_kSBxcVWRm1rLO1CN2bgTDHBNX440f9zFmCloSpo0KeKysSiUt4E-rZiM_2xC6WpVSK1SdRDSqOHXHQICJ3ds1k2LcV_w"
-            },
-            "tests": []
-        },
-        {
-            "_id": "382bdb8a-4315-4e0d-91e6-92cc845e63fb",
-            "colId": "06e4c970-b295-4733-beee-a80e59d96237",
-            "containerId": "4cb6140b-8d22-4688-a736-2d8c978d39f1",
-            "name": "http://localhost:8000/api/users/26",
-            "url": "http://anthony-boutherin.vpnuser.lan:8000/api/users/26",
-            "method": "DELETE",
-            "sortNum": 10000,
-            "created": "2023-07-09T13:26:58.678Z",
-            "modified": "2023-07-09T13:26:58.678Z",
-            "headers": [],
-            "params": [],
-            "auth": {
-                "type": "bearer",
-                "bearer": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpYXQiOjE2ODY4MTI4ODAsImV4cCI6MTY4Njg3NzY4MCwicm9sZXMiOlsiUk9MRV9BRE1JTiIsIlJPTEVfUExBWUVSIl0sInVzZXJuYW1lIjoiYW50aG9ueUBhZG1pbi5jb20ifQ.jxZ7cBc8GUXYfn_kADTKB6Oh0jNp2hlPw7-mu_bRKWL4_HwF6J7oLo5lyNgH-TObnRVCH7t_uFLD-UWxuL3sZckKR34SwvSmjgXa9VZPUEUXIeKdFKLKvbE0irzDI3M_CxpxDzQif2UcMCa-AqIRBviGGzP5DC12HGcOn0djWW2h_l_uTCfwaoQb7r4r5YMho2xu9wnyvq_PF8UmHNMVbdPeBpIEAo50F4Xi3f76wO_zlwTUSl-2nuUnl_kSBxcVWRm1rLO1CN2bgTDHBNX440f9zFmCloSpo0KeKysSiUt4E-rZiM_2xC6WpVSK1SdRDSqOHXHQICJ3ds1k2LcV_w"
-            },
-            "tests": []
-        },
-        {
-            "_id": "1a2bf9f7-c1cc-4442-af6f-817bd1b33c4d",
-            "colId": "06e4c970-b295-4733-beee-a80e59d96237",
-            "containerId": "d3529dee-22e4-4704-8746-6542109bcb23",
-            "name": "Btn Play",
-            "url": "http://anthony-boutherin.vpnuser.lan:8000/api/play",
-            "method": "GET",
-            "sortNum": 10000,
-            "created": "2023-07-09T13:26:58.679Z",
-            "modified": "2023-07-09T13:26:58.679Z",
-            "headers": [],
-            "params": [],
-            "tests": []
-        },
-        {
             "_id": "f1201b4b-f71b-4883-9628-b70ababb5639",
             "colId": "06e4c970-b295-4733-beee-a80e59d96237",
             "containerId": "10d8d197-f01b-48e9-9260-acaa4b765f73",
@@ -561,132 +239,6 @@
             "tests": []
         },
         {
-            "_id": "fc91c51d-c558-4578-8f3c-4772c223a9d9",
-            "colId": "06e4c970-b295-4733-beee-a80e59d96237",
-            "containerId": "473a6cd6-404c-4ae6-8f95-9971542b9cf3",
-            "name": "JWT Token generation for Player",
-            "url": "http://pierre-salhab.vpnuser.lan:8082/api/login_check",
-            "method": "GET",
-            "sortNum": 20000,
-            "created": "2023-07-09T13:26:58.684Z",
-            "modified": "2023-07-09T13:26:58.684Z",
-            "headers": [],
-            "params": [],
-            "body": {
-                "type": "json",
-                "raw": "{\n  \"username\" : \"player@player.com\",\n  \"password\" : \"player\"\n}",
-                "form": []
-            },
-            "tests": []
-        },
-        {
-            "_id": "2122ac9d-bf06-4130-a4f7-c6d5deef6772",
-            "colId": "06e4c970-b295-4733-beee-a80e59d96237",
-            "containerId": "d204c807-c8b6-4a7b-87b3-b778182c5087",
-            "name": "User detail from JWT Token",
-            "url": "http://pierre-salhab.vpnuser.lan:8082/api/users/details",
-            "method": "GET",
-            "sortNum": 20000,
-            "created": "2023-07-09T13:26:58.685Z",
-            "modified": "2023-07-09T13:26:58.685Z",
-            "headers": [],
-            "params": [],
-            "tests": []
-        },
-        {
-            "_id": "909f340c-e960-4153-b4e5-8f15e140cba1",
-            "colId": "06e4c970-b295-4733-beee-a80e59d96237",
-            "containerId": "940b8cf8-9b26-49db-a1dc-e13417ab660a",
-            "name": "Edit User without Password",
-            "url": "http://pierre-salhab.vpnuser.lan:8082/api/users/27",
-            "method": "PUT",
-            "sortNum": 20000,
-            "created": "2023-07-09T13:26:58.686Z",
-            "modified": "2023-07-09T13:26:58.686Z",
-            "headers": [],
-            "params": [],
-            "body": {
-                "type": "json",
-                "raw": "{\n  \"email\": \"antho@player.com\", \n  \"roles\": [\"ROLE_PLAYER\"],\n  \"pseudo\": \"Anthony\",\n  \"avatar\": \"\"\n}\n",
-                "form": []
-            },
-            "auth": {
-                "type": "bearer",
-                "bearer": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpYXQiOjE2ODY4MTI4ODAsImV4cCI6MTY4Njg3NzY4MCwicm9sZXMiOlsiUk9MRV9BRE1JTiIsIlJPTEVfUExBWUVSIl0sInVzZXJuYW1lIjoiYW50aG9ueUBhZG1pbi5jb20ifQ.jxZ7cBc8GUXYfn_kADTKB6Oh0jNp2hlPw7-mu_bRKWL4_HwF6J7oLo5lyNgH-TObnRVCH7t_uFLD-UWxuL3sZckKR34SwvSmjgXa9VZPUEUXIeKdFKLKvbE0irzDI3M_CxpxDzQif2UcMCa-AqIRBviGGzP5DC12HGcOn0djWW2h_l_uTCfwaoQb7r4r5YMho2xu9wnyvq_PF8UmHNMVbdPeBpIEAo50F4Xi3f76wO_zlwTUSl-2nuUnl_kSBxcVWRm1rLO1CN2bgTDHBNX440f9zFmCloSpo0KeKysSiUt4E-rZiM_2xC6WpVSK1SdRDSqOHXHQICJ3ds1k2LcV_w"
-            },
-            "tests": []
-        },
-        {
-            "_id": "65de24d4-aaa1-44f5-97af-f6291be3ee67",
-            "colId": "06e4c970-b295-4733-beee-a80e59d96237",
-            "containerId": "8867a243-6583-4945-b329-8dec3dc1ec85",
-            "name": "Event Roll",
-            "url": "http://pierre-salhab.vpnuser.lan:8082/api/event/roll/9",
-            "method": "GET",
-            "sortNum": 20000,
-            "created": "2023-07-09T13:26:58.687Z",
-            "modified": "2023-07-09T13:26:58.687Z",
-            "headers": [],
-            "params": [],
-            "tests": []
-        },
-        {
-            "_id": "ae40d64f-6553-4f3a-9060-73310f93483b",
-            "colId": "06e4c970-b295-4733-beee-a80e59d96237",
-            "containerId": "00acf129-6a98-44fb-a0ba-00edaecc78c0",
-            "name": "JWT Token generation for Player",
-            "url": "http://onceuponanapp.fr/api/login_check",
-            "method": "GET",
-            "sortNum": 20000,
-            "created": "2023-07-09T13:26:58.688Z",
-            "modified": "2023-07-18T11:43:27.134Z",
-            "headers": [],
-            "params": [],
-            "body": {
-                "type": "json",
-                "raw": "{\n  \"username\" : \"player@player.com\",\n  \"password\" : \"player\"\n}",
-                "form": []
-            },
-            "tests": []
-        },
-        {
-            "_id": "bdae40cc-bfaa-4396-8508-244177954f63",
-            "colId": "06e4c970-b295-4733-beee-a80e59d96237",
-            "containerId": "d66b6f1a-784d-4950-80a6-256d4ddc6517",
-            "name": "Edit User without Password",
-            "url": "http://anthony-boutherin.vpnuser.lan:8000/api/users/27",
-            "method": "PUT",
-            "sortNum": 20000,
-            "created": "2023-07-09T13:26:58.689Z",
-            "modified": "2023-07-09T13:26:58.689Z",
-            "headers": [],
-            "params": [],
-            "body": {
-                "type": "json",
-                "raw": "{\n  \"email\": \"antho@player.com\", \n  \"roles\": [\"ROLE_PLAYER\"],\n  \"pseudo\": \"Anthony\",\n  \"avatar\": \"\"\n}\n",
-                "form": []
-            },
-            "auth": {
-                "type": "bearer",
-                "bearer": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpYXQiOjE2ODY4MTI4ODAsImV4cCI6MTY4Njg3NzY4MCwicm9sZXMiOlsiUk9MRV9BRE1JTiIsIlJPTEVfUExBWUVSIl0sInVzZXJuYW1lIjoiYW50aG9ueUBhZG1pbi5jb20ifQ.jxZ7cBc8GUXYfn_kADTKB6Oh0jNp2hlPw7-mu_bRKWL4_HwF6J7oLo5lyNgH-TObnRVCH7t_uFLD-UWxuL3sZckKR34SwvSmjgXa9VZPUEUXIeKdFKLKvbE0irzDI3M_CxpxDzQif2UcMCa-AqIRBviGGzP5DC12HGcOn0djWW2h_l_uTCfwaoQb7r4r5YMho2xu9wnyvq_PF8UmHNMVbdPeBpIEAo50F4Xi3f76wO_zlwTUSl-2nuUnl_kSBxcVWRm1rLO1CN2bgTDHBNX440f9zFmCloSpo0KeKysSiUt4E-rZiM_2xC6WpVSK1SdRDSqOHXHQICJ3ds1k2LcV_w"
-            },
-            "tests": []
-        },
-        {
-            "_id": "45ddb19e-a2c4-4620-847c-25d1e1d6b3c4",
-            "colId": "06e4c970-b295-4733-beee-a80e59d96237",
-            "containerId": "d3529dee-22e4-4704-8746-6542109bcb23",
-            "name": "Event Roll",
-            "url": "http://anthony-boutherin.vpnuser.lan:8000/api/event/roll/9",
-            "method": "GET",
-            "sortNum": 20000,
-            "created": "2023-07-09T13:26:58.690Z",
-            "modified": "2023-07-09T13:26:58.690Z",
-            "headers": [],
-            "params": [],
-            "tests": []
-        },
-        {
             "_id": "40636cf0-4041-4177-a32f-f09914b76377",
             "colId": "06e4c970-b295-4733-beee-a80e59d96237",
             "containerId": "c35f05d9-21b4-462e-a11c-af0b8691572b",
@@ -696,34 +248,6 @@
             "sortNum": 30000,
             "created": "2023-07-09T13:26:58.691Z",
             "modified": "2023-07-09T13:47:00.926Z",
-            "headers": [],
-            "params": [],
-            "tests": []
-        },
-        {
-            "_id": "c22d90ee-40bc-4426-896d-e92b1e261942",
-            "colId": "06e4c970-b295-4733-beee-a80e59d96237",
-            "containerId": "8867a243-6583-4945-b329-8dec3dc1ec85",
-            "name": "Last Event with [2 Opening and 2 Id] Boss",
-            "url": "http://pierre-salhab.vpnuser.lan:8082/api/event/last/4",
-            "method": "GET",
-            "sortNum": 30000,
-            "created": "2023-07-09T13:26:58.692Z",
-            "modified": "2023-07-09T13:26:58.692Z",
-            "headers": [],
-            "params": [],
-            "tests": []
-        },
-        {
-            "_id": "ffdb8bd7-7e29-49ea-9222-87c69b03d988",
-            "colId": "06e4c970-b295-4733-beee-a80e59d96237",
-            "containerId": "d3529dee-22e4-4704-8746-6542109bcb23",
-            "name": "Last Event with [2 Opening and 2 Id] Boss",
-            "url": "http://anthony-boutherin.vpnuser.lan:8000/api/event/last/4",
-            "method": "GET",
-            "sortNum": 30000,
-            "created": "2023-07-09T13:26:58.693Z",
-            "modified": "2023-07-09T13:26:58.693Z",
             "headers": [],
             "params": [],
             "tests": []
@@ -743,34 +267,6 @@
             "tests": []
         },
         {
-            "_id": "6337eee2-e6a8-4252-af28-26a7d6701f9b",
-            "colId": "06e4c970-b295-4733-beee-a80e59d96237",
-            "containerId": "8867a243-6583-4945-b329-8dec3dc1ec85",
-            "name": "Event Boss with [Opening and Id] de Fin de Biome",
-            "url": "http://pierre-salhab.vpnuser.lan:8082/api/event/boss/11",
-            "method": "GET",
-            "sortNum": 40000,
-            "created": "2023-07-09T13:26:58.695Z",
-            "modified": "2023-07-09T13:26:58.695Z",
-            "headers": [],
-            "params": [],
-            "tests": []
-        },
-        {
-            "_id": "316ecbaa-2f7d-4ae7-aa8f-680c756f043a",
-            "colId": "06e4c970-b295-4733-beee-a80e59d96237",
-            "containerId": "d3529dee-22e4-4704-8746-6542109bcb23",
-            "name": "Event Boss with [Opening and Id] de Fin de Biome",
-            "url": "http://anthony-boutherin.vpnuser.lan:8000/api/event/boss/11",
-            "method": "GET",
-            "sortNum": 40000,
-            "created": "2023-07-09T13:26:58.696Z",
-            "modified": "2023-07-09T13:26:58.696Z",
-            "headers": [],
-            "params": [],
-            "tests": []
-        },
-        {
             "_id": "44b670f6-14e5-41b3-80fd-4069bd33cf28",
             "colId": "06e4c970-b295-4733-beee-a80e59d96237",
             "containerId": "c35f05d9-21b4-462e-a11c-af0b8691572b",
@@ -780,34 +276,6 @@
             "sortNum": 50000,
             "created": "2023-07-09T13:26:58.697Z",
             "modified": "2023-07-09T13:26:58.697Z",
-            "headers": [],
-            "params": [],
-            "tests": []
-        },
-        {
-            "_id": "0287ded6-4d1b-4574-8774-f784e10c476a",
-            "colId": "06e4c970-b295-4733-beee-a80e59d96237",
-            "containerId": "8867a243-6583-4945-b329-8dec3dc1ec85",
-            "name": "Event EndBiome with [Opening and Id] de EndGame Event",
-            "url": "http://pierre-salhab.vpnuser.lan:8082/api/event/end/3",
-            "method": "GET",
-            "sortNum": 50000,
-            "created": "2023-07-09T13:26:58.698Z",
-            "modified": "2023-07-09T13:26:58.698Z",
-            "headers": [],
-            "params": [],
-            "tests": []
-        },
-        {
-            "_id": "37d340db-a197-467c-8113-e26907afe966",
-            "colId": "06e4c970-b295-4733-beee-a80e59d96237",
-            "containerId": "d3529dee-22e4-4704-8746-6542109bcb23",
-            "name": "Event EndBiome with [Opening and Id] de EndGame Event",
-            "url": "http://anthony-boutherin.vpnuser.lan:8000/api/event/end/3",
-            "method": "GET",
-            "sortNum": 50000,
-            "created": "2023-07-09T13:26:58.699Z",
-            "modified": "2023-07-09T13:26:58.699Z",
             "headers": [],
             "params": [],
             "tests": []
@@ -827,34 +295,6 @@
             "tests": []
         },
         {
-            "_id": "962fc88d-d408-49e1-92a9-c23dcf5cf628",
-            "colId": "06e4c970-b295-4733-beee-a80e59d96237",
-            "containerId": "8867a243-6583-4945-b329-8dec3dc1ec85",
-            "name": "Event ENDGAME Victory",
-            "url": "http://pierre-salhab.vpnuser.lan:8082/api/event/victory/3",
-            "method": "GET",
-            "sortNum": 60000,
-            "created": "2023-07-09T13:26:58.701Z",
-            "modified": "2023-07-09T13:26:58.701Z",
-            "headers": [],
-            "params": [],
-            "tests": []
-        },
-        {
-            "_id": "0effe8dc-d9c6-45c5-9dcb-8ab0237544b2",
-            "colId": "06e4c970-b295-4733-beee-a80e59d96237",
-            "containerId": "d3529dee-22e4-4704-8746-6542109bcb23",
-            "name": "Event ENDGAME Victory",
-            "url": "http://anthony-boutherin.vpnuser.lan:8000/api/event/victory/3",
-            "method": "GET",
-            "sortNum": 60000,
-            "created": "2023-07-09T13:26:58.702Z",
-            "modified": "2023-07-09T13:26:58.702Z",
-            "headers": [],
-            "params": [],
-            "tests": []
-        },
-        {
             "_id": "5e4eddf1-4467-4a0b-970f-26b1b69a5df2",
             "colId": "06e4c970-b295-4733-beee-a80e59d96237",
             "containerId": "c35f05d9-21b4-462e-a11c-af0b8691572b",
@@ -864,62 +304,6 @@
             "sortNum": 80000,
             "created": "2023-07-09T13:26:58.703Z",
             "modified": "2023-07-09T13:48:12.047Z",
-            "headers": [],
-            "params": [],
-            "tests": []
-        },
-        {
-            "_id": "a0887ca1-daff-4f25-b36f-b7477f401ce6",
-            "colId": "06e4c970-b295-4733-beee-a80e59d96237",
-            "containerId": "8867a243-6583-4945-b329-8dec3dc1ec85",
-            "name": "Effect",
-            "url": "http://pierre-salhab.vpnuser.lan:8082/api/event/effect/2",
-            "method": "GET",
-            "sortNum": 80000,
-            "created": "2023-07-09T13:26:58.704Z",
-            "modified": "2023-07-09T13:26:58.704Z",
-            "headers": [],
-            "params": [],
-            "tests": []
-        },
-        {
-            "_id": "08b9da6c-92f8-4c44-8fab-7dbe69f51331",
-            "colId": "06e4c970-b295-4733-beee-a80e59d96237",
-            "containerId": "d3529dee-22e4-4704-8746-6542109bcb23",
-            "name": "Effect",
-            "url": "http://anthony-boutherin.vpnuser.lan:8000/api/event/effect/2",
-            "method": "GET",
-            "sortNum": 80000,
-            "created": "2023-07-09T13:26:58.705Z",
-            "modified": "2023-07-09T13:26:58.705Z",
-            "headers": [],
-            "params": [],
-            "tests": []
-        },
-        {
-            "_id": "eb43a9f3-c936-4db6-b770-b87b0b87a0ac",
-            "colId": "06e4c970-b295-4733-beee-a80e59d96237",
-            "containerId": "8867a243-6583-4945-b329-8dec3dc1ec85",
-            "name": "Death",
-            "url": "http://pierre-salhab.vpnuser.lan:8082/api/event/death/18",
-            "method": "GET",
-            "sortNum": 90000,
-            "created": "2023-07-09T13:26:58.706Z",
-            "modified": "2023-07-09T13:26:58.706Z",
-            "headers": [],
-            "params": [],
-            "tests": []
-        },
-        {
-            "_id": "a856de31-e629-42b2-8048-6fc30c64bf19",
-            "colId": "06e4c970-b295-4733-beee-a80e59d96237",
-            "containerId": "d3529dee-22e4-4704-8746-6542109bcb23",
-            "name": "Death",
-            "url": "http://pierre-salhab.vpnuser.lan:8082/api/event/death/18",
-            "method": "GET",
-            "sortNum": 90000,
-            "created": "2023-07-09T13:26:58.707Z",
-            "modified": "2023-07-09T13:26:58.707Z",
             "headers": [],
             "params": [],
             "tests": []
