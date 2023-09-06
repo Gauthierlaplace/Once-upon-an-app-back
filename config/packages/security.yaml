@@ -52,6 +52,7 @@ security:
         - { path: ^/api/users/details, roles: ROLE_PLAYER , methods: [GET]}
         - { path: ^/api/users/\d+$, roles: ROLE_PLAYER , methods: [PUT]}
         - { path: ^/api/users/\d+$, roles: ROLE_PLAYER , methods: [DELETE]}
+        - { path: ^/api/reviews, roles: ROLE_PLAYER , methods: [POST]}
         - { path: ^/api/play, roles: ROLE_PLAYER , methods: [GET]}
         - { path: ^/api/event/roll/\d+$, roles: ROLE_PLAYER , methods: [GET]}
         - { path: ^/api/event/last/\d+$, roles: ROLE_PLAYER , methods: [GET]}
