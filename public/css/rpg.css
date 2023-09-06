@@ -57,15 +57,39 @@ body {
 width: 10vw;
 }
 
+.leftSpot {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    justify-content: flex-end;
+}
+
 .avatar {
     height: 15vh;
+    width: 15vh;
+    z-index: 8888;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+}
+
+.btnPlay {
     width: 15vh;
     z-index: 9999;
     position: fixed;
     bottom: 0;
+    left: 0;
+    opacity: 0.3;
+    transition: background-color 2s;
+    margin-bottom: 16vh;
 }
-#picture_base64 {
 
+.btnPlay:hover {
+    background-color: #000000;
+    opacity: 1;
+}
+
+#picture_base64 {
     background-color: #ffffff15;
     color: white;
 }
