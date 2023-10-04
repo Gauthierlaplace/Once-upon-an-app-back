@@ -18,7 +18,7 @@ class FightController extends CoreApiController
 
         // Hero vie 20 de base
         // Npc vie 10 de base
-        
+
         // TODO 
         //! Sauvegarder la Vie Max du NPC (propriété de table à créer healthMax)
         //* Déterminer qui commencera le combat en fonction de l'id de l'effet
@@ -26,6 +26,7 @@ class FightController extends CoreApiController
         // si l'effet est positif on influe sur la vie du NPC, le Npc attaque en premier
         // si l'effet est négatif on influe sur la vie du Player, le Player attaque en premier
 
+        
         //! L'attaquant $attacker doit déterminer s'il touche ou pas 
         //! fonction 2 params -> attacker(hero ou npc), defender(hero ou npc)
         // lancement de dés (1-10) = (rand(1-10)) + mainStatAttacker
@@ -51,7 +52,6 @@ class FightController extends CoreApiController
 
 
 
-        //!Service SucceedAttackOrNot
 
 
 
