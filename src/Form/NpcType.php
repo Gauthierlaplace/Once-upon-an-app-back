@@ -35,6 +35,7 @@ class NpcType extends AbstractType
                 },
             ])
             ->add('description', TextareaType::class, ["label" => "Description du personnage"])
+            ->add('maxHealth', NumberType::class, ["label" => "Santé Maximum"])
             ->add('health', NumberType::class, ["label" => "Santé"])
             ->add('strength', NumberType::class, ["label" => "Force"])
             ->add('intelligence', NumberType::class, ["label" => "Intelligence"])
