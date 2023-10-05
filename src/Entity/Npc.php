@@ -120,6 +120,12 @@ class Npc
      */
     private $picture;
 
+    /**
+     * @Assert\Type(type="numeric", message="Le champ Santé Maximum doit être un nombre")
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $maxHealth;
+
     public function __construct()
     {
         $this->dialogues = new ArrayCollection();
@@ -382,6 +388,18 @@ class Npc
     public function setPicture(?Picture $picture): self
     {
         $this->picture = $picture;
+
+        return $this;
+    }
+
+    public function getMaxHealth(): ?int
+    {
+        return $this->maxHealth;
+    }
+
+    public function setMaxHealth(?int $maxHealth): self
+    {
+        $this->maxHealth = $maxHealth;
 
         return $this;
     }
