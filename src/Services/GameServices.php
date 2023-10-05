@@ -114,6 +114,7 @@ class GameServices
                 "defense" => $npc->getDefense(),
                 "karma" => $npc->getKarma(),
                 "xpearned" => $npc->getXpEarned(),
+                "hostility" => $npc->isHostility(),
                 "dialogues" => $npcDialogue,
 
             ];
