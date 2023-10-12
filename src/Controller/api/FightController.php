@@ -160,10 +160,10 @@ class FightController extends CoreApiController
 
     //TODO ! NEXT ! FIGHT ! PHASE 2 !
     /**
-         * ! Combat Phase 2 : 
-         *
-         * @Route("/api/event/fight/{npcId}/attacker/{attackerName}", name="app_api_attack" , requirements={"npcId"="\d+", "attackerName"="\w+"}, methods={"GET"})
-         */
+     * ! Combat Phase 2 : 
+     *
+     * @Route("/api/event/fight/{npcId}/attacker/{attackerName}", name="app_api_attack" , requirements={"npcId"="\d+", "attackerName"="\w+"}, methods={"GET"})
+     */
     public function attack($npcId, $attackerName, NpcRepository $npcRepository, HeroRepository $heroRepository, EventRepository $eventRepository, EventTypeRepository $eventTypeRepository): JsonResponse
     {
 
@@ -203,13 +203,8 @@ class FightController extends CoreApiController
         ];
 
         //* Tableau de stockage des résultats de roll
-        $arrayRolls = [
-            "missOrNot" => "bool",
-            "damageDice1" => "int",
-            "damageDice2" => "int",
-            "damage" => "int",
+        $arrayRolls = [];
 
-        ];
 
         //* Phase 1 -> $attackerName frappe l'autre personnage
         if ($attackerName === "hero") {
@@ -217,13 +212,65 @@ class FightController extends CoreApiController
 
             // 1. Miss Or Not
             // On a besoin de récupérer la stat la plus haute entre strenght, intelligence et dexterity du hero
+            $higherStatAttacker = max($arrayHero["heroStrength"], $arrayHero["heroIntelligence"], $arrayHero["heroDexterity"]);
             // On a besoin de la stat defense du npc
+            $defenseNpc = $npc->getDefense() + 3;
+
             // On lance un dé de (1-10) que l'on ajoute à la stat la plus haute du hero
+            $diceAccurancy = rand(1, 10) + $higherStatAttacker;
+
             // Si le résultat est supérieur à la défense du npc, alors on passe en 2.
-            // stock résultat $arrayRolls
+            if ($diceAccurancy >= $defenseNpc) {
+                $hit = true;
+                $damageDice1 = rand(1, 4);
+                $damageDice2 = rand(1, 4);
+                $damage = $damageDice1 + $damageDice2;
+                $npcDamagedHealth = $npc->getHealth() - $damage;
+//! TODO
+                if ($npcDamagedHealth <= 0) {
+                    $arrayRolls = [
+                        "hit" => $hit,
+                        "damageDice1" => $damageDice1,
+                        "damageDice2" => $damageDice2,
+                        "damage" => $damage,
+                    ];
+                    $attacker = "end of battle";
+                    //* npc dead, on reset sa vie et on annonce sa mort en JSON
+                    //* On reset la vie du npc en bdd
+                    //! Supprimer le npc de la table combat (To Build)
+                    $data = [
+                        'hero' => $arrayHero,
+                        'npc' => $arrayNpc,
+                        'dices' => $arrayRolls,
+                        'nextAttacker' => $attacker,
+                    ];
+                    $npcReset = $npc->setHealth($npc->getMaxHealth());
+                    $npcRepository->add($npcReset, true);
+                    return $this->json200($data, ["game"]);
+                } else {
+                    //* npc stills alive ! On maj sa vie en Json + BDD et il devient attacker
+                }
+            } else {
+                $hit = false;
+                $attacker = "npc";
+                $arrayRolls = [
+                    "hit" => $hit,
+                    "damageDice1" => null,
+                    "damageDice2" => null,
+                    "damage" => null,
+                ];
+
+                $data = [
+                    'hero' => $arrayHero,
+                    'npc' => $arrayNpc,
+                    'dices' => $arrayRolls,
+                    'nextAttacker' => $attacker,
+                ];
+                return $this->json200($data, ["game"]);
+            }
 
             // 2. Damage to npc
-            // On lance 2 dés de (1-4) qui détermine les dégats à appliquer au npc
+
             // stock résultat $arrayRolls
             // apply damage
 
@@ -237,7 +284,6 @@ class FightController extends CoreApiController
             $attacker = "npc";
             //* si le npc meurt : fin du combat
             $attacker = "end of battle";
-
         } elseif ($attackerName === "npc") {
             //* le npc frappe le hero
             // 1. Miss Or Not
@@ -249,6 +295,9 @@ class FightController extends CoreApiController
 
             // 2. Damage to hero
             // On lance 2 dés de (1-4) qui détermine les dégats à appliquer au hero
+            $damageDice1 = rand(1, 4);
+            $damageDice2 = rand(1, 4);
+            $damage = $damageDice1 + $damageDice2;
             // stock résultat $arrayRolls
             // apply damage
 
@@ -263,17 +312,25 @@ class FightController extends CoreApiController
             $attacker = "hero";
             //* si le hero meurt : fin du combat
             $attacker = "end of battle";
+        } else {
+        }
 
-        } else {}
 
+        $arrayRolls = [
+            "hit" => $hit,
+            "damageDice1" => $damageDice1,
+            "damageDice2" => $damageDice2,
+            "damage" => $damage,
+
+        ];
 
         $data = [
             'hero' => $arrayHero,
             'npc' => $arrayNpc,
-            'rollMissOrNot' => $arrayRolls,
+            'dices' => $arrayRolls,
             'nextAttacker' => $attacker,
         ];
-
+        // dd($data);
         return $this->json200($data, ["game"]);
     }
 }
