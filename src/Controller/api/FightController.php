@@ -14,10 +14,10 @@ class FightController extends CoreApiController
 {
     /**
      * ! Combat Phase 1 : Application de l'effet d'introduction au combat, permettant de déterminer qui portera ensuite le premier coup
-     * 
-     * @Route("/api/event/fight/{npcId}/attack/{effectId}", name="app_api_attack" , requirements={"effectId"="\d+", "npcId"="\d+"}, methods={"GET"})
+     *
+     * @Route("/api/event/fight/{npcId}/attack/{effectId}", name="app_api_introAttack" , requirements={"effectId"="\d+", "npcId"="\d+"}, methods={"GET"})
      */
-    public function attackOrMiss($effectId, $npcId, NpcRepository $npcRepository, EffectRepository $effectRepository, HeroRepository $heroRepository, EventRepository $eventRepository, EventTypeRepository $eventTypeRepository): JsonResponse
+    public function introAttack($effectId, $npcId, NpcRepository $npcRepository, EffectRepository $effectRepository, HeroRepository $heroRepository, EventRepository $eventRepository, EventTypeRepository $eventTypeRepository): JsonResponse
     {
         /** @var App\Entity\User $user */
         $user = $this->getUser();
@@ -159,16 +159,127 @@ class FightController extends CoreApiController
 
 
     //TODO ! NEXT ! FIGHT ! PHASE 2 !
-/**
-     * ! Combat Phase 2 : 
-     * 
-     * @Route("/api/event/fight/{npcId}/attacker/{attackerName}", name="app_api_attack" , requirements={"npcId"="\d+", "attackerName"="\w+"}, methods={"GET"})
-     */
-    public function attackOrMiss($npcId, $attackerName, NpcRepository $npcRepository, HeroRepository $heroRepository, EventRepository $eventRepository, EventTypeRepository $eventTypeRepository): JsonResponse
+    /**
+         * ! Combat Phase 2 : 
+         *
+         * @Route("/api/event/fight/{npcId}/attacker/{attackerName}", name="app_api_attack" , requirements={"npcId"="\d+", "attackerName"="\w+"}, methods={"GET"})
+         */
+    public function attack($npcId, $attackerName, NpcRepository $npcRepository, HeroRepository $heroRepository, EventRepository $eventRepository, EventTypeRepository $eventTypeRepository): JsonResponse
     {
 
+        /** @var App\Entity\User $user */
+        $user = $this->getUser();
+
+        $heroesCollection = $user->getHeroes();
+        $heroes = $heroesCollection->toArray();
+
+        $arrayHero = [];
+        foreach ($heroes as $hero) {
+            $arrayHero = [
+                'heroId' => $hero->getId(),
+                'heroName' => $hero->getName(),
+                'heroMaxHealth' => $hero->getMaxHealth(),
+                'heroHealth' => $hero->getHealth(),
+                'heroStrength' => $hero->getStrength(),
+                'heroIntelligence' => $hero->getIntelligence(),
+                'heroDexterity' => $hero->getDexterity(),
+                'heroDefense' => $hero->getDefense(),
+                'heroKarma' => $hero->getKarma(),
+            ];
+        }
+
+        $npc = $npcRepository->find($npcId);
+
+        $arrayNpc = [
+            'npcId' => $npc->getId(),
+            'npcName' => $npc->getName(),
+            'npcMaxHealth' => $npc->getMaxHealth(),
+            'npcHealth' => $npc->getHealth(),
+            'npcStrength' => $npc->getStrength(),
+            'npcIntelligence' => $npc->getIntelligence(),
+            'npcDexterity' => $npc->getDexterity(),
+            'npcDefense' => $npc->getDefense(),
+            'npcKarma' => $npc->getKarma(),
+        ];
+
+        //* Tableau de stockage des résultats de roll
+        $arrayRolls = [
+            "missOrNot" => "bool",
+            "damageDice1" => "int",
+            "damageDice2" => "int",
+            "damage" => "int",
+
+        ];
+
+        //* Phase 1 -> $attackerName frappe l'autre personnage
+        if ($attackerName === "hero") {
+            //* le hero frappe le npc
+
+            // 1. Miss Or Not
+            // On a besoin de récupérer la stat la plus haute entre strenght, intelligence et dexterity du hero
+            // On a besoin de la stat defense du npc
+            // On lance un dé de (1-10) que l'on ajoute à la stat la plus haute du hero
+            // Si le résultat est supérieur à la défense du npc, alors on passe en 2.
+            // stock résultat $arrayRolls
+
+            // 2. Damage to npc
+            // On lance 2 dés de (1-4) qui détermine les dégats à appliquer au npc
+            // stock résultat $arrayRolls
+            // apply damage
+
+            // 3. Npc survived or not
+            // On vérifie la survie du npc
+            // On met à jour la BDD ou on reset le npc s'il meurt
+
+            // 4. Return or not
+
+            //* si le npc survit : il devient $attacker
+            $attacker = "npc";
+            //* si le npc meurt : fin du combat
+            $attacker = "end of battle";
+
+        } elseif ($attackerName === "npc") {
+            //* le npc frappe le hero
+            // 1. Miss Or Not
+            // On a besoin de récupérer la stat la plus haute entre strenght, intelligence et dexterity du npc
+            // On a besoin de la stat defense du hero
+            // On lance un dé de (1-10) que l'on ajoute à la stat la plus haute du npc
+            // Si le résultat est supérieur à la défense du hero, alors on passe en 2.
+            // stock résultat $arrayRolls
+
+            // 2. Damage to hero
+            // On lance 2 dés de (1-4) qui détermine les dégats à appliquer au hero
+            // stock résultat $arrayRolls
+            // apply damage
+
+            // 3. Hero survived or not
+            // On vérifie la survie du hero
+            // On met à jour la BDD et l'on renvoie un Death Event adapté s'il meurt
+            // On reset le npc
+
+            // 4. Return or not
+
+            //* si le hero survit : il devient $attacker
+            $attacker = "hero";
+            //* si le hero meurt : fin du combat
+            $attacker = "end of battle";
+
+        } else {}
+
+
+        $data = [
+            'hero' => $arrayHero,
+            'npc' => $arrayNpc,
+            'rollMissOrNot' => $arrayRolls,
+            'nextAttacker' => $attacker,
+        ];
+
+        return $this->json200($data, ["game"]);
+    }
+}
+
+
     //! L'attaquant $attacker doit déterminer s'il touche ou pas 
-    //! fonction 2 params -> attacker(hero ou npc), defender(hero ou npc)
     // lancement de dés (1-10) = (rand(1-10)) + mainStatAttacker
     // mainStatAttacker = stat la plus haute parmis la force-intelligence-dexterity
     // defensiveStatDefender = stat defense de la personne qui prendra le coup
@@ -188,5 +299,3 @@ class FightController extends CoreApiController
     // Si le defender meurt : 
     // - c'est le héro: on renvoie la vie du héro et reset la vie npc
     // - c'est le Npc: On renvoie la vie npc et la vie du héro puis on reset la vie Npc fin du combat
-
-}
