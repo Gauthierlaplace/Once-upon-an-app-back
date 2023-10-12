@@ -3,6 +3,8 @@
 namespace App\Controller\api;
 
 use App\Repository\EffectRepository;
+use App\Repository\EventRepository;
+use App\Repository\EventTypeRepository;
 use App\Repository\HeroRepository;
 use App\Repository\NpcRepository;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -11,9 +13,11 @@ use Symfony\Component\Routing\Annotation\Route;
 class FightController extends CoreApiController
 {
     /**
+     * ! Combat Phase 1 : Application de l'effet d'introduction au combat, permettant de déterminer qui portera ensuite le premier coup
+     * 
      * @Route("/api/event/fight/{npcId}/attack/{effectId}", name="app_api_attack" , requirements={"effectId"="\d+", "npcId"="\d+"}, methods={"GET"})
      */
-    public function attackOrMiss($effectId, $npcId, NpcRepository $npcRepository, EffectRepository $effectRepository, HeroRepository $heroRepository): JsonResponse
+    public function attackOrMiss($effectId, $npcId, NpcRepository $npcRepository, EffectRepository $effectRepository, HeroRepository $heroRepository, EventRepository $eventRepository, EventTypeRepository $eventTypeRepository): JsonResponse
     {
         /** @var App\Entity\User $user */
         $user = $this->getUser();
@@ -65,29 +69,100 @@ class FightController extends CoreApiController
             'effectXp' => $effect->getXp(),
         ];
 
-        // TODO 
         //* Déterminer qui commencera le combat en fonction de l'id de l'effet
         // si l'effet est positif on influe sur la vie du NPC, le Npc attaque en premier
         // si l'effet est négatif on influe sur la vie du Player, le Player attaque en premier
-        $effectHealth = $effect->getHealth();
-        // dump($effectHealth);
-        $heroCurrentHealth = $arrayHero['heroHealth'];
+
         $npcCurrentHealth = $arrayNpc['npcHealth'];
-        
-        if ($effectHealth <= 0) {
+
+        if ($arrayEffect['effectHealth'] <= 0) {
             // on tape le Héro et on le MAJ en BDD
-            $hero = $heroRepository->find($arrayHero['heroId']);
-            $arrayHero['heroHealth'] = $hero->setHealth($heroCurrentHealth + $effectHealth);
+            $heroToApplyEffect = $heroRepository->findOneBy(["user" => $user->getId()]);
+            //*on détermine la santé du hero
+            $newHeroHealthToApply = $arrayHero['heroHealth'] + $arrayEffect['effectHealth'];
+            //*On vérifie que le hero survit
+            if ($newHeroHealthToApply <= 0) {
+                //* Le hero est mort durant l'application de l'effet introduisant le combat
+                $newHeroHealthToApply = 0;
+                //* Maj vie du hero
+                $heroEffectApplied = $heroToApplyEffect->setHealth($newHeroHealthToApply);
+                //* Update en BDD
+                $heroUpdated = $heroRepository->add($heroEffectApplied, true);
+
+                //* On reset la vie du npc
+                //! Supprimer le npc de la table combat (To Build)
+                $npcReset = $npc->setHealth($npc->getMaxHealth());
+                $npcRepository->add($npcReset, true);
+
+                //* Il nous faut l'event Death
+                $eventTypeDeath = $eventTypeRepository->findOneBy(['name' => "Death"]);
+                $eventTypeDeathId = $eventTypeDeath->getId();
+                $eventDeath = $eventRepository->findOneBy(['eventType' => $eventTypeDeathId]);
+
+                //* On renvoie le Json avec les infos
+                $data = [
+                    'player' => $hero,
+                    'GameOver' => $eventDeath
+                ];
+                return $this->json200($data, ["game"]);
+            } else {
+                // Le hero a survécu à l'effet, on applique le modification de health
+                //* Maj vie du hero
+                $heroEffectApplied = $heroToApplyEffect->setHealth($newHeroHealthToApply);
+                //* Update en BDD
+                $heroUpdated = $heroRepository->add($heroEffectApplied, true);
+            }
+
+            $arrayHero['heroHealth'] = $newHeroHealthToApply;
+            $attacker = "hero";
         } else {
-            // on tape le npc et on MAJ en BDD
-            $npc = $npcRepository->find($arrayNpc['npcId']);
-            
-            $arrayNpc['npcHealth'] = $npc->setHealth($npcCurrentHealth - $effectHealth);
+            //* on tape le npc et on MAJ en BDD
+            //! Futur MAJ NPC sur table COMBAT (correctif)
+            //*on détermine la santé du npc en appliquant l'effet
+            $newNpcHealthToApply = $arrayNpc['npcHealth'] - $arrayEffect['effectHealth'];
+
+            //*On vérifie que le npc survit
+            if ($newNpcHealthToApply <= 0) {
+                //* Le npc est mort durant l'application de l'effet introduisant le combat
+
+                //* Reset vie du npc le combat est terminé
+                $npcEffectApplied = $npc->setHealth($npc->getMaxHealth());
+                //* Update en BDD
+                $npcUpdated = $npcRepository->add($npcEffectApplied, true);
+
+                //* On reset la vie du npc
+                //! Supprimer le npc de la table combat (To Build)
+                $npcReset = $npc->setHealth($npc->getMaxHealth());
+                $npcRepository->add($npcReset, true);
+                $arrayNpc['npcHealth'] = $newNpcHealthToApply;
+                $attacker = "end of battle";
+                
+            } else {
+                //* Le npc a survécu à l'effet, on applique le modification de health
+                //* Maj vie du npc
+                $npcEffectApplied = $npc->setHealth($newNpcHealthToApply);
+                //* Update en BDD
+                $npcUpdated = $npcRepository->add($npcEffectApplied, true);
+                $arrayNpc['npcHealth'] = $newNpcHealthToApply;
+                $attacker = "npc";
+            }
+
         }
+
+        $data = [
+            'hero' => $arrayHero,
+            'npc' => $arrayNpc,
+            'effect' => $arrayEffect,
+            'attacker' => $attacker,
+        ];
+
+        return $this->json200($data, ["game"]);
+    }
+
+
+        //TODO ! NEXT ! FIGHT ! PHASE 2 !
+
         
-        // dd($arrayNpc['npcHealth']);
-
-
         //! L'attaquant $attacker doit déterminer s'il touche ou pas 
         //! fonction 2 params -> attacker(hero ou npc), defender(hero ou npc)
         // lancement de dés (1-10) = (rand(1-10)) + mainStatAttacker
@@ -110,19 +185,4 @@ class FightController extends CoreApiController
         // - c'est le héro: on renvoie la vie du héro et reset la vie npc
         // - c'est le Npc: On renvoie la vie npc et la vie du héro puis on reset la vie Npc fin du combat
 
-
-
-
-
-        $data = [
-            'hero' => $arrayHero,
-            'npc' => $arrayNpc,
-            'effect' => $arrayEffect,
-            'attacker' => "hero ou npc",
-            'defender' => "hero ou npc",
-        ];
-
-
-        return $this->json200($data, ["game"]);
-    }
 }
