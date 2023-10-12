@@ -136,7 +136,6 @@ class FightController extends CoreApiController
                 $npcRepository->add($npcReset, true);
                 $arrayNpc['npcHealth'] = $newNpcHealthToApply;
                 $attacker = "end of battle";
-                
             } else {
                 //* Le npc a survécu à l'effet, on applique le modification de health
                 //* Maj vie du npc
@@ -146,7 +145,6 @@ class FightController extends CoreApiController
                 $arrayNpc['npcHealth'] = $newNpcHealthToApply;
                 $attacker = "npc";
             }
-
         }
 
         $data = [
@@ -160,29 +158,35 @@ class FightController extends CoreApiController
     }
 
 
-        //TODO ! NEXT ! FIGHT ! PHASE 2 !
+    //TODO ! NEXT ! FIGHT ! PHASE 2 !
+/**
+     * ! Combat Phase 2 : 
+     * 
+     * @Route("/api/event/fight/{npcId}/attacker/{attackerName}", name="app_api_attack" , requirements={"npcId"="\d+", "attackerName"="\w+"}, methods={"GET"})
+     */
+    public function attackOrMiss($npcId, $attackerName, NpcRepository $npcRepository, HeroRepository $heroRepository, EventRepository $eventRepository, EventTypeRepository $eventTypeRepository): JsonResponse
+    {
 
-        
-        //! L'attaquant $attacker doit déterminer s'il touche ou pas 
-        //! fonction 2 params -> attacker(hero ou npc), defender(hero ou npc)
-        // lancement de dés (1-10) = (rand(1-10)) + mainStatAttacker
-        // mainStatAttacker = stat la plus haute parmis la force-intelligence-dexterity
-        // defensiveStatDefender = stat defense de la personne qui prendra le coup
+    //! L'attaquant $attacker doit déterminer s'il touche ou pas 
+    //! fonction 2 params -> attacker(hero ou npc), defender(hero ou npc)
+    // lancement de dés (1-10) = (rand(1-10)) + mainStatAttacker
+    // mainStatAttacker = stat la plus haute parmis la force-intelligence-dexterity
+    // defensiveStatDefender = stat defense de la personne qui prendra le coup
 
-        // exemple
-        // mainStatAttacker = 10 + rand(1-10) =  si le rand : 1-2 c'est loupé (80% chance de réussite)
-        // defensiveStatDefender = 12 
+    // exemple
+    // mainStatAttacker = 10 + rand(1-10) =  si le rand : 1-2 c'est loupé (80% chance de réussite)
+    // defensiveStatDefender = 12 
 
 
-        //! Apply Damage si touche
-        // si $mainStatAttacker > $defensiveStatDefender alors on doit déterminer le dégat a appliquer au defender
-        // damage = rand(1-4) + rand(1-4)
-        // DefenderHealth = health - damage
+    //! Apply Damage si touche
+    // si $mainStatAttacker > $defensiveStatDefender alors on doit déterminer le dégat a appliquer au defender
+    // damage = rand(1-4) + rand(1-4)
+    // DefenderHealth = health - damage
 
-        //! Check Health not 0
-        // Vérifier la survie du Defender, s'il survit le defender devient l'attacker (Reappel de la fonction2params(attacker, defender))
-        // Si le defender meurt : 
-        // - c'est le héro: on renvoie la vie du héro et reset la vie npc
-        // - c'est le Npc: On renvoie la vie npc et la vie du héro puis on reset la vie Npc fin du combat
+    //! Check Health not 0
+    // Vérifier la survie du Defender, s'il survit le defender devient l'attacker (Reappel de la fonction2params(attacker, defender))
+    // Si le defender meurt : 
+    // - c'est le héro: on renvoie la vie du héro et reset la vie npc
+    // - c'est le Npc: On renvoie la vie npc et la vie du héro puis on reset la vie Npc fin du combat
 
 }
