@@ -1,7 +1,7 @@
 {
     "client": "Thunder Client",
     "collectionName": "Adventure RPG [Once Upon An App]",
-    "dateExported": "2023-10-12T10:27:59.159Z",
+    "dateExported": "2023-11-01T11:14:43.493Z",
     "version": "1.1",
     "folders": [
         {
@@ -27,7 +27,7 @@
             "settings": {
                 "auth": {
                     "type": "bearer",
-                    "bearer": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpYXQiOjE2OTcwOTk2NzMsImV4cCI6MTY5NzE2NDQ3Mywicm9sZXMiOlsiUk9MRV9BRE1JTiIsIlJPTEVfUExBWUVSIl0sInVzZXJuYW1lIjoiYW50aG9ueS5ib3V0aGVyaW5AZ21haWwuY29tIn0.IzZ0-NXvtnnrR1_jN0u8rNlmrQMBFUO5TAxx_qtMb8RRjfdqI4RyBAHzq62-rqcwt3p8a8k8gpBqQxEvsFlpmbfIt6qdVjQCbcN6QDW55i57dqLnDQigIe3Jgkqfrj5PAV-N7EoBBtvsZAckk1-dMqfxkQtbjvgm5Jt_XGa7yRBAC7eCbRrMS-ndOFV_bp9uBhCg-KmplTAxjmGgVmvltEQWFgM_Cdt3fW1QaLUNpd9McRRw3fy0VeE1DOoz4LdHHGDUCUluEWwtJUhjpL7jZNwttP1x6CAqLX5-9yx5VKMosPyGgoYCtbF0O86mpwpTRrnm4XelBhmFFQXMBewa1g"
+                    "bearer": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpYXQiOjE2OTg4Mjk0ODUsImV4cCI6MTY5ODg5NDI4NSwicm9sZXMiOlsiUk9MRV9BRE1JTiIsIlJPTEVfUExBWUVSIl0sInVzZXJuYW1lIjoiYW50aG9ueS5ib3V0aGVyaW5AZ21haWwuY29tIn0.IzcNjDzygFCncbQUJAf1K9iYNNmwiyCdYbURcp0kmoCRE7i5EnQbMzD2OI_NyOKFMddS0Iu62xkxnZ7RF5tupwfH9CCRhpVJ8Y9sFrA6mfV0wo9EZqkR46--_2ZZsQX5kU__IRRpNwTXIYLIIGo_l097G2nenUknS_Th4eEJUVwv8TvtZ76yuSaSp4fK65kF6YW7uaTACFuMUiRnyOgE-p8EcH3Y8ssuUlc_-W8DVJWq5istlncfYZlEEzzdYlgSnP9I_G_NJT_CxgyallqfCa-fGXVQfLTsDRYpv2pUFveFpgciAh-GEWONj5-SyNYVRuGSwDlp3c7LkLkqTG7Pkw"
                 }
             }
         },
@@ -180,17 +180,13 @@
             "colId": "ae537bc8-809b-4280-8887-e5d602a4e49e",
             "containerId": "db315432-97e4-405c-aa52-f50279727a37",
             "name": "Fight Phase 1 Effect Application to get first attacker",
-            "url": "http://localhost:8000/api/event/fight/10/attack/3",
+            "url": "http://localhost:8000/api/event/fight/10/attack/1",
             "method": "GET",
             "sortNum": 10000,
             "created": "2023-10-12T08:48:51.239Z",
-            "modified": "2023-10-12T10:22:42.129Z",
+            "modified": "2023-11-01T11:03:40.573Z",
             "headers": [],
             "params": [],
-            "auth": {
-                "type": "bearer",
-                "bearer": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpYXQiOjE2OTcwOTk2NzMsImV4cCI6MTY5NzE2NDQ3Mywicm9sZXMiOlsiUk9MRV9BRE1JTiIsIlJPTEVfUExBWUVSIl0sInVzZXJuYW1lIjoiYW50aG9ueS5ib3V0aGVyaW5AZ21haWwuY29tIn0.IzZ0-NXvtnnrR1_jN0u8rNlmrQMBFUO5TAxx_qtMb8RRjfdqI4RyBAHzq62-rqcwt3p8a8k8gpBqQxEvsFlpmbfIt6qdVjQCbcN6QDW55i57dqLnDQigIe3Jgkqfrj5PAV-N7EoBBtvsZAckk1-dMqfxkQtbjvgm5Jt_XGa7yRBAC7eCbRrMS-ndOFV_bp9uBhCg-KmplTAxjmGgVmvltEQWFgM_Cdt3fW1QaLUNpd9McRRw3fy0VeE1DOoz4LdHHGDUCUluEWwtJUhjpL7jZNwttP1x6CAqLX5-9yx5VKMosPyGgoYCtbF0O86mpwpTRrnm4XelBhmFFQXMBewa1g"
-            },
             "tests": []
         },
         {
@@ -264,6 +260,20 @@
             "tests": []
         },
         {
+            "_id": "ed09f4d9-bd22-48b8-9481-e603ec8de4b4",
+            "colId": "ae537bc8-809b-4280-8887-e5d602a4e49e",
+            "containerId": "db315432-97e4-405c-aa52-f50279727a37",
+            "name": "Fight Phase 2 Attacker npc",
+            "url": "http://localhost:8000/api/event/fight/10/attacker/npc",
+            "method": "GET",
+            "sortNum": 20000,
+            "created": "2023-10-12T13:16:19.198Z",
+            "modified": "2023-11-01T10:24:41.139Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
             "_id": "1f49239d-c48b-461b-9485-69a2598d92c5",
             "colId": "ae537bc8-809b-4280-8887-e5d602a4e49e",
             "containerId": "50564a88-9a0b-46a2-9a8b-ce2a10981b03",
@@ -273,6 +283,20 @@
             "sortNum": 30000,
             "created": "2023-10-12T08:34:26.022Z",
             "modified": "2023-10-12T08:34:26.022Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "a610e60c-80c4-4c79-8c56-a993823a4d93",
+            "colId": "ae537bc8-809b-4280-8887-e5d602a4e49e",
+            "containerId": "db315432-97e4-405c-aa52-f50279727a37",
+            "name": "Fight Phase 2 Attacker hero",
+            "url": "http://localhost:8000/api/event/fight/10/attacker/hero",
+            "method": "GET",
+            "sortNum": 30000,
+            "created": "2023-11-01T10:24:53.870Z",
+            "modified": "2023-11-01T10:35:24.661Z",
             "headers": [],
             "params": [],
             "tests": []

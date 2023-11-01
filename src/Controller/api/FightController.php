@@ -31,7 +31,7 @@ class FightController extends CoreApiController
                 'heroId' => $hero->getId(),
                 'heroName' => $hero->getName(),
                 'heroMaxHealth' => $hero->getMaxHealth(),
-                'heroHealth' => $hero->getHealth(),
+                'health' => $hero->getHealth(),
                 'heroStrength' => $hero->getStrength(),
                 'heroIntelligence' => $hero->getIntelligence(),
                 'heroDexterity' => $hero->getDexterity(),
@@ -79,7 +79,7 @@ class FightController extends CoreApiController
             // on tape le Héro et on le MAJ en BDD
             $heroToApplyEffect = $heroRepository->findOneBy(["user" => $user->getId()]);
             //*on détermine la santé du hero
-            $newHeroHealthToApply = $arrayHero['heroHealth'] + $arrayEffect['effectHealth'];
+            $newHeroHealthToApply = $arrayHero['health'] + $arrayEffect['effectHealth'];
             //*On vérifie que le hero survit
             if ($newHeroHealthToApply <= 0) {
                 //* Le hero est mort durant l'application de l'effet introduisant le combat
@@ -113,7 +113,7 @@ class FightController extends CoreApiController
                 $heroUpdated = $heroRepository->add($heroEffectApplied, true);
             }
 
-            $arrayHero['heroHealth'] = $newHeroHealthToApply;
+            $arrayHero['health'] = $newHeroHealthToApply;
             $attacker = "hero";
         } else {
             //* on tape le npc et on MAJ en BDD
@@ -148,7 +148,7 @@ class FightController extends CoreApiController
         }
 
         $data = [
-            'hero' => $arrayHero,
+            'player' => $arrayHero,
             'npc' => $arrayNpc,
             'effect' => $arrayEffect,
             'attacker' => $attacker,
@@ -157,10 +157,8 @@ class FightController extends CoreApiController
         return $this->json200($data, ["game"]);
     }
 
-
-    //TODO ! NEXT ! FIGHT ! PHASE 2 !
     /**
-     * ! Combat Phase 2 : 
+     * ! Combat Phase 2 : Test touché ou pas et application de Rolls de dés sur la vie du défenseur correspondant, vérification de l'état de santé du défenseur et retour JSON en fonction de la vie ou mort du défenseur, désignation de l'attacker suivant s'il survit
      *
      * @Route("/api/event/fight/{npcId}/attacker/{attackerName}", name="app_api_attack" , requirements={"npcId"="\d+", "attackerName"="\w+"}, methods={"GET"})
      */
@@ -179,7 +177,7 @@ class FightController extends CoreApiController
                 'heroId' => $hero->getId(),
                 'heroName' => $hero->getName(),
                 'heroMaxHealth' => $hero->getMaxHealth(),
-                'heroHealth' => $hero->getHealth(),
+                'health' => $hero->getHealth(),
                 'heroStrength' => $hero->getStrength(),
                 'heroIntelligence' => $hero->getIntelligence(),
                 'heroDexterity' => $hero->getDexterity(),
@@ -202,11 +200,9 @@ class FightController extends CoreApiController
             'npcKarma' => $npc->getKarma(),
         ];
 
-        //* Tableau de stockage des résultats de roll
         $arrayRolls = [];
 
-
-        //* Phase 1 -> $attackerName frappe l'autre personnage
+        // ----------------------------------------HERO START ATTACKER---------------------------------------------------
         if ($attackerName === "hero") {
             //* le hero frappe le npc
 
@@ -219,27 +215,27 @@ class FightController extends CoreApiController
             // On lance un dé de (1-10) que l'on ajoute à la stat la plus haute du hero
             $diceAccurancy = rand(1, 10) + $higherStatAttacker;
 
-            // Si le résultat est supérieur à la défense du npc, alors on passe en 2.
+            // Si le résultat est supérieur à la défense du npc
             if ($diceAccurancy >= $defenseNpc) {
                 $hit = true;
                 $damageDice1 = rand(1, 4);
                 $damageDice2 = rand(1, 4);
                 $damage = $damageDice1 + $damageDice2;
                 $npcDamagedHealth = $npc->getHealth() - $damage;
-//! TODO
+
+                $arrayRolls = [
+                    "hit" => $hit,
+                    "damageDice1" => $damageDice1,
+                    "damageDice2" => $damageDice2,
+                    "damage" => $damage,
+                ];
                 if ($npcDamagedHealth <= 0) {
-                    $arrayRolls = [
-                        "hit" => $hit,
-                        "damageDice1" => $damageDice1,
-                        "damageDice2" => $damageDice2,
-                        "damage" => $damage,
-                    ];
                     $attacker = "end of battle";
                     //* npc dead, on reset sa vie et on annonce sa mort en JSON
                     //* On reset la vie du npc en bdd
                     //! Supprimer le npc de la table combat (To Build)
                     $data = [
-                        'hero' => $arrayHero,
+                        'player' => $arrayHero,
                         'npc' => $arrayNpc,
                         'dices' => $arrayRolls,
                         'nextAttacker' => $attacker,
@@ -249,6 +245,20 @@ class FightController extends CoreApiController
                     return $this->json200($data, ["game"]);
                 } else {
                     //* npc stills alive ! On maj sa vie en Json + BDD et il devient attacker
+                    $attacker = "npc";
+
+                    $arrayNpc ["npcHealth"]= $npcDamagedHealth;
+
+                    $data = [
+                        'player' => $arrayHero,
+                        'npc' => $arrayNpc,
+                        'dices' => $arrayRolls,
+                        'nextAttacker' => $attacker,
+                    ];
+
+                    $npcupdate = $npc->setHealth($npcDamagedHealth);
+                    $npcRepository->add($npcupdate, true);
+                    return $this->json200($data, ["game"]);
                 }
             } else {
                 $hit = false;
@@ -261,98 +271,112 @@ class FightController extends CoreApiController
                 ];
 
                 $data = [
-                    'hero' => $arrayHero,
+                    'player' => $arrayHero,
                     'npc' => $arrayNpc,
                     'dices' => $arrayRolls,
                     'nextAttacker' => $attacker,
                 ];
                 return $this->json200($data, ["game"]);
             }
-
-            // 2. Damage to npc
-
-            // stock résultat $arrayRolls
-            // apply damage
-
-            // 3. Npc survived or not
-            // On vérifie la survie du npc
-            // On met à jour la BDD ou on reset le npc s'il meurt
-
-            // 4. Return or not
-
-            //* si le npc survit : il devient $attacker
-            $attacker = "npc";
-            //* si le npc meurt : fin du combat
-            $attacker = "end of battle";
-        } elseif ($attackerName === "npc") {
+            
+        } 
+        // ----------------------------------------HERO END ATTACKER---------------------------------------------------
+        
+        // ----------------------------------------NPC START ATTACKER---------------------------------------------------
+        elseif ($attackerName === "npc") {
             //* le npc frappe le hero
             // 1. Miss Or Not
-            // On a besoin de récupérer la stat la plus haute entre strenght, intelligence et dexterity du npc
+            $higherStatAttacker = max($arrayNpc["npcStrength"], $arrayNpc["npcIntelligence"], $arrayNpc["npcDexterity"]);
             // On a besoin de la stat defense du hero
+            $defenseHero = $hero->getDefense() + 3;
             // On lance un dé de (1-10) que l'on ajoute à la stat la plus haute du npc
-            // Si le résultat est supérieur à la défense du hero, alors on passe en 2.
-            // stock résultat $arrayRolls
+            $diceAccurancy = rand(1, 10) + $higherStatAttacker;
 
-            // 2. Damage to hero
-            // On lance 2 dés de (1-4) qui détermine les dégats à appliquer au hero
-            $damageDice1 = rand(1, 4);
-            $damageDice2 = rand(1, 4);
-            $damage = $damageDice1 + $damageDice2;
-            // stock résultat $arrayRolls
-            // apply damage
+            // Si le résultat est supérieur à la défense du hero
+            if ($diceAccurancy >= $defenseHero) {
+                $hit = true;
+                $damageDice1 = rand(1, 4);
+                $damageDice2 = rand(1, 4);
+                $damage = $damageDice1 + $damageDice2;
+                $heroDamagedHealth = $hero->getHealth() - $damage;
 
-            // 3. Hero survived or not
-            // On vérifie la survie du hero
-            // On met à jour la BDD et l'on renvoie un Death Event adapté s'il meurt
-            // On reset le npc
+                $arrayRolls = [
+                    "hit" => $hit,
+                    "damageDice1" => $damageDice1,
+                    "damageDice2" => $damageDice2,
+                    "damage" => $damage,
+                ];
+                if ($heroDamagedHealth <= 0) {
+                    $attacker = "end of battle";
+                    //* hero dead, on annonce sa mort en JSON avec l'event Death et le résultat des dés
+                    //* Le hero est mort durant le combat en recevant un coup
+                    $newHeroHealthToApply = 0;
+                    //* Maj vie du hero
+                    $heroFightApplied = $hero->setHealth($newHeroHealthToApply);
+                    //* Update en BDD
+                    $heroRepository->add($heroFightApplied, true);
 
-            // 4. Return or not
+                    //! Supprimer le npc de la table combat (To Build)
 
-            //* si le hero survit : il devient $attacker
-            $attacker = "hero";
-            //* si le hero meurt : fin du combat
-            $attacker = "end of battle";
-        } else {
+                    //* Il nous faut l'event Death
+                    $eventTypeDeath = $eventTypeRepository->findOneBy(['name' => "Death"]);
+                    $eventTypeDeathId = $eventTypeDeath->getId();
+                    $eventDeath = $eventRepository->findOneBy(['eventType' => $eventTypeDeathId]);
+
+                    $data = [
+                        'player' => $hero,
+                        'GameOver' => $eventDeath,
+                        'dices' => $arrayRolls,
+                        'nextAttacker' => $attacker,
+                    ];
+                    return $this->json200($data, ["game"]);
+                } else {
+                    //* hero stills alive ! On maj sa vie en Json + BDD et il devient attacker
+                    $attacker = "hero";
+
+                    $arrayHero ["health"]= $heroDamagedHealth;
+
+                    $data = [
+                        'player' => $arrayHero,
+                        'npc' => $arrayNpc,
+                        'dices' => $arrayRolls,
+                        'nextAttacker' => $attacker,
+                    ];
+
+                    $heroUpdate = $hero->setHealth($heroDamagedHealth);
+                    $heroRepository->add($heroUpdate, true);
+                    return $this->json200($data, ["game"]);
+                }
+            } else {
+                $hit = false;
+                $attacker = "hero";
+                $arrayRolls = [
+                    "hit" => $hit,
+                    "damageDice1" => null,
+                    "damageDice2" => null,
+                    "damage" => null,
+                ];
+
+                $data = [
+                    'player' => $arrayHero,
+                    'npc' => $arrayNpc,
+                    'dices' => $arrayRolls,
+                    'nextAttacker' => $attacker,
+                ];
+                return $this->json200($data, ["game"]);
+            }
         }
+        // ----------------------------------------NPC END ATTACKER---------------------------------------------------
 
+        // ----------------------------------------ERROR URL PARAMETERS START---------------------------------------------------
+        else {
+            //! CAS ERREUR Paramètres URL non conforme
+            $data = [
+                'error' => "Something went wrong ! Check url's parameters ! ",
+            ];
+            return $this->json404($data);
+        }
+        // ----------------------------------------ERROR URL PARAMETERS END---------------------------------------------------
 
-        $arrayRolls = [
-            "hit" => $hit,
-            "damageDice1" => $damageDice1,
-            "damageDice2" => $damageDice2,
-            "damage" => $damage,
-
-        ];
-
-        $data = [
-            'hero' => $arrayHero,
-            'npc' => $arrayNpc,
-            'dices' => $arrayRolls,
-            'nextAttacker' => $attacker,
-        ];
-        // dd($data);
-        return $this->json200($data, ["game"]);
     }
 }
-
-
-    //! L'attaquant $attacker doit déterminer s'il touche ou pas 
-    // lancement de dés (1-10) = (rand(1-10)) + mainStatAttacker
-    // mainStatAttacker = stat la plus haute parmis la force-intelligence-dexterity
-    // defensiveStatDefender = stat defense de la personne qui prendra le coup
-
-    // exemple
-    // mainStatAttacker = 10 + rand(1-10) =  si le rand : 1-2 c'est loupé (80% chance de réussite)
-    // defensiveStatDefender = 12 
-
-
-    //! Apply Damage si touche
-    // si $mainStatAttacker > $defensiveStatDefender alors on doit déterminer le dégat a appliquer au defender
-    // damage = rand(1-4) + rand(1-4)
-    // DefenderHealth = health - damage
-
-    //! Check Health not 0
-    // Vérifier la survie du Defender, s'il survit le defender devient l'attacker (Reappel de la fonction2params(attacker, defender))
-    // Si le defender meurt : 
-    // - c'est le héro: on renvoie la vie du héro et reset la vie npc
-    // - c'est le Npc: On renvoie la vie npc et la vie du héro puis on reset la vie Npc fin du combat
