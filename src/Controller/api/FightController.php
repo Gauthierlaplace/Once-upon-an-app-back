@@ -217,19 +217,22 @@ class FightController extends CoreApiController
             ];
         }
 
-        $npc = $npcRepository->find($npcId);
+
+        //* On récupère l'objet Fight (le npc)
+        $fight = $fightRepository->find($npcId);
 
         $arrayNpc = [
-            'npcId' => $npc->getId(),
-            'npcName' => $npc->getName(),
-            'npcMaxHealth' => $npc->getMaxHealth(),
-            'npcHealth' => $npc->getHealth(),
-            'npcStrength' => $npc->getStrength(),
-            'npcIntelligence' => $npc->getIntelligence(),
-            'npcDexterity' => $npc->getDexterity(),
-            'npcDefense' => $npc->getDefense(),
-            'npcKarma' => $npc->getKarma(),
+            'npcId' => $fight->getId(),
+            'npcName' => $fight->getName(),
+            'npcMaxHealth' => $fight->getMaxHealth(),
+            'npcHealth' => $fight->getHealth(),
+            'npcStrength' => $fight->getStrength(),
+            'npcIntelligence' => $fight->getIntelligence(),
+            'npcDexterity' => $fight->getDexterity(),
+            'npcDefense' => $fight->getDefense(),
+            'npcKarma' => $fight->getKarma(),
         ];
+        
 
         $arrayRolls = [];
 
@@ -241,7 +244,7 @@ class FightController extends CoreApiController
             // On a besoin de récupérer la stat la plus haute entre strenght, intelligence et dexterity du hero
             $higherStatAttacker = max($arrayHero["heroStrength"], $arrayHero["heroIntelligence"], $arrayHero["heroDexterity"]);
             // On a besoin de la stat defense du npc
-            $defenseNpc = $npc->getDefense() + 3;
+            $defenseNpc = $fight->getDefense() + 3;
 
             // On lance un dé de (1-10) que l'on ajoute à la stat la plus haute du hero
             $diceAccurancy = rand(1, 10) + $higherStatAttacker;
@@ -252,7 +255,7 @@ class FightController extends CoreApiController
                 $damageDice1 = rand(1, 4);
                 $damageDice2 = rand(1, 4);
                 $damage = $damageDice1 + $damageDice2;
-                $npcDamagedHealth = $npc->getHealth() - $damage;
+                $npcDamagedHealth = $fight->getHealth() - $damage;
 
                 $arrayRolls = [
                     "hit" => $hit,
@@ -262,9 +265,7 @@ class FightController extends CoreApiController
                 ];
                 if ($npcDamagedHealth <= 0) {
                     $attacker = "end of battle";
-                    //* npc dead, on reset sa vie et on annonce sa mort en JSON
-                    //* On reset la vie du npc en bdd
-                    //! Supprimer le npc de la table combat (To Build)
+                    //* npc dead, Supprimer le npc de la table Fight
                     $arrayNpc["npcHealth"] = 0;
                     $data = [
                         'player' => $arrayHero,
@@ -272,8 +273,10 @@ class FightController extends CoreApiController
                         'dices' => $arrayRolls,
                         'nextAttacker' => $attacker,
                     ];
-                    $npcReset = $npc->setHealth($npc->getMaxHealth());
-                    $npcRepository->add($npcReset, true);
+
+                    $fight->setHero(null);
+                    $fightDeleted = $fightRepository->remove($fight, true);
+
                     return $this->json200($data, ["game"]);
                 } else {
                     //* npc stills alive ! On maj sa vie en Json + BDD et il devient attacker
@@ -288,8 +291,10 @@ class FightController extends CoreApiController
                         'nextAttacker' => $attacker,
                     ];
 
-                    $npcupdate = $npc->setHealth($npcDamagedHealth);
-                    $npcRepository->add($npcupdate, true);
+                    $npcUpdate = $fight->setHealth($npcDamagedHealth);
+                    
+                    $fightRepository->add($fight, true);
+
                     return $this->json200($data, ["game"]);
                 }
             } else {
@@ -347,7 +352,9 @@ class FightController extends CoreApiController
                     //* Update en BDD
                     $heroRepository->add($heroFightApplied, true);
 
-                    //! Supprimer le npc de la table combat (To Build)
+                    //! Supprimer le npc de la table Fight
+                    $fight->setHero(null);
+                    $fightDeleted = $fightRepository->remove($fight, true);
 
                     //* Il nous faut l'event Death
                     $eventTypeDeath = $eventTypeRepository->findOneBy(['name' => "Death"]);
