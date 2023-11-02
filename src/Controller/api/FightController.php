@@ -2,9 +2,11 @@
 
 namespace App\Controller\api;
 
+use App\Entity\Fight;
 use App\Repository\EffectRepository;
 use App\Repository\EventRepository;
 use App\Repository\EventTypeRepository;
+use App\Repository\FightRepository;
 use App\Repository\HeroRepository;
 use App\Repository\NpcRepository;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -17,7 +19,7 @@ class FightController extends CoreApiController
      *
      * @Route("/api/event/fight/{npcId}/attack/{effectId}", name="app_api_introAttack" , requirements={"effectId"="\d+", "npcId"="\d+"}, methods={"GET"})
      */
-    public function introAttack($effectId, $npcId, NpcRepository $npcRepository, EffectRepository $effectRepository, HeroRepository $heroRepository, EventRepository $eventRepository, EventTypeRepository $eventTypeRepository): JsonResponse
+    public function introAttack($effectId, $npcId, FightRepository $fightRepository, NpcRepository $npcRepository, EffectRepository $effectRepository, HeroRepository $heroRepository, EventRepository $eventRepository, EventTypeRepository $eventTypeRepository): JsonResponse
     {
         /** @var App\Entity\User $user */
         $user = $this->getUser();
@@ -39,19 +41,53 @@ class FightController extends CoreApiController
                 'heroKarma' => $hero->getKarma(),
             ];
         }
-//! ICI
+
+        // ---------------------------------------------------------------------------
+        //* On veut copier un npc dans la table Fight
+        //* On récupère l'objet npc et on charge les éléments souhaités dans l'objet Fight
         $npc = $npcRepository->find($npcId);
 
+        $npcItemsCollection = $npc->getItem();
+        $npcItems = $npcItemsCollection->toArray();
+
+        if ($npcItems) {
+            foreach ($npcItems as $npcItem) {
+                $item = $npcItem->getId();
+            }
+        } else {
+            $item = null;
+        }
+
+        $fight = new Fight;
+        $fight->setHero($hero);
+        $fight->setName($npc->getName());
+        $fight->setDescription($npc->getDescription());
+        $fight->setMaxHealth($npc->getMaxHealth());
+        $fight->setHealth($npc->getHealth());
+        $fight->setStrength($npc->getStrength());
+        $fight->setIntelligence($npc->getIntelligence());
+        $fight->setDexterity($npc->getDexterity());
+        $fight->setDefense($npc->getDefense());
+        $fight->setKarma($npc->getKarma());
+        $fight->setHostility($npc->isHostility());
+        $fight->setIsBoss($npc->isIsBoss());
+        $fight->setXpEarned($npc->getXpEarned());
+        $fight->setItem($item);
+
+        $fightRepository->add($fight, true);
+
+        // ---------------------------------------------------------------------------
+
         $arrayNpc = [
-            'npcId' => $npc->getId(),
-            'npcName' => $npc->getName(),
-            'npcMaxHealth' => $npc->getMaxHealth(),
-            'npcHealth' => $npc->getHealth(),
-            'npcStrength' => $npc->getStrength(),
-            'npcIntelligence' => $npc->getIntelligence(),
-            'npcDexterity' => $npc->getDexterity(),
-            'npcDefense' => $npc->getDefense(),
-            'npcKarma' => $npc->getKarma(),
+            'npcId' => $fight->getId(),
+            'npcName' => $fight->getName(),
+            'npcMaxHealth' => $fight->getMaxHealth(),
+            'npcHealth' => $fight->getHealth(),
+            'npcStrength' => $fight->getStrength(),
+            'npcIntelligence' => $fight->getIntelligence(),
+            'npcDexterity' => $fight->getDexterity(),
+            'npcDefense' => $fight->getDefense(),
+            'npcKarma' => $fight->getKarma(),
         ];
 
         $effect = $effectRepository->find($effectId);
@@ -89,10 +125,9 @@ class FightController extends CoreApiController
                 //* Update en BDD
                 $heroUpdated = $heroRepository->add($heroEffectApplied, true);
 
-                //* On reset la vie du npc
-                //! Supprimer le npc de la table combat (To Build)
-                $npcReset = $npc->setHealth($npc->getMaxHealth());
-                $npcRepository->add($npcReset, true);
+                // Supprimer le npc de la table Fight car le combat est terminé
+                $fight->setHero(null);
+                $fightDeleted = $fightRepository->remove($fight, true);
 
                 //* Il nous faut l'event Death
                 $eventTypeDeath = $eventTypeRepository->findOneBy(['name' => "Death"]);
@@ -117,7 +152,6 @@ class FightController extends CoreApiController
             $attacker = "hero";
         } else {
             //* on tape le npc et on MAJ en BDD
-            //! Futur MAJ NPC sur table COMBAT (correctif)
             //*on détermine la santé du npc en appliquant l'effet
             $newNpcHealthToApply = $arrayNpc['npcHealth'] - $arrayEffect['effectHealth'];
 
@@ -125,24 +159,20 @@ class FightController extends CoreApiController
             if ($newNpcHealthToApply <= 0) {
                 //* Le npc est mort durant l'application de l'effet introduisant le combat
 
-                //* Reset vie du npc le combat est terminé
-                $npcEffectApplied = $npc->setHealth($npc->getMaxHealth());
-                //* Update en BDD
-                $npcUpdated = $npcRepository->add($npcEffectApplied, true);
+                // Supprimer le npc de la table Fight car le combat est terminé
+                $fight->setHero(null);
+                $fightDeleted = $fightRepository->remove($fight, true);
 
-                //* On reset la vie du npc
-                //! Supprimer le npc de la table combat (To Build)
-                $npcReset = $npc->setHealth($npc->getMaxHealth());
-                $npcRepository->add($npcReset, true);
                 $arrayNpc['npcHealth'] = $newNpcHealthToApply;
                 $attacker = "end of battle";
             } else {
                 //* Le npc a survécu à l'effet, on applique le modification de health
                 //* Maj vie du npc
-                $npcEffectApplied = $npc->setHealth($newNpcHealthToApply);
+                $npcEffectApplied = $fight->setHealth($newNpcHealthToApply);
+
                 //* Update en BDD
-                $npcUpdated = $npcRepository->add($npcEffectApplied, true);
                 $arrayNpc['npcHealth'] = $newNpcHealthToApply;
+                $npcUpdated = $fightRepository->add($fight, true);
                 $attacker = "npc";
             }
         }
@@ -152,6 +182,7 @@ class FightController extends CoreApiController
             'npc' => $arrayNpc,
             'effect' => $arrayEffect,
             'attacker' => $attacker,
+            'attackerNpcId' => $arrayNpc['npcId'],
         ];
 
         return $this->json200($data, ["game"]);
@@ -162,7 +193,7 @@ class FightController extends CoreApiController
      *
      * @Route("/api/event/fight/{npcId}/attacker/{attackerName}", name="app_api_attack" , requirements={"npcId"="\d+", "attackerName"="\w+"}, methods={"GET"})
      */
-    public function attack($npcId, $attackerName, NpcRepository $npcRepository, HeroRepository $heroRepository, EventRepository $eventRepository, EventTypeRepository $eventTypeRepository): JsonResponse
+    public function attack($npcId, $attackerName, FightRepository $fightRepository, NpcRepository $npcRepository, HeroRepository $heroRepository, EventRepository $eventRepository, EventTypeRepository $eventTypeRepository): JsonResponse
     {
 
         /** @var App\Entity\User $user */
@@ -234,7 +265,7 @@ class FightController extends CoreApiController
                     //* npc dead, on reset sa vie et on annonce sa mort en JSON
                     //* On reset la vie du npc en bdd
                     //! Supprimer le npc de la table combat (To Build)
-                    $arrayNpc ["npcHealth"]= 0;
+                    $arrayNpc["npcHealth"] = 0;
                     $data = [
                         'player' => $arrayHero,
                         'npc' => $arrayNpc,
@@ -248,7 +279,7 @@ class FightController extends CoreApiController
                     //* npc stills alive ! On maj sa vie en Json + BDD et il devient attacker
                     $attacker = "npc";
 
-                    $arrayNpc ["npcHealth"]= $npcDamagedHealth;
+                    $arrayNpc["npcHealth"] = $npcDamagedHealth;
 
                     $data = [
                         'player' => $arrayHero,
@@ -279,10 +310,9 @@ class FightController extends CoreApiController
                 ];
                 return $this->json200($data, ["game"]);
             }
-            
-        } 
+        }
         // ----------------------------------------HERO END ATTACKER---------------------------------------------------
-        
+
         // ----------------------------------------NPC START ATTACKER---------------------------------------------------
         elseif ($attackerName === "npc") {
             //* le npc frappe le hero
@@ -335,7 +365,7 @@ class FightController extends CoreApiController
                     //* hero stills alive ! On maj sa vie en Json + BDD et il devient attacker
                     $attacker = "hero";
 
-                    $arrayHero ["health"]= $heroDamagedHealth;
+                    $arrayHero["health"] = $heroDamagedHealth;
 
                     $data = [
                         'player' => $arrayHero,
