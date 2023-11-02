@@ -39,7 +39,7 @@ class FightController extends CoreApiController
                 'heroKarma' => $hero->getKarma(),
             ];
         }
-
+//! ICI
         $npc = $npcRepository->find($npcId);
 
         $arrayNpc = [
