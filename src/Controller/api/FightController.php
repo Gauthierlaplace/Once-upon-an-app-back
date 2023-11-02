@@ -234,6 +234,7 @@ class FightController extends CoreApiController
                     //* npc dead, on reset sa vie et on annonce sa mort en JSON
                     //* On reset la vie du npc en bdd
                     //! Supprimer le npc de la table combat (To Build)
+                    $arrayNpc ["npcHealth"]= 0;
                     $data = [
                         'player' => $arrayHero,
                         'npc' => $arrayNpc,
