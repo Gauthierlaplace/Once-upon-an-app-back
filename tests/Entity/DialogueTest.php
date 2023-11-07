@@ -1,21 +1,20 @@
 <?php
 
-namespace App\Tests;
+namespace App\Tests\Entity;
 
-use App\Entity\Race;
+use App\Entity\Dialogue;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 
-class RaceTest extends KernelTestCase
+class DialogueTest extends KernelTestCase
 {
     protected static function getKernelClass()
     {
         return \App\Kernel::class;
     }
 
-    public function getEntity(): Race
+    public function getEntity(): Dialogue
     {
-        return (new Race())->setName('Race #1')
-                    ->setDescription('Description #1');
+        return (new Dialogue())->setContent('Dialogue #1');
     }
 
     public function testEntityIsValid(): void
@@ -29,4 +28,3 @@ class RaceTest extends KernelTestCase
         $this->assertCount(0, $errors);
     }
 }
- 

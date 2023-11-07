@@ -5,7 +5,7 @@ namespace App\Tests\Entity;
 use App\Entity\Item;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 
-class itemTest extends KernelTestCase
+class ItemTest extends KernelTestCase
 {
     protected static function getKernelClass()
     {
@@ -29,9 +29,9 @@ class itemTest extends KernelTestCase
         self::bootKernel();
         $container = static::getContainer();
 
-        $item = $this->getEntity();
+        $entity = $this->getEntity();
 
-        $errors = $container->get('validator')->validate($item);
+        $errors = $container->get('validator')->validate($entity);
         $this->assertCount(0, $errors);
     }
 }
