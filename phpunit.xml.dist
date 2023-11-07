@@ -8,6 +8,7 @@
   <php>
     <!-- ... autres configurations ... -->
     <ini name="xdebug.mode" value="coverage"/>
+    <env name="DATABASE_URL" value="mysql://root:Fr15abc!@localhost:3306/rpg"/>
   </php>
 
   <testsuites>
