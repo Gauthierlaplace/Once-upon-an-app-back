@@ -9,8 +9,13 @@ class RaceTest extends KernelTestCase
 {
     protected static function getKernelClass()
     {
-        // Retournez le nom de la classe de noyau (Kernel) de votre application Symfony
         return \App\Kernel::class;
+    }
+
+    public function getEntity(): Race
+    {
+        return (new Race())->setName('Race #1')
+                    ->setDescription('Description #1');
     }
 
     public function testEntityIsValid(): void
@@ -18,11 +23,10 @@ class RaceTest extends KernelTestCase
         self::bootKernel();
         $container = static::getContainer();
 
-        $race = new Race();
-        $race->setName('Race #1');
-        $race->setDescription('Description #1');
+        $race = $this->getEntity();
 
         $errors = $container->get('validator')->validate($race);
         $this->assertCount(0, $errors);
     }
 }
+ 
