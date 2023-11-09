@@ -7,6 +7,7 @@ use App\Repository\EndingRepository;
 use App\Repository\EventRepository;
 use App\Repository\EventTypeRepository;
 use App\Repository\HeroRepository;
+use App\Services\PlayedEventService;
 
 class GameServices
 {
@@ -40,9 +41,15 @@ class GameServices
      */
     private $effectRepository;
 
+    /**
+     *
+     * @var PlayedEventService
+     */
+    private $playedEventService;
 
 
-    public function __construct(EventTypeRepository $eventTypeRepository, EndingRepository $endingRepository, EventRepository $eventRepository, HeroRepository $heroRepository, EffectRepository $effectRepository)
+
+    public function __construct(PlayedEventService $playedEventService, EventTypeRepository $eventTypeRepository, EndingRepository $endingRepository, EventRepository $eventRepository, HeroRepository $heroRepository, EffectRepository $effectRepository)
     {
 
         $this->eventTypeRepository = $eventTypeRepository;
@@ -50,6 +57,7 @@ class GameServices
         $this->eventRepository = $eventRepository;
         $this->heroRepository = $heroRepository;
         $this->effectRepository = $effectRepository;
+        $this->playedEventService = $playedEventService;
     }
 
 
@@ -286,7 +294,7 @@ class GameServices
      * 
      * @return array $choices Return array of the 2 Events to choose
      */
-    public function getTwoEndingsWithTwoRandomEvent($randomizedEndingsPicked, $endingsCurrentEvent)
+    public function getTwoEndingsWithTwoRandomEvent($randomizedEndingsPicked, $endingsCurrentEvent, $user)
     {
         $nextEvents = [];
         $endings = [];
@@ -312,27 +320,42 @@ class GameServices
         $event1 = $nextEvents[0];
         $event2 = $nextEvents[1];
 
-        $choices = [
-            0 => [
-                'ending' => $ending1->getContent(),
-                'nextEventId' => $event1->getId(),
-                'nextEventOpening' => $event1->getOpening()
-            ],
-            1 => [
-                'ending' => $ending2->getContent(),
-                'nextEventId' => $event2->getId(),
-                'nextEventOpening' => $event2->getOpening()
-            ],
-        ];
+        //!-------------------------------------------------------------------------------------------------
+        
 
-        return $choices;
+        $eventsIdToCheck = [];
+        $eventsIdToCheck[] = $event1->getId();
+        $eventsIdToCheck[] = $event2->getId();
+        foreach ($eventsIdToCheck as $eventIdToCheck) {
+            if ($this->playedEventService->checkEventIdIsUnique($eventIdToCheck, $user) === true) {
+                // == true
+                $choices = [
+                    0 => [
+                        'ending' => $ending1->getContent(),
+                        'nextEventId' => $event1->getId(),
+                        'nextEventOpening' => $event1->getOpening()
+                    ],
+                    1 => [
+                        'ending' => $ending2->getContent(),
+                        'nextEventId' => $event2->getId(),
+                        'nextEventOpening' => $event2->getOpening()
+                    ],
+                ];
+
+                return $choices;
+            } else {
+                // ==false Il faut reprendre 2 events Id
+                $this->getTwoEndingsWithTwoRandomEvent($randomizedEndingsPicked, $endingsCurrentEvent, $user);
+            }
+        }
+        //!-------------------------------------------------------------------------------------------------
     }
 
     /**
      *  Update Hero after Effect applied
      * 
      * @param mixed $id The id of the effect
-     * @param array $user The Current User
+     * @param mixed $user The Current User
      * 
      * @return array $hero Returns updated $hero
      */
@@ -382,7 +405,7 @@ class GameServices
      * 
      * @return array $data with $hero and $eventDeath if the Hero dies, if he is still alive it returns $hero
      */
-    public function heroSurvivedOrNot($hero)
+    public function heroSurvivedOrNot($hero, $user)
     {
         if ($hero->getHealth() <= 0) {
 
@@ -392,6 +415,9 @@ class GameServices
             $eventTypeDeath = $this->eventTypeRepository->findOneBy(['name' => "Death"]);
             $eventTypeDeathId = $eventTypeDeath->getId();
             $eventDeath = $this->eventRepository->findOneBy(['eventType' => $eventTypeDeathId]);
+
+            //* Reset des playedEvent du Hero
+            $this->playedEventService->resetPlayedEventToHero($user);
 
             $data = [
                 'player' => $hero,
@@ -409,7 +435,7 @@ class GameServices
     /**
      *  Reset the Hero health to his maxHealth to restart the game
      * 
-     * @param object $user 
+     * @param mixed $user 
      * 
      * @return array $hero Return $hero with health reset to the maxHealth
      */
@@ -422,7 +448,8 @@ class GameServices
         return $hero;
     }
 
-    public function getAllCurrentEventData($currentEvent){
+    public function getAllCurrentEventData($currentEvent)
+    {
 
         if ($currentEvent->getPicture()) {
             $picturePath = $currentEvent->getPicture()->getPath();
@@ -439,6 +466,5 @@ class GameServices
 
         ];
         return $allCurrentEventData;
-
     }
 }
