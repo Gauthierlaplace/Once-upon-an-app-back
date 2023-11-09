@@ -62,29 +62,30 @@ class GameController extends CoreApiController
         PlayedEventService $playedEventService
     ): JsonResponse {
 
-        //!-------------------------------------------------------------------------------------------------
+        $currentEvent = $eventRepository->find($id);
+        $allCurrentEventData = $gameServices->getAllCurrentEventData($currentEvent);
+        
+        $arrayNpc = $gameServices->getAllNpcData($currentEvent);
+        
+        $endingsCollection = $currentEvent->getEndings();
+        $endingscurrentEvent = $endingsCollection->toArray();
+        
+        $randomizedEndingsPicked = $gameServices->getTwoRandomEndingsKeysWithoutBossType($endingscurrentEvent);
+
         /** @var App\Entity\User $user */
         $user = $this->getUser();
 
-        // if ($playedEventService->checkEventIdIsUnique($id, $user) == true) {
-        //     // == true on
+        $result = $playedEventService->checkEventIdIsUnique($id, $user);
 
-        // } else {
-        //     // ==false
+        if ($result === false) {
+            // === false $id isn't allowed to be in the next event Id pool for $choices
+            $idToAvoid = $id;
+        } else {
+            // === true $id is unique, this id is allowed to be in the next event Id pool for $choices
+            $idToAvoid = null;
+        }
 
-        // }
-        //!-------------------------------------------------------------------------------------------------
-        $currentEvent = $eventRepository->find($id);
-        $allCurrentEventData = $gameServices->getAllCurrentEventData($currentEvent);
-
-        $arrayNpc = $gameServices->getAllNpcData($currentEvent);
-
-        $endingsCollection = $currentEvent->getEndings();
-        $endingscurrentEvent = $endingsCollection->toArray();
-
-        $randomizedEndingsPicked = $gameServices->getTwoRandomEndingsKeysWithoutBossType($endingscurrentEvent);
-
-        $choices = $gameServices->getTwoEndingsWithTwoRandomEvent($randomizedEndingsPicked, $endingscurrentEvent, $user);
+        $choices = $gameServices->getTwoEndingsWithTwoRandomEvent($randomizedEndingsPicked, $endingscurrentEvent, $user, $idToAvoid);
 
         $data = [
             'currentEvent' => $allCurrentEventData,

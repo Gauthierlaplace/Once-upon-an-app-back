@@ -294,25 +294,69 @@ class GameServices
      * 
      * @return array $choices Return array of the 2 Events to choose
      */
-    public function getTwoEndingsWithTwoRandomEvent($randomizedEndingsPicked, $endingsCurrentEvent, $user)
+    public function getTwoEndingsWithTwoRandomEvent($randomizedEndingsPicked, $endingsCurrentEvent, $user, $idToAvoid = null)
     {
         $nextEvents = [];
         $endings = [];
-        foreach ($randomizedEndingsPicked as $endingsCurrentEventKey) { // * on boucle sur les 2 endings récupéré aléatoirement
+        if ($idToAvoid === null) {
+            foreach ($randomizedEndingsPicked as $endingsCurrentEventKey) { // * on boucle sur les 2 endings récupéré aléatoirement
 
-            $oneEnding = $endingsCurrentEvent[$endingsCurrentEventKey]; // * on récupère chaque ending
+                $oneEnding = $endingsCurrentEvent[$endingsCurrentEventKey]; // * on récupère chaque ending
 
-            $endings[] = $oneEnding; // * on stock les deux endings dans un array $endings
+                $endings[] = $oneEnding; // * on stock les deux endings dans un array $endings
 
-            $collectionEventType = $oneEnding->getEventType(); // * pour chaque ending, on récupère son event_type
+                $collectionEventType = $oneEnding->getEventType(); // * pour chaque ending, on récupère son event_type
 
-            $eventTypeId = $collectionEventType->getId(); // * pour chaque event_type, on récupère son id
+                $eventTypeId = $collectionEventType->getId(); // * pour chaque event_type, on récupère son id
 
-            $events = $this->eventRepository->findBy(['eventType' => $eventTypeId]); // * récupération de tout les events correspondant à $eventTypeId
+                $events = $this->eventRepository->findBy(['eventType' => $eventTypeId]); // * récupération de tout les events correspondant à $eventTypeId
 
-            $eventPicked = array_rand($events, 1); // * on récupère la clé de l'event choisi aléatoirement
+                $eventPicked = array_rand($events, 1); // * on récupère la clé de l'event choisi aléatoirement
 
-            $nextEvents[] = $events[$eventPicked]; // * on stock l'event qui la clé $eventPicked dans un array $nextEvents
+                $nextEvents[] = $events[$eventPicked]; // * on stock l'event qui la clé $eventPicked dans un array $nextEvents
+            }
+        } else {
+            // $idToAvoid correspond à l'Id de l'event à ne pas mettre dans $choices
+
+            foreach ($randomizedEndingsPicked as $endingsCurrentEventKey) { // * on boucle sur les 2 endings récupéré aléatoirement
+
+                $oneEnding = $endingsCurrentEvent[$endingsCurrentEventKey]; // * on récupère chaque ending
+
+                $endings[] = $oneEnding; // * on stock les deux endings dans un array $endings
+
+                $collectionEventType = $oneEnding->getEventType(); // * pour chaque ending, on récupère son event_type
+
+                $eventTypeId = $collectionEventType->getId(); // * pour chaque event_type, on récupère son id
+
+                $events = $this->eventRepository->findBy(['eventType' => $eventTypeId]); // * récupération de tout les events correspondant à $eventTypeId
+
+                // Taking out events already played during the game
+                $playedEventArray = $this->playedEventService->getPlayedEventArray($user);
+                if ($playedEventArray !== null) {
+                    foreach ($playedEventArray as $eventId) {
+                        foreach ($events as $key => $event) {
+                            if ($event->getId() == $eventId) {
+                                // on retire $event du tableau $events
+                                unset($events[$key]);
+                            }
+                        }
+                    }
+                }
+                // Taking out event with $idToAvoid
+                $eventToDeleteOnEvents = $this->eventRepository->find($idToAvoid);
+                foreach ($events as $key => $event) {
+
+                    if ($event->getId() == $eventToDeleteOnEvents->getId()) {
+                        // on retire $event du tableau $events
+                        unset($events[$key]);
+                        break;
+                    }
+                }
+
+                $eventPicked = array_rand($events, 1); // * on récupère la clé de l'event choisi aléatoirement
+
+                $nextEvents[] = $events[$eventPicked]; // * on stock l'event qui la clé $eventPicked dans un array $nextEvents
+            }
         }
 
         $ending1 = $endings[0];
@@ -320,35 +364,19 @@ class GameServices
         $event1 = $nextEvents[0];
         $event2 = $nextEvents[1];
 
-        //!-------------------------------------------------------------------------------------------------
-        
-
-        $eventsIdToCheck = [];
-        $eventsIdToCheck[] = $event1->getId();
-        $eventsIdToCheck[] = $event2->getId();
-        foreach ($eventsIdToCheck as $eventIdToCheck) {
-            if ($this->playedEventService->checkEventIdIsUnique($eventIdToCheck, $user) === true) {
-                // == true
-                $choices = [
-                    0 => [
-                        'ending' => $ending1->getContent(),
-                        'nextEventId' => $event1->getId(),
-                        'nextEventOpening' => $event1->getOpening()
-                    ],
-                    1 => [
-                        'ending' => $ending2->getContent(),
-                        'nextEventId' => $event2->getId(),
-                        'nextEventOpening' => $event2->getOpening()
-                    ],
-                ];
-
-                return $choices;
-            } else {
-                // ==false Il faut reprendre 2 events Id
-                $this->getTwoEndingsWithTwoRandomEvent($randomizedEndingsPicked, $endingsCurrentEvent, $user);
-            }
-        }
-        //!-------------------------------------------------------------------------------------------------
+        $choices = [
+            0 => [
+                'ending' => $ending1->getContent(),
+                'nextEventId' => $event1->getId(),
+                'nextEventOpening' => $event1->getOpening()
+            ],
+            1 => [
+                'ending' => $ending2->getContent(),
+                'nextEventId' => $event2->getId(),
+                'nextEventOpening' => $event2->getOpening()
+            ],
+        ];
+        return $choices;
     }
 
     /**

@@ -58,20 +58,24 @@ class PlayedEventService
     public function checkEventIdIsUnique($id, $user)
     {
         $playedEventArray = $this->getPlayedEventArray($user);
-        //TODO
-        //! if $playedEventArray is null , on ne boucle pas, on considère que $id est unique donc on implémente $id à playedEventArray
+
         if ($playedEventArray === null) {
             $this->addEventToHero($user, $id);
         } else {
+            $eventAlreadyPlayed = false;
             foreach ($playedEventArray as $playedEventId) {
-                if ($id === $playedEventId) {
-                    // $id isn't unique
-                    return false;
-                } else {
-                    // $id is unique, we can add it to $playedEventArray with function addEventToHero()
-                    $this->addEventToHero($user, $id);
-                    return true;
+                if ($id == $playedEventId) {
+                    // $id isn't unique, event already played, need to select other event
+                    $eventAlreadyPlayed = true;
+                    break;
                 }
+            }
+            if ($eventAlreadyPlayed !== true) {
+                // $id is unique, we can add it to $playedEventArray with function addEventToHero()
+                $this->addEventToHero($user, $id);
+                return $result = true;
+            } else {
+                return $result = false;
             }
         }
     }
