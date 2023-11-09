@@ -102,6 +102,7 @@ class GameServices
             }
 
             $arrayNpc = [
+                "npcId" => $npc->getId(),
                 "raceName" => $raceName,
                 "raceDescription" => $raceDescription,
                 "npcName" => $npc->getName(),
