@@ -182,7 +182,7 @@ class FightController extends CoreApiController
             'npc' => $arrayNpc,
             'effect' => $arrayEffect,
             'attacker' => $attacker,
-            'attackerNpcId' => $arrayNpc['npcId'],
+            'attackerFightId' => $arrayNpc['npcId'],
         ];
 
         return $this->json200($data, ["game"]);
@@ -191,9 +191,9 @@ class FightController extends CoreApiController
     /**
      * ! Combat Phase 2 : Test touché ou pas et application de Rolls de dés sur la vie du défenseur correspondant, vérification de l'état de santé du défenseur et retour JSON en fonction de la vie ou mort du défenseur, désignation de l'attacker suivant s'il survit
      *
-     * @Route("/api/event/fight/{npcId}/attacker/{attackerName}", name="app_api_attack" , requirements={"npcId"="\d+", "attackerName"="\w+"}, methods={"GET"})
+     * @Route("/api/event/fight/{fightId}/attacker/{attackerName}", name="app_api_attack" , requirements={"fightId"="\d+", "attackerName"="\w+"}, methods={"GET"})
      */
-    public function attack($npcId, $attackerName, FightRepository $fightRepository, NpcRepository $npcRepository, HeroRepository $heroRepository, EventRepository $eventRepository, EventTypeRepository $eventTypeRepository): JsonResponse
+    public function attack($fightId, $attackerName, FightRepository $fightRepository, HeroRepository $heroRepository, EventRepository $eventRepository, EventTypeRepository $eventTypeRepository): JsonResponse
     {
 
         /** @var App\Entity\User $user */
@@ -219,7 +219,7 @@ class FightController extends CoreApiController
 
 
         //* On récupère l'objet Fight (le npc)
-        $fight = $fightRepository->find($npcId);
+        $fight = $fightRepository->find($fightId);
 
         $arrayNpc = [
             'npcId' => $fight->getId(),
@@ -271,7 +271,7 @@ class FightController extends CoreApiController
                         'player' => $arrayHero,
                         'npc' => $arrayNpc,
                         'dices' => $arrayRolls,
-                        'nextAttacker' => $attacker,
+                        'attacker' => $attacker,
                     ];
 
                     $fight->setHero(null);
@@ -288,7 +288,7 @@ class FightController extends CoreApiController
                         'player' => $arrayHero,
                         'npc' => $arrayNpc,
                         'dices' => $arrayRolls,
-                        'nextAttacker' => $attacker,
+                        'attacker' => $attacker,
                     ];
 
                     $npcUpdate = $fight->setHealth($npcDamagedHealth);
@@ -311,7 +311,7 @@ class FightController extends CoreApiController
                     'player' => $arrayHero,
                     'npc' => $arrayNpc,
                     'dices' => $arrayRolls,
-                    'nextAttacker' => $attacker,
+                    'attacker' => $attacker,
                 ];
                 return $this->json200($data, ["game"]);
             }
@@ -365,7 +365,7 @@ class FightController extends CoreApiController
                         'player' => $hero,
                         'GameOver' => $eventDeath,
                         'dices' => $arrayRolls,
-                        'nextAttacker' => $attacker,
+                        'attacker' => $attacker,
                     ];
                     return $this->json200($data, ["game"]);
                 } else {
@@ -378,7 +378,7 @@ class FightController extends CoreApiController
                         'player' => $arrayHero,
                         'npc' => $arrayNpc,
                         'dices' => $arrayRolls,
-                        'nextAttacker' => $attacker,
+                        'attacker' => $attacker,
                     ];
 
                     $heroUpdate = $hero->setHealth($heroDamagedHealth);
@@ -399,7 +399,7 @@ class FightController extends CoreApiController
                     'player' => $arrayHero,
                     'npc' => $arrayNpc,
                     'dices' => $arrayRolls,
-                    'nextAttacker' => $attacker,
+                    'attacker' => $attacker,
                 ];
                 return $this->json200($data, ["game"]);
             }
