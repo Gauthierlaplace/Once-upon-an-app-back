@@ -171,3 +171,35 @@ width: 10vw;
     overflow-y: auto; 
     max-height: 100vh;
   }
+
+.searchForm {
+    display: flex;
+    flex-direction: column;
+    width: 15vh;
+    z-index: 9999;
+    position: fixed;
+    top: 0;
+    left: 0;
+    opacity: 0.8;
+    transition: background-color 2s;
+    margin-top: 10vh;
+}
+
+.searchForm:hover {
+    background-color: #000000;
+    opacity: 1;
+}
+
+.searchPlaceholder {
+    font-size: small;
+}
+
+.searchBtn {
+    opacity: 0.8;
+    transition: background-color 2s;
+}
+
+.searchBtn:hover {
+    background-color: #000000;
+    opacity: 1;
+}
