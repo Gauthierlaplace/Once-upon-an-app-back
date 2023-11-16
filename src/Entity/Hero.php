@@ -138,6 +138,11 @@ class Hero
      */
     private $fight;
 
+    /**
+     * @ORM\Column(type="array", nullable=true)
+     */
+    private $playedEvent = [];
+
     public function __construct()
     {
         $this->item = new ArrayCollection();
@@ -378,6 +383,18 @@ class Hero
     public function setFight(?Fight $fight): self
     {
         $this->fight = $fight;
+
+        return $this;
+    }
+
+    public function getPlayedEvent(): ?array
+    {
+        return $this->playedEvent;
+    }
+
+    public function setPlayedEvent(?array $playedEvent): self
+    {
+        $this->playedEvent = $playedEvent;
 
         return $this;
     }

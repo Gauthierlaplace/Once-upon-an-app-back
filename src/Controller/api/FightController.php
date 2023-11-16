@@ -9,6 +9,7 @@ use App\Repository\EventTypeRepository;
 use App\Repository\FightRepository;
 use App\Repository\HeroRepository;
 use App\Repository\NpcRepository;
+use App\Services\PlayedEventService;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -19,7 +20,7 @@ class FightController extends CoreApiController
      *
      * @Route("/api/event/fight/{npcId}/attack/{effectId}", name="app_api_introAttack" , requirements={"effectId"="\d+", "npcId"="\d+"}, methods={"GET"})
      */
-    public function introAttack($effectId, $npcId, FightRepository $fightRepository, NpcRepository $npcRepository, EffectRepository $effectRepository, HeroRepository $heroRepository, EventRepository $eventRepository, EventTypeRepository $eventTypeRepository): JsonResponse
+    public function introAttack($effectId, $npcId, FightRepository $fightRepository, PlayedEventService $playedEventService, NpcRepository $npcRepository, EffectRepository $effectRepository, HeroRepository $heroRepository, EventRepository $eventRepository, EventTypeRepository $eventTypeRepository): JsonResponse
     {
         /** @var App\Entity\User $user */
         $user = $this->getUser();
@@ -120,6 +121,8 @@ class FightController extends CoreApiController
             if ($newHeroHealthToApply <= 0) {
                 //* Le hero est mort durant l'application de l'effet introduisant le combat
                 $newHeroHealthToApply = 0;
+                //* Reset des playedEvent du Hero
+                $playedEventService->resetPlayedEventToHero($user);
                 //* Maj vie du hero
                 $heroEffectApplied = $heroToApplyEffect->setHealth($newHeroHealthToApply);
                 //* Update en BDD
@@ -193,7 +196,7 @@ class FightController extends CoreApiController
      *
      * @Route("/api/event/fight/{fightId}/attacker/{attackerName}", name="app_api_attack" , requirements={"fightId"="\d+", "attackerName"="\w+"}, methods={"GET"})
      */
-    public function attack($fightId, $attackerName, FightRepository $fightRepository, HeroRepository $heroRepository, EventRepository $eventRepository, EventTypeRepository $eventTypeRepository): JsonResponse
+    public function attack($fightId, $attackerName, FightRepository $fightRepository, PlayedEventService $playedEventService, HeroRepository $heroRepository, EventRepository $eventRepository, EventTypeRepository $eventTypeRepository): JsonResponse
     {
 
         /** @var App\Entity\User $user */
@@ -232,7 +235,7 @@ class FightController extends CoreApiController
             'npcDefense' => $fight->getDefense(),
             'npcKarma' => $fight->getKarma(),
         ];
-        
+
 
         $arrayRolls = [];
 
@@ -292,7 +295,7 @@ class FightController extends CoreApiController
                     ];
 
                     $npcUpdate = $fight->setHealth($npcDamagedHealth);
-                    
+
                     $fightRepository->add($fight, true);
 
                     return $this->json200($data, ["game"]);
@@ -349,6 +352,8 @@ class FightController extends CoreApiController
                     $newHeroHealthToApply = 0;
                     //* Maj vie du hero
                     $heroFightApplied = $hero->setHealth($newHeroHealthToApply);
+                    //* Reset des playedEvent du Hero
+                    $playedEventService->resetPlayedEventToHero($user);
                     //* Update en BDD
                     $heroRepository->add($heroFightApplied, true);
 
