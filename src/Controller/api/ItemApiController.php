@@ -7,10 +7,10 @@ use App\Repository\ItemRepository;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Annotation\Route;
 
-class ItemController extends CoreApiController
+class ItemApiController extends CoreApiController
 {
     /**
-     *! Item is usable, applies on hero stats and delete item from hero inventory
+     *! Item is usable, applies on hero stats and delete item used from hero inventory
      *
      * @Route("/api/usable/{itemId}", name="app_api_usable" , requirements={"itemId"="\d+"}, methods={"GET"})
      */
@@ -32,14 +32,38 @@ class ItemController extends CoreApiController
                 if ($item->getId() == $itemId) {
 
                     $itemUsed = $itemRepository->find($itemId);
-                    // TODO check usable function is ok with it, probably this one under ;)
-                    // if ($itemUsed->getHealth() && $itemUsed->getUsable() == true) {
-                    if ($itemUsed->getHealth()) {
-                        $hero->setHealth($hero->getHealth() + $itemUsed->getHealth());
 
-                        if ($hero->getHealth() >= $hero->getMaxHealth()) {
-                            $hero->setHealth($hero->getMaxHealth());
+                    if ($itemUsed->isUsable()) {
+                        //! Health
+                        if ($itemUsed->getHealth()) {
+                            if ($itemUsed->getHealth()) {
+                                $hero->setHealth($hero->getHealth() + $itemUsed->getHealth());
+                                if ($hero->getHealth() >= $hero->getMaxHealth()) {
+                                    $hero->setHealth($hero->getMaxHealth());
+                                }
+                            }
                         }
+                        //! Strength
+                        if ($itemUsed->getStrength()) {
+                            $hero->setStrength($hero->getStrength() + $itemUsed->getStrength());
+                        }
+                        //! Intelligence
+                        if ($itemUsed->getIntelligence()) {
+                            $hero->setIntelligence($hero->getIntelligence() + $itemUsed->getIntelligence());
+                        }
+                        //! Dexterity
+                        if ($itemUsed->getDexterity()) {
+                            $hero->setDexterity($hero->getDexterity() + $itemUsed->getDexterity());
+                        }
+                        //! Defense
+                        if ($itemUsed->getDefense()) {
+                            $hero->setDefense($hero->getDefense() + $itemUsed->getDefense());
+                        }
+                        //! Karma
+                        if ($itemUsed->getKarma()) {
+                            $hero->setKarma($hero->getKarma() + $itemUsed->getKarma());
+                        }
+
                         unset($items[$key]);
                         $itemCollection->removeElement($itemUsed);
                         $hero->removeItem($itemUsed);
@@ -68,13 +92,6 @@ class ItemController extends CoreApiController
 
         return $this->json200($data, ["game"]);
     }
+
+    
 }
-
-// On veut : Utiliser une potion
-
-// On a besoin de : 
-//1. Ajouter un item à un npc dans la table Fight 
-//2. Si le npc meurt, le hero gagne l'item du npc de la table Fight
-//3. Utiliser une potion
-//4. Obtenir l'inventaire du hero (service)
-//5.

@@ -8,7 +8,7 @@
 		</h1>
 		<a class='btn btn-primary show' href="{{ path('app_home') }}">Retour à l'Accueil</a>
 		{% if is_granted('ROLE_GAMEMASTER') %}
-		<a class="mb-2 btn btn-success float-end" href="{{ path('app_item_new') }}">Ajouter un objet</a>
+			<a class="mb-2 btn btn-success float-end" href="{{ path('app_item_new') }}">Ajouter un objet</a>
 		{% endif %}
 		<table class="table table-hover mt-4">
 			<thead>
@@ -16,13 +16,14 @@
 					<th>Id</th>
 					<th>Nom</th>
 					<th>Image</th>
+					<th>Utilisable</th>
 					{# <th>Santé</th>
-					<th>Force</th>
-					<th>Intelligence</th>
-					<th>Dexterité</th>
-					<th>Défense</th>
-					<th>Karma</th>
-					<th>Xp</th> #}
+										<th>Force</th>
+										<th>Intelligence</th>
+										<th>Dexterité</th>
+										<th>Défense</th>
+										<th>Karma</th>
+										<th>Xp</th> #}
 					<th class="text-center">Actions</th>
 				</tr>
 			</thead>
@@ -32,22 +33,29 @@
 						<td>{{ item.id }}</td>
 						<td>{{ item.name }}</td>
 						<td>
-						{% if item.picture %}
-							<img class="img-fluid otherTableImg" src="{{ asset(item.picture.path) }}" alt="{{ 'image de ' ~ item.name }}">
-						{% endif %}
+							{% if item.picture %}
+								<img class="img-fluid otherTableImg" src="{{ asset(item.picture.path) }}" alt="{{ 'image de ' ~ item.name }}">
+							{% endif %}
+						</td>
+						<td>
+							{% if item.usable == true %}
+								Oui
+							{% else %}
+								Non
+							{% endif %}
 						</td>
 						{# <td>{{ item.health }}</td>
-						<td>{{ item.strength }}</td>
-						<td>{{ item.intelligence }}</td>
-						<td>{{ item.dexterity }}</td>
-						<td>{{ item.defense }}</td>
-						<td>{{ item.karma }}</td>
-						<td>{{ item.xp }}</td> #}
+												<td>{{ item.strength }}</td>
+												<td>{{ item.intelligence }}</td>
+												<td>{{ item.dexterity }}</td>
+												<td>{{ item.defense }}</td>
+												<td>{{ item.karma }}</td>
+												<td>{{ item.xp }}</td> #}
 						<td>
 							<a class="btn btn-primary float-end  m-1" href="{{ path('app_item_show', {'id': item.id}) }}">Voir</a>
 							{% if is_granted('ROLE_GAMEMASTER') %}
-							<a class="btn btn-warning float-end  m-1" href="{{ path('app_item_edit', {'id': item.id}) }}">Modifier</a>
-							{{ include('item/_delete_form.html.twig') }}
+								<a class="btn btn-warning float-end  m-1" href="{{ path('app_item_edit', {'id': item.id}) }}">Modifier</a>
+								{{ include('item/_delete_form.html.twig') }}
 							{% endif %}
 						</td>
 					</tr>

@@ -11,60 +11,71 @@
 			<div class="col-md-8 offset-md-2">
 				<div class="card">
 					<div class="card-body">
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ item.id }}</td>
-            </tr>
-            <tr>
-                <th>Nom</th>
-                <td>{{ item.name }}</td>
-            </tr>
-            <tr>
-                <th>Image</th>
-                <td>
-                {% if item.picture %}
-                <img class="img-fluid" src="{{ asset(item.picture.path) }}" alt="{{ 'image de ' ~ item.name }}"> <br>
-                {% endif %}
-                {{ item.picture }}</td>
-            </tr>
-            <tr>
-                <th>Santé</th>
-                <td>{{ item.health }}</td>
-            </tr>
-            <tr>
-                <th>Force</th>
-                <td>{{ item.strength }}</td>
-            </tr>
-            <tr>
-                <th>Intelligence</th>
-                <td>{{ item.intelligence }}</td>
-            </tr>
-            <tr>
-                <th>Dexterité</th>
-                <td>{{ item.dexterity }}</td>
-            </tr>
-            <tr>
-                <th>Défense</th>
-                <td>{{ item.defense }}</td>
-            </tr>
-            <tr>
-                <th>Karma</th>
-                <td>{{ item.karma }}</td>
-            </tr>
-            <tr>
-                <th>Xp</th>
-                <td>{{ item.xp }}</td>
-            </tr>
-        </tbody>
-    </table>
-    {% if is_granted('ROLE_GAMEMASTER') %}
-        <a class='btn btn-warning  m-1' href="{{ path('app_item_edit', {'id': item.id}) }}">Modifier</a>
-    {% endif %}
-    {% if is_granted('ROLE_ADMIN') %}
-        {{ include('item/_delete_form.html.twig') }}
-    {% endif %}
+						<table class="table">
+							<tbody>
+								<tr>
+									<th>Id</th>
+									<td>{{ item.id }}</td>
+								</tr>
+								<tr>
+									<th>Nom</th>
+									<td>{{ item.name }}</td>
+								</tr>
+								<tr>
+									<th>Image</th>
+									<td>
+										{% if item.picture %}
+											<img class="img-fluid" src="{{ asset(item.picture.path) }}" alt="{{ 'image de ' ~ item.name }}">
+											<br>
+										{% endif %}
+										{{ item.picture }}</td>
+								</tr>
+								<tr>
+									<th>Utilisable</th>
+									<td>
+										{% if item.usable == true %}
+											Oui
+										{% else %}
+											Non
+										{% endif %}
+									</td>
+								</tr>
+								<tr>
+									<th>Santé</th>
+									<td>{{ item.health }}</td>
+								</tr>
+								<tr>
+									<th>Force</th>
+									<td>{{ item.strength }}</td>
+								</tr>
+								<tr>
+									<th>Intelligence</th>
+									<td>{{ item.intelligence }}</td>
+								</tr>
+								<tr>
+									<th>Dexterité</th>
+									<td>{{ item.dexterity }}</td>
+								</tr>
+								<tr>
+									<th>Défense</th>
+									<td>{{ item.defense }}</td>
+								</tr>
+								<tr>
+									<th>Karma</th>
+									<td>{{ item.karma }}</td>
+								</tr>
+								<tr>
+									<th>Xp</th>
+									<td>{{ item.xp }}</td>
+								</tr>
+							</tbody>
+						</table>
+						{% if is_granted('ROLE_GAMEMASTER') %}
+							<a class='btn btn-warning  m-1' href="{{ path('app_item_edit', {'id': item.id}) }}">Modifier</a>
+						{% endif %}
+						{% if is_granted('ROLE_ADMIN') %}
+							{{ include('item/_delete_form.html.twig') }}
+						{% endif %}
 						<a class='btn btn-primary  m-1' href="{{ path('app_item_index') }}">Retour à la liste</a>
 
 					</div>
