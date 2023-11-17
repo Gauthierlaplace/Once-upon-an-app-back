@@ -24,7 +24,7 @@ class GameController extends CoreApiController
         /** @var App\Entity\User $user */
         $user = $this->getUser();
 
-        $hero = $gameServices->resetHeroHealth($user);
+        $hero = $gameServices->resetHeroStatsAndInventory($user);
 
         $biomeStart = "L'Arche de Verdure";
         $currentEvent = $eventRepository->findOneBy(['title' => $biomeStart]);

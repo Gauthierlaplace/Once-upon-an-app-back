@@ -6,7 +6,9 @@ use App\Repository\EffectRepository;
 use App\Repository\EndingRepository;
 use App\Repository\EventRepository;
 use App\Repository\EventTypeRepository;
+use App\Repository\HeroClassRepository;
 use App\Repository\HeroRepository;
+use App\Repository\ItemRepository;
 use App\Services\PlayedEventService;
 
 class GameServices
@@ -47,17 +49,27 @@ class GameServices
      */
     private $playedEventService;
 
+    /**
+     *
+     * @var HeroClassRepository
+     */
+    private $heroClassRepository;
 
+    /**
+     *
+     * @var ItemRepository
+     */
+    private $itemRepository;
 
-    public function __construct(PlayedEventService $playedEventService, EventTypeRepository $eventTypeRepository, EndingRepository $endingRepository, EventRepository $eventRepository, HeroRepository $heroRepository, EffectRepository $effectRepository)
+    public function __construct(PlayedEventService $playedEventService, EventTypeRepository $eventTypeRepository, EndingRepository $endingRepository, EventRepository $eventRepository, HeroRepository $heroRepository, EffectRepository $effectRepository, HeroClassRepository $heroClassRepository, ItemRepository $itemRepository)
     {
-
         $this->eventTypeRepository = $eventTypeRepository;
         $this->endingRepository = $endingRepository;
         $this->eventRepository = $eventRepository;
         $this->heroRepository = $heroRepository;
         $this->effectRepository = $effectRepository;
         $this->playedEventService = $playedEventService;
+        $this->heroClassRepository = $heroClassRepository;
     }
 
 
@@ -467,12 +479,23 @@ class GameServices
      * 
      * @return array $hero Return $hero with health reset to the maxHealth
      */
-    public function resetHeroHealth($user)
+    public function resetHeroStatsAndInventory($user)
     {
         $hero = $this->heroRepository->findOneBy(["user" => $user->getId()]);
-        $hero->setHealth($hero->getMaxHealth());
-        $this->heroRepository->add($hero, true);
+        // TODO Reset Stat Hero en fonction du class_hero
+        $heroClass = $this->heroClassRepository->find($hero->getHeroClass());
 
+        $hero->setMaxHealth($heroClass->getMaxHealth());
+        $hero->setHealth($heroClass->getHealth());
+        $hero->setStrength($heroClass->getStrength());
+        $hero->setIntelligence($heroClass->getIntelligence());
+        $hero->setDexterity($heroClass->getDexterity());
+        $hero->setDefense($heroClass->getDefense());
+
+        $itemsCollection =  $hero->getItem();
+        $itemsCollection->clear();
+
+        $this->heroRepository->add($hero, true);
         return $hero;
     }
 
