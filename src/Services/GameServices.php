@@ -482,7 +482,7 @@ class GameServices
     public function resetHeroStatsAndInventory($user)
     {
         $hero = $this->heroRepository->findOneBy(["user" => $user->getId()]);
-        // TODO Reset Stat Hero en fonction du class_hero
+
         $heroClass = $this->heroClassRepository->find($hero->getHeroClass());
 
         $hero->setMaxHealth($heroClass->getMaxHealth());
