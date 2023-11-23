@@ -100,9 +100,36 @@ class ItemApiController extends CoreApiController
      */
     public function loot($lootId, ItemRepository $itemRepository): JsonResponse
     {
+        /** @var App\Entity\User $user */
+        $user = $this->getUser();
+
+        $heroesCollection = $user->getHeroes();
+        $heroes = $heroesCollection->toArray();
+
+        $arrayHero = [];
+        foreach ($heroes as $hero) {
+
+            $heroItemsCollection = $hero->getItem();
+            $heroItems = $heroItemsCollection->toArray();
+
+            $arrayHero = [
+                'id' => $hero->getId(),
+                'name' => $hero->getName(),
+                'maxHealth' => $hero->getMaxHealth(),
+                'health' => $hero->getHealth(),
+                'strength' => $hero->getStrength(),
+                'intelligence' => $hero->getIntelligence(),
+                'dexterity' => $hero->getDexterity(),
+                'defense' => $hero->getDefense(),
+                'karma' => $hero->getKarma(),
+                'items' => $heroItems,
+            ];
+        }
+
         $item = $itemRepository->find($lootId);
 
         $data = [
+            'player' => $arrayHero,
             'item' => $item,
         ];
 
