@@ -73,16 +73,16 @@ class ItemApiController extends CoreApiController
             }
 
             $arrayHero = [
-                'heroId' => $hero->getId(),
-                'heroName' => $hero->getName(),
-                'heroMaxHealth' => $hero->getMaxHealth(),
+                'id' => $hero->getId(),
+                'name' => $hero->getName(),
+                'maxHealth' => $hero->getMaxHealth(),
                 'health' => $hero->getHealth(),
-                'heroStrength' => $hero->getStrength(),
-                'heroIntelligence' => $hero->getIntelligence(),
-                'heroDexterity' => $hero->getDexterity(),
-                'heroDefense' => $hero->getDefense(),
-                'heroKarma' => $hero->getKarma(),
-                'heroItems' => $items,
+                'strength' => $hero->getStrength(),
+                'intelligence' => $hero->getIntelligence(),
+                'dexterity' => $hero->getDexterity(),
+                'defense' => $hero->getDefense(),
+                'karma' => $hero->getKarma(),
+                'items' => $items,
             ];
         }
 
@@ -93,5 +93,19 @@ class ItemApiController extends CoreApiController
         return $this->json200($data, ["game"]);
     }
 
-    
+    /**
+     *! Item looted during last battle
+     *
+     * @Route("/api/loot/{lootId}", name="app_api_loot" , requirements={"lootId"="\d+"}, methods={"GET"})
+     */
+    public function loot($lootId, ItemRepository $itemRepository): JsonResponse
+    {
+        $item = $itemRepository->find($lootId);
+
+        $data = [
+            'item' => $item,
+        ];
+
+        return $this->json200($data, ["game"]);
+    }
 }
