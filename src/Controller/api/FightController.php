@@ -36,16 +36,16 @@ class FightController extends CoreApiController
             $heroItems = $heroItemsCollection->toArray();
 
             $arrayHero = [
-                'heroId' => $hero->getId(),
-                'heroName' => $hero->getName(),
-                'heroMaxHealth' => $hero->getMaxHealth(),
+                'id' => $hero->getId(),
+                'name' => $hero->getName(),
+                'maxHealth' => $hero->getMaxHealth(),
                 'health' => $hero->getHealth(),
-                'heroStrength' => $hero->getStrength(),
-                'heroIntelligence' => $hero->getIntelligence(),
-                'heroDexterity' => $hero->getDexterity(),
-                'heroDefense' => $hero->getDefense(),
-                'heroKarma' => $hero->getKarma(),
-                'heroItems' => $heroItems,
+                'strength' => $hero->getStrength(),
+                'intelligence' => $hero->getIntelligence(),
+                'dexterity' => $hero->getDexterity(),
+                'defense' => $hero->getDefense(),
+                'karma' => $hero->getKarma(),
+                'items' => $heroItems,
             ];
         }
 
@@ -189,16 +189,16 @@ class FightController extends CoreApiController
                     }
 
                     $arrayHero = [
-                        'heroId' => $hero->getId(),
-                        'heroName' => $hero->getName(),
-                        'heroMaxHealth' => $hero->getMaxHealth(),
+                        'id' => $hero->getId(),
+                        'name' => $hero->getName(),
+                        'maxHealth' => $hero->getMaxHealth(),
                         'health' => $hero->getHealth(),
-                        'heroStrength' => $hero->getStrength(),
-                        'heroIntelligence' => $hero->getIntelligence(),
-                        'heroDexterity' => $hero->getDexterity(),
-                        'heroDefense' => $hero->getDefense(),
-                        'heroKarma' => $hero->getKarma(),
-                        'heroItems' => $heroItems,
+                        'strength' => $hero->getStrength(),
+                        'intelligence' => $hero->getIntelligence(),
+                        'dexterity' => $hero->getDexterity(),
+                        'defense' => $hero->getDefense(),
+                        'karma' => $hero->getKarma(),
+                        'items' => $heroItems,
                     ];
                     $hero->addItem($loot);
                     $heroRepository->add($hero, true);
@@ -239,16 +239,16 @@ class FightController extends CoreApiController
                         }
 
                         $arrayHero = [
-                            'heroId' => $hero->getId(),
-                            'heroName' => $hero->getName(),
-                            'heroMaxHealth' => $hero->getMaxHealth(),
+                            'id' => $hero->getId(),
+                            'name' => $hero->getName(),
+                            'maxHealth' => $hero->getMaxHealth(),
                             'health' => $hero->getHealth(),
-                            'heroStrength' => $hero->getStrength(),
-                            'heroIntelligence' => $hero->getIntelligence(),
-                            'heroDexterity' => $hero->getDexterity(),
-                            'heroDefense' => $hero->getDefense(),
-                            'heroKarma' => $hero->getKarma(),
-                            'heroItems' => $heroItems,
+                            'strength' => $hero->getStrength(),
+                            'intelligence' => $hero->getIntelligence(),
+                            'dexterity' => $hero->getDexterity(),
+                            'defense' => $hero->getDefense(),
+                            'karma' => $hero->getKarma(),
+                            'items' => $heroItems,
                         ];
                         $hero->addItem($loot);
                         $heroRepository->add($hero, true);
@@ -316,16 +316,16 @@ class FightController extends CoreApiController
             $heroItems = $heroItemsCollection->toArray();
 
             $arrayHero = [
-                'heroId' => $hero->getId(),
-                'heroName' => $hero->getName(),
-                'heroMaxHealth' => $hero->getMaxHealth(),
+                'id' => $hero->getId(),
+                'name' => $hero->getName(),
+                'maxHealth' => $hero->getMaxHealth(),
                 'health' => $hero->getHealth(),
-                'heroStrength' => $hero->getStrength(),
-                'heroIntelligence' => $hero->getIntelligence(),
-                'heroDexterity' => $hero->getDexterity(),
-                'heroDefense' => $hero->getDefense(),
-                'heroKarma' => $hero->getKarma(),
-                'heroItems' => $heroItems,
+                'strength' => $hero->getStrength(),
+                'intelligence' => $hero->getIntelligence(),
+                'dexterity' => $hero->getDexterity(),
+                'defense' => $hero->getDefense(),
+                'karma' => $hero->getKarma(),
+                'items' => $heroItems,
             ];
         }
 
@@ -358,7 +358,7 @@ class FightController extends CoreApiController
 
             // 1. Miss Or Not
             // On a besoin de récupérer la stat la plus haute entre strenght, intelligence et dexterity du hero
-            $higherStatAttacker = max($arrayHero["heroStrength"], $arrayHero["heroIntelligence"], $arrayHero["heroDexterity"]);
+            $higherStatAttacker = max($arrayHero["strength"], $arrayHero["intelligence"], $arrayHero["dexterity"]);
             // On a besoin de la stat defense du npc
             $defenseNpc = $fight->getDefense() + 3;
 
@@ -400,16 +400,16 @@ class FightController extends CoreApiController
                         }
 
                         $arrayHero = [
-                            'heroId' => $hero->getId(),
-                            'heroName' => $hero->getName(),
-                            'heroMaxHealth' => $hero->getMaxHealth(),
+                            'id' => $hero->getId(),
+                            'name' => $hero->getName(),
+                            'maxHealth' => $hero->getMaxHealth(),
                             'health' => $hero->getHealth(),
-                            'heroStrength' => $hero->getStrength(),
-                            'heroIntelligence' => $hero->getIntelligence(),
-                            'heroDexterity' => $hero->getDexterity(),
-                            'heroDefense' => $hero->getDefense(),
-                            'heroKarma' => $hero->getKarma(),
-                            'heroItems' => $heroItems,
+                            'strength' => $hero->getStrength(),
+                            'intelligence' => $hero->getIntelligence(),
+                            'dexterity' => $hero->getDexterity(),
+                            'defense' => $hero->getDefense(),
+                            'karma' => $hero->getKarma(),
+                            'items' => $heroItems,
                         ];
                         $hero->addItem($loot);
                         $heroRepository->add($hero, true);
@@ -450,16 +450,16 @@ class FightController extends CoreApiController
                             }
 
                             $arrayHero = [
-                                'heroId' => $hero->getId(),
-                                'heroName' => $hero->getName(),
-                                'heroMaxHealth' => $hero->getMaxHealth(),
+                                'id' => $hero->getId(),
+                                'name' => $hero->getName(),
+                                'maxHealth' => $hero->getMaxHealth(),
                                 'health' => $hero->getHealth(),
-                                'heroStrength' => $hero->getStrength(),
-                                'heroIntelligence' => $hero->getIntelligence(),
-                                'heroDexterity' => $hero->getDexterity(),
-                                'heroDefense' => $hero->getDefense(),
-                                'heroKarma' => $hero->getKarma(),
-                                'heroItems' => $heroItems,
+                                'strength' => $hero->getStrength(),
+                                'intelligence' => $hero->getIntelligence(),
+                                'dexterity' => $hero->getDexterity(),
+                                'defense' => $hero->getDefense(),
+                                'karma' => $hero->getKarma(),
+                                'items' => $heroItems,
                             ];
                             $hero->addItem($loot);
                             $heroRepository->add($hero, true);
