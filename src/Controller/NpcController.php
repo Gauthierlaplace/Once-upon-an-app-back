@@ -23,19 +23,32 @@ class NpcController extends AbstractController
     /**
      * @Route("/", name="app_npc_index", methods={"GET"})
      */
-    public function index(NpcRepository $npcRepository, PaginatorService $paginatorService, Request $request ): Response
+    public function index(NpcRepository $npcRepository, PaginatorService $paginatorService, Request $request): Response
     {
         $searchData = new SearchData();
+
         $form = $this->createForm(SearchType::class, $searchData);
 
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            dd($searchData);
+        if ($form->isSubmitted()) {
+            if ($form->isValid()) {
+                $searchData->page = $request->query->getInt('page', 1);
+
+                $npcs = $npcRepository->findBySearch($searchData);
+
+                $npcsPaginated = $paginatorService->paginator($npcs, 7);
+
+                return $this->render('npc/index.html.twig', [
+                    'form' => $form->createView(),
+                    'npcs' => $npcsPaginated
+                ]);
+            } else {
+                $this->addFlash('error', 'Merci de renseigner le champ vide pour effectuer une recherche.');
+            }
         }
 
-
-        $npcsToPaginate = $npcRepository->findBy([],['name' => 'ASC']);
+        $npcsToPaginate = $npcRepository->findBy([], ['name' => 'ASC']);
         $npcsPaginated = $paginatorService->paginator($npcsToPaginate, 7);
         return $this->render('npc/index.html.twig', [
             'form' => $form->createView(),
@@ -104,10 +117,10 @@ class NpcController extends AbstractController
      */
     public function delete($id, Request $request, Npc $npc, NpcRepository $npcRepository, DialogueRepository $dialogueRepository, AnswerRepository $answerRepository): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$npc->getId(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete' . $npc->getId(), $request->request->get('_token'))) {
 
             $allDialogues = $dialogueRepository->findByNpc($id);
-    
+
             foreach ($allDialogues as $dialogue) {
                 $dialogueId = $dialogue->getId();
                 $allAnswers = $answerRepository->findByDialogue($dialogueId);

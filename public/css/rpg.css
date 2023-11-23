@@ -179,6 +179,8 @@ width: 10vw;
     width: 500px;
     transition: 2s;
     opacity: 0.5;
+    margin-bottom: 20px;
+    margin-top: 20px;
 }
 
 .searchForm:hover {
