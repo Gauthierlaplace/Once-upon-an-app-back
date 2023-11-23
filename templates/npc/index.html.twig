@@ -6,6 +6,11 @@
 			{% block title %}Liste des NPC (personnage non joueur)
 			{% endblock %}
 		</h1>
+
+		{% include 'partials/_search_data.html.twig' with {
+			form: form
+		} only %}
+
 		<a class='btn btn-primary show' href="{{ path('app_home') }}">Retour à l'Accueil</a>
 		{% if is_granted('ROLE_GAMEMASTER') %}
 			<a class="mb-2 btn btn-success float-end" href="{{ path('app_npc_new') }}">Ajouter un nouveau personnage</a>
@@ -18,13 +23,13 @@
 					<th>Race</th>
 					<th>Description</th>
 					{# 
-					<th>Health</th>
-					<th>Strength</th>
-					<th>Intelligence</th>
-					<th>Dexterity</th>
-					<th>Defense</th>
-					<th>Karma</th> 
-					#}
+										<th>Health</th>
+										<th>Strength</th>
+										<th>Intelligence</th>
+										<th>Dexterity</th>
+										<th>Defense</th>
+										<th>Karma</th> 
+										#}
 					<th>Image</th>
 					<th>Boss</th>
 					<th>Hostile</th>
@@ -40,13 +45,13 @@
 						<td>{{ npc.race.name }}</td>
 						<td>{{ npc.description }}</td>
 						{# 
-						<td>{{ npc.health }}</td>
-						<td>{{ npc.strength }}</td>
-						<td>{{ npc.intelligence }}</td>
-						<td>{{ npc.dexterity }}</td>
-						<td>{{ npc.defense }}</td>
-						<td>{{ npc.karma }}</td> 
-						#}
+												<td>{{ npc.health }}</td>
+												<td>{{ npc.strength }}</td>
+												<td>{{ npc.intelligence }}</td>
+												<td>{{ npc.dexterity }}</td>
+												<td>{{ npc.defense }}</td>
+												<td>{{ npc.karma }}</td> 
+												#}
 						<td>
 							{% if npc.picture %}
 								<img class="img-fluid" src="{{ asset(npc.picture.path) }}" alt="{{ 'image de ' ~ npc.name }}">

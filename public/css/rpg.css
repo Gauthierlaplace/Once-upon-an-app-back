@@ -171,3 +171,25 @@ width: 10vw;
     overflow-y: auto; 
     max-height: 100vh;
   }
+
+
+/* Search Form START*/
+.searchForm {
+    margin: 0 auto;
+    width: 500px;
+    transition: 2s;
+    opacity: 0.5;
+}
+
+.searchForm:hover {
+    opacity: 1;
+}
+
+.searchPlaceHolder {
+    width: 100%;
+}
+
+.searchFormBtn {
+    width: 100%;
+}
+/* Search Form END*/

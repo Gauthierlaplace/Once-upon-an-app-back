@@ -9,6 +9,5 @@ class SearchData
 
     /** @var string */
     public string $q = '';
-
     
 }

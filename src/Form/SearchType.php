@@ -14,7 +14,8 @@ class SearchType extends AbstractType
     {
         $builder->add('q', TextType::class, [
             'attr' => [
-                'placeholder' => 'Recherche via un mot clé...'
+                'placeholder' => 'Entrez un mot clé...',
+                'class' => 'searchPlaceHolder',
             ]
         ]);
     }
@@ -24,7 +25,8 @@ class SearchType extends AbstractType
         $resolver->setDefaults([
             'data_class' => SearchData::class,
             'method' => 'GET',
-            'csrf_protection' => false
+            'csrf_protection' => false,
+            "attr" => ["novalidate" => 'novalidate']
         ]);
     }
 }

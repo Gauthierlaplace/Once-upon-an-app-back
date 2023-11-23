@@ -4,6 +4,8 @@ namespace App\Controller;
 
 use App\Entity\Npc;
 use App\Form\NpcType;
+use App\Form\SearchType;
+use App\Model\SearchData;
 use App\Repository\AnswerRepository;
 use App\Repository\DialogueRepository;
 use App\Repository\NpcRepository;
@@ -21,11 +23,22 @@ class NpcController extends AbstractController
     /**
      * @Route("/", name="app_npc_index", methods={"GET"})
      */
-    public function index(NpcRepository $npcRepository, PaginatorService $paginatorService ): Response
+    public function index(NpcRepository $npcRepository, PaginatorService $paginatorService, Request $request ): Response
     {
+        $searchData = new SearchData();
+        $form = $this->createForm(SearchType::class, $searchData);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            dd($searchData);
+        }
+
+
         $npcsToPaginate = $npcRepository->findBy([],['name' => 'ASC']);
         $npcsPaginated = $paginatorService->paginator($npcsToPaginate, 7);
         return $this->render('npc/index.html.twig', [
+            'form' => $form->createView(),
             'npcs' => $npcsPaginated,
         ]);
     }
