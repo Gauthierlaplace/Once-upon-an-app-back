@@ -1,5 +1,6 @@
 <?php
 
+use App\Model\SearchData;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -19,7 +20,9 @@ class SearchType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'method' => 'GET'
+            'data_class' => SearchData::class,
+            'method' => 'GET',
+            'csrf_protection' => false
         ])
     }
 }
