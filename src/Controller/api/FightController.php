@@ -275,7 +275,7 @@ class FightController extends CoreApiController
         }
 
         if ($loot) {
-            $data[] = [
+            $data = [
                 'player' => $arrayHero,
                 'npc' => $arrayNpc,
                 'effect' => $arrayEffect,
@@ -285,7 +285,7 @@ class FightController extends CoreApiController
             ];
             return $this->json200($data, ["game"]);
         }
-        $data[] = [
+        $data = [
             'player' => $arrayHero,
             'npc' => $arrayNpc,
             'effect' => $arrayEffect,
