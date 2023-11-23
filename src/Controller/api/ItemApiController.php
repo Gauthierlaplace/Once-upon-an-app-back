@@ -94,7 +94,7 @@ class ItemApiController extends CoreApiController
     }
 
     /**
-     *! Item looted during last battle
+     *! Item looted during last battle when npc from fight table dies
      *
      * @Route("/api/loot/{lootId}", name="app_api_loot" , requirements={"lootId"="\d+"}, methods={"GET"})
      */

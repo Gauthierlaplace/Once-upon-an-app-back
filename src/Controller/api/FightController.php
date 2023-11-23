@@ -347,6 +347,7 @@ class FightController extends CoreApiController
             'npcDexterity' => $fight->getDexterity(),
             'npcDefense' => $fight->getDefense(),
             'npcKarma' => $fight->getKarma(),
+            'npcItem' => $fight->getItem(),
         ];
 
 
