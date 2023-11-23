@@ -110,22 +110,4 @@ class NpcController extends AbstractController
         $this->addFlash("delete", "Le Npc a bien été effacé.");
         return $this->redirectToRoute('app_npc_index', [], Response::HTTP_SEE_OTHER);
     }
-
-    /**
-     * @Route("/search", name="app_npc_search", methods={"GET", "POST"})
-     */
-    public function search(Request $request, NpcRepository $npcRepository): Response
-    {
-        $form = $this->createForm();
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-
-        }
-
-        return $this->renderForm('npc/search.html.twig', [
-            'npc' => $npc,
-            'form' => $form,
-        ]);
-    }
 }

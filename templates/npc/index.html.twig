@@ -6,13 +6,6 @@
 			{% block title %}Liste des NPC (personnage non joueur)
 			{% endblock %}
 		</h1>
-		<div>
-		{{ include('partials/_form.html.twig', {'button_label': 'Rechercher'}) }}
-			{# <form class="d-flex searchForm">
-				<input class="form-control me-sm-2 searchPlaceholder" type="search" placeholder="Nom de personnage non joueur recherché...">
-				<button class="btn btn-secondary my-2 my-sm-0 searchBtn" type="submit">Rechercher</button>
-			</form> #}
-		</div>
 		<a class='btn btn-primary show' href="{{ path('app_home') }}">Retour à l'Accueil</a>
 		{% if is_granted('ROLE_GAMEMASTER') %}
 			<a class="mb-2 btn btn-success float-end" href="{{ path('app_npc_new') }}">Ajouter un nouveau personnage</a>
