@@ -38,9 +38,11 @@
 |karma|INT|NULL|Taux de chance|
 |xp|INT|NULL|Expérience|
 |progress|INT|NULL|Sauvegarde|
+|played_event|LONGTEXT|NULL|Tableau d'event Id|
 |hero_class|entity|NOT NULL|Jointure|
 |user|entity|NOT NULL|Jointure|
 |picture|entity|NULL|Jointure|
+|fight|entity|NULL|Jointure|
 
 ## Classe de joueur (hero_class)
 
@@ -98,6 +100,7 @@
 |id|INT|PRIMARY KEY, NOT NULL, UNSIGNED, AUTO_INCREMENT|Identifiant du personnage non joueur|
 |name|VARCHAR(255)|NOT NULL|Nom du personnage|
 |description|LONGTEXT|NULL|Description du personnage|
+|max_health|INT|NULL|Santé max du personnage|
 |health|INT|NOT NULL|Santé|
 |strength|INT|NULL|Force|
 |intelligence|INT|NULL|Intelligence|
@@ -162,6 +165,7 @@
 |defense|INT|NULL|Bonus-Malus de Défence|
 |karma|INT|NULL|Bonus-Malus du taux de chance|
 |xp|INT|NULL|Bonus-Malus d'expérience|
+|usable|TINYINT(1)|NULL|Utilisable : Oui = 1, Non = 0|
 |picture|entity|NULL|Jointure|
 
 ## Images (picture)
@@ -172,3 +176,22 @@
 |name|VARCHAR(255)|NOT NULL|Nom de l'image|
 |base64|LONGTEXT|NOT NULL|Encodage des données binaires en format texte|
 |path|VARCHAR(255)|NOT NULL|Chemin de l'image|
+
+## Combat (fight)
+
+|Champ|Type|Spécificités|Description|
+|-|-|-|-|
+|id|INT|PRIMARY KEY, NOT NULL, UNSIGNED, AUTO_INCREMENT|Identifiant du personnage non joueur|
+|name|VARCHAR(255)|NOT NULL|Nom du personnage|
+|description|LONGTEXT|NULL|Description du personnage|
+|max_health|INT|NULL|Santé max du personnage|
+|health|INT|NOT NULL|Santé|
+|strength|INT|NULL|Force|
+|intelligence|INT|NULL|Intelligence|
+|dexterity|INT|NULL|Dextérité|
+|defense|INT|NULL|Défence|
+|karma|INT|NULL|Taux de chance|
+|is_boss|TINYINT(1)|NOT NULL|Boss = 1, Normal=0|
+|hostility|TINYINT(1)|NOT NULL|Hostile = 1, Amical = 0|
+|xp_earned|INT|NULL|Donne de l'expérience au joueur en fonction des actions|
+|item|INT|NULL|Id de l'objet pris dans la pool d'objet du npc|
