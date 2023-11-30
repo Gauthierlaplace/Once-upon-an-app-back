@@ -10,6 +10,7 @@ Ce site est édité par l'équipe de développement Once Upon An App.
 
 Responsable de la publication :
 
+- Laplace Gauthier, Développeur Web
 - Boutherin Anthony, Développeur Web
 - email : contact@onceuponanapp.fr
 
