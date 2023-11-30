@@ -54,13 +54,17 @@ class FightController extends CoreApiController
         //* On récupère l'objet npc et on charge les éléments souhaités dans l'objet Fight
         $npc = $npcRepository->find($npcId);
 
-        $npcItemsCollection = $npc->getItem();
-        $npcItems = $npcItemsCollection->toArray();
-
-        if ($npcItems) {
-            $itemPicked = array_rand($npcItems, 1);
-            $item = $npcItems[$itemPicked];
-            $item = $item->getId();
+        if ($npc->getItem()) {
+            $npcItemsCollection = $npc->getItem();
+            $npcItems = $npcItemsCollection->toArray();
+    
+            if ($npcItems) {
+                $itemPicked = array_rand($npcItems, 1);
+                $item = $npcItems[$itemPicked];
+                $item = $item->getId();
+            } else {
+                $item = null;
+            }
         } else {
             $item = null;
         }
@@ -83,7 +87,11 @@ class FightController extends CoreApiController
 
         $fightRepository->add($fight, true);
 
-        $loot = $itemRepository->find($fight->getItem());
+        if ($fight->getItem() == null) {
+            $loot = null;
+        } else {
+            $loot = $itemRepository->find($fight->getItem());
+        }
         // ---------------------------------------------------------------------------
 
         $arrayNpc = [
@@ -333,8 +341,12 @@ class FightController extends CoreApiController
         //* On récupère l'objet Fight (le npc)
         $fight = $fightRepository->find($fightId);
 
-        if ($fight->getItem()) {
-            $loot = $itemRepository->find($fight->getItem());
+        if ($fight->getItem() == null) {
+            $loot = null;
+        } else {
+            if ($fight->getItem()) {
+                $loot = $itemRepository->find($fight->getItem());
+            }
         }
 
         $arrayNpc = [
@@ -383,89 +395,95 @@ class FightController extends CoreApiController
                 if ($npcDamagedHealth <= 0) {
                     $attacker = "end of battle";
                     // * --------------------------------------------------- ITEM START------------------------------------------
-                    $loot = $itemRepository->find($fight->getItem());
-
-                    if ($loot->isUsable()) {
-                        // Usable is true, on le stock simplement dans le hero
-                        $itemAlreadyExist = false;
-                        foreach ($heroItems as $item) {
-                            if ($item == $loot) {
-                                // on ne l'implémente pas dans le $heroItems
-                                $itemAlreadyExist = true;
-                                break;
-                            }
-                        }
-                        if ($itemAlreadyExist == false) {
-                            // on l'implémente dans le $heroItems
-                            $heroItems[] = $loot;
-                        }
-
-                        $arrayHero = [
-                            'id' => $hero->getId(),
-                            'name' => $hero->getName(),
-                            'maxHealth' => $hero->getMaxHealth(),
-                            'health' => $hero->getHealth(),
-                            'strength' => $hero->getStrength(),
-                            'intelligence' => $hero->getIntelligence(),
-                            'dexterity' => $hero->getDexterity(),
-                            'defense' => $hero->getDefense(),
-                            'karma' => $hero->getKarma(),
-                            'items' => $heroItems,
-                        ];
-                        $hero->addItem($loot);
-                        $heroRepository->add($hero, true);
+                    if ($fight->getItem() == null) {
+                        $loot = null;
                     } else {
-                        // Usable is false, on le stock dans le hero et on ajoute ses stat de l'equipement
-                        if ($loot->isUsable() == false) {
-                            $itemAlreadyExist = false;
-                            foreach ($heroItems as $item) {
-                                if ($item == $loot) {
-                                    // on ne l'implémente pas dans le $heroItems
-                                    $itemAlreadyExist = true;
-                                    break;
+                        if ($fight->getItem()) {
+                            $loot = $itemRepository->find($fight->getItem());
+                            if ($loot->isUsable()) {
+                                // Usable is true, on le stock simplement dans le hero
+                                $itemAlreadyExist = false;
+                                foreach ($heroItems as $item) {
+                                    if ($item == $loot) {
+                                        // on ne l'implémente pas dans le $heroItems
+                                        $itemAlreadyExist = true;
+                                        break;
+                                    }
+                                }
+                                if ($itemAlreadyExist == false) {
+                                    // on l'implémente dans le $heroItems
+                                    $heroItems[] = $loot;
+                                }
+        
+                                $arrayHero = [
+                                    'id' => $hero->getId(),
+                                    'name' => $hero->getName(),
+                                    'maxHealth' => $hero->getMaxHealth(),
+                                    'health' => $hero->getHealth(),
+                                    'strength' => $hero->getStrength(),
+                                    'intelligence' => $hero->getIntelligence(),
+                                    'dexterity' => $hero->getDexterity(),
+                                    'defense' => $hero->getDefense(),
+                                    'karma' => $hero->getKarma(),
+                                    'items' => $heroItems,
+                                ];
+                                $hero->addItem($loot);
+                                $heroRepository->add($hero, true);
+                            } else {
+                                // Usable is false, on le stock dans le hero et on ajoute ses stat de l'equipement
+                                if ($loot->isUsable() == false) {
+                                    $itemAlreadyExist = false;
+                                    foreach ($heroItems as $item) {
+                                        if ($item == $loot) {
+                                            // on ne l'implémente pas dans le $heroItems
+                                            $itemAlreadyExist = true;
+                                            break;
+                                        }
+                                    }
+                                    if ($itemAlreadyExist == false) {
+                                        //! Strength
+                                        if ($loot->getStrength()) {
+                                            $hero->setStrength($hero->getStrength() + $loot->getStrength());
+                                        }
+                                        //! Intelligence
+                                        if ($loot->getIntelligence()) {
+                                            $hero->setIntelligence($hero->getIntelligence() + $loot->getIntelligence());
+                                        }
+                                        //! Dexterity
+                                        if ($loot->getDexterity()) {
+                                            $hero->setDexterity($hero->getDexterity() + $loot->getDexterity());
+                                        }
+                                        //! Defense
+                                        if ($loot->getDefense()) {
+                                            $hero->setDefense($hero->getDefense() + $loot->getDefense());
+                                        }
+                                        //! Karma
+                                        if ($loot->getKarma()) {
+                                            $hero->setKarma($hero->getKarma() + $loot->getKarma());
+                                        }
+                                        // on l'implémente dans le $heroItems
+                                        $heroItems[] = $loot;
+                                    }
+        
+                                    $arrayHero = [
+                                        'id' => $hero->getId(),
+                                        'name' => $hero->getName(),
+                                        'maxHealth' => $hero->getMaxHealth(),
+                                        'health' => $hero->getHealth(),
+                                        'strength' => $hero->getStrength(),
+                                        'intelligence' => $hero->getIntelligence(),
+                                        'dexterity' => $hero->getDexterity(),
+                                        'defense' => $hero->getDefense(),
+                                        'karma' => $hero->getKarma(),
+                                        'items' => $heroItems,
+                                    ];
+                                    $hero->addItem($loot);
+                                    $heroRepository->add($hero, true);
                                 }
                             }
-                            if ($itemAlreadyExist == false) {
-                                //! Strength
-                                if ($loot->getStrength()) {
-                                    $hero->setStrength($hero->getStrength() + $loot->getStrength());
-                                }
-                                //! Intelligence
-                                if ($loot->getIntelligence()) {
-                                    $hero->setIntelligence($hero->getIntelligence() + $loot->getIntelligence());
-                                }
-                                //! Dexterity
-                                if ($loot->getDexterity()) {
-                                    $hero->setDexterity($hero->getDexterity() + $loot->getDexterity());
-                                }
-                                //! Defense
-                                if ($loot->getDefense()) {
-                                    $hero->setDefense($hero->getDefense() + $loot->getDefense());
-                                }
-                                //! Karma
-                                if ($loot->getKarma()) {
-                                    $hero->setKarma($hero->getKarma() + $loot->getKarma());
-                                }
-                                // on l'implémente dans le $heroItems
-                                $heroItems[] = $loot;
-                            }
-
-                            $arrayHero = [
-                                'id' => $hero->getId(),
-                                'name' => $hero->getName(),
-                                'maxHealth' => $hero->getMaxHealth(),
-                                'health' => $hero->getHealth(),
-                                'strength' => $hero->getStrength(),
-                                'intelligence' => $hero->getIntelligence(),
-                                'dexterity' => $hero->getDexterity(),
-                                'defense' => $hero->getDefense(),
-                                'karma' => $hero->getKarma(),
-                                'items' => $heroItems,
-                            ];
-                            $hero->addItem($loot);
-                            $heroRepository->add($hero, true);
                         }
                     }
+
                     // * --------------------------------------------------- ITEM END------------------------------------------ 
                     //* npc dead, Supprimer le npc de la table Fight
                     $arrayNpc["npcHealth"] = 0;
