@@ -329,7 +329,6 @@ class GameServices
             }
         } else {
             // $idToAvoid correspond à l'Id de l'event à ne pas mettre dans $choices
-
             foreach ($randomizedEndingsPicked as $endingsCurrentEventKey) { // * on boucle sur les 2 endings récupéré aléatoirement
 
                 $oneEnding = $endingsCurrentEvent[$endingsCurrentEventKey]; // * on récupère chaque ending
@@ -347,23 +346,27 @@ class GameServices
                 if ($playedEventArray !== null) {
                     foreach ($playedEventArray as $eventId) {
                         foreach ($events as $key => $event) {
+                            $eventToDeleteOnEvents = $this->eventRepository->find($idToAvoid);
                             if ($event->getId() == $eventId) {
+                                // on retire $event du tableau $events
+                                unset($events[$key]);
+                            } elseif ($event->getId() == $eventToDeleteOnEvents->getId()) {
                                 // on retire $event du tableau $events
                                 unset($events[$key]);
                             }
                         }
                     }
                 }
-                // Taking out event with $idToAvoid
-                $eventToDeleteOnEvents = $this->eventRepository->find($idToAvoid);
-                foreach ($events as $key => $event) {
+                // // Taking out event with $idToAvoid
+                // $eventToDeleteOnEvents = $this->eventRepository->find($idToAvoid);
+                // foreach ($events as $key => $event) {
+                //     if ($event->getId() == $eventToDeleteOnEvents->getId()) {
+                //         // on retire $event du tableau $events
+                //         unset($events[$key]);
+                //         break;
+                //     }
+                // }
 
-                    if ($event->getId() == $eventToDeleteOnEvents->getId()) {
-                        // on retire $event du tableau $events
-                        unset($events[$key]);
-                        break;
-                    }
-                }
 
                 $eventPicked = array_rand($events, 1); // * on récupère la clé de l'event choisi aléatoirement
 

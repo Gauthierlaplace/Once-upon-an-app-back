@@ -76,14 +76,14 @@ class GameController extends CoreApiController
         $user = $this->getUser();
 
         $result = $playedEventService->checkEventIdIsUnique($id, $user);
-
-        if ($result === false) {
-            // === false $id isn't allowed to be in the next event Id pool for $choices
-            $idToAvoid = $id;
-        } else {
-            // === true $id is unique, this id is allowed to be in the next event Id pool for $choices
-            $idToAvoid = null;
-        }
+        $idToAvoid = $id;
+        // if ($result === true) {
+        //     // === false $id isn't allowed to be in the next event Id pool for $choices
+        //     $idToAvoid = $id;
+        // } else {
+        //     // === true $id is unique, this id is allowed to be in the next event Id pool for $choices
+        //     $idToAvoid = null;
+        // }
 
         $choices = $gameServices->getTwoEndingsWithTwoRandomEvent($randomizedEndingsPicked, $endingscurrentEvent, $user, $idToAvoid);
 
