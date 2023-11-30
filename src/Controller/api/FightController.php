@@ -510,6 +510,7 @@ class FightController extends CoreApiController
                         'npc' => $arrayNpc,
                         'dices' => $arrayRolls,
                         'attacker' => $attacker,
+                        'loot' => $loot,
                     ];
 
                     $npcUpdate = $fight->setHealth($npcDamagedHealth);
@@ -533,6 +534,7 @@ class FightController extends CoreApiController
                     'npc' => $arrayNpc,
                     'dices' => $arrayRolls,
                     'attacker' => $attacker,
+                    'loot' => $loot,
                 ];
                 return $this->json200($data, ["game"]);
             }
@@ -589,6 +591,7 @@ class FightController extends CoreApiController
                         'GameOver' => $eventDeath,
                         'dices' => $arrayRolls,
                         'attacker' => $attacker,
+                        'loot' => $loot,
                     ];
                     return $this->json200($data, ["game"]);
                 } else {
@@ -602,6 +605,7 @@ class FightController extends CoreApiController
                         'npc' => $arrayNpc,
                         'dices' => $arrayRolls,
                         'attacker' => $attacker,
+                        'loot' => $loot,
                     ];
 
                     $heroUpdate = $hero->setHealth($heroDamagedHealth);
@@ -623,6 +627,7 @@ class FightController extends CoreApiController
                     'npc' => $arrayNpc,
                     'dices' => $arrayRolls,
                     'attacker' => $attacker,
+                    'loot' => $loot,
                 ];
                 return $this->json200($data, ["game"]);
             }
