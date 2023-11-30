@@ -71,6 +71,10 @@ class ItemApiController extends CoreApiController
                     }
                 }
             }
+            $itemsReorganized =[];
+            foreach ($items as $item) {
+                $itemsReorganized [] = $item;
+            }
 
             $arrayHero = [
                 'id' => $hero->getId(),
@@ -82,7 +86,7 @@ class ItemApiController extends CoreApiController
                 'dexterity' => $hero->getDexterity(),
                 'defense' => $hero->getDefense(),
                 'karma' => $hero->getKarma(),
-                'items' => $items,
+                'items' => $itemsReorganized,
             ];
         }
 
