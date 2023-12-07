@@ -21,6 +21,19 @@ class ReviewApiController extends CoreApiController
     //TODO 
     // !! 1. Browse
     // !! 2. Read
+    /**
+     * @Route("/api/reviews/{id}", name="app_api_reviews_read", requirements={"id"="\d+"}, methods={"GET"})
+     */
+    public function read($id, ReviewRepository $reviewRepository): JsonResponse
+    {
+        $review = $reviewRepository->find($id);
+
+        if ($review === null) {
+            return $this->json404(["message" => "Cet avis n'existe pas"]);
+        }
+        return $this->json200($review, ["review_read"]);
+    }
+
     // !! 3. Last 5 Reviews
     // !! 4. General Rating
 
