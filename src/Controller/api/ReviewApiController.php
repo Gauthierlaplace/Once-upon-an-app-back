@@ -74,7 +74,7 @@ class ReviewApiController extends CoreApiController
 
     // !! 6. Edit
     /**
-     * Edit Review
+     * Edit Review, only review's author is allowed to change it
      *
      * @Route("/api/reviews/{id}",name="app_api_reviews_edit", requirements={"id"="\d+"}, methods={"PUT", "PATCH"})
      * 
