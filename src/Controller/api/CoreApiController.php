@@ -72,7 +72,7 @@ class CoreApiController extends AbstractController
 
     public function deserialiseJson($jsonContent, string $className)
     {
-        // Désérialiser (convertir) le JSON en entité Doctrine Movie
+        // Désérialiser (convertir) le JSON en entité Doctrine
         try { // on tente de désérialiser
             $entity = $this->serializer->deserialize($jsonContent, $className, 'json');
         } catch (EntityNotFoundException $e){
