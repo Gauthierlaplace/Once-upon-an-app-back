@@ -99,6 +99,48 @@ class ReviewApiController extends CoreApiController
     }
 
     // !! 6. Edit
+    /**
+     * Edit Review, only review's author is allowed to change it
+     *
+     * @Route("/api/reviews/{id}",name="app_api_reviews_edit", requirements={"id"="\d+"}, methods={"PUT", "PATCH"})
+     * 
+     * @param Request $request la requete
+     * @param SerializerInterface $serializerInterface
+     * @param ReviewRepository $reviewRepository
+     */
+    public function edit($id, Request $request, SerializerInterface $serializerInterface, ReviewRepository $reviewRepository)
+    {
+        $jsonContent = $request->getContent();
+        $review = $reviewRepository->find($id);
+
+        if ($review == null) {
+            return $this->json404(["message" => "Cet avis n'existe pas"]);
+        }
+
+        $serializerInterface->deserialize(
+            $jsonContent,
+            Review::class,
+            'json',
+            [AbstractNormalizer::OBJECT_TO_POPULATE => $review]
+        );
+
+        $review->setUpdatedAt(new DateTime("now"));
+
+        /** @var App\Entity\User $currentUser */
+        $currentUser = $this->getUser();
+        
+        $currentUserId = $currentUser->getId();
+
+        $reviewOwner = $review->getUser()->getId();
+
+        if ($currentUserId == $reviewOwner) {
+            $reviewRepository->add($review, true);
+            return $this->json200($review, ["review_edit"]);
+        } else {
+            return $this->json403(["message" => "Vous n'êtes pas l'auteur de cet avis, vous ne pouvez l'éditer."]);
+        }
+    }
+
     // !! 7. Delete
 
 
