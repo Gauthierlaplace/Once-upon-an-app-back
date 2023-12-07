@@ -16,6 +16,8 @@ class Review
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * 
+     * @Groups({"review_create"})
      */
     private $id;
 
