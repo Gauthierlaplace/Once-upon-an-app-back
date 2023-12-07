@@ -18,8 +18,6 @@ use DateTime;
 
 class ReviewApiController extends CoreApiController
 {
-    //TODO 
-    // !! 1. Browse
     /**
      * Browse all reviews
      *
@@ -31,10 +29,12 @@ class ReviewApiController extends CoreApiController
     {
         $allReviews = $reviewRepository->findAll();
 
-        return $this->json200($allReviews, ["review_browse"]);
+        return $this->json200($allReviews, ["review"]);
     }
-    // !! 2. Read
+
     /**
+     * Read one review
+     * 
      * @Route("/api/reviews/{id}", name="app_api_reviews_read", requirements={"id"="\d+"}, methods={"GET"})
      */
     public function read($id, ReviewRepository $reviewRepository): JsonResponse
@@ -44,10 +44,9 @@ class ReviewApiController extends CoreApiController
         if ($review === null) {
             return $this->json404(["message" => "Cet avis n'existe pas"]);
         }
-        return $this->json200($review, ["review_read"]);
+        return $this->json200($review, ["review"]);
     }
 
-    // !! 3. Last 5 Reviews
     /**
      * Last x reviews
      *
@@ -64,7 +63,6 @@ class ReviewApiController extends CoreApiController
 
     // !! 4. General Rating
 
-    // !! 5. Create
     /**
      * New review
      *
@@ -80,21 +78,17 @@ class ReviewApiController extends CoreApiController
         SerializerInterface $serializer,
         ValidatorInterface $validator,
     ) {
-        // Récupérer le contenu JSON
         $jsonContent = $request->getContent();
 
         // Désérialiser (convertir) le JSON en entité Doctrine Review
-        try { // on tente de désérialiser
+        try { 
             $review = $serializer->deserialize($jsonContent, Review::class, 'json');
         } catch (Exception $exception) {
-            // Si on n'y arrive pas, on passe ici
-            // code 400 ou 422
             return $this->json("JSON Invalide : " . $exception->getMessage(), Response::HTTP_BAD_REQUEST);
         }
 
-        // on valide les données de notre entité
         $errors = $validator->validate($review);
-        // Y'a-t-il des erreurs ?
+
         if (count($errors) > 0) {
             return $this->json($errors, Response::HTTP_UNPROCESSABLE_ENTITY);
         }
@@ -107,13 +101,11 @@ class ReviewApiController extends CoreApiController
         $reviewToCreate->setCreatedAt(new DateTime("now"));
         $reviewToCreate->setUpdatedAt(new DateTime("now"));
 
-        // On sauvegarde les entitées
-        $reviewCreated = $reviewRepository->add($reviewToCreate, true);
+        $reviewRepository->add($reviewToCreate, true);
 
         return $this->json201($reviewToCreate, ["review"]);
     }
 
-    // !! 6. Edit
     /**
      * Edit Review, only review's author is allowed to change it
      *
@@ -150,13 +142,12 @@ class ReviewApiController extends CoreApiController
 
         if ($currentUserId == $reviewOwner) {
             $reviewRepository->add($review, true);
-            return $this->json200($review, ["review_edit"]);
+            return $this->json200($review, ["review"]);
         } else {
             return $this->json403(["message" => "Vous n'êtes pas l'auteur de cet avis, vous ne pouvez l'éditer."]);
         }
     }
 
-    // !! 7. Delete
     /**
      * Delete Review, review's author only 
      *
