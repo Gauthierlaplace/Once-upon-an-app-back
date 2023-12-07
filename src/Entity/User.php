@@ -20,7 +20,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
-     * @Groups({"user_read", "user_create", "review_create", "review_edit"})
+     * @Groups({"user_read", "user_create", "review"})
      */
     private $id;
 
@@ -32,7 +32,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      *     message="Veuillez entrer une adresse email valide !"
      * )
      * @ORM\Column(type="string", length=180, unique=true)
-     * @Groups({"user_read", "user_create", "review_create", "review_edit"})
+     * @Groups({"user_read", "user_create", "review"})
      */
     private $email;
 
@@ -59,7 +59,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * 
      * @Assert\NotBlank(message="Veuillez renseigner un Nom d'utilisateur")
      * @ORM\Column(type="string", length=64)
-     * @Groups({"user_read", "user_create", "review_create", "review_edit"})
+     * @Groups({"user_read", "user_create", "review"})
      */
     private $pseudo;
 
