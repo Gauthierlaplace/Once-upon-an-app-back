@@ -17,7 +17,7 @@ class Review
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      * 
-     * @Groups({"review_browse", "review"})
+     * @Groups({"review"})
      */
     private $id;
 

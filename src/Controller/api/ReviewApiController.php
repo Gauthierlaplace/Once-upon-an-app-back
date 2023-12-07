@@ -142,7 +142,32 @@ class ReviewApiController extends CoreApiController
     }
 
     // !! 7. Delete
+    /**
+     * Delete Review, review's author only 
+     *
+     * @Route("/api/reviews/{id}",name="app_api_reviews_delete", requirements={"id"="\d+"}, methods={"DELETE"})
+     */
+    public function delete($id, ReviewRepository $reviewRepository)
+    {
+        $review = $reviewRepository->find($id);
 
+        if ($review == null) {
+            return $this->json404(["message" => "Cet avis n'existe pas"]);
+        }
 
+        /** @var App\Entity\User $currentUser */
+        $currentUser = $this->getUser();
+        $currentUserId = $currentUser->getId();
+        
+        $reviewOwner = $review->getUser()->getId();
 
+        if ($currentUserId == $reviewOwner) {
+
+            $reviewRepository->remove($review, true);
+
+            return $this->json(null, Response::HTTP_NO_CONTENT);
+        } else {
+            return $this->json403(["message" => "Vous n'êtes pas l'auteur de cet avis, vous ne pouvez pas le supprimer."]);
+        }
+    }
 }
