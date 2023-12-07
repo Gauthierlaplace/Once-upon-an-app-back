@@ -20,7 +20,33 @@ class ReviewApiController extends CoreApiController
 {
     //TODO 
     // !! 1. Browse
+    /**
+     * Browse all reviews
+     *
+     * @Route("/api/reviews",name="app_api_reviews_browse", methods={"GET"})
+     *
+     * @param ReviewRepository $reviewRepository
+     */
+    public function browse(ReviewRepository $reviewRepository): JsonResponse
+    {
+        $allReviews = $reviewRepository->findAll();
+
+        return $this->json200($allReviews, ["review_browse"]);
+    }
     // !! 2. Read
+    /**
+     * @Route("/api/reviews/{id}", name="app_api_reviews_read", requirements={"id"="\d+"}, methods={"GET"})
+     */
+    public function read($id, ReviewRepository $reviewRepository): JsonResponse
+    {
+        $review = $reviewRepository->find($id);
+
+        if ($review === null) {
+            return $this->json404(["message" => "Cet avis n'existe pas"]);
+        }
+        return $this->json200($review, ["review_read"]);
+    }
+
     // !! 3. Last 5 Reviews
     // !! 4. General Rating
 
@@ -73,6 +99,48 @@ class ReviewApiController extends CoreApiController
     }
 
     // !! 6. Edit
+    /**
+     * Edit Review, only review's author is allowed to change it
+     *
+     * @Route("/api/reviews/{id}",name="app_api_reviews_edit", requirements={"id"="\d+"}, methods={"PUT", "PATCH"})
+     * 
+     * @param Request $request la requete
+     * @param SerializerInterface $serializerInterface
+     * @param ReviewRepository $reviewRepository
+     */
+    public function edit($id, Request $request, SerializerInterface $serializerInterface, ReviewRepository $reviewRepository)
+    {
+        $jsonContent = $request->getContent();
+        $review = $reviewRepository->find($id);
+
+        if ($review == null) {
+            return $this->json404(["message" => "Cet avis n'existe pas"]);
+        }
+
+        $serializerInterface->deserialize(
+            $jsonContent,
+            Review::class,
+            'json',
+            [AbstractNormalizer::OBJECT_TO_POPULATE => $review]
+        );
+
+        $review->setUpdatedAt(new DateTime("now"));
+
+        /** @var App\Entity\User $currentUser */
+        $currentUser = $this->getUser();
+        
+        $currentUserId = $currentUser->getId();
+
+        $reviewOwner = $review->getUser()->getId();
+
+        if ($currentUserId == $reviewOwner) {
+            $reviewRepository->add($review, true);
+            return $this->json200($review, ["review_edit"]);
+        } else {
+            return $this->json403(["message" => "Vous n'êtes pas l'auteur de cet avis, vous ne pouvez l'éditer."]);
+        }
+    }
+
     // !! 7. Delete
     /**
      * Delete Review, review's author only 
