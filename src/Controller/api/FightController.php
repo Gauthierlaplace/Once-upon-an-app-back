@@ -8,6 +8,7 @@ use App\Repository\EventRepository;
 use App\Repository\EventTypeRepository;
 use App\Repository\FightRepository;
 use App\Repository\HeroRepository;
+use App\Repository\ItemRepository;
 use App\Repository\NpcRepository;
 use App\Services\PlayedEventService;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -20,7 +21,7 @@ class FightController extends CoreApiController
      *
      * @Route("/api/event/fight/{npcId}/attack/{effectId}", name="app_api_introAttack" , requirements={"effectId"="\d+", "npcId"="\d+"}, methods={"GET"})
      */
-    public function introAttack($effectId, $npcId, FightRepository $fightRepository, PlayedEventService $playedEventService, NpcRepository $npcRepository, EffectRepository $effectRepository, HeroRepository $heroRepository, EventRepository $eventRepository, EventTypeRepository $eventTypeRepository): JsonResponse
+    public function introAttack($effectId, $npcId, FightRepository $fightRepository, PlayedEventService $playedEventService, NpcRepository $npcRepository, EffectRepository $effectRepository, HeroRepository $heroRepository, EventRepository $eventRepository, EventTypeRepository $eventTypeRepository, ItemRepository $itemRepository): JsonResponse
     {
         /** @var App\Entity\User $user */
         $user = $this->getUser();
@@ -30,16 +31,21 @@ class FightController extends CoreApiController
 
         $arrayHero = [];
         foreach ($heroes as $hero) {
+
+            $heroItemsCollection = $hero->getItem();
+            $heroItems = $heroItemsCollection->toArray();
+
             $arrayHero = [
-                'heroId' => $hero->getId(),
-                'heroName' => $hero->getName(),
-                'heroMaxHealth' => $hero->getMaxHealth(),
+                'id' => $hero->getId(),
+                'name' => $hero->getName(),
+                'maxHealth' => $hero->getMaxHealth(),
                 'health' => $hero->getHealth(),
-                'heroStrength' => $hero->getStrength(),
-                'heroIntelligence' => $hero->getIntelligence(),
-                'heroDexterity' => $hero->getDexterity(),
-                'heroDefense' => $hero->getDefense(),
-                'heroKarma' => $hero->getKarma(),
+                'strength' => $hero->getStrength(),
+                'intelligence' => $hero->getIntelligence(),
+                'dexterity' => $hero->getDexterity(),
+                'defense' => $hero->getDefense(),
+                'karma' => $hero->getKarma(),
+                'items' => $heroItems,
             ];
         }
 
@@ -48,12 +54,16 @@ class FightController extends CoreApiController
         //* On récupère l'objet npc et on charge les éléments souhaités dans l'objet Fight
         $npc = $npcRepository->find($npcId);
 
-        $npcItemsCollection = $npc->getItem();
-        $npcItems = $npcItemsCollection->toArray();
-
-        if ($npcItems) {
-            foreach ($npcItems as $npcItem) {
-                $item = $npcItem->getId();
+        if ($npc->getItem()) {
+            $npcItemsCollection = $npc->getItem();
+            $npcItems = $npcItemsCollection->toArray();
+    
+            if ($npcItems) {
+                $itemPicked = array_rand($npcItems, 1);
+                $item = $npcItems[$itemPicked];
+                $item = $item->getId();
+            } else {
+                $item = null;
             }
         } else {
             $item = null;
@@ -77,6 +87,11 @@ class FightController extends CoreApiController
 
         $fightRepository->add($fight, true);
 
+        if ($fight->getItem() == null) {
+            $loot = null;
+        } else {
+            $loot = $itemRepository->find($fight->getItem());
+        }
         // ---------------------------------------------------------------------------
 
         $arrayNpc = [
@@ -89,6 +104,7 @@ class FightController extends CoreApiController
             'npcDexterity' => $fight->getDexterity(),
             'npcDefense' => $fight->getDefense(),
             'npcKarma' => $fight->getKarma(),
+            'npcItem' => $fight->getItem(),
         ];
 
         $effect = $effectRepository->find($effectId);
@@ -162,6 +178,92 @@ class FightController extends CoreApiController
             if ($newNpcHealthToApply <= 0) {
                 //* Le npc est mort durant l'application de l'effet introduisant le combat
 
+                // * --------------------------------------------------- ITEM START------------------------------------------
+                $loot = $itemRepository->find($fight->getItem());
+
+                if ($loot->isUsable()) {
+                    // Usable is true, on le stock simplement dans le hero
+                    $itemAlreadyExist = false;
+                    foreach ($heroItems as $item) {
+                        if ($item == $loot) {
+                            // on ne l'implémente pas dans le $heroItems
+                            $itemAlreadyExist = true;
+                            break;
+                        }
+                    }
+                    if ($itemAlreadyExist == false) {
+                        // on l'implémente dans le $heroItems
+                        $heroItems[] = $loot;
+                    }
+
+                    $arrayHero = [
+                        'id' => $hero->getId(),
+                        'name' => $hero->getName(),
+                        'maxHealth' => $hero->getMaxHealth(),
+                        'health' => $hero->getHealth(),
+                        'strength' => $hero->getStrength(),
+                        'intelligence' => $hero->getIntelligence(),
+                        'dexterity' => $hero->getDexterity(),
+                        'defense' => $hero->getDefense(),
+                        'karma' => $hero->getKarma(),
+                        'items' => $heroItems,
+                    ];
+                    $hero->addItem($loot);
+                    $heroRepository->add($hero, true);
+                } else {
+                    // Usable is false, on le stock dans le hero et on ajoute ses stat de l'equipement
+                    if ($loot->isUsable() == false) {
+                        $itemAlreadyExist = false;
+                        foreach ($heroItems as $item) {
+                            if ($item == $loot) {
+                                // on ne l'implémente pas dans le $heroItems
+                                $itemAlreadyExist = true;
+                                break;
+                            }
+                        }
+                        if ($itemAlreadyExist == false) {
+                            //! Strength
+                            if ($loot->getStrength()) {
+                                $hero->setStrength($hero->getStrength() + $loot->getStrength());
+                            }
+                            //! Intelligence
+                            if ($loot->getIntelligence()) {
+                                $hero->setIntelligence($hero->getIntelligence() + $loot->getIntelligence());
+                            }
+                            //! Dexterity
+                            if ($loot->getDexterity()) {
+                                $hero->setDexterity($hero->getDexterity() + $loot->getDexterity());
+                            }
+                            //! Defense
+                            if ($loot->getDefense()) {
+                                $hero->setDefense($hero->getDefense() + $loot->getDefense());
+                            }
+                            //! Karma
+                            if ($loot->getKarma()) {
+                                $hero->setKarma($hero->getKarma() + $loot->getKarma());
+                            }
+                            // on l'implémente dans le $heroItems
+                            $heroItems[] = $loot;
+                        }
+
+                        $arrayHero = [
+                            'id' => $hero->getId(),
+                            'name' => $hero->getName(),
+                            'maxHealth' => $hero->getMaxHealth(),
+                            'health' => $hero->getHealth(),
+                            'strength' => $hero->getStrength(),
+                            'intelligence' => $hero->getIntelligence(),
+                            'dexterity' => $hero->getDexterity(),
+                            'defense' => $hero->getDefense(),
+                            'karma' => $hero->getKarma(),
+                            'items' => $heroItems,
+                        ];
+                        $hero->addItem($loot);
+                        $heroRepository->add($hero, true);
+                    }
+                }
+                // * --------------------------------------------------- ITEM END------------------------------------------
+
                 // Supprimer le npc de la table Fight car le combat est terminé
                 $fight->setHero(null);
                 $fightDeleted = $fightRepository->remove($fight, true);
@@ -180,6 +282,17 @@ class FightController extends CoreApiController
             }
         }
 
+        if ($loot) {
+            $data = [
+                'player' => $arrayHero,
+                'npc' => $arrayNpc,
+                'effect' => $arrayEffect,
+                'attacker' => $attacker,
+                'attackerFightId' => $arrayNpc['npcId'],
+                'loot' => $loot,
+            ];
+            return $this->json200($data, ["game"]);
+        }
         $data = [
             'player' => $arrayHero,
             'npc' => $arrayNpc,
@@ -196,7 +309,7 @@ class FightController extends CoreApiController
      *
      * @Route("/api/event/fight/{fightId}/attacker/{attackerName}", name="app_api_attack" , requirements={"fightId"="\d+", "attackerName"="\w+"}, methods={"GET"})
      */
-    public function attack($fightId, $attackerName, FightRepository $fightRepository, PlayedEventService $playedEventService, HeroRepository $heroRepository, EventRepository $eventRepository, EventTypeRepository $eventTypeRepository): JsonResponse
+    public function attack($fightId, $attackerName, FightRepository $fightRepository, PlayedEventService $playedEventService, HeroRepository $heroRepository, EventRepository $eventRepository, EventTypeRepository $eventTypeRepository, ItemRepository $itemRepository): JsonResponse
     {
 
         /** @var App\Entity\User $user */
@@ -207,22 +320,34 @@ class FightController extends CoreApiController
 
         $arrayHero = [];
         foreach ($heroes as $hero) {
+            $heroItemsCollection = $hero->getItem();
+            $heroItems = $heroItemsCollection->toArray();
+
             $arrayHero = [
-                'heroId' => $hero->getId(),
-                'heroName' => $hero->getName(),
-                'heroMaxHealth' => $hero->getMaxHealth(),
+                'id' => $hero->getId(),
+                'name' => $hero->getName(),
+                'maxHealth' => $hero->getMaxHealth(),
                 'health' => $hero->getHealth(),
-                'heroStrength' => $hero->getStrength(),
-                'heroIntelligence' => $hero->getIntelligence(),
-                'heroDexterity' => $hero->getDexterity(),
-                'heroDefense' => $hero->getDefense(),
-                'heroKarma' => $hero->getKarma(),
+                'strength' => $hero->getStrength(),
+                'intelligence' => $hero->getIntelligence(),
+                'dexterity' => $hero->getDexterity(),
+                'defense' => $hero->getDefense(),
+                'karma' => $hero->getKarma(),
+                'items' => $heroItems,
             ];
         }
 
 
         //* On récupère l'objet Fight (le npc)
         $fight = $fightRepository->find($fightId);
+
+        if ($fight->getItem() == null) {
+            $loot = null;
+        } else {
+            if ($fight->getItem()) {
+                $loot = $itemRepository->find($fight->getItem());
+            }
+        }
 
         $arrayNpc = [
             'npcId' => $fight->getId(),
@@ -234,6 +359,7 @@ class FightController extends CoreApiController
             'npcDexterity' => $fight->getDexterity(),
             'npcDefense' => $fight->getDefense(),
             'npcKarma' => $fight->getKarma(),
+            'npcItem' => $fight->getItem(),
         ];
 
 
@@ -245,7 +371,7 @@ class FightController extends CoreApiController
 
             // 1. Miss Or Not
             // On a besoin de récupérer la stat la plus haute entre strenght, intelligence et dexterity du hero
-            $higherStatAttacker = max($arrayHero["heroStrength"], $arrayHero["heroIntelligence"], $arrayHero["heroDexterity"]);
+            $higherStatAttacker = max($arrayHero["strength"], $arrayHero["intelligence"], $arrayHero["dexterity"]);
             // On a besoin de la stat defense du npc
             $defenseNpc = $fight->getDefense() + 3;
 
@@ -268,6 +394,97 @@ class FightController extends CoreApiController
                 ];
                 if ($npcDamagedHealth <= 0) {
                     $attacker = "end of battle";
+                    // * --------------------------------------------------- ITEM START------------------------------------------
+                    if ($fight->getItem() == null) {
+                        $loot = null;
+                    } else {
+                        if ($fight->getItem()) {
+                            $loot = $itemRepository->find($fight->getItem());
+                            if ($loot->isUsable()) {
+                                // Usable is true, on le stock simplement dans le hero
+                                $itemAlreadyExist = false;
+                                foreach ($heroItems as $item) {
+                                    if ($item == $loot) {
+                                        // on ne l'implémente pas dans le $heroItems
+                                        $itemAlreadyExist = true;
+                                        break;
+                                    }
+                                }
+                                if ($itemAlreadyExist == false) {
+                                    // on l'implémente dans le $heroItems
+                                    $heroItems[] = $loot;
+                                }
+        
+                                $arrayHero = [
+                                    'id' => $hero->getId(),
+                                    'name' => $hero->getName(),
+                                    'maxHealth' => $hero->getMaxHealth(),
+                                    'health' => $hero->getHealth(),
+                                    'strength' => $hero->getStrength(),
+                                    'intelligence' => $hero->getIntelligence(),
+                                    'dexterity' => $hero->getDexterity(),
+                                    'defense' => $hero->getDefense(),
+                                    'karma' => $hero->getKarma(),
+                                    'items' => $heroItems,
+                                ];
+                                $hero->addItem($loot);
+                                $heroRepository->add($hero, true);
+                            } else {
+                                // Usable is false, on le stock dans le hero et on ajoute ses stat de l'equipement
+                                if ($loot->isUsable() == false) {
+                                    $itemAlreadyExist = false;
+                                    foreach ($heroItems as $item) {
+                                        if ($item == $loot) {
+                                            // on ne l'implémente pas dans le $heroItems
+                                            $itemAlreadyExist = true;
+                                            break;
+                                        }
+                                    }
+                                    if ($itemAlreadyExist == false) {
+                                        //! Strength
+                                        if ($loot->getStrength()) {
+                                            $hero->setStrength($hero->getStrength() + $loot->getStrength());
+                                        }
+                                        //! Intelligence
+                                        if ($loot->getIntelligence()) {
+                                            $hero->setIntelligence($hero->getIntelligence() + $loot->getIntelligence());
+                                        }
+                                        //! Dexterity
+                                        if ($loot->getDexterity()) {
+                                            $hero->setDexterity($hero->getDexterity() + $loot->getDexterity());
+                                        }
+                                        //! Defense
+                                        if ($loot->getDefense()) {
+                                            $hero->setDefense($hero->getDefense() + $loot->getDefense());
+                                        }
+                                        //! Karma
+                                        if ($loot->getKarma()) {
+                                            $hero->setKarma($hero->getKarma() + $loot->getKarma());
+                                        }
+                                        // on l'implémente dans le $heroItems
+                                        $heroItems[] = $loot;
+                                    }
+        
+                                    $arrayHero = [
+                                        'id' => $hero->getId(),
+                                        'name' => $hero->getName(),
+                                        'maxHealth' => $hero->getMaxHealth(),
+                                        'health' => $hero->getHealth(),
+                                        'strength' => $hero->getStrength(),
+                                        'intelligence' => $hero->getIntelligence(),
+                                        'dexterity' => $hero->getDexterity(),
+                                        'defense' => $hero->getDefense(),
+                                        'karma' => $hero->getKarma(),
+                                        'items' => $heroItems,
+                                    ];
+                                    $hero->addItem($loot);
+                                    $heroRepository->add($hero, true);
+                                }
+                            }
+                        }
+                    }
+
+                    // * --------------------------------------------------- ITEM END------------------------------------------ 
                     //* npc dead, Supprimer le npc de la table Fight
                     $arrayNpc["npcHealth"] = 0;
                     $data = [
@@ -275,6 +492,7 @@ class FightController extends CoreApiController
                         'npc' => $arrayNpc,
                         'dices' => $arrayRolls,
                         'attacker' => $attacker,
+                        'loot' => $loot,
                     ];
 
                     $fight->setHero(null);
@@ -292,6 +510,7 @@ class FightController extends CoreApiController
                         'npc' => $arrayNpc,
                         'dices' => $arrayRolls,
                         'attacker' => $attacker,
+                        'loot' => $loot,
                     ];
 
                     $npcUpdate = $fight->setHealth($npcDamagedHealth);
@@ -315,6 +534,7 @@ class FightController extends CoreApiController
                     'npc' => $arrayNpc,
                     'dices' => $arrayRolls,
                     'attacker' => $attacker,
+                    'loot' => $loot,
                 ];
                 return $this->json200($data, ["game"]);
             }
@@ -357,7 +577,7 @@ class FightController extends CoreApiController
                     //* Update en BDD
                     $heroRepository->add($heroFightApplied, true);
 
-                    //! Supprimer le npc de la table Fight
+                    // Supprimer le npc de la table Fight
                     $fight->setHero(null);
                     $fightDeleted = $fightRepository->remove($fight, true);
 
@@ -371,6 +591,7 @@ class FightController extends CoreApiController
                         'GameOver' => $eventDeath,
                         'dices' => $arrayRolls,
                         'attacker' => $attacker,
+                        'loot' => $loot,
                     ];
                     return $this->json200($data, ["game"]);
                 } else {
@@ -384,6 +605,7 @@ class FightController extends CoreApiController
                         'npc' => $arrayNpc,
                         'dices' => $arrayRolls,
                         'attacker' => $attacker,
+                        'loot' => $loot,
                     ];
 
                     $heroUpdate = $hero->setHealth($heroDamagedHealth);
@@ -405,6 +627,7 @@ class FightController extends CoreApiController
                     'npc' => $arrayNpc,
                     'dices' => $arrayRolls,
                     'attacker' => $attacker,
+                    'loot' => $loot,
                 ];
                 return $this->json200($data, ["game"]);
             }

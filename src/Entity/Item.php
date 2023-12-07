@@ -100,6 +100,12 @@ class Item
      */
     private $picture;
 
+    /**
+     * @ORM\Column(type="boolean", nullable=true)
+     * @Groups({"game"})
+     */
+    private $usable;
+
     public function __construct()
     {
         $this->heroes = new ArrayCollection();
@@ -286,6 +292,18 @@ class Item
     public function setPicture(?Picture $picture): self
     {
         $this->picture = $picture;
+
+        return $this;
+    }
+
+    public function isUsable(): ?bool
+    {
+        return $this->usable;
+    }
+
+    public function setUsable(?bool $usable): self
+    {
+        $this->usable = $usable;
 
         return $this;
     }

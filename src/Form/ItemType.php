@@ -9,6 +9,7 @@ use App\Entity\Picture;
 use Doctrine\ORM\EntityRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -30,6 +31,15 @@ class ItemType extends AbstractType
                     return $er->createQueryBuilder('p')
                         ->orderBy('p.name', 'ASC');
                 },
+            ])
+            ->add('usable', ChoiceType::class, [
+                "label" => 'Est ce un utilisable?',
+                "expanded" => true,
+                "multiple" => false,
+                "choices" => [
+                    "Oui" => 1,
+                    "Non" => 0,
+                ],
             ])
             ->add('health', NumberType::class, ["label" => "Santé"])
             ->add('strength', NumberType::class, ["label" => "Force"])
