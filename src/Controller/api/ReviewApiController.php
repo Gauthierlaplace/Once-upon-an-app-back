@@ -131,7 +131,7 @@ class ReviewApiController extends CoreApiController
     /**
      * Edit Review, only review's author is allowed to change it
      *
-     * @Route("/api/reviews/{id}",name="app_api_reviews_edit", requirements={"id"="\d+"}, methods={"PUT", "PATCH"})
+     * @Route("/api/reviews/{id}",name="app_api_reviews_edit", requirements={"id"="\d+"}, methods={"PUT"})
      * 
      * @param Request $request la requete
      * @param SerializerInterface $serializerInterface

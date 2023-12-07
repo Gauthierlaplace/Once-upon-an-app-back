@@ -52,7 +52,13 @@ security:
         - { path: ^/api/users/details, roles: ROLE_PLAYER , methods: [GET]}
         - { path: ^/api/users/\d+$, roles: ROLE_PLAYER , methods: [PUT]}
         - { path: ^/api/users/\d+$, roles: ROLE_PLAYER , methods: [DELETE]}
+        - { path: ^/api/reviews, roles: ROLE_PLAYER , methods: [GET]}
+        - { path: ^/api/reviews/\d+$, roles: ROLE_PLAYER , methods: [GET]}
         - { path: ^/api/reviews, roles: ROLE_PLAYER , methods: [POST]}
+        - { path: ^/api/reviews/\d+$, roles: ROLE_PLAYER , methods: [PUT]}
+        - { path: ^/api/reviews/\d+$, roles: ROLE_PLAYER , methods: [DELETE]}
+        # - { path: ^/api/reviews/lastest/\d+$, roles: PUBLIC_ACCESS , methods: [GET]}
+        # - { path: ^/api/rating, roles: PUBLIC_ACCESS , methods: [GET]}
         - { path: ^/api/play, roles: ROLE_PLAYER , methods: [GET]}
         - { path: ^/api/event/roll/\d+$, roles: ROLE_PLAYER , methods: [GET]}
         - { path: ^/api/event/last/\d+$, roles: ROLE_PLAYER , methods: [GET]}
@@ -61,6 +67,10 @@ security:
         - { path: ^/api/event/victory/\d+$, roles: ROLE_PLAYER , methods: [GET]}
         - { path: ^/api/event/effect/\d+$, roles: ROLE_PLAYER , methods: [GET]}
         - { path: ^/api/event/death/\d+$, roles: ROLE_PLAYER , methods: [GET]}
+        - { path: ^/api/event/fight/\d+\/attack/\d+$, roles: ROLE_PLAYER , methods: [GET]}
+        - { path: ^/api/event/fight/\d+\/attacker/\w+$, roles: ROLE_PLAYER , methods: [GET]}
+        - { path: ^/api/usable/\d+$, roles: ROLE_PLAYER , methods: [GET]}
+        - { path: ^/api/loot/\d+$, roles: ROLE_PLAYER , methods: [GET]}
     
         # - route back-office
         - { path: ^/login$, roles: PUBLIC_ACCESS }

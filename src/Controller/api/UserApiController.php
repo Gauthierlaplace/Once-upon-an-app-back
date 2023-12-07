@@ -132,7 +132,7 @@ class UserApiController extends CoreApiController
     /**
      * edit user
      *
-     * @Route("/api/users/{id}",name="app_api_users_edit", requirements={"id"="\d+"}, methods={"PUT", "PATCH"})
+     * @Route("/api/users/{id}",name="app_api_users_edit", requirements={"id"="\d+"}, methods={"PUT"})
      * 
      * @param Request $request la requete
      * @param SerializerInterface $serializerInterface
