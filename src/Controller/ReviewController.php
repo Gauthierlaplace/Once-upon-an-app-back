@@ -22,8 +22,8 @@ class ReviewController extends AbstractController
      */
     public function index(ReviewRepository $reviewRepository, PaginatorService $paginatorService): Response
     {
-        $reviewsToPaginate = $reviewRepository->findBy([],['title' => 'ASC']);
-        $reviewsPaginated = $paginatorService->paginator($reviewsToPaginate, 10);
+        $reviewsToPaginate = $reviewRepository->findBy([],['updatedAt' => 'DESC']);
+        $reviewsPaginated = $paginatorService->paginator($reviewsToPaginate, 7);
         return $this->render('review/index.html.twig', [
             'reviews' => $reviewsPaginated,
         ]);

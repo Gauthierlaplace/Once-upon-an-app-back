@@ -1,7 +1,7 @@
 {
     "client": "Thunder Client",
     "collectionName": "Adventure RPG [Once Upon An App]",
-    "dateExported": "2023-12-07T07:50:14.460Z",
+    "dateExported": "2023-12-07T15:14:12.277Z",
     "version": "1.1",
     "folders": [
         {
@@ -27,7 +27,7 @@
             "settings": {
                 "auth": {
                     "type": "bearer",
-                    "bearer": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpYXQiOjE3MDEzMzc1MTYsImV4cCI6MTcwMTQwMjMxNiwicm9sZXMiOlsiUk9MRV9BRE1JTiIsIlJPTEVfUExBWUVSIl0sInVzZXJuYW1lIjoiYW50aG9ueS5ib3V0aGVyaW5AZ21haWwuY29tIn0.P3AekVkbMsTNVw9ytBy9AYGo_JYBw0abVVckK9flAmpmxEk5aibBz5CNa705PUclUBEieHDYIzhCjZJ-fq4a0Plh8k-2NaNbuMbNzeAINPFbXDGw7A5x43wr19R6T2r9VvlgjP7oJMmlAJnCx2HsrTSWCDPq8yKkbWFxXNNFgyeyrTOwQjgCK8zEj_qzA4fqJLLmgFc16vHbIN7wtyrTm1Wd7V5Id3xokAOdnSiH83Mir7KtlXioTX_HZ3wge_Sk40S566rNr3XY3sLK1eIVViiwD4HA_nd7fqRPC7706A6P_4qUzFlwx7pKrzEwHulo-vHB5Fe8-HbhIXTVF-JPxg"
+                    "bearer": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpYXQiOjE3MDE5MzczMzQsImV4cCI6MTcwMjAwMjEzNCwicm9sZXMiOlsiUk9MRV9BRE1JTiIsIlJPTEVfUExBWUVSIl0sInVzZXJuYW1lIjoiYW50aG9ueS5ib3V0aGVyaW5AZ21haWwuY29tIn0.PTr6Q-h-9vQktt7SbFjsEjkl3cTKlOoiv8mpivsOvZdIHn7Q7rntLxdI86Xc9V5xq4oK1yMrmQFlSphoarrcY0fLpnH2hE4gu5mlWHY5bgmBGPiVHS2n-DUcAkTkUdhvw4xC0QyhmDtVBgmhDh47INHgNmoqG9Ut3jhkOnChlVKlbr-3ZL2U20H9xfUKFSQyVvNMHdsNGqtpD3nrzRVj6lsy_a4qcahPIK8MlszOvmQpa80SlP1xyU9yzhOw5UaJLSmue9xHv1SXACND_qLVn_qDUPYL4BzrNOMqree--qBy0sBmDscCeeBG3ehs3VG_LVH-Rlyn7jVQrFivgE3-mA"
                 }
             }
         },
@@ -396,17 +396,17 @@
             "_id": "7127771f-f134-4309-b4ca-67ee1b6b1b17",
             "colId": "585175b5-917f-41be-808b-aa808864a8bb",
             "containerId": "1f02e67c-24cc-4d7c-8795-055e11d48eba",
-            "name": "http://localhost:8000/api/reviews",
+            "name": "Add review",
             "url": "http://localhost:8000/api/reviews",
             "method": "POST",
             "sortNum": 100000,
             "created": "2023-11-06T21:17:06.842Z",
-            "modified": "2023-11-06T21:17:06.842Z",
+            "modified": "2023-12-07T15:06:18.339Z",
             "headers": [],
             "params": [],
             "body": {
                 "type": "json",
-                "raw": "{\n  \"title\": \"test review 8\", \n  \"content\": \"test content review 4\",\n  \"rating\": 5,\n  \"user\": 27\n}\n",
+                "raw": "{\n  \"title\": \"test review 9\", \n  \"content\": \"test content review 5\",\n  \"rating\": 5,\n  \"user\": 9\n}\n",
                 "form": []
             },
             "tests": []
@@ -421,6 +421,95 @@
             "sortNum": 110000,
             "created": "2023-11-23T12:28:15.756Z",
             "modified": "2023-11-23T12:29:49.100Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "a6a8388f-3c47-4fdb-9e1f-6ed95f90c384",
+            "colId": "585175b5-917f-41be-808b-aa808864a8bb",
+            "containerId": "1f02e67c-24cc-4d7c-8795-055e11d48eba",
+            "name": "Browse Reviews",
+            "url": "http://localhost:8000/api/reviews",
+            "method": "GET",
+            "sortNum": 120000,
+            "created": "2023-12-07T09:17:21.622Z",
+            "modified": "2023-12-07T09:17:21.622Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "492cb53b-7d26-4b81-9478-78084b7872cf",
+            "colId": "585175b5-917f-41be-808b-aa808864a8bb",
+            "containerId": "1f02e67c-24cc-4d7c-8795-055e11d48eba",
+            "name": "Read Reviews",
+            "url": "http://localhost:8000/api/reviews/1",
+            "method": "GET",
+            "sortNum": 130000,
+            "created": "2023-12-07T10:03:46.616Z",
+            "modified": "2023-12-07T10:04:21.394Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "374394c5-be1e-424d-83f1-22ecf28627c7",
+            "colId": "585175b5-917f-41be-808b-aa808864a8bb",
+            "containerId": "1f02e67c-24cc-4d7c-8795-055e11d48eba",
+            "name": "Edit Review Only if author",
+            "url": "http://localhost:8000/api/reviews/5",
+            "method": "PUT",
+            "sortNum": 140000,
+            "created": "2023-12-07T10:30:13.052Z",
+            "modified": "2023-12-07T11:03:08.754Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"title\": \"test review 5\", \n  \"content\": \"test content review 0\",\n  \"rating\": 5\n}\n",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "512429d9-6334-4d3a-a184-00935e00ea57",
+            "colId": "585175b5-917f-41be-808b-aa808864a8bb",
+            "containerId": "1f02e67c-24cc-4d7c-8795-055e11d48eba",
+            "name": "Delete Review Only if author",
+            "url": "http://localhost:8000/api/reviews/6",
+            "method": "DELETE",
+            "sortNum": 150000,
+            "created": "2023-12-07T11:56:24.643Z",
+            "modified": "2023-12-07T15:04:08.885Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "02dd2969-f93e-4d5e-be52-263fe966d165",
+            "colId": "585175b5-917f-41be-808b-aa808864a8bb",
+            "containerId": "1f02e67c-24cc-4d7c-8795-055e11d48eba",
+            "name": "Lastest Reviews",
+            "url": "http://localhost:8000/api/reviews/lastest/2",
+            "method": "GET",
+            "sortNum": 160000,
+            "created": "2023-12-07T12:20:43.170Z",
+            "modified": "2023-12-07T15:10:08.075Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "da47c77c-182c-443b-8b1c-6fe9bb70dd51",
+            "colId": "585175b5-917f-41be-808b-aa808864a8bb",
+            "containerId": "1f02e67c-24cc-4d7c-8795-055e11d48eba",
+            "name": "General Rating from all Reviews",
+            "url": "http://localhost:8000/api/rating",
+            "method": "GET",
+            "sortNum": 170000,
+            "created": "2023-12-07T14:59:36.008Z",
+            "modified": "2023-12-07T14:59:36.008Z",
             "headers": [],
             "params": [],
             "tests": []

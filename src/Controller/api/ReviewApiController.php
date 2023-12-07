@@ -2,10 +2,8 @@
 
 namespace App\Controller\api;
 
-use App\Entity\User;
 use App\Entity\Review;
 use App\Repository\ReviewRepository;
-use App\Repository\UserRepository;
 use Exception;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -61,7 +59,31 @@ class ReviewApiController extends CoreApiController
         return $this->json200($lastestReviews, ["review"]);
     }
 
-    // !! 4. General Rating
+    /**
+     * General Rating
+     *
+     * @Route("/api/rating",name="app_api_rating", methods={"GET"})
+     *
+     * @param ReviewRepository $reviewRepository
+     */
+    public function rating(ReviewRepository $reviewRepository): JsonResponse
+    {
+        $allReviews = $reviewRepository->findAll();
+
+        $allRating = [];
+        $count = null;
+        $ratingCount = null;
+        foreach ($allReviews as $review) {
+            $allRating [] = $review->getRating();
+
+            $ratingCount = $review->getRating() + $ratingCount;
+
+            $count = $count + 1;
+        }
+        $generalRating = ["rating" => $ratingCount / $count];
+
+        return $this->json200($generalRating, ["rating"]);
+    }
 
     /**
      * New review
