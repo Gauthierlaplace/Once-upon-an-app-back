@@ -48,6 +48,20 @@ class ReviewApiController extends CoreApiController
     }
 
     // !! 3. Last 5 Reviews
+    /**
+     * Last x reviews
+     *
+     * @Route("/api/reviews/lastest/{x}",name="app_api_reviews_lastest", requirements={"x"="\d+"}, methods={"GET"})
+     *
+     * @param ReviewRepository $reviewRepository
+     */
+    public function lastestReviews($x, ReviewRepository $reviewRepository): JsonResponse
+    {
+        $lastestReviews = $reviewRepository->findLastestReviews($x);
+
+        return $this->json200($lastestReviews, ["review"]);
+    }
+
     // !! 4. General Rating
 
     // !! 5. Create
@@ -91,11 +105,12 @@ class ReviewApiController extends CoreApiController
         $reviewToCreate->setRating($review->getRating());
         $reviewToCreate->setUser($review->getUser());
         $reviewToCreate->setCreatedAt(new DateTime("now"));
+        $reviewToCreate->setUpdatedAt(new DateTime("now"));
 
         // On sauvegarde les entitées
         $reviewCreated = $reviewRepository->add($reviewToCreate, true);
 
-        return $this->json201($reviewToCreate, ["review_create"]);
+        return $this->json201($reviewToCreate, ["review"]);
     }
 
     // !! 6. Edit
