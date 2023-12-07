@@ -16,6 +16,8 @@ class Review
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * 
+     * @Groups({"review_browse", "review"})
      */
     private $id;
 
@@ -24,7 +26,7 @@ class Review
      * @Assert\NotBlank(
      *     message = "Merci de donner un titre à votre avis"
      * )
-     * @Groups({"review_create", "review_read"})
+     * @Groups({"review"})
      */
     private $title;
 
@@ -33,7 +35,7 @@ class Review
      * @Assert\NotBlank(
      *     message = "Merci de décrire votre avis"
      * )
-     * @Groups({"review_create", "review_read"})
+     * @Groups({"review"})
      */
     private $content;
 
@@ -42,27 +44,27 @@ class Review
      * @Assert\NotBlank(
      *     message = "Merci de sélectionner une note"
      * )
-     * @Groups({"review_create", "review_read"})
+     * @Groups({"review"})
      */
     private $rating;
 
     /**
      * @ORM\Column(type="datetime")
      * @Assert\Type("\DateTimeInterface")
-     * @Groups({"review_create", "review_read"})
+     * @Groups({"review"})
      */
     private $createdAt;
 
     /**
      * @ORM\Column(type="datetime", nullable=true)
-     * @Groups({"review_create", "review_read"})
+     * @Groups({"review"})
      */
     private $updatedAt;
 
     /**
      * @ORM\ManyToOne(targetEntity=User::class, inversedBy="reviews")
      * @ORM\JoinColumn(nullable=false)
-     * @Groups({"review_create", "review_read"})
+     * @Groups({"review"})
      */
     private $user;
 
