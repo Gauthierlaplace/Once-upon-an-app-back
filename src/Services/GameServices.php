@@ -6,6 +6,7 @@ use App\Repository\EffectRepository;
 use App\Repository\EndingRepository;
 use App\Repository\EventRepository;
 use App\Repository\EventTypeRepository;
+use App\Repository\FightRepository;
 use App\Repository\HeroClassRepository;
 use App\Repository\HeroRepository;
 use App\Repository\ItemRepository;
@@ -61,7 +62,13 @@ class GameServices
      */
     private $itemRepository;
 
-    public function __construct(PlayedEventService $playedEventService, EventTypeRepository $eventTypeRepository, EndingRepository $endingRepository, EventRepository $eventRepository, HeroRepository $heroRepository, EffectRepository $effectRepository, HeroClassRepository $heroClassRepository, ItemRepository $itemRepository)
+    /**
+     *
+     * @var FightRepository
+     */
+    private $fightRepository;
+
+    public function __construct(PlayedEventService $playedEventService, EventTypeRepository $eventTypeRepository, EndingRepository $endingRepository, EventRepository $eventRepository, HeroRepository $heroRepository, EffectRepository $effectRepository, HeroClassRepository $heroClassRepository, ItemRepository $itemRepository, FightRepository $fightRepository)
     {
         $this->eventTypeRepository = $eventTypeRepository;
         $this->endingRepository = $endingRepository;
@@ -70,6 +77,8 @@ class GameServices
         $this->effectRepository = $effectRepository;
         $this->playedEventService = $playedEventService;
         $this->heroClassRepository = $heroClassRepository;
+        $this->itemRepository = $itemRepository;
+        $this->fightRepository = $fightRepository;
     }
 
 
@@ -497,6 +506,39 @@ class GameServices
 
         $itemsCollection =  $hero->getItem();
         $itemsCollection->clear();
+
+        //----------------------------------------------Clean Fight Table START-----------------------
+        // 1. Stocker tout les heros
+        $allHeroes = $this->heroRepository->findAll();
+        // 2. Pour chaque hero, stocker l'id du fight en cours
+        $allHeroesFightId = [];
+        foreach ($allHeroes as $hero) {
+            if ($hero->getFight()) {
+                $allHeroesFightId[] = $hero->getFight()->getId();
+            }
+        }
+        // 3. Pour chaque fight, stocker l'id du fight
+        $allFights = $this->fightRepository->findAll();
+        $allFightsId = [];
+        if (!empty($allFights)) {
+            foreach ($allFights as $fight) {
+                if ($fight) {
+                    $allFightsId[] = $fight->getId();
+                }
+            }
+        }
+        // 4. On retire les id de $allHeroesFightId dans le tableau $allFightsId
+        $fightsIdToDelete = array_diff($allFightsId, $allHeroesFightId);
+        // 5. Pour chaque id de $fightsIdToDelete on récupère l'objet puis on le supprime en BDD
+        if (!empty($fightsIdToDelete)) {
+            foreach ($fightsIdToDelete as $fightIdToDelete) {
+                $fightsObjectToDelete[] = $this->fightRepository->find($fightIdToDelete);
+                foreach ($fightsObjectToDelete as $fightObjectToDelete) {
+                    $this->fightRepository->remove($fightObjectToDelete, true);
+                }
+            }
+        }
+        //----------------------------------------------Clean Fight Table END-----------------------
 
         $this->heroRepository->add($hero, true);
         return $hero;
