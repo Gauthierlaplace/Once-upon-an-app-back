@@ -510,20 +510,22 @@ class GameServices
 
     public function getAllCurrentEventData($currentEvent)
     {
-
         if ($currentEvent->getPicture()) {
             $picturePath = $currentEvent->getPicture()->getPath();
         } else {
             $picturePath = '';
         }
 
+        $currentEventtype = $currentEvent->getEventType();
+        $currentEventtypeName = $currentEventtype->getName();
+        
         $allCurrentEventData = [
             "id" => $currentEvent->getId(),
             "title" => $currentEvent->getTitle(),
             "description" => $currentEvent->getDescription(),
             "opening" => $currentEvent->getOpening(),
             "picture" => $picturePath,
-
+            "eventType" => $currentEventtypeName,
         ];
         return $allCurrentEventData;
     }
