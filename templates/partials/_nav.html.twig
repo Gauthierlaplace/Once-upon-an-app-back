@@ -1,6 +1,13 @@
 <nav id="navbar" class="navbar navbar-expand-lg" data-bs-theme="dark">
 	<div class="container-fluid d-flex justify-content-center">
 		{% if is_granted('ROLE_VISITOR') %}
+			{% if app.user %}
+				{% if app.user.avatar %}
+					<div class="">
+						<img class="avatar" src="{{ asset(app.user.avatar.path) }}" alt="image d'avatar de : {{app.user.pseudo}}">
+					</div>
+				{% endif %}
+			{% endif %}
 			<div class="m-2">
 				<a class="btnPlay btn btn-secondary btn-lg" href="http://onceuponanapp.fr/" target="_blank">Let's play !</a>
 			</div>
