@@ -1,53 +1,114 @@
 <nav id="navbar" class="navbar navbar-expand-lg" data-bs-theme="dark">
-	<div class="container-fluid">
+	<div class="container-fluid d-flex justify-content-center">
 		{% if is_granted('ROLE_VISITOR') %}
-			<div class="mb-4">
-				<div class="">
+			<div class="m-2">
+				<a class="btnPlay btn btn-secondary btn-lg" href="http://onceuponanapp.fr/" target="_blank">Let's play !</a>
+			</div>
+			<div class="d-flex justify-content-center">
+				<a class="navbar-brand" href="{{ path('app_home') }}">Accueil</a>
+				<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor02" aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation">
+					<span class="navbar-toggler-icon"></span>
+				</button>
+				<div class="collapse navbar-collapse" id="navbarColor02">
+					<ul
+						class="navbar-nav me-auto">
+
+						{# Pictures #}
+						{% set pictures = [
+							'picture',
+							] %}
+						{% for picture in pictures %}
+							<li class="nav-item text-end">
+								<a class="nav-link text {% if app.request.get('_route') ends with 'app_' ~ picture ~ '_index' %} active {% endif %} " href="{{ path('app_' ~ picture ~ '_index') }}">Images</a>
+							</li>
+						{% endfor %}
+
+						{# Inventories #}
+						{% set inventories = [
+							'item',
+							] %}
+						{% for inventory in inventories %}
+							<li class="nav-item text-end">
+								<a class="nav-link text {% if app.request.get('_route') ends with 'app_' ~ inventory ~ '_index' %} active {% endif %} " href="{{ path('app_' ~ inventory ~ '_index') }}">Inventaire</a>
+							</li>
+						{% endfor %}
+
+						{# Heroes #}
+						{% set heroes = [
+							'hero_class',
+							'hero',
+							] %}
+						<li class="nav-item dropdown">
+							<a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Création Héros</a>
+							<div class="dropdown-menu">
+								{% for hero in heroes %}
+									<a class="dropdown-item" href="{{ path('app_' ~ hero ~ '_index') }}">{{ hero|capitalize }}</a>
+								{% endfor %}
+							</div>
+						</li>
+
+						{# Events #}
+						{% set events = [
+							'biome',
+							'event_type',
+							'event',
+							'ending',
+							] %}
+						<li class="nav-item dropdown">
+							<a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Création d'Evènements</a>
+							<div class="dropdown-menu">
+								{% for event in events %}
+									<a class="dropdown-item" href="{{ path('app_' ~ event ~ '_index') }}">{{ event|capitalize }}</a>
+								{% endfor %}
+							</div>
+						</li>
+
+						{# Npcs #}
+						{% set npcs = [
+							'race',
+							'npc',
+							'dialogue',
+							'effect',
+							'answer',
+							] %}
+						<li class="nav-item dropdown">
+							<a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Création PNJs</a>
+							<div class="dropdown-menu">
+								{% for npc in npcs %}
+									<a class="dropdown-item" href="{{ path('app_' ~ npc ~ '_index') }}">{{ npc|capitalize }}</a>
+								{% endfor %}
+							</div>
+						</li>
+
+						{# Management #}
+						{% set managements = [
+							'review',
+							] %}
+						{% if is_granted('ROLE_ADMIN') %}
+							{% set managements = managements|merge(['user']) %}
+						{% endif %}
+						<li class="nav-item dropdown">
+							<a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Gestion Utilisateurs</a>
+							<div class="dropdown-menu">
+								{% for management in managements %}
+									<a class="dropdown-item" href="{{ path('app_' ~ management ~ '_index') }}">{{ management|capitalize }}</a>
+								{% endfor %}
+							</div>
+						</li>
+					</ul>
+				</div>
+			</div>
+			<div class="m-2">
+				<div class="btnDisconnect overflow-auto text-center">
 					Bonjour
 					{{ app.user.pseudo }}
 				</div>
-				<div>
-					<a class='btn btn-secondary mx-2' href="{{ path('app_logout') }}">
+				<div class="btnDisconnect">
+					<a class='btn btn-secondary w-100' href="{{ path('app_logout') }}">
 						Déconnecter
 					</a>
 				</div>
 			</div>
-			<a class="navbar-brand" href="{{ path('app_home') }}">Accueil</a>
-			<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor02" aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation">
-				<span class="navbar-toggler-icon"></span>
-			</button>
-			{% set entities = [
-				'picture',
-				'hero_class',
-				'hero',
-				'item',
-				'race',
-				'npc',
-				'dialogue',
-				'effect',
-				'answer',
-				'biome',
-				'event_type',
-				'event',
-				'ending',
-				'review'
-			] %}
-
-			{% if is_granted('ROLE_ADMIN') %}
-				{% set entities = entities|merge(['user']) %}
-			{% endif %}
-
-			{% for entity in entities %}
-				<div class="collapse navbar-collapse" id="navbarColor02">
-					<ul class="navbar-nav me-auto">
-						<li class="nav-item text-end">
-							<a class="nav-link text {% if app.request.get('_route') ends with 'app_' ~ entity ~ '_index' %} active {% endif %} " href="{{ path('app_' ~ entity ~ '_index') }}">{{ entity|capitalize }}</a>
-
-						</li>
-
-					</ul>
-				</div>
-			{% endfor %}
-		</div>
-	{% endif %}
+		{% endif %}
+	</div>
 </nav>

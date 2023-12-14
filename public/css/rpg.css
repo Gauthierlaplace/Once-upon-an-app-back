@@ -73,15 +73,14 @@ width: 10vw;
     left: 0;
 }
 
+.btnDisconnect {
+    margin-left: 1em;
+}
+
 .btnPlay {
-    width: 15vh;
-    z-index: 9999;
-    position: fixed;
-    bottom: 0;
-    left: 0;
+    margin-right: 1em;
     opacity: 0.3;
     transition: background-color 2s;
-    margin-bottom: 16vh;
 }
 
 .btnPlay:hover {
@@ -168,7 +167,6 @@ width: 10vw;
 }
 
 .navbar {
-    overflow-y: auto; 
     max-height: 100vh;
   }
 
@@ -195,3 +193,11 @@ width: 10vw;
     width: 100%;
 }
 /* Search Form END*/
+
+.nav-item {
+    list-style: none;
+}
+
+.nav-item.dropdown:hover .dropdown-menu {
+    display: block;
+}
