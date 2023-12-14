@@ -3,6 +3,7 @@ body>div.container.my-4>div>div>div>div>table>tbody>tr>td {
 }
 
 body {
+    background-image: url('./../images/back-office-Accueil.png');
     background-repeat: no-repeat;
     background-position: center center;
     background-attachment: fixed;
@@ -59,11 +60,10 @@ width: 10vw;
 
 .avatar {
     height: 10vh;
-    /* width: 100%; */
-    /* z-index: 9999; */
-    /* position: fixed;
-    top: 0;
-    left: 0; */
+}
+
+.avatarDiv {
+    left: 0;
 }
 
 .btnDisconnect {
@@ -161,7 +161,8 @@ width: 10vw;
 
 .navbar {
     max-height: 100vh;
-  }
+    height: fit-content;
+}
 
 
 /* Search Form START*/
@@ -193,4 +194,102 @@ width: 10vw;
 
 .nav-item.dropdown:hover .dropdown-menu {
     display: block;
+}
+
+.allNavDiv {
+    display: flex;
+    justify-content: center;
+}
+
+
+/* X-Small devices (portrait phones, less than 576px) */
+@media (max-width: 575.98px) 
+{
+    body {
+        background-image: url('./../images/back-office-cave.png');
+        background-size: 100%;
+    }
+
+    .avatarDiv {
+        display: none;
+    }
+
+    .btnPlay {
+        display: none;
+    }
+
+    .logoutLg {
+        position: fixed;
+        top: 0;
+        right: 0;
+        margin: 1em;
+    }
+
+    .divNavbarToggler {
+        position: fixed;
+        left: 0;
+        top: 0;
+        margin: 1em;
+    }
+
+    #navbar {
+        background-color: rgba(95, 91, 91, 0);
+        text-shadow: 2px 2px 4px #000000;
+        z-index: 9999;
+        position: fixed;
+        width: 100%;
+        top: 0;
+        transition: background-color 0s;
+    }
+    #navbar:hover {
+        background-color: rgb(24, 22, 22, 0);
+    }
+
+    .collapse {
+        background-color: rgba(46, 44, 44, 0.8);
+        text-shadow: 2px 2px 4px #000000;
+        transition: background-color 0s;
+        margin-top: 0.5em;
+        padding: 1em;
+    }
+    
+    .collapse:hover {
+        background-color: rgb(24, 22, 22, 1);
+        z-index: 9999;
+    }
+}
+
+/* Small devices (landscape phones, less than 768px) */
+@media (max-width: 767.98px) 
+{
+    .avatarDiv {
+        display: none;
+    }
+
+    .btnPlay {
+        display: none;
+    }
+
+    .allNavDiv {
+        justify-content: space-between;
+    }
+
+}
+
+/* Medium devices (tablets, less than 992px) */
+@media (max-width: 991.98px) 
+{
+
+}
+
+/* Large devices (desktops, less than 1200px) */
+@media (max-width: 1199.98px) 
+{
+
+}
+
+/* X-Large devices (large desktops, less than 1400px) */
+@media (max-width: 1399.98px) 
+{
+
 }

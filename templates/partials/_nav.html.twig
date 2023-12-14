@@ -1,22 +1,22 @@
 <nav id="navbar" class="navbar navbar-expand-lg" data-bs-theme="dark">
-	<div class="container-fluid d-flex justify-content-center">
+	<div class="container-fluid allNavDiv">
 		{% if is_granted('ROLE_VISITOR') %}
 			{% if app.user %}
 				{% if app.user.avatar %}
-					<div class="">
-						<img class="avatar" src="{{ asset(app.user.avatar.path) }}" alt="image d'avatar de : {{app.user.pseudo}}">
+					<div class="avatarDiv">
+						<img class="avatar img-fluid" src="{{ asset(app.user.avatar.path) }}" alt="image d'avatar de : {{app.user.pseudo}}">
 					</div>
 				{% endif %}
 			{% endif %}
 			<div class="m-2">
 				<a class="btnPlay btn btn-secondary btn-lg" href="http://onceuponanapp.fr/" target="_blank">Let's play !</a>
 			</div>
-			<div class="d-flex justify-content-center">
-				<a class="navbar-brand" href="{{ path('app_home') }}">Accueil</a>
+			<div class="divNavbarToggler">
 				<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor02" aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation">
 					<span class="navbar-toggler-icon"></span>
 				</button>
 				<div class="collapse navbar-collapse" id="navbarColor02">
+					<a class="navbar-brand" href="{{ path('app_home') }}">Accueil</a>
 					<ul
 						class="navbar-nav me-auto">
 
@@ -25,7 +25,7 @@
 							'picture',
 							] %}
 						{% for picture in pictures %}
-							<li class="nav-item text-end">
+							<li class="nav-item">
 								<a class="nav-link text {% if app.request.get('_route') ends with 'app_' ~ picture ~ '_index' %} active {% endif %} " href="{{ path('app_' ~ picture ~ '_index') }}">Images</a>
 							</li>
 						{% endfor %}
@@ -35,7 +35,7 @@
 							'item',
 							] %}
 						{% for inventory in inventories %}
-							<li class="nav-item text-end">
+							<li class="nav-item">
 								<a class="nav-link text {% if app.request.get('_route') ends with 'app_' ~ inventory ~ '_index' %} active {% endif %} " href="{{ path('app_' ~ inventory ~ '_index') }}">Inventaire</a>
 							</li>
 						{% endfor %}
@@ -105,14 +105,14 @@
 					</ul>
 				</div>
 			</div>
-			<div class="m-2">
+			<div class="logoutLg m-2">
 				<div class="btnDisconnect overflow-auto text-center">
 					Bonjour
 					{{ app.user.pseudo }}
 				</div>
 				<div class="btnDisconnect">
 					<a class='btn btn-secondary w-100' href="{{ path('app_logout') }}">
-						Déconnecter
+						Se déconnecter
 					</a>
 				</div>
 			</div>
