@@ -512,9 +512,9 @@ class GameServices
         $allHeroes = $this->heroRepository->findAll();
         // 2. Pour chaque hero, stocker l'id du fight en cours
         $allHeroesFightId = [];
-        foreach ($allHeroes as $hero) {
-            if ($hero->getFight()) {
-                $allHeroesFightId[] = $hero->getFight()->getId();
+        foreach ($allHeroes as $heroExplored) {
+            if ($heroExplored->getFight()) {
+                $allHeroesFightId[] = $heroExplored->getFight()->getId();
             }
         }
         // 3. Pour chaque fight, stocker l'id du fight
