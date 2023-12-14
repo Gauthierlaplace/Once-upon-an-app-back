@@ -24,7 +24,7 @@ class GameController extends CoreApiController
         /** @var App\Entity\User $user */
         $user = $this->getUser();
 
-        $hero = $gameServices->resetHeroStatsAndInventory($user);
+        $hero = $gameServices->resetHeroStatsAndInventoryAddRation($user);
 
         $biomeStart = "L'Arche de Verdure";
         $currentEvent = $eventRepository->findOneBy(['title' => $biomeStart]);
@@ -77,13 +77,6 @@ class GameController extends CoreApiController
 
         $result = $playedEventService->checkEventIdIsUnique($id, $user);
         $idToAvoid = $id;
-        // if ($result === true) {
-        //     // === false $id isn't allowed to be in the next event Id pool for $choices
-        //     $idToAvoid = $id;
-        // } else {
-        //     // === true $id is unique, this id is allowed to be in the next event Id pool for $choices
-        //     $idToAvoid = null;
-        // }
 
         $choices = $gameServices->getTwoEndingsWithTwoRandomEvent($randomizedEndingsPicked, $endingscurrentEvent, $user, $idToAvoid);
 

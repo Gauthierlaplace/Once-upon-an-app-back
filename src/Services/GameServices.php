@@ -70,6 +70,7 @@ class GameServices
         $this->effectRepository = $effectRepository;
         $this->playedEventService = $playedEventService;
         $this->heroClassRepository = $heroClassRepository;
+        $this->itemRepository = $itemRepository;
     }
 
 
@@ -476,13 +477,13 @@ class GameServices
     }
 
     /**
-     *  Reset the Hero health to his maxHealth to restart the game
+     *  Reset the Hero stats and inventory to restart the game + add ration item
      * 
      * @param mixed $user 
      * 
-     * @return array $hero Return $hero with health reset to the maxHealth
+     * @return array $hero Return with reset stats, inventory and recieve a ration
      */
-    public function resetHeroStatsAndInventory($user)
+    public function resetHeroStatsAndInventoryAddRation($user)
     {
         $hero = $this->heroRepository->findOneBy(["user" => $user->getId()]);
 
@@ -498,26 +499,33 @@ class GameServices
         $itemsCollection =  $hero->getItem();
         $itemsCollection->clear();
 
+        $ration = $this->itemRepository->findOneBy(["name" => 'ration']);
+        if ($ration) {
+            $hero->addItem($ration);
+        }
+
         $this->heroRepository->add($hero, true);
         return $hero;
     }
 
     public function getAllCurrentEventData($currentEvent)
     {
-
         if ($currentEvent->getPicture()) {
             $picturePath = $currentEvent->getPicture()->getPath();
         } else {
             $picturePath = '';
         }
 
+        $currentEventtype = $currentEvent->getEventType();
+        $currentEventtypeName = $currentEventtype->getName();
+        
         $allCurrentEventData = [
             "id" => $currentEvent->getId(),
             "title" => $currentEvent->getTitle(),
             "description" => $currentEvent->getDescription(),
             "opening" => $currentEvent->getOpening(),
             "picture" => $picturePath,
-
+            "eventType" => $currentEventtypeName,
         ];
         return $allCurrentEventData;
     }
