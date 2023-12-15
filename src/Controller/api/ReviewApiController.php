@@ -73,15 +73,18 @@ class ReviewApiController extends CoreApiController
         $allRating = [];
         $count = null;
         $ratingCount = null;
-        foreach ($allReviews as $review) {
-            $allRating [] = $review->getRating();
-
-            $ratingCount = $review->getRating() + $ratingCount;
-
-            $count = $count + 1;
+        if (!empty($allReviews)) {
+            foreach ($allReviews as $review) {
+                $allRating [] = $review->getRating();
+    
+                $ratingCount = $review->getRating() + $ratingCount;
+    
+                $count = $count + 1;
+            }
+            $generalRating = ["rating" => $ratingCount / $count];
+            return $this->json200($generalRating, ["rating"]);
         }
-        $generalRating = ["rating" => $ratingCount / $count];
-
+        $generalRating = ["rating" => 0];
         return $this->json200($generalRating, ["rating"]);
     }
 

@@ -48,6 +48,8 @@ security:
 
         # - route api
         # - { path: ^/api/login, roles: PUBLIC_ACCESS }
+        - { path: ^/api/reviews/lastest/\d+$, roles: PUBLIC_ACCESS , methods: [GET]}
+        - { path: ^/api/rating, roles: PUBLIC_ACCESS , methods: [GET]}
         - { path: ^/api/users, roles: PUBLIC_ACCESS , methods: [POST]}
         - { path: ^/api/users/details, roles: ROLE_PLAYER , methods: [GET]}
         - { path: ^/api/users/\d+$, roles: ROLE_PLAYER , methods: [PUT]}
@@ -57,8 +59,6 @@ security:
         - { path: ^/api/reviews, roles: ROLE_PLAYER , methods: [POST]}
         - { path: ^/api/reviews/\d+$, roles: ROLE_PLAYER , methods: [PUT]}
         - { path: ^/api/reviews/\d+$, roles: ROLE_PLAYER , methods: [DELETE]}
-        # - { path: ^/api/reviews/lastest/\d+$, roles: PUBLIC_ACCESS , methods: [GET]}
-        # - { path: ^/api/rating, roles: PUBLIC_ACCESS , methods: [GET]}
         - { path: ^/api/play, roles: ROLE_PLAYER , methods: [GET]}
         - { path: ^/api/event/roll/\d+$, roles: ROLE_PLAYER , methods: [GET]}
         - { path: ^/api/event/last/\d+$, roles: ROLE_PLAYER , methods: [GET]}

@@ -44,14 +44,16 @@ class UserApiController extends CoreApiController
         $userId = $user->getId();
         $email = $user->getEmail();
         $pseudo = $user->getPseudo();
-        $avatar = $user->getAvatar()->getPath();
+        $avatarId = $user->getAvatar()->getId();
+        $avatarPath = $user->getAvatar()->getPath();
 
         // Retournez les détails de l'utilisateur au format JSON
         return new JsonResponse([
             'id' => $userId,
             'email' => $email,
             'pseudo' => $pseudo,
-            'avatar' => $avatar,
+            'avatarId' => $avatarId,
+            'avatarPath' => $avatarPath,
         ]);
     }
 
@@ -144,7 +146,8 @@ class UserApiController extends CoreApiController
         SerializerInterface $serializerInterface,
         UserRepository $userRepository,
         UserPasswordHasherInterface $passwordHasher,
-        ValidatorInterface $validator
+        ValidatorInterface $validator,
+        HeroRepository $heroRepository
     ) {
         $jsonContent = $request->getContent();
         $user = $userRepository->find($id);
@@ -177,7 +180,13 @@ class UserApiController extends CoreApiController
             $user->setPassword($hashedPassword);
         }
 
-        $userRepository->add($user, true);
+        $heroesArray = $heroRepository->findByUser($id);
+        foreach ($heroesArray as $heroArray) {
+           $heroToUpdate = $heroArray->setName($user->getPseudo());
+           $updatedUser = $user->addHero($heroToUpdate);
+        }
+        $userRepository->add($updatedUser, true);
+
         return $this->json200($user, ["user_read"]);
     }
 

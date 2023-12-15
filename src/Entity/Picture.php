@@ -20,6 +20,8 @@ class Picture
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * 
+     * @Groups({"user_read", "user_create"})
      */
     private $id;
 
