@@ -2,7 +2,10 @@
 {
     body {
         background-image: url('./../images/Mobil_background.png');
-        background-size: 100%;
+        background-repeat: no-repeat;
+        background-position: center center;
+        background-attachment: fixed;
+        /* background-size: cover; */
     }
 
     .avatarDiv {
