@@ -6,7 +6,7 @@
 
     .btnPlayDiv {
         position: absolute;
-        left: 20vh;
+        left: 10vw;
         top: 0;
         margin: 1em;
     }
@@ -24,12 +24,13 @@
     .avatarDiv {
         position: absolute;
         top: 0;
-        left: 10vh;
+        left: 5vw;
         margin: 1em;
+        z-index: 9998;
     }
 
     .avatar {
-        height: 70px;
+        height: 60px;
         width: auto;
     }
 
