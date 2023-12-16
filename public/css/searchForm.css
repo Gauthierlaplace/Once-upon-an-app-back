@@ -1,10 +1,12 @@
 .searchForm {
-    margin: 0 auto;
-    width: 500px;
+    width: 90%;
     transition: 2s;
     opacity: 0.5;
     margin-bottom: 20px;
     margin-top: 20px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
 }
 
 .searchForm:hover {
@@ -12,9 +14,8 @@
 }
 
 .searchPlaceHolder {
-    width: 100%;
+    max-width: 35vw; 
 }
-
+/* 
 .searchFormBtn {
-    width: 100%;
-}
+} */
