@@ -1,0 +1,54 @@
+@media (max-width: 767px) 
+{
+    .avatarDiv {
+        display: none;
+    }
+
+    .btnPlayDiv {
+        display: none;
+    }
+
+    .allNavDiv {
+        justify-content: space-between;
+    }
+
+    .logoutLg {
+        position: fixed;
+        top: 0;
+        right: 0;
+        margin: 1em;
+    }
+
+    .divNavbarToggler {
+        position: fixed;
+        left: 0;
+        top: 0;
+        margin: 1em;
+    }
+
+    #navbar {
+        background-color: rgba(95, 91, 91, 0);
+        text-shadow: 2px 2px 4px #000000;
+        z-index: 9999;
+        position: fixed;
+        width: 100%;
+        top: 0;
+        transition: background-color 0s;
+    }
+    #navbar:hover {
+        background-color: rgb(24, 22, 22, 0);
+    }
+
+    .collapse {
+        background-color: rgba(46, 44, 44, 0.8);
+        text-shadow: 2px 2px 4px #000000;
+        transition: background-color 0s;
+        margin-top: 0.5em;
+        padding: 1em;
+    }
+    
+    .collapse:hover {
+        background-color: rgb(24, 22, 22, 1);
+        z-index: 9999;
+    }
+}

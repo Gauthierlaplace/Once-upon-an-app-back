@@ -1,0 +1,35 @@
+#navbar {
+    background-color: rgba(95, 91, 91, 0.1);
+    text-shadow: 2px 2px 4px #000000;
+    z-index: 9999;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    transition: background-color 1s;
+}
+
+#navbar:hover {
+    background-color: rgb(24, 22, 22, 1);
+}
+
+.navbar {
+    max-height: 100px;
+    height: fit-content;
+}
+
+.nav-item {
+    list-style: none;
+}
+
+.nav-item.dropdown:hover .dropdown-menu {
+    display: block;
+}
+
+.allNavDiv {
+    display: flex;
+    justify-content: center;
+}
+
+.btnDisconnect {
+    margin-left: 1em;
+}
