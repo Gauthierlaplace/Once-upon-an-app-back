@@ -1,0 +1,9 @@
+.errorPage {
+    opacity: 0.5;
+}
+
+.errorText {
+    text-shadow: 2px 2px 4px #000000;
+    color : white;
+    font-style: italic;
+}
