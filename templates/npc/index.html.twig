@@ -1,7 +1,7 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-	<div class="container my-4">
+	<div class="container my-4 responsiveDisplay">
 		<h1 class='text-center'>
 			{% block title %}Liste des NPC (personnage non joueur)
 			{% endblock %}
@@ -11,17 +11,18 @@
 			form: form
 		} only %}
 
-		<a class='btn btn-primary show' href="{{ path('app_home') }}">Retour à l'Accueil</a>
+		<a class='btn btn-primary show btnRetourAccueil' href="{{ path('app_home') }}">Retour à l'Accueil</a>
 		{% if is_granted('ROLE_GAMEMASTER') %}
-			<a class="mb-2 btn btn-success float-end" href="{{ path('app_npc_new') }}">Ajouter un nouveau personnage</a>
+			<a class="mb-2 btn btn-success float-end responsiveDisplayOff" href="{{ path('app_npc_new') }}">Ajouter un nouveau personnage</a>
+			<a class="mb-2 btn btn-success float-end btnPlus" href="{{ path('app_npc_new') }}">+</a>
 		{% endif %}
 		<table class="table table-hover mt-4">
 			<thead>
 				<tr>
-					<th>Id</th>
+					<th class="responsiveDisplayOff">Id</th>
 					<th>Nom</th>
-					<th>Race</th>
-					<th>Description</th>
+					<th class="responsiveDisplayOff">Race</th>
+					<th class="responsiveDisplayOff">Description</th>
 					{# 
 										<th>Health</th>
 										<th>Strength</th>
@@ -31,8 +32,8 @@
 										<th>Karma</th> 
 										#}
 					<th>Image</th>
-					<th>Boss</th>
-					<th>Hostile</th>
+					<th class="responsiveDisplayOff">Boss</th>
+					<th class="responsiveDisplayOff">Hostile</th>
 					{# <th>XpEarned</th> #}
 					<th class="text-center">Actions</th>
 				</tr>
@@ -40,10 +41,10 @@
 			<tbody>
 				{% for npc in npcs %}
 					<tr>
-						<td>{{ npc.id }}</td>
+						<td class="responsiveDisplayOff">{{ npc.id }}</td>
 						<td>{{ npc.name }}</td>
-						<td>{{ npc.race.name }}</td>
-						<td>{{ npc.description }}</td>
+						<td class="responsiveDisplayOff">{{ npc.race.name }}</td>
+						<td class="responsiveDisplayOff">{{ npc.description }}</td>
 						{# 
 												<td>{{ npc.health }}</td>
 												<td>{{ npc.strength }}</td>
@@ -57,13 +58,13 @@
 								<img class="img-fluid" src="{{ asset(npc.picture.path) }}" alt="{{ 'image de ' ~ npc.name }}">
 							{% endif %}
 						</td>
-						<td>{{ npc.isBoss ? 'Oui' : 'Non' }}</td>
-						<td>{{ npc.hostility ? 'Oui' : 'Non' }}</td>
+						<td class="responsiveDisplayOff">{{ npc.isBoss ? 'Oui' : 'Non' }}</td>
+						<td class="responsiveDisplayOff">{{ npc.hostility ? 'Oui' : 'Non' }}</td>
 						{# <td>{{ npc.xpEarned }}</td> #}
 						<td>
 							<a class="btn btn-primary float-end  m-1" href="{{ path('app_npc_show', {'id': npc.id}) }}">Voir</a>
 							{% if is_granted('ROLE_GAMEMASTER') %}
-								<a class="btn btn-warning float-end  m-1" href="{{ path('app_npc_edit', {'id': npc.id}) }}">Modifier</a>
+								<a class="btn btn-warning float-end  m-1 responsiveDisplayOff" href="{{ path('app_npc_edit', {'id': npc.id}) }}">Modifier</a>
 								{{ include('npc/_delete_form.html.twig') }}
 							{% endif %}
 						</td>

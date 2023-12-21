@@ -1,39 +1,40 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-	<div class="container my-4">
+	<div class="container my-4 responsiveDisplay">
 		<h1 class='text-center'>
 			{% block title %}Liste des Dialogues
 			{% endblock %}
 		</h1>
-		<a class='btn btn-primary show' href="{{ path('app_home') }}">Retour à l'Accueil</a>
+		<a class='btn btn-primary show btnRetourAccueil' href="{{ path('app_home') }}">Retour à l'Accueil</a>
 		{% if is_granted('ROLE_GAMEMASTER') %}
-			<a class="mb-2 btn btn-success float-end" href="{{ path('app_dialogue_new') }}">Ajouter un nouveau dialogue</a>
+			<a class="mb-2 btn btn-success float-end responsiveDisplayOff" href="{{ path('app_dialogue_new') }}">Ajouter un nouveau dialogue</a>
+			<a class="mb-2 btn btn-success float-end btnPlus" href="{{ path('app_dialogue_new') }}">+</a>
 		{% endif %}
 		<table class="table table-hover mt-4">
 			<thead>
 				<tr>
-					<th>Id</th>
+					<th class="responsiveDisplayOff">Id</th>
 					<th>Npc</th>
-					<th>Contenu</th>
+					<th class="responsiveDisplayOff">Contenu</th>
 					<th class="col-md-4 mr-auto text-center">Actions</th>
 				</tr>
 			</thead>
 			<tbody>
 				{% for dialogue in dialogues %}
 					<tr>
-						<td>{{ dialogue.id }}</td>
+						<td class="responsiveDisplayOff">{{ dialogue.id }}</td>
 						<td>{{ dialogue.npc.name }}
 							{% if dialogue.npc.picture %}
 							<br>
-								<img class="img-fluid otherTableImg" src="{{ asset(dialogue.npc.picture.path) }}" alt="{{ 'image de ' ~ dialogue.npc.name }}">
+								<img class="img-fluid " src="{{ asset(dialogue.npc.picture.path) }}" alt="{{ 'image de ' ~ dialogue.npc.name }}">
 							{% endif %}
 						</td>
-						<td>{{ dialogue.content }}</td>
+						<td class="responsiveDisplayOff">{{ dialogue.content }}</td>
 						<td>
 							<a class="btn btn-primary float-end  m-1" href="{{ path('app_dialogue_show', {'id': dialogue.id}) }}">Voir</a>
 							{% if is_granted('ROLE_GAMEMASTER') %}
-								<a class="btn btn-warning float-end  m-1" href="{{ path('app_dialogue_edit', {'id': dialogue.id}) }}">Modifier</a>
+								<a class="btn btn-warning float-end  m-1 responsiveDisplayOff" href="{{ path('app_dialogue_edit', {'id': dialogue.id}) }}">Modifier</a>
 								{{ include('dialogue/_delete_form.html.twig') }}
 							{% endif %}
 						</td>

@@ -1,22 +1,23 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-	<div class="container my-4">
+	<div class="container my-4 responsiveDisplay">
 		<h1 class='text-center'>
 			{% block title %}Liste des Objets
 			{% endblock %}
 		</h1>
-		<a class='btn btn-primary show' href="{{ path('app_home') }}">Retour à l'Accueil</a>
+		<a class='btn btn-primary show btnRetourAccueil' href="{{ path('app_home') }}">Retour à l'Accueil</a>
 		{% if is_granted('ROLE_GAMEMASTER') %}
-			<a class="mb-2 btn btn-success float-end" href="{{ path('app_item_new') }}">Ajouter un objet</a>
+			<a class="mb-2 btn btn-success float-end responsiveDisplayOff" href="{{ path('app_item_new') }}">Ajouter un objet</a>
+			<a class="mb-2 btn btn-success float-end btnPlus" href="{{ path('app_item_new') }}">+</a>
 		{% endif %}
 		<table class="table table-hover mt-4">
 			<thead>
 				<tr>
-					<th>Id</th>
+					<th class="responsiveDisplayOff">Id</th>
 					<th>Nom</th>
 					<th>Image</th>
-					<th>Utilisable</th>
+					<th class="responsiveDisplayOff">Utilisable</th>
 					{# <th>Santé</th>
 										<th>Force</th>
 										<th>Intelligence</th>
@@ -30,14 +31,14 @@
 			<tbody>
 				{% for item in items %}
 					<tr>
-						<td>{{ item.id }}</td>
-						<td>{{ item.name }}</td>
+						<td class="responsiveDisplayOff">{{ item.id }}</td>
+						<td class="">{{ item.name }}</td>
 						<td>
 							{% if item.picture %}
-								<img class="img-fluid otherTableImg" src="{{ asset(item.picture.path) }}" alt="{{ 'image de ' ~ item.name }}">
+								<img class="img-fluid " src="{{ asset(item.picture.path) }}" alt="{{ 'image de ' ~ item.name }}">
 							{% endif %}
 						</td>
-						<td>
+						<td class="responsiveDisplayOff">
 							{% if item.usable == true %}
 								Oui
 							{% else %}
@@ -54,7 +55,7 @@
 						<td>
 							<a class="btn btn-primary float-end  m-1" href="{{ path('app_item_show', {'id': item.id}) }}">Voir</a>
 							{% if is_granted('ROLE_GAMEMASTER') %}
-								<a class="btn btn-warning float-end  m-1" href="{{ path('app_item_edit', {'id': item.id}) }}">Modifier</a>
+								<a class="btn btn-warning float-end  m-1 responsiveDisplayOff" href="{{ path('app_item_edit', {'id': item.id}) }}">Modifier</a>
 								{{ include('item/_delete_form.html.twig') }}
 							{% endif %}
 						</td>

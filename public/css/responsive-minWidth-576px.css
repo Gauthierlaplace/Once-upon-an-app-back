@@ -1,0 +1,15 @@
+@media (min-width: 576px)
+{
+    body {
+        background-image: url('./../images/back-office-Accueil.png');
+        background-repeat: no-repeat;
+        background-position: center center;
+        background-attachment: fixed;
+        background-size: cover;
+    }
+    
+    .btnPlus
+    {
+        display: none;
+    }
+}

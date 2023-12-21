@@ -1,4 +1,5 @@
 @import url('responsive-maxHeight-594px.css');
+@import url('responsive-minWidth-576px.css');
 @import url('responsive-maxWidth-575px.css');
 @import url('responsive-maxWidth-767px.css');
 @import url('responsive-maxWidth-991px.css');
@@ -16,11 +17,6 @@ body>div.container.my-4>div>div>div>div>table>tbody>tr>td {
 }
 
 body {
-    /* background-image: url('./../images/back-office-Accueil.png'); */
-    /* background-repeat: no-repeat;
-    background-position: center center;
-    background-attachment: fixed;
-    background-size: cover; */
     font-family: 'Akaya Kanadaka', display;
     font-size: 1.2em;
     margin-top: 125px;
@@ -33,8 +29,4 @@ body {
 
 .card {
     --bs-card-bg: rgba(0, 0, 0, 0.6);
-}
-
-.otherTableImg {
-width: 10vw;
 }

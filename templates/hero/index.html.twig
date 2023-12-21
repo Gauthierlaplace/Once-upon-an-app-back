@@ -1,24 +1,25 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-	<div class="container my-4">
+	<div class="container my-4 responsiveDisplay">
 		<h1 class='text-center'>
 			{% block title %}Liste des Héros
 			{% endblock %}
 		</h1>
 		<a class='btn btn-primary show' href="{{ path('app_home') }}">Retour à l'Accueil</a>
 		{% if is_granted('ROLE_GAMEMASTER') %}
-			<a class="mb-2 btn btn-success float-end" href="{{ path('app_hero_new') }}">Ajouter un nouveau héro</a>	
+			<a class="mb-2 btn btn-success float-end responsiveDisplayOff" href="{{ path('app_hero_new') }}">Ajouter un nouveau héro</a>	
+			<a class="mb-2 btn btn-success float-end btnPlus" href="{{ path('app_hero_new') }}">+</a>
 		{% endif %}
 		
 		<table class="table table-hover mt-4">
 			<thead>
 				<tr>
-					<th>Id</th>
+					<th class="responsiveDisplayOff">Id</th>
 					<th>Nom</th>
-					<th>Class</th>
-					<th>Santé Max</th>
-					<th>Santé</th>
+					<th class="responsiveDisplayOff">Class</th>
+					<th class="responsiveDisplayOff">Santé Max</th>
+					<th class="responsiveDisplayOff">Santé</th>
 					{# <th>Force</th>
 										<th>Intelligence</th>
 										<th>Dexterité</th>
@@ -26,18 +27,18 @@
 										<th>Karma</th>
 										<th>Xp</th> #}
 					<th>Image</th>
-					<th>Progression</th>
+					<th class="responsiveDisplayOff">Progression</th>
 					<th class="text-center">Actions</th>
 				</tr>
 			</thead>
 			<tbody>
 				{% for hero in heroes %}
 					<tr>
-						<td>{{ hero.id }}</td>
+						<td class="responsiveDisplayOff">{{ hero.id }}</td>
 						<td>{{ hero.name }}</td>
-						<td>{{ hero.heroClass.name }}</td>
-						<td>{{ hero.maxHealth }}</td>
-						<td>{{ hero.health }}</td>
+						<td class="responsiveDisplayOff">{{ hero.heroClass.name }}</td>
+						<td class="responsiveDisplayOff">{{ hero.maxHealth }}</td>
+						<td class="responsiveDisplayOff">{{ hero.health }}</td>
 						{# <td>{{ hero.strength }}</td>
 												<td>{{ hero.intelligence }}</td>
 												<td>{{ hero.dexterity }}</td>
@@ -46,14 +47,14 @@
 												<td>{{ hero.xp }}</td> #}
 						<td>
 							{% if hero.picture %}
-								<img class="img-fluid otherTableImg" src="{{ asset(hero.picture.path) }}" alt="{{ 'image de ' ~ hero.name }}">
+								<img class="img-fluid " src="{{ asset(hero.picture.path) }}" alt="{{ 'image de ' ~ hero.name }}">
 							{% endif %}
 						</td>
-						<td>{{ hero.progress }}</td>
+						<td class="responsiveDisplayOff">{{ hero.progress }}</td>
 						<td>
 							<a class="btn btn-primary float-end  m-1" href="{{ path('app_hero_show', {'id': hero.id}) }}">Voir</a>
 							{% if is_granted('ROLE_GAMEMASTER') %}
-								<a class="btn btn-warning float-end  m-1" href="{{ path('app_hero_edit', {'id': hero.id}) }}">Modifier</a>
+								<a class="btn btn-warning float-end  m-1 responsiveDisplayOff" href="{{ path('app_hero_edit', {'id': hero.id}) }}">Modifier</a>
 								{{ include('hero/_delete_form.html.twig') }}
 							{% endif %}
 						</td>
