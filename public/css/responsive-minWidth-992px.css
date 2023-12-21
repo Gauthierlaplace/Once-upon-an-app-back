@@ -1,0 +1,37 @@
+@media (min-width: 992px) 
+{
+    .avatar {
+        height: 70px;
+        width: auto;
+    }
+
+    .avatarDiv {
+        position : fixed;
+        bottom : 0;
+        left : 0;
+    }
+
+    .btnPlayDiv {
+        position: fixed;
+        bottom : 80px;
+        left : 0;
+    }
+
+    .btnPlay {
+        opacity: 0.3;
+        transition: background-color 2s;
+    }
+    
+    .btnPlay:hover {
+        background-color: #000000;
+        opacity: 1;
+    }
+
+    .logoutLg {
+        position: fixed;
+        top: 0;
+        right: 0;
+        margin: 1em;
+        overflow: auto;
+    }
+}

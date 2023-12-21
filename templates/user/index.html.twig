@@ -1,22 +1,23 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-	<div class="container my-4">
+	<div class="container my-4 responsiveDisplay">
 		<h1 class='text-center'>
 			{% block title %}Liste des Utilisateurs
 			{% endblock %}
 		</h1>
-		<a class='btn btn-primary show' href="{{ path('app_home') }}">Retour à l'Accueil</a>
-		<a class="mb-2 btn btn-success float-end" href="{{ path('app_user_new') }}">Ajouter un nouveau utilisateur
+		<a class='btn btn-primary show btnRetourAccueil' href="{{ path('app_home') }}">Retour à l'Accueil</a>
+		<a class="mb-2 btn btn-success float-end responsiveDisplayOff" href="{{ path('app_user_new') }}">Ajouter un nouveau utilisateur
 		</a>
+		<a class="mb-2 btn btn-success float-end btnPlus" href="{{ path('app_user_new') }}">+</a>
 		<table class="table tabletest table-hover mt-4">
 			<thead>
 				<tr>
 					<th>Id</th>
 					<th>Email</th>
-					<th>Rôles</th>
-					<th>Pseudo</th>
-					<th>Avatar</th>
+					<th class="responsiveDisplayOff">Rôles</th>
+					<th class="responsiveDisplayOff">Pseudo</th>
+					<th class="responsiveDisplayOff">Avatar</th>
 					<th class="text-center">Actions</th>
 				</tr>
 			</thead>
@@ -25,16 +26,16 @@
 					<tr>
 						<td>{{ user.id }}</td>
 						<td>{{ user.email }}</td>
-						<td>{{ user.roles ? user.roles|json_encode : '' }}</td>
-						<td>{{ user.pseudo }}</td>
-						<td>
+						<td class="responsiveDisplayOff">{{ user.roles ? user.roles|json_encode : '' }}</td>
+						<td class="responsiveDisplayOff">{{ user.pseudo }}</td>
+						<td class="responsiveDisplayOff">
 						{% if user.avatar %}
-						<img class="img-fluid otherTableImg" src="{{ asset(user.avatar.path)  }}" alt="{{ 'image de ' ~ user.pseudo }}">
+						<img class="img-fluid " src="{{ asset(user.avatar.path)  }}" alt="{{ 'image de ' ~ user.pseudo }}">
 						{% endif %}
 						</td>
 						<td>
 							<a class="btn btn-primary float-end m-1" href="{{ path('app_user_show', {'id': user.id}) }}">Voir</a>
-							<a class="btn btn-warning float-end m-1" href="{{ path('app_user_edit', {'id': user.id}) }}">Modifier</a>
+							<a class="btn btn-warning float-end m-1 responsiveDisplayOff" href="{{ path('app_user_edit', {'id': user.id}) }}">Modifier</a>
 							{{ include('user/_delete_form.html.twig') }}
 						</td>
 					</tr>

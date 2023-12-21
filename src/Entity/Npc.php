@@ -79,8 +79,6 @@ class Npc
      */
     private $isBoss;
 
-    // TODO: [OK] [$isboss + $hostility] [boolean] > changement de NotBlank à NotNULL, le NotBlank bloquait tout lorsque l'on sélectionnait "non(0)" comme réponse
-
     /**
      * @Assert\NotNULL(message="Veuillez sélectionner au moins une réponse!")
      * @ORM\Column(type="boolean")

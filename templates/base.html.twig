@@ -2,6 +2,7 @@
 <html>
 	<head>
 		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<title>
 			{% block title %}Welcome!
 			{% endblock %}
@@ -19,29 +20,21 @@
 	{% set isError = (app.request.attributes.get("_controller") == "error_controller") %}
 
 	{% if isHome %}
-		<body style='background-image: url("{{ asset("images/back-office-Accueil.png") }}");'>
-	{% elseif isError %}
-		<body style='background-image: url("{{ asset("images/forrestInFire.jpg") }}");'>
-	{% else %}
-		<body style='background-image: url("{{ asset("images/back-office" ~ random(["-cave", "-grotte"]) ~ ".png") }}");'>
-	{% endif %}
+		{# <body style='background-image: url("{{ asset("images/back-office-Accueil.png") }}");'> #}
+		{% elseif isError %}
+			<body style='background-image: url("{{ asset("images/forrestInFire.jpg") }}");'>
+			{% else %}
+				<body style='background-image: url("{{ asset("images/back-office" ~ random(["-cave", "-grotte"]) ~ ".png") }}");'>
+				{% endif %}
 
-	{% if not isError %}
-		{% include './partials/_nav.html.twig' %}
-    	{% include "partials/_flash.html.twig" %}
-	{% endif %}
-		{% if app.user %}
-    {% if app.user.avatar %}
-			<div class="leftSpot">
-				<a class="btnPlay btn btn-secondary btn-lg" href="http://onceuponanapp.fr/" target="_blank">Let's play !</a>
-				<img class="avatar" src="{{ asset(app.user.avatar.path) }}" alt="image d'avatar de : {{app.user.pseudo}}">
-			</div>
-      	{% endif %}
-		{% endif %}
+				{% if not isError %}
+					{% include './partials/_nav.html.twig' %}
+					{% include "partials/_flash.html.twig" %}
+				{% endif %}
+				{% block body %}{% endblock %}
 
-			{% block body %}{% endblock %}
-
-			<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
-		</body>
+				<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
+			</body>
+		</html>
 	</html>
 </html>

@@ -1,0 +1,7 @@
+@media (max-height:594px)
+{
+    .collapse {
+    max-height: 80vh;
+    overflow-y: auto;
+}
+}

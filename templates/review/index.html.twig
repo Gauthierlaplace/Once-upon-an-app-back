@@ -1,14 +1,15 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-	<div class="container my-4">
+	<div class="container my-4 responsiveDisplay">
 		<h1 class='text-center'>
 			{% block title %}Liste des Reviews
 			{% endblock %}
 		</h1>
-		<a class='btn btn-primary show' href="{{ path('app_home') }}">Retour à l'Accueil</a>
+		<a class='btn btn-primary show btnRetourAccueil' href="{{ path('app_home') }}">Retour à l'Accueil</a>
 		{% if is_granted('ROLE_GAMEMASTER') %}
-			<a class="mb-2 btn btn-success float-end" href="{{ path('app_review_new') }}">Ajouter un nouvel avis</a>
+			<a class="mb-2 btn btn-success float-end responsiveDisplayOff" href="{{ path('app_review_new') }}">Ajouter un nouvel avis</a>
+			<a class="mb-2 btn btn-success float-end btnPlus" href="{{ path('app_review_new') }}">+</a>
 		{% endif %}
 		<table class="table table-hover mt-4">
 			<thead>
@@ -16,10 +17,10 @@
 					<th>Id</th>
 					<th>Utilisateur</th>
 					<th>Titre</th>
-					<th>Contenu</th>
+					<th class="responsiveDisplayOff">Contenu</th>
 					<th>Note</th>
-					<th>Créé le</th>
-					<th>Modifié le</th>
+					<th class="responsiveDisplayOff">Créé le</th>
+					<th class="responsiveDisplayOff">Modifié le</th>
 					<th class="text-center">Actions</th>
 				</tr>
 			</thead>
@@ -29,14 +30,14 @@
 						<td>{{ review.id }}</td>
 						<td>{{ review.user.pseudo }}</td>
 						<td>{{ review.title }}</td>
-						<td>{{ review.content }}</td>
+						<td class="responsiveDisplayOff">{{ review.content }}</td>
 						<td>{{ review.rating }}</td>
-						<td>{{ review.createdAt ? review.createdAt|date('Y-m-d H:i:s') : '' }}</td>
-						<td>{{ review.updatedAt ? review.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
+						<td class="responsiveDisplayOff">{{ review.createdAt ? review.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+						<td class="responsiveDisplayOff">{{ review.updatedAt ? review.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
 						<td>
 							<a class="btn btn-primary float-end  m-1" href="{{ path('app_review_show', {'id': review.id}) }}">Voir</a>
 							{% if is_granted('ROLE_GAMEMASTER') %}
-								<a class="btn btn-warning float-end  m-1" href="{{ path('app_review_edit', {'id': review.id}) }}">Modifier</a>
+								<a class="btn btn-warning float-end  m-1 responsiveDisplayOff" href="{{ path('app_review_edit', {'id': review.id}) }}">Modifier</a>
 								{{ include('review/_delete_form.html.twig') }}
 							{% endif %}
 						</td>

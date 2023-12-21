@@ -1,0 +1,518 @@
+{
+    "client": "Thunder Client",
+    "collectionName": "Adventure RPG [Once Upon An App]",
+    "dateExported": "2023-12-07T15:14:12.277Z",
+    "version": "1.1",
+    "folders": [
+        {
+            "_id": "5d4ed76b-c9c9-4b6b-bc66-a0f04df671a5",
+            "name": "JWT Token generation + Data User",
+            "containerId": "ec9b640d-14d9-46b4-83ae-28700b7934bd",
+            "created": "2023-11-06T21:17:06.826Z",
+            "sortNum": 10000
+        },
+        {
+            "_id": "3f90c32f-7838-4804-8d4e-a271eee98c93",
+            "name": "Delete User",
+            "containerId": "2a5c80cf-d438-4177-9c29-5ed5cb4cd2fd",
+            "created": "2023-11-06T21:17:06.827Z",
+            "sortNum": 10000
+        },
+        {
+            "_id": "ec9b640d-14d9-46b4-83ae-28700b7934bd",
+            "name": "Adventure RPG Local",
+            "containerId": "",
+            "created": "2023-11-06T21:17:06.828Z",
+            "sortNum": 10000,
+            "settings": {
+                "auth": {
+                    "type": "bearer",
+                    "bearer": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpYXQiOjE3MDE5MzczMzQsImV4cCI6MTcwMjAwMjEzNCwicm9sZXMiOlsiUk9MRV9BRE1JTiIsIlJPTEVfUExBWUVSIl0sInVzZXJuYW1lIjoiYW50aG9ueS5ib3V0aGVyaW5AZ21haWwuY29tIn0.PTr6Q-h-9vQktt7SbFjsEjkl3cTKlOoiv8mpivsOvZdIHn7Q7rntLxdI86Xc9V5xq4oK1yMrmQFlSphoarrcY0fLpnH2hE4gu5mlWHY5bgmBGPiVHS2n-DUcAkTkUdhvw4xC0QyhmDtVBgmhDh47INHgNmoqG9Ut3jhkOnChlVKlbr-3ZL2U20H9xfUKFSQyVvNMHdsNGqtpD3nrzRVj6lsy_a4qcahPIK8MlszOvmQpa80SlP1xyU9yzhOw5UaJLSmue9xHv1SXACND_qLVn_qDUPYL4BzrNOMqree--qBy0sBmDscCeeBG3ehs3VG_LVH-Rlyn7jVQrFivgE3-mA"
+                }
+            }
+        },
+        {
+            "_id": "bab072b5-97df-4539-9755-9e855eee4124",
+            "name": "Edit User",
+            "containerId": "2a5c80cf-d438-4177-9c29-5ed5cb4cd2fd",
+            "created": "2023-11-06T21:17:06.829Z",
+            "sortNum": 20000
+        },
+        {
+            "_id": "f146a8ff-b2d7-49b8-9c36-1b10ed50530e",
+            "name": "Game",
+            "containerId": "ec9b640d-14d9-46b4-83ae-28700b7934bd",
+            "created": "2023-11-06T21:17:06.831Z",
+            "sortNum": 20000
+        },
+        {
+            "_id": "8afd2e24-3f81-4ca2-98ab-486eca69fb30",
+            "name": "Register USER",
+            "containerId": "2a5c80cf-d438-4177-9c29-5ed5cb4cd2fd",
+            "created": "2023-11-06T21:17:06.832Z",
+            "sortNum": 30000
+        },
+        {
+            "_id": "2a5c80cf-d438-4177-9c29-5ed5cb4cd2fd",
+            "name": "User",
+            "containerId": "ec9b640d-14d9-46b4-83ae-28700b7934bd",
+            "created": "2023-11-06T21:17:06.833Z",
+            "sortNum": 30000
+        },
+        {
+            "_id": "2c9ad1bc-6cc6-4052-a183-b51eadbb53c6",
+            "name": "Read currentUser",
+            "containerId": "2a5c80cf-d438-4177-9c29-5ed5cb4cd2fd",
+            "created": "2023-11-06T21:17:06.834Z",
+            "sortNum": 40000
+        },
+        {
+            "_id": "1f02e67c-24cc-4d7c-8795-055e11d48eba",
+            "name": "Review",
+            "containerId": "ec9b640d-14d9-46b4-83ae-28700b7934bd",
+            "created": "2023-11-06T21:17:06.835Z",
+            "sortNum": 50000
+        },
+        {
+            "_id": "f5d9b772-068b-4e4e-84f0-706e6e7d879f",
+            "name": "Fight System",
+            "containerId": "ec9b640d-14d9-46b4-83ae-28700b7934bd",
+            "created": "2023-11-06T21:17:06.836Z",
+            "sortNum": 60000
+        },
+        {
+            "_id": "b9d80c1e-8359-42ab-81e4-9b5d428e7eb7",
+            "name": "Item",
+            "containerId": "ec9b640d-14d9-46b4-83ae-28700b7934bd",
+            "created": "2023-11-16T12:22:24.245Z",
+            "sortNum": 70000
+        }
+    ],
+    "requests": [
+        {
+            "_id": "9efdc448-0430-4815-a7e7-7055c3bd571e",
+            "colId": "585175b5-917f-41be-808b-aa808864a8bb",
+            "containerId": "5d4ed76b-c9c9-4b6b-bc66-a0f04df671a5",
+            "name": "JWT Token generation for Anthony",
+            "url": "http://localhost:8000/api/login_check",
+            "method": "GET",
+            "sortNum": 10000,
+            "created": "2023-11-06T21:17:06.827Z",
+            "modified": "2023-11-06T21:17:06.827Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"username\" : \"anthony.boutherin@gmail.com\",\n  \"password\" : \"Aa1!\"\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "8ae51b58-a0d7-4735-8cf3-552097a4dfd7",
+            "colId": "585175b5-917f-41be-808b-aa808864a8bb",
+            "containerId": "8afd2e24-3f81-4ca2-98ab-486eca69fb30",
+            "name": "http://localhost:8000/api/users",
+            "url": "http://localhost:8000/api/users",
+            "method": "POST",
+            "sortNum": 10000,
+            "created": "2023-11-06T21:17:06.828Z",
+            "modified": "2023-11-06T21:17:06.828Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"email\": \"bob2@gmail.com\", \n  \"roles\": [\"ROLE_PLAYER\"],\n  \"password\": \"Aa1!\",\n  \"pseudo\": \"anthotest2\",\n  \"avatar\": \"\"\n}\n",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "7db02226-292e-4ff3-8c5a-5d9eda996535",
+            "colId": "585175b5-917f-41be-808b-aa808864a8bb",
+            "containerId": "bab072b5-97df-4539-9755-9e855eee4124",
+            "name": "Edit User with Edit Password",
+            "url": "http://localhost:8000/api/users/27",
+            "method": "PUT",
+            "sortNum": 10000,
+            "created": "2023-11-06T21:17:06.829Z",
+            "modified": "2023-11-06T21:17:06.829Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"email\": \"antho@player.com\", \n  \"roles\": [\"ROLE_PLAYER\"],\n  \"password\":\"Bb1!\",\n  \"pseudo\": \"Anthony\",\n  \"avatar\": \"\"\n}\n",
+                "form": []
+            },
+            "auth": {
+                "type": "bearer",
+                "bearer": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpYXQiOjE2ODY4MTI4ODAsImV4cCI6MTY4Njg3NzY4MCwicm9sZXMiOlsiUk9MRV9BRE1JTiIsIlJPTEVfUExBWUVSIl0sInVzZXJuYW1lIjoiYW50aG9ueUBhZG1pbi5jb20ifQ.jxZ7cBc8GUXYfn_kADTKB6Oh0jNp2hlPw7-mu_bRKWL4_HwF6J7oLo5lyNgH-TObnRVCH7t_uFLD-UWxuL3sZckKR34SwvSmjgXa9VZPUEUXIeKdFKLKvbE0irzDI3M_CxpxDzQif2UcMCa-AqIRBviGGzP5DC12HGcOn0djWW2h_l_uTCfwaoQb7r4r5YMho2xu9wnyvq_PF8UmHNMVbdPeBpIEAo50F4Xi3f76wO_zlwTUSl-2nuUnl_kSBxcVWRm1rLO1CN2bgTDHBNX440f9zFmCloSpo0KeKysSiUt4E-rZiM_2xC6WpVSK1SdRDSqOHXHQICJ3ds1k2LcV_w"
+            },
+            "tests": []
+        },
+        {
+            "_id": "2bca7323-1e9b-413e-a7a1-deb543ab40ed",
+            "colId": "585175b5-917f-41be-808b-aa808864a8bb",
+            "containerId": "3f90c32f-7838-4804-8d4e-a271eee98c93",
+            "name": "http://localhost:8000/api/users/26",
+            "url": "http://localhost:8000/api/users/26",
+            "method": "DELETE",
+            "sortNum": 10000,
+            "created": "2023-11-06T21:17:06.830Z",
+            "modified": "2023-11-06T21:17:06.830Z",
+            "headers": [],
+            "params": [],
+            "auth": {
+                "type": "bearer",
+                "bearer": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpYXQiOjE2ODY4MTI4ODAsImV4cCI6MTY4Njg3NzY4MCwicm9sZXMiOlsiUk9MRV9BRE1JTiIsIlJPTEVfUExBWUVSIl0sInVzZXJuYW1lIjoiYW50aG9ueUBhZG1pbi5jb20ifQ.jxZ7cBc8GUXYfn_kADTKB6Oh0jNp2hlPw7-mu_bRKWL4_HwF6J7oLo5lyNgH-TObnRVCH7t_uFLD-UWxuL3sZckKR34SwvSmjgXa9VZPUEUXIeKdFKLKvbE0irzDI3M_CxpxDzQif2UcMCa-AqIRBviGGzP5DC12HGcOn0djWW2h_l_uTCfwaoQb7r4r5YMho2xu9wnyvq_PF8UmHNMVbdPeBpIEAo50F4Xi3f76wO_zlwTUSl-2nuUnl_kSBxcVWRm1rLO1CN2bgTDHBNX440f9zFmCloSpo0KeKysSiUt4E-rZiM_2xC6WpVSK1SdRDSqOHXHQICJ3ds1k2LcV_w"
+            },
+            "tests": []
+        },
+        {
+            "_id": "26259f0a-f767-4fe7-b08c-e6852bacece7",
+            "colId": "585175b5-917f-41be-808b-aa808864a8bb",
+            "containerId": "f146a8ff-b2d7-49b8-9c36-1b10ed50530e",
+            "name": "Btn Play",
+            "url": "http://localhost:8000/api/play",
+            "method": "GET",
+            "sortNum": 10000,
+            "created": "2023-11-06T21:17:06.831Z",
+            "modified": "2023-11-06T21:17:06.831Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "79b75395-42ef-4049-8cb3-0c496b26dd9b",
+            "colId": "585175b5-917f-41be-808b-aa808864a8bb",
+            "containerId": "f5d9b772-068b-4e4e-84f0-706e6e7d879f",
+            "name": "Fight Phase 1 Effect Application to get first attacker",
+            "url": "http://localhost:8000/api/event/fight/23/attack/55",
+            "method": "GET",
+            "sortNum": 10000,
+            "created": "2023-11-06T21:17:06.843Z",
+            "modified": "2023-11-30T09:48:51.159Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "6dba81cc-e917-47d6-8af0-ba188bc27cc1",
+            "colId": "585175b5-917f-41be-808b-aa808864a8bb",
+            "containerId": "b9d80c1e-8359-42ab-81e4-9b5d428e7eb7",
+            "name": "Item usable (potion, scroll...)",
+            "url": "http://localhost:8000/api/usable/9",
+            "method": "GET",
+            "sortNum": 10000,
+            "created": "2023-11-16T12:22:37.485Z",
+            "modified": "2023-11-23T12:33:40.488Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "3a1a680e-adfc-4803-aab8-9530b90b04fd",
+            "colId": "585175b5-917f-41be-808b-aa808864a8bb",
+            "containerId": "5d4ed76b-c9c9-4b6b-bc66-a0f04df671a5",
+            "name": "JWT Token generation for Player",
+            "url": "http://localhost:8000/api/login_check",
+            "method": "GET",
+            "sortNum": 20000,
+            "created": "2023-11-06T21:17:06.832Z",
+            "modified": "2023-11-06T21:17:06.832Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"username\" : \"player@player.com\",\n  \"password\" : \"player\"\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "5820e811-3a03-43c9-a0b6-b8b507c1bda3",
+            "colId": "585175b5-917f-41be-808b-aa808864a8bb",
+            "containerId": "2c9ad1bc-6cc6-4052-a183-b51eadbb53c6",
+            "name": "User detail from JWT Token",
+            "url": "localhost:8000/api/users/details",
+            "method": "GET",
+            "sortNum": 20000,
+            "created": "2023-11-06T21:17:06.833Z",
+            "modified": "2023-11-06T21:17:06.833Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "2fc68e0d-0031-4540-b377-7a6b05f02958",
+            "colId": "585175b5-917f-41be-808b-aa808864a8bb",
+            "containerId": "bab072b5-97df-4539-9755-9e855eee4124",
+            "name": "Edit User without Password",
+            "url": "http://localhost:8000/api/users/27",
+            "method": "PUT",
+            "sortNum": 20000,
+            "created": "2023-11-06T21:17:06.834Z",
+            "modified": "2023-11-06T21:17:06.834Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"email\": \"antho@player.com\", \n  \"roles\": [\"ROLE_PLAYER\"],\n  \"pseudo\": \"Anthony\",\n  \"avatar\": \"\"\n}\n",
+                "form": []
+            },
+            "auth": {
+                "type": "bearer",
+                "bearer": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpYXQiOjE2ODY4MTI4ODAsImV4cCI6MTY4Njg3NzY4MCwicm9sZXMiOlsiUk9MRV9BRE1JTiIsIlJPTEVfUExBWUVSIl0sInVzZXJuYW1lIjoiYW50aG9ueUBhZG1pbi5jb20ifQ.jxZ7cBc8GUXYfn_kADTKB6Oh0jNp2hlPw7-mu_bRKWL4_HwF6J7oLo5lyNgH-TObnRVCH7t_uFLD-UWxuL3sZckKR34SwvSmjgXa9VZPUEUXIeKdFKLKvbE0irzDI3M_CxpxDzQif2UcMCa-AqIRBviGGzP5DC12HGcOn0djWW2h_l_uTCfwaoQb7r4r5YMho2xu9wnyvq_PF8UmHNMVbdPeBpIEAo50F4Xi3f76wO_zlwTUSl-2nuUnl_kSBxcVWRm1rLO1CN2bgTDHBNX440f9zFmCloSpo0KeKysSiUt4E-rZiM_2xC6WpVSK1SdRDSqOHXHQICJ3ds1k2LcV_w"
+            },
+            "tests": []
+        },
+        {
+            "_id": "52e71afa-06b6-4c3f-be73-a7e0d3013fd8",
+            "colId": "585175b5-917f-41be-808b-aa808864a8bb",
+            "containerId": "f146a8ff-b2d7-49b8-9c36-1b10ed50530e",
+            "name": "Event Roll",
+            "url": "http://localhost:8000/api/event/roll/30",
+            "method": "GET",
+            "sortNum": 20000,
+            "created": "2023-11-06T21:17:06.835Z",
+            "modified": "2023-11-30T12:55:40.155Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "65493104-f123-4c23-b5ae-2810916a4007",
+            "colId": "585175b5-917f-41be-808b-aa808864a8bb",
+            "containerId": "f5d9b772-068b-4e4e-84f0-706e6e7d879f",
+            "name": "Fight Phase 2 Attacker npc",
+            "url": "http://localhost:8000/api/event/fight/11/attacker/npc",
+            "method": "GET",
+            "sortNum": 20000,
+            "created": "2023-11-06T21:17:06.844Z",
+            "modified": "2023-11-23T09:20:49.779Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "8ce5e5e9-7381-4139-91e6-8bebce1c93b6",
+            "colId": "585175b5-917f-41be-808b-aa808864a8bb",
+            "containerId": "f146a8ff-b2d7-49b8-9c36-1b10ed50530e",
+            "name": "Last Event with [2 Opening and 2 Id] Boss",
+            "url": "http://localhost:8000/api/event/last/32",
+            "method": "GET",
+            "sortNum": 30000,
+            "created": "2023-11-06T21:17:06.836Z",
+            "modified": "2023-11-06T21:17:06.836Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "5e5f040f-c1bf-4c18-871d-1fa8400c789f",
+            "colId": "585175b5-917f-41be-808b-aa808864a8bb",
+            "containerId": "f5d9b772-068b-4e4e-84f0-706e6e7d879f",
+            "name": "Fight Phase 2 Attacker hero",
+            "url": "http://localhost:8000/api/event/fight/25/attacker/hero",
+            "method": "GET",
+            "sortNum": 30000,
+            "created": "2023-11-06T21:17:06.845Z",
+            "modified": "2023-11-30T12:30:21.553Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "78a6ca06-5286-40ac-9339-3af7007b27a9",
+            "colId": "585175b5-917f-41be-808b-aa808864a8bb",
+            "containerId": "f146a8ff-b2d7-49b8-9c36-1b10ed50530e",
+            "name": "Event Boss with [Opening and Id] de Fin de Biome",
+            "url": "http://localhost:8000/api/event/boss/20",
+            "method": "GET",
+            "sortNum": 40000,
+            "created": "2023-11-06T21:17:06.837Z",
+            "modified": "2023-11-06T21:17:06.837Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "7c28d99f-090e-4bac-93d9-45a1b4516c43",
+            "colId": "585175b5-917f-41be-808b-aa808864a8bb",
+            "containerId": "f146a8ff-b2d7-49b8-9c36-1b10ed50530e",
+            "name": "Event EndBiome with [Opening and Id] de EndGame Event",
+            "url": "http://localhost:8000/api/event/end/13",
+            "method": "GET",
+            "sortNum": 50000,
+            "created": "2023-11-06T21:17:06.838Z",
+            "modified": "2023-11-06T21:17:06.838Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "590563e0-9c9e-49e6-a427-4927130f2420",
+            "colId": "585175b5-917f-41be-808b-aa808864a8bb",
+            "containerId": "f146a8ff-b2d7-49b8-9c36-1b10ed50530e",
+            "name": "Event ENDGAME Victory",
+            "url": "http://localhost:8000/api/event/victory/14",
+            "method": "GET",
+            "sortNum": 60000,
+            "created": "2023-11-06T21:17:06.839Z",
+            "modified": "2023-11-06T21:17:06.839Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "ad5ef023-e392-4ace-8651-3f804cc96664",
+            "colId": "585175b5-917f-41be-808b-aa808864a8bb",
+            "containerId": "f146a8ff-b2d7-49b8-9c36-1b10ed50530e",
+            "name": "Effect",
+            "url": "http://localhost:8000/api/event/effect/60",
+            "method": "GET",
+            "sortNum": 80000,
+            "created": "2023-11-06T21:17:06.840Z",
+            "modified": "2023-11-06T21:17:06.840Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "b3b1480c-c789-4737-a7af-c3a3850fad35",
+            "colId": "585175b5-917f-41be-808b-aa808864a8bb",
+            "containerId": "f146a8ff-b2d7-49b8-9c36-1b10ed50530e",
+            "name": "Death",
+            "url": "http://localhost:8000/api/event/death/18",
+            "method": "GET",
+            "sortNum": 90000,
+            "created": "2023-11-06T21:17:06.841Z",
+            "modified": "2023-11-06T21:17:06.841Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "7127771f-f134-4309-b4ca-67ee1b6b1b17",
+            "colId": "585175b5-917f-41be-808b-aa808864a8bb",
+            "containerId": "1f02e67c-24cc-4d7c-8795-055e11d48eba",
+            "name": "Add review",
+            "url": "http://localhost:8000/api/reviews",
+            "method": "POST",
+            "sortNum": 100000,
+            "created": "2023-11-06T21:17:06.842Z",
+            "modified": "2023-12-07T15:06:18.339Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"title\": \"test review 9\", \n  \"content\": \"test content review 5\",\n  \"rating\": 5,\n  \"user\": 9\n}\n",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "97696314-4fa3-40d1-9599-43c8e0dcf446",
+            "colId": "585175b5-917f-41be-808b-aa808864a8bb",
+            "containerId": "b9d80c1e-8359-42ab-81e4-9b5d428e7eb7",
+            "name": "Loot when BattleEnd",
+            "url": "http://localhost:8000/api/loot/3",
+            "method": "GET",
+            "sortNum": 110000,
+            "created": "2023-11-23T12:28:15.756Z",
+            "modified": "2023-11-23T12:29:49.100Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "a6a8388f-3c47-4fdb-9e1f-6ed95f90c384",
+            "colId": "585175b5-917f-41be-808b-aa808864a8bb",
+            "containerId": "1f02e67c-24cc-4d7c-8795-055e11d48eba",
+            "name": "Browse Reviews",
+            "url": "http://localhost:8000/api/reviews",
+            "method": "GET",
+            "sortNum": 120000,
+            "created": "2023-12-07T09:17:21.622Z",
+            "modified": "2023-12-07T09:17:21.622Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "492cb53b-7d26-4b81-9478-78084b7872cf",
+            "colId": "585175b5-917f-41be-808b-aa808864a8bb",
+            "containerId": "1f02e67c-24cc-4d7c-8795-055e11d48eba",
+            "name": "Read Reviews",
+            "url": "http://localhost:8000/api/reviews/1",
+            "method": "GET",
+            "sortNum": 130000,
+            "created": "2023-12-07T10:03:46.616Z",
+            "modified": "2023-12-07T10:04:21.394Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "374394c5-be1e-424d-83f1-22ecf28627c7",
+            "colId": "585175b5-917f-41be-808b-aa808864a8bb",
+            "containerId": "1f02e67c-24cc-4d7c-8795-055e11d48eba",
+            "name": "Edit Review Only if author",
+            "url": "http://localhost:8000/api/reviews/5",
+            "method": "PUT",
+            "sortNum": 140000,
+            "created": "2023-12-07T10:30:13.052Z",
+            "modified": "2023-12-07T11:03:08.754Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"title\": \"test review 5\", \n  \"content\": \"test content review 0\",\n  \"rating\": 5\n}\n",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "512429d9-6334-4d3a-a184-00935e00ea57",
+            "colId": "585175b5-917f-41be-808b-aa808864a8bb",
+            "containerId": "1f02e67c-24cc-4d7c-8795-055e11d48eba",
+            "name": "Delete Review Only if author",
+            "url": "http://localhost:8000/api/reviews/6",
+            "method": "DELETE",
+            "sortNum": 150000,
+            "created": "2023-12-07T11:56:24.643Z",
+            "modified": "2023-12-07T15:04:08.885Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "02dd2969-f93e-4d5e-be52-263fe966d165",
+            "colId": "585175b5-917f-41be-808b-aa808864a8bb",
+            "containerId": "1f02e67c-24cc-4d7c-8795-055e11d48eba",
+            "name": "Lastest Reviews",
+            "url": "http://localhost:8000/api/reviews/lastest/2",
+            "method": "GET",
+            "sortNum": 160000,
+            "created": "2023-12-07T12:20:43.170Z",
+            "modified": "2023-12-07T15:10:08.075Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "da47c77c-182c-443b-8b1c-6fe9bb70dd51",
+            "colId": "585175b5-917f-41be-808b-aa808864a8bb",
+            "containerId": "1f02e67c-24cc-4d7c-8795-055e11d48eba",
+            "name": "General Rating from all Reviews",
+            "url": "http://localhost:8000/api/rating",
+            "method": "GET",
+            "sortNum": 170000,
+            "created": "2023-12-07T14:59:36.008Z",
+            "modified": "2023-12-07T14:59:36.008Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        }
+    ]
+}

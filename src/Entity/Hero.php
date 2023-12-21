@@ -133,6 +133,16 @@ class Hero
      */
     private $picture;
 
+    /**
+     * @ORM\OneToOne(targetEntity=Fight::class, inversedBy="hero", cascade={"persist", "remove"})
+     */
+    private $fight;
+
+    /**
+     * @ORM\Column(type="array", nullable=true)
+     */
+    private $playedEvent = [];
+
     public function __construct()
     {
         $this->item = new ArrayCollection();
@@ -361,6 +371,30 @@ class Hero
     public function setPicture(?Picture $picture): self
     {
         $this->picture = $picture;
+
+        return $this;
+    }
+
+    public function getFight(): ?Fight
+    {
+        return $this->fight;
+    }
+
+    public function setFight(?Fight $fight): self
+    {
+        $this->fight = $fight;
+
+        return $this;
+    }
+
+    public function getPlayedEvent(): ?array
+    {
+        return $this->playedEvent;
+    }
+
+    public function setPlayedEvent(?array $playedEvent): self
+    {
+        $this->playedEvent = $playedEvent;
 
         return $this;
     }

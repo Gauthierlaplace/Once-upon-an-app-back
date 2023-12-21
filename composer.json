@@ -105,6 +105,7 @@
         "symfony/debug-bundle": "5.4.*",
         "symfony/phpunit-bridge": "^6.3",
         "symfony/stopwatch": "5.4.*",
+        "symfony/test-pack": "^1.1",
         "symfony/web-profiler-bundle": "5.4.*"
     }
 }

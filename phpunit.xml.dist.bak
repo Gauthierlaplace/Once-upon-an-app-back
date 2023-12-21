@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<phpunit>
+<php>
+    <!-- ... autres configurations ... -->
+    <ini name="xdebug.mode" value="coverage" />
+    <env name="KERNEL_CLASS" value="App\Kernel" />
+</php>
+
+<filter>
+    <whitelist processUncoveredFilesFromWhitelist="true">
+        <directory suffix=".php">./src</directory>
+    </whitelist>
+</filter>
+</phpunit>

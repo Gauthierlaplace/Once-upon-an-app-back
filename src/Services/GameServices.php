@@ -6,7 +6,11 @@ use App\Repository\EffectRepository;
 use App\Repository\EndingRepository;
 use App\Repository\EventRepository;
 use App\Repository\EventTypeRepository;
+use App\Repository\FightRepository;
+use App\Repository\HeroClassRepository;
 use App\Repository\HeroRepository;
+use App\Repository\ItemRepository;
+use App\Services\PlayedEventService;
 
 class GameServices
 {
@@ -40,16 +44,41 @@ class GameServices
      */
     private $effectRepository;
 
+    /**
+     *
+     * @var PlayedEventService
+     */
+    private $playedEventService;
 
+    /**
+     *
+     * @var HeroClassRepository
+     */
+    private $heroClassRepository;
 
-    public function __construct(EventTypeRepository $eventTypeRepository, EndingRepository $endingRepository, EventRepository $eventRepository, HeroRepository $heroRepository, EffectRepository $effectRepository)
+    /**
+     *
+     * @var ItemRepository
+     */
+    private $itemRepository;
+
+    /**
+     *
+     * @var FightRepository
+     */
+    private $fightRepository;
+
+    public function __construct(PlayedEventService $playedEventService, EventTypeRepository $eventTypeRepository, EndingRepository $endingRepository, EventRepository $eventRepository, HeroRepository $heroRepository, EffectRepository $effectRepository, HeroClassRepository $heroClassRepository, ItemRepository $itemRepository, FightRepository $fightRepository)
     {
-
         $this->eventTypeRepository = $eventTypeRepository;
         $this->endingRepository = $endingRepository;
         $this->eventRepository = $eventRepository;
         $this->heroRepository = $heroRepository;
         $this->effectRepository = $effectRepository;
+        $this->playedEventService = $playedEventService;
+        $this->heroClassRepository = $heroClassRepository;
+        $this->itemRepository = $itemRepository;
+        $this->fightRepository = $fightRepository;
     }
 
 
@@ -102,6 +131,7 @@ class GameServices
             }
 
             $arrayNpc = [
+                "npcId" => $npc->getId(),
                 "raceName" => $raceName,
                 "raceDescription" => $raceDescription,
                 "npcName" => $npc->getName(),
@@ -285,25 +315,72 @@ class GameServices
      * 
      * @return array $choices Return array of the 2 Events to choose
      */
-    public function getTwoEndingsWithTwoRandomEvent($randomizedEndingsPicked, $endingsCurrentEvent)
+    public function getTwoEndingsWithTwoRandomEvent($randomizedEndingsPicked, $endingsCurrentEvent, $user, $idToAvoid = null)
     {
         $nextEvents = [];
         $endings = [];
-        foreach ($randomizedEndingsPicked as $endingsCurrentEventKey) { // * on boucle sur les 2 endings récupéré aléatoirement
+        if ($idToAvoid === null) {
+            foreach ($randomizedEndingsPicked as $endingsCurrentEventKey) { // * on boucle sur les 2 endings récupéré aléatoirement
 
-            $oneEnding = $endingsCurrentEvent[$endingsCurrentEventKey]; // * on récupère chaque ending
+                $oneEnding = $endingsCurrentEvent[$endingsCurrentEventKey]; // * on récupère chaque ending
 
-            $endings[] = $oneEnding; // * on stock les deux endings dans un array $endings
+                $endings[] = $oneEnding; // * on stock les deux endings dans un array $endings
 
-            $collectionEventType = $oneEnding->getEventType(); // * pour chaque ending, on récupère son event_type
+                $collectionEventType = $oneEnding->getEventType(); // * pour chaque ending, on récupère son event_type
 
-            $eventTypeId = $collectionEventType->getId(); // * pour chaque event_type, on récupère son id
+                $eventTypeId = $collectionEventType->getId(); // * pour chaque event_type, on récupère son id
 
-            $events = $this->eventRepository->findBy(['eventType' => $eventTypeId]); // * récupération de tout les events correspondant à $eventTypeId
+                $events = $this->eventRepository->findBy(['eventType' => $eventTypeId]); // * récupération de tout les events correspondant à $eventTypeId
 
-            $eventPicked = array_rand($events, 1); // * on récupère la clé de l'event choisi aléatoirement
+                $eventPicked = array_rand($events, 1); // * on récupère la clé de l'event choisi aléatoirement
 
-            $nextEvents[] = $events[$eventPicked]; // * on stock l'event qui la clé $eventPicked dans un array $nextEvents
+                $nextEvents[] = $events[$eventPicked]; // * on stock l'event qui la clé $eventPicked dans un array $nextEvents
+            }
+        } else {
+            // $idToAvoid correspond à l'Id de l'event à ne pas mettre dans $choices
+            foreach ($randomizedEndingsPicked as $endingsCurrentEventKey) { // * on boucle sur les 2 endings récupéré aléatoirement
+
+                $oneEnding = $endingsCurrentEvent[$endingsCurrentEventKey]; // * on récupère chaque ending
+
+                $endings[] = $oneEnding; // * on stock les deux endings dans un array $endings
+
+                $collectionEventType = $oneEnding->getEventType(); // * pour chaque ending, on récupère son event_type
+
+                $eventTypeId = $collectionEventType->getId(); // * pour chaque event_type, on récupère son id
+
+                $events = $this->eventRepository->findBy(['eventType' => $eventTypeId]); // * récupération de tout les events correspondant à $eventTypeId
+
+                // Taking out events already played during the game
+                $playedEventArray = $this->playedEventService->getPlayedEventArray($user);
+                if ($playedEventArray !== null) {
+                    foreach ($playedEventArray as $eventId) {
+                        foreach ($events as $key => $event) {
+                            $eventToDeleteOnEvents = $this->eventRepository->find($idToAvoid);
+                            if ($event->getId() == $eventId) {
+                                // on retire $event du tableau $events
+                                unset($events[$key]);
+                            } elseif ($event->getId() == $eventToDeleteOnEvents->getId()) {
+                                // on retire $event du tableau $events
+                                unset($events[$key]);
+                            }
+                        }
+                    }
+                }
+                // // Taking out event with $idToAvoid
+                // $eventToDeleteOnEvents = $this->eventRepository->find($idToAvoid);
+                // foreach ($events as $key => $event) {
+                //     if ($event->getId() == $eventToDeleteOnEvents->getId()) {
+                //         // on retire $event du tableau $events
+                //         unset($events[$key]);
+                //         break;
+                //     }
+                // }
+
+
+                $eventPicked = array_rand($events, 1); // * on récupère la clé de l'event choisi aléatoirement
+
+                $nextEvents[] = $events[$eventPicked]; // * on stock l'event qui la clé $eventPicked dans un array $nextEvents
+            }
         }
 
         $ending1 = $endings[0];
@@ -323,7 +400,6 @@ class GameServices
                 'nextEventOpening' => $event2->getOpening()
             ],
         ];
-
         return $choices;
     }
 
@@ -331,7 +407,7 @@ class GameServices
      *  Update Hero after Effect applied
      * 
      * @param mixed $id The id of the effect
-     * @param array $user The Current User
+     * @param mixed $user The Current User
      * 
      * @return array $hero Returns updated $hero
      */
@@ -381,7 +457,7 @@ class GameServices
      * 
      * @return array $data with $hero and $eventDeath if the Hero dies, if he is still alive it returns $hero
      */
-    public function heroSurvivedOrNot($hero)
+    public function heroSurvivedOrNot($hero, $user)
     {
         if ($hero->getHealth() <= 0) {
 
@@ -391,6 +467,9 @@ class GameServices
             $eventTypeDeath = $this->eventTypeRepository->findOneBy(['name' => "Death"]);
             $eventTypeDeathId = $eventTypeDeath->getId();
             $eventDeath = $this->eventRepository->findOneBy(['eventType' => $eventTypeDeathId]);
+
+            //* Reset des playedEvent du Hero
+            $this->playedEventService->resetPlayedEventToHero($user);
 
             $data = [
                 'player' => $hero,
@@ -406,38 +485,89 @@ class GameServices
     }
 
     /**
-     *  Reset the Hero health to his maxHealth to restart the game
+     *  Reset the Hero stats and inventory to restart the game + add ration item
      * 
-     * @param object $user 
+     * @param mixed $user 
      * 
-     * @return array $hero Return $hero with health reset to the maxHealth
+     * @return array $hero Return with reset stats, inventory and recieve a ration
      */
-    public function resetHeroHealth($user)
+    public function resetHeroStatsAndInventoryAddRation($user)
     {
         $hero = $this->heroRepository->findOneBy(["user" => $user->getId()]);
-        $hero->setHealth($hero->getMaxHealth());
-        $this->heroRepository->add($hero, true);
 
+        $heroClass = $this->heroClassRepository->find($hero->getHeroClass());
+
+        $hero->setMaxHealth($heroClass->getMaxHealth());
+        $hero->setHealth($heroClass->getHealth());
+        $hero->setStrength($heroClass->getStrength());
+        $hero->setIntelligence($heroClass->getIntelligence());
+        $hero->setDexterity($heroClass->getDexterity());
+        $hero->setDefense($heroClass->getDefense());
+
+        $itemsCollection =  $hero->getItem();
+        $itemsCollection->clear();
+
+        //----------------------------------------------Clean Fight Table START-----------------------
+        // 1. Stocker tout les heros
+        $allHeroes = $this->heroRepository->findAll();
+        // 2. Pour chaque hero, stocker l'id du fight en cours
+        $allHeroesFightId = [];
+        foreach ($allHeroes as $heroExplored) {
+            if ($heroExplored->getFight()) {
+                $allHeroesFightId[] = $heroExplored->getFight()->getId();
+            }
+        }
+        // 3. Pour chaque fight, stocker l'id du fight
+        $allFights = $this->fightRepository->findAll();
+        $allFightsId = [];
+        if (!empty($allFights)) {
+            foreach ($allFights as $fight) {
+                if ($fight) {
+                    $allFightsId[] = $fight->getId();
+                }
+            }
+        }
+        // 4. On retire les id de $allHeroesFightId dans le tableau $allFightsId
+        $fightsIdToDelete = array_diff($allFightsId, $allHeroesFightId);
+        // 5. Pour chaque id de $fightsIdToDelete on récupère l'objet puis on le supprime en BDD
+        if (!empty($fightsIdToDelete)) {
+            foreach ($fightsIdToDelete as $fightIdToDelete) {
+                $fightsObjectToDelete[] = $this->fightRepository->find($fightIdToDelete);
+                foreach ($fightsObjectToDelete as $fightObjectToDelete) {
+                    $this->fightRepository->remove($fightObjectToDelete, true);
+                }
+            }
+        }
+        //----------------------------------------------Clean Fight Table END-----------------------
+
+        $ration = $this->itemRepository->findOneBy(["name" => 'ration']);
+        if ($ration) {
+            $hero->addItem($ration);
+        }
+
+        $this->heroRepository->add($hero, true);
         return $hero;
     }
 
-    public function getAllCurrentEventData($currentEvent){
-
+    public function getAllCurrentEventData($currentEvent)
+    {
         if ($currentEvent->getPicture()) {
             $picturePath = $currentEvent->getPicture()->getPath();
         } else {
             $picturePath = '';
         }
 
+        $currentEventtype = $currentEvent->getEventType();
+        $currentEventtypeName = $currentEventtype->getName();
+        
         $allCurrentEventData = [
             "id" => $currentEvent->getId(),
             "title" => $currentEvent->getTitle(),
             "description" => $currentEvent->getDescription(),
             "opening" => $currentEvent->getOpening(),
             "picture" => $picturePath,
-
+            "eventType" => $currentEventtypeName,
         ];
         return $allCurrentEventData;
-
     }
 }

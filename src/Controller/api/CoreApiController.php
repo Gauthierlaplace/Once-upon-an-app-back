@@ -70,9 +70,22 @@ class CoreApiController extends AbstractController
             );
     }
 
+    public function json403($data): JsonResponse
+    {
+        // ! on est dans une API donc pas de HTML
+            // throw $this->createNotFoundException();
+            return $this->json(
+                // on pense UX : on fournit un message
+                $data,
+                // le code de status : 403
+                Response::HTTP_FORBIDDEN
+                // on a pas besoin de preciser les autres arguments
+            );
+    }
+
     public function deserialiseJson($jsonContent, string $className)
     {
-        // Désérialiser (convertir) le JSON en entité Doctrine Movie
+        // Désérialiser (convertir) le JSON en entité Doctrine
         try { // on tente de désérialiser
             $entity = $this->serializer->deserialize($jsonContent, $className, 'json');
         } catch (EntityNotFoundException $e){

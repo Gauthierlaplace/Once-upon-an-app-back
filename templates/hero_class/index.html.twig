@@ -8,7 +8,8 @@
 {% endblock %}</h1>
 <a class='btn btn-primary show' href="{{ path('app_home') }}">Retour à l'Accueil</a>
 {% if is_granted('ROLE_GAMEMASTER') %}
-	<a class="mb-2 btn btn-success float-end" href="{{ path('app_hero_class_new') }}">Ajouter une nouvelle classe de héro</a>
+	<a class="mb-2 btn btn-success float-end responsiveDisplayOff" href="{{ path('app_hero_class_new') }}">Ajouter une nouvelle classe de héro</a>
+	<a class="mb-2 btn btn-success float-end btnPlus" href="{{ path('app_hero_class_new') }}">+</a>
 {% endif %}
 		
 	<table class="table table-hover mt-4">
@@ -16,12 +17,12 @@
 			<tr>
 				<th>Id</th>
 				<th>Nom</th>
-				<th>Santé Max</th>
-				<th>Santé</th>
-				<th>Force</th>
-				<th>Intelligence</th>
-				<th>Dexterité</th>
-				<th>Défense</th>
+				<th class="responsiveDisplayOff">Santé Max</th>
+				<th class="responsiveDisplayOff">Santé</th>
+				<th class="responsiveDisplayOff">Force</th>
+				<th class="responsiveDisplayOff">Intelligence</th>
+				<th class="responsiveDisplayOff">Dexterité</th>
+				<th class="responsiveDisplayOff">Défense</th>
 				<th class="text-center">Actions</th>
 			</tr>
 		</thead>
@@ -30,16 +31,16 @@
 				<tr>
 					<td>{{ hero_class.id }}</td>
 					<td>{{ hero_class.name }}</td>
-					<td>{{ hero_class.maxHealth }}</td>
-					<td>{{ hero_class.health }}</td>
-					<td>{{ hero_class.strength }}</td>
-					<td>{{ hero_class.intelligence }}</td>
-					<td>{{ hero_class.dexterity }}</td>
-					<td>{{ hero_class.defense }}</td>
+					<td class="responsiveDisplayOff">{{ hero_class.maxHealth }}</td>
+					<td class="responsiveDisplayOff">{{ hero_class.health }}</td>
+					<td class="responsiveDisplayOff">{{ hero_class.strength }}</td>
+					<td class="responsiveDisplayOff">{{ hero_class.intelligence }}</td>
+					<td class="responsiveDisplayOff">{{ hero_class.dexterity }}</td>
+					<td class="responsiveDisplayOff">{{ hero_class.defense }}</td>
 					<td>
 						<a class="btn btn-primary float-end  m-1" href="{{ path('app_hero_class_show', {'id': hero_class.id}) }}">Voir</a>
 						{% if is_granted('ROLE_GAMEMASTER') %}
-								<a class="btn btn-warning float-end  m-1" href="{{ path('app_hero_class_edit', {'id': hero_class.id}) }}">Modifier</a>
+								<a class="btn btn-warning float-end  m-1 responsiveDisplayOff" href="{{ path('app_hero_class_edit', {'id': hero_class.id}) }}">Modifier</a>
 								{{ include('hero_class/_delete_form.html.twig') }}
 							{% endif %}
 					</td>
